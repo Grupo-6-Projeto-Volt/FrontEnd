@@ -9,6 +9,11 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+@media (min-width: 992px){
+  #header{
+
+  }
+}
 body {
   background: #fff;
   color: #444;
@@ -84,8 +89,8 @@ h6 {
 --------------------------------------------------------------*/
 #header {
   margin-left: 2%;
-    height: 75px;
-    width: 1383px;
+    height: 10vh;
+    width: 95vw;
     z-index: 997;
     border-radius: 90px;
     transition: all 0.5s;
@@ -129,7 +134,8 @@ h6 {
   border-radius: 50px;
   padding: 7%;
   width: 120px;
-  margin-left: 20%;
+  margin-left: 13%;
+  margin-right: 7%;
 }
 
 /*--------------------------------------------------------------
@@ -354,7 +360,7 @@ h6 {
 # Hero Section
 --------------------------------------------------------------*/
 #hero {
-  width: 100%;
+  width: 100vw;
   position: relative;
   background: url("../img/imgFigma/banner.png") center bottom no-repeat;
   background-size: cover;
@@ -373,18 +379,6 @@ h6 {
   }
 }
 
-#hero .hero-img {
-  width: 50%;
-  float: right;
-}
-
-@media (max-width: 991px) {
-  #hero .hero-img {
-    width: 80%;
-    float: none;
-    margin: 0 auto 25px auto;
-  }
-}
 
 #hero .hero-info {
   width: 50%;
@@ -393,16 +387,16 @@ h6 {
 
 @media (max-width: 991px) {
   #hero .hero-info {
-    width: 80%;
-    float: none;
-    margin: auto;
+    width: 70%;
+    font-size: 40px;
+    float: left;
     text-align: center;
   }
 }
 
 @media (max-width: 767px) {
   #hero .hero-info {
-    width: 100%;
+    width: 65%;
   }
 }
 
@@ -420,7 +414,8 @@ h6 {
 
 @media (max-width: 767px) {
   #hero .hero-info h2 {
-    font-size: 34px;
+    font-size: 35px;
+    margin-left: 2vw;
     margin-bottom: 30px;
   }
 }
@@ -470,21 +465,19 @@ section {
 
 /* Sections Header
 --------------------------------*/
-.section-header h3 {
-  font-size: 36px;
-  color: #283d50;
-  text-align: center;
-  font-weight: 500;
+.section-header #title{
+  font-size: 45px;
+  color: #577DB8;
+  
+  font-weight: 800;
   position: relative;
 }
 
-.section-header p {
-  text-align: center;
-  margin: auto;
-  font-size: 15px;
+.section-header #subtitle {
+  font-size: 40 px;
   padding-bottom: 60px;
   color: #556877;
-  width: 50%;
+  width: 30%;
 }
 
 @media (max-width: 767px) {
