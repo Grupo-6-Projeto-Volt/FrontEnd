@@ -456,6 +456,11 @@ h6 {
   color: #fff;
 }
 
+.about-extra{
+  display: flex;
+  justify-content: space-around;
+}
+
 /*--------------------------------------------------------------
 # Sections
 --------------------------------------------------------------*/
@@ -473,11 +478,21 @@ section {
   position: relative;
 }
 
+.section-header{
+  display: flex;
+  flex-direction: row;
+}
+
+.section-header .dois{
+  display: flex;
+  flex-direction: column;
+}
+
 .section-header #subtitle {
   font-size: 40 px;
   padding-bottom: 60px;
   color: #556877;
-  width: 30%;
+  width: 70%;
 }
 
 @media (max-width: 767px) {
@@ -485,6 +500,22 @@ section {
     width: 100%;
   }
 }
+
+.box-about{
+  border-radius: 50px;
+  border: #FF8F50 2px solid;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 350px;
+  font-size: 20px;
+  justify-content: space-between;
+}
+.box-about p{
+  margin-top: 10%;
+}
+
 
 /* Section with background
 --------------------------------*/
@@ -1300,7 +1331,7 @@ section {
 
 #contact .php-email-form input:focus,
 #contact .php-email-form textarea:focus {
-  border-color: #007bff;
+  border-color: #FF8F50;
 }
 
 #contact .php-email-form input {
@@ -1312,7 +1343,7 @@ section {
 }
 
 #contact .php-email-form button[type=submit] {
-  background: #007bff;
+  background: #FF8F50;
   border: 0;
   border-radius: 20px;
   padding: 8px 30px;
@@ -1335,6 +1366,14 @@ section {
   }
 }
 
+.form{
+  padding: 5%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.img-logo-2{
+  margin-top: 5%;
+}
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
