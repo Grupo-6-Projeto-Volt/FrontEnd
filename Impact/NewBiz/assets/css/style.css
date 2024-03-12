@@ -1193,6 +1193,26 @@ section {
   margin: 0 2px;
 }
 
+#team h3{
+  font-size: 45px;
+    color: rgb(87, 125, 184);
+    font-weight: 800;
+    position: relative;
+}
+
+.team-colum{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.team-row{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
 /* Clients Section
 --------------------------------*/
 #clients {
@@ -1372,6 +1392,20 @@ section {
 #contact .php-email-form button[type=submit]:hover {
   background: #0067d5;
   cursor: pointer;
+}
+
+.container-fluid{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-row{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
 }
 
 @keyframes animate-loading {
