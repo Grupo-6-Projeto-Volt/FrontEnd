@@ -477,7 +477,7 @@ h6 {
 }
 
 .servicos-row #title{
-  font-size: 65px;
+  font-size: 45PX;
     color: #577DB8;
     font-weight: 800;
     position: relative;
@@ -752,14 +752,9 @@ section {
   margin-bottom: 0;
 }
 
-#why-us {
-  padding: 60px 0;
-  background: #004a99;
-}
-
 #why-us .section-header h3,
 #why-us .section-header p {
-  color: #fff;
+  color: rgb(87, 125, 184);
 }
 
 #why-us .card {
