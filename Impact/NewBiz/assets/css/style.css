@@ -505,6 +505,12 @@ section {
   flex-direction: row;
 }
 
+.section-header h3{
+  color: #577DB8;
+  font-weight: 800;
+  position: relative;
+}
+
 .section-header .dois{
   display: flex;
   flex-direction: column;
