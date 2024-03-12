@@ -509,6 +509,8 @@ section {
   color: #577DB8;
   font-weight: 800;
   position: relative;
+  font-size: 45px;
+
 }
 
 .section-header .dois{
@@ -831,6 +833,12 @@ section {
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
   color: #cce5ff;
+}
+
+.card-title{
+  font-size: 30px;
+    color: #556877;
+    width: 70%;
 }
 
 /* Portfolio Section
