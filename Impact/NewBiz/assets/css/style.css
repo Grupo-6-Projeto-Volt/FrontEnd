@@ -364,7 +364,7 @@ h6 {
   position: relative;
   background: url("../img/imgFigma/banner.png") center bottom no-repeat;
   background-size: cover;
-  padding: 200px 0 120px 0;
+  padding: 277px 0 120px 0;
 }
 
 @media (max-width: 991px) {
@@ -460,6 +460,29 @@ h6 {
   display: flex;
   justify-content: space-around;
 }
+
+.service-colum{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.servicos-row{
+  display: flex;
+  flex-direction: row;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  margin: 98px 0px 87px;
+  justify-content: space-around;
+}
+
+.servicos-row #title{
+  font-size: 65px;
+    color: #577DB8;
+    font-weight: 800;
+    position: relative;
+}
+
 
 /*--------------------------------------------------------------
 # Sections
