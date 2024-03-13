@@ -836,9 +836,25 @@ section {
 }
 
 .card-title{
-  font-size: 30px;
+  font-size: 35px;
     color: #556877;
     width: 70%;
+}
+
+.card-body p{
+  font-size: 23px;
+}
+
+.valores-colum{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.valores-row{
+  display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 /* Portfolio Section
