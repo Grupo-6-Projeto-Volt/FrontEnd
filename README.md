@@ -2,6 +2,12 @@
 <p>• Este é um projeto acadêmico em construção 🚧</p>
 <p>• Todos os direitos são reservados aos desenvolvedores e a sua respectiva Instituição de Ensino</p>
 
+## Andamento do projeto
+
+<p align = "center">
+<img src="https://img.shields.io/static/v1?label=STATUS&message=EM%20ANDAMENTO&color=yellow&style=for-the-badge"/>
+</p>
+
 ## Time responsável pelo repositório
 <table align="center">
   <tr>
@@ -10,8 +16,7 @@
   </tr>
 </table>
 
-## Andamento do projeto
+## Manual de uso 
 
-<p align = "center">
-<img src="https://img.shields.io/static/v1?label=STATUS&message=EM%20ANDAMENTO&color=yellow&style=for-the-badge"/>
-</p>
+<h2>🚧 Em Construção 🚧</h2>
+
