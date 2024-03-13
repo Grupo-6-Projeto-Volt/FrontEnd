@@ -842,21 +842,28 @@ section {
 }
 
 .card-body p{
-  font-size: 23px;
+  font-size: 28px;
 }
 
 .valores-colum{
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  margin: 50px;
 }
 
 .valores-row{
   display: flex;
     flex-direction: row;
     justify-content: space-around;
+    margin: 0px 0px 40px;
 }
 
+.row-eq-height{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 /* Portfolio Section
 --------------------------------*/
 #portfolio {
