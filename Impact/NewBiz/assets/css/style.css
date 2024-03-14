@@ -126,7 +126,11 @@ h6 {
 
 #header .logo img {
   padding: 0;
-  max-height: 43px;
+}
+
+.logo{
+  display: flex;
+  align-items: center;
 }
 
 #header button{
@@ -503,6 +507,7 @@ section {
 .section-header{
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .section-header h3{
@@ -523,6 +528,10 @@ section {
   padding-bottom: 60px;
   color: #556877;
   width: 70%;
+}
+
+.titleSub{
+  width: 50%;
 }
 
 @media (max-width: 767px) {
@@ -619,7 +628,6 @@ section {
 --------------------------------*/
 #about {
   background: #fff;
-  padding: 60px 0;
 }
 
 #about .about-container .background {
