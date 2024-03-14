@@ -45,9 +45,14 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   </head>
-
   <body>
+
+    <div id="load_animation">
+      <ion-icon name="earth-outline" class="animation"></ion-icon>
+    </div>
     <!-- ======= Header ======= -->
+
+    <div id="conteudo">
     <header id="header" class="fixed-top d-flex align-items-center">
       <div class="container d-flex justify-content-between">
         <div class="logo">
@@ -67,12 +72,12 @@
           <ul>
             <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
             <li><a class="nav-link scrollto" href="#about">Serviços</a></li>
-            <li><a class="nav-link scrollto" href="#services">Sobre nós</a></li>
+            <li><a class="nav-link scrollto" href="#main">Sobre nós</a></li>
             <li>
               <a class="nav-link scrollto" href="#valores">Nossos valores</a>
             </li>
             <div id="btnContato" class="text-center">
-              <a href="#">
+              <a href="#contact">
               <button type="submit" title="Send Message"><b>Contato</b></button>
             </a>
             </div>
@@ -146,23 +151,16 @@
           </div>
 
           <div class="servicos-row">
-            <div class="service-colum">
-              <h3 id="title">Sobre nós</h3>
-              <h3>
-                   Visamos auxiliar no descarte responsável de equipamentos eletrônicos, 
-                promovendo práticas ambientalmente sustentáveis. 
-            </h3>
-            <h3>   Fornecemos apoio a empreendimentos, 
-              capacitando-os para melhorar seus processos de descarte, reciclagem e reutilização de 
-              eletrônicos, visando reduzir o impacto negativo no meio ambiente e na saúde pública</h3>
-            </div>
-            <div>
-              <img
-                src="assets/img/imgFigma/marketing-de-midia-social 1.png"
-                alt=""
-              />
-            </div>
-          </div>
+  <div class="service-colum">
+    <h3 id="title">Sobre nós</h3>
+    <h3>Visamos auxiliar no descarte responsável de equipamentos eletrônicos, promovendo práticas ambientalmente sustentáveis.</h3>
+    <h3>Fornecemos apoio a empreendimentos, capacitando-os para melhorar seus processos de descarte, reciclagem e reutilização de eletrônicos, visando reduzir o impacto negativo no meio ambiente e na saúde pública.</h3>
+  </div>
+  <div>
+    <img src="assets/img/imgFigma/marketing-de-midia-social 1.png" alt=""/>
+  </div>
+</div>
+
         </div>
       </section>
       <!-- End About Section -->
@@ -590,6 +588,7 @@
         </div>
       </div>
     </footer>
+    </div>
     <!-- End Footer -->
 
     <a
@@ -611,3 +610,23 @@
     <script src="assets/js/main.js"></script>
   </body>
 </html>
+
+<script>
+  // Aguarda o carregamento completo do documento
+  window.addEventListener('load', function() {
+        // Esconde o elemento de carregamento após 1.5 segundos (1500ms)
+        setTimeout(function() {
+            var loadAnimation = document.getElementById('load_animation');
+            var conteudo = document.getElementById('conteudo');
+
+            loadAnimation.style.opacity = '0'; // Define a opacidade como 0
+            conteudo.style.opacity = '1'; // Define a opacidade como 1
+
+            setTimeout(function() {
+                loadAnimation.style.display = 'none'; // Esconde o elemento de carregamento
+            }, 1000); // 1 segundo (1000ms)
+        }, 3000); // 3 segundos (3000ms)
+    });
+</script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

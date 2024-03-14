@@ -85,6 +85,58 @@ h6 {
 }
 
 /*--------------------------------------------------------------
+# Animação loading page
+--------------------------------------------------------------*/
+
+#load_animation {
+  width: 100%;
+  height: 100vh;
+  font-size: 4rem ;
+  background-color: #fff;
+  z-index: 500;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  transition: opacity 1s ease; /* Adiciona uma transição para a opacidade */
+}
+
+#conteudo {
+  opacity: 0; /* Define a opacidade inicial como 0 */
+  transition: opacity 1s ease; /* Adiciona uma transição para a opacidade */
+}
+
+.animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border: 3px solid rgb(0, 0, 0);
+  border-radius: 50%;
+  box-sizing: content-box;
+  padding: 10px;
+  transform: translate(-50% , -50%) ;
+  opacity: .5;
+  animation: spinner 3s infinite;
+  transition: .5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes spinner {
+  50% {
+      transform: translate(-50% , -50%) ;
+      border: 2px solid rgba(0, 0, 0, 0.178);
+      padding: 30px;
+  }
+  100% {
+      opacity: 1;
+      transform:translate(-50% , -50%) rotate(360deg);
+      border: 3px solid rgba(0, 0, 0, 0);
+      padding: 17rem;
+      color: rgb(0, 179, 224);
+  }
+}
+
+/*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
 #header {
@@ -508,6 +560,7 @@ section {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin-top: 5%;
 }
 
 .section-header h3{
