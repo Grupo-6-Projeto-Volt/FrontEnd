@@ -523,13 +523,13 @@
                   </div>
                   <div class="my-3">
                     <div class="loading">Loading</div>
-                    <div class="error-message"></div>
+        
                     <div class="sent-message">
                       Your message has been sent. Thank you!
                     </div>
                   </div>
                   <div class="text-center">
-                    <button type="submit" title="Enviar">Send Message</button>
+                    <button type="submit" onclick="submitForm()">Enviar mensagem</button>
                   </div>
                 </form>
               </div>
@@ -627,6 +627,14 @@
             }, 1000); // 1 segundo (1000ms)
         }, 3000); // 3 segundos (3000ms)
     });
+
+    function submitForm() {
+  // Aqui você pode adicionar a lógica para enviar o formulário, por exemplo, com AJAX
+
+  // Após enviar o formulário, você pode exibir o SweetAlert
+  swal("Parabéns!", "Mensagem enviada!", "success");
+}
 </script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
