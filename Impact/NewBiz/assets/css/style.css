@@ -1257,6 +1257,12 @@ section {
   justify-content: space-around;
 }
 
+.img-fluid-2{
+  width: 330px;
+  height: 300px;
+
+}
+
 /* Clients Section
 --------------------------------*/
 #clients {
@@ -1611,4 +1617,9 @@ section {
 
 #footer .credits a:hover {
   color: #f1f7ff;
+}
+
+.container-footer{
+  display: flex;
+  flex-direction: row;
 }
