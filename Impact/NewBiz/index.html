@@ -45,9 +45,14 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
   </head>
-
   <body>
+
+    <div id="load_animation">
+      <ion-icon name="earth-outline" class="animation"></ion-icon>
+    </div>
     <!-- ======= Header ======= -->
+
+    <div id="conteudo">
     <header id="header" class="fixed-top d-flex align-items-center">
       <div class="container d-flex justify-content-between">
         <div class="logo">
@@ -56,8 +61,8 @@
           <a href="index.html"
             ><img
               src="assets/img/imgFigma/banner/logo.png"
-              width="150px"
-              height="20px"
+              width="125px"
+              height="10px"
               alt=""
               class="img-fluid"
           /></a>
@@ -67,12 +72,12 @@
           <ul>
             <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
             <li><a class="nav-link scrollto" href="#about">Serviços</a></li>
-            <li><a class="nav-link scrollto" href="#services">Sobre nós</a></li>
+            <li><a class="nav-link scrollto" href="#main">Sobre nós</a></li>
             <li>
               <a class="nav-link scrollto" href="#valores">Nossos valores</a>
             </li>
             <div id="btnContato" class="text-center">
-              <a href="#">
+              <a href="#contact">
               <button type="submit" title="Send Message"><b>Contato</b></button>
             </a>
             </div>
@@ -106,7 +111,7 @@
       <section id="about">
         <div class="container" data-aos="fade-up">
           <header class="section-header">
-            <div>
+            <div class="titleSub">
               <h3 id="title">Serviços</h3>
               <h3 id="subtitle">Gerando alto valor a seu negócio</h3>
             </div>
@@ -146,23 +151,16 @@
           </div>
 
           <div class="servicos-row">
-            <div class="service-colum">
-              <h3 id="title">Sobre nós</h3>
-              <h3>
-                   Visamos auxiliar no descarte responsável de equipamentos eletrônicos, 
-                promovendo práticas ambientalmente sustentáveis. 
-            </h3>
-            <h3>   Fornecemos apoio a empreendimentos, 
-              capacitando-os para melhorar seus processos de descarte, reciclagem e reutilização de 
-              eletrônicos, visando reduzir o impacto negativo no meio ambiente e na saúde pública</h3>
-            </div>
-            <div>
-              <img
-                src="assets/img/imgFigma/marketing-de-midia-social 1.png"
-                alt=""
-              />
-            </div>
-          </div>
+  <div class="service-colum">
+    <h3 id="title">Sobre nós</h3>
+    <h3>Visamos auxiliar no descarte responsável de equipamentos eletrônicos, promovendo práticas ambientalmente sustentáveis.</h3>
+    <h3>Fornecemos apoio a empreendimentos, capacitando-os para melhorar seus processos de descarte, reciclagem e reutilização de eletrônicos, visando reduzir o impacto negativo no meio ambiente e na saúde pública.</h3>
+  </div>
+  <div>
+    <img src="assets/img/imgFigma/marketing-de-midia-social 1.png" alt=""/>
+  </div>
+</div>
+
         </div>
       </section>
       <!-- End About Section -->
@@ -174,46 +172,52 @@
               <h3>Nossos valores</h3>
             </header>
   
-            <div class="row row-eq-height justify-content-center">
-              <div class="col-lg-4 mb-4">
-                <div class="card" data-aos="zoom-in" data-aos-delay="100">
-                  <i class="bi bi-calendar4-week"></i>
-                  <div class="card-body">
-                    <h5 class="card-title">Missão</h5>
-                    <p class="card-text">
-                      Alcançar uma nova forma de descarte ao lixo eletrônico.
-                    </p>
-                    <a href="#" class="readmore">Read more </a>
+            <div class="valores-row">
+              <div class="valores-colum">
+                <div class="row-eq-height">
+                  <div class="col-lg-8 mb-4">
+                    <div class="" data-aos="zoom-in" data-aos-delay="100">
+                      <div class="card-body">
+                        <h5 class="card-title"><b>Missão</b></h5>
+                        <p class="card-text">
+                          Alcançar uma nova forma de descarte ao lixo eletrônico.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row-eq-height">
+                  <div class="col-lg-8 mb-4">
+                    <div data-aos="zoom-in" data-aos-delay="200">
+                      <div class="card-body">
+                        <h5 class="card-title"><b>Visão</b></h5>
+                        <p class="card-text">
+                          Enxergar e dar um novo valor aos materiais eletrônicos.
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-  
-              <div class="col-lg-4 mb-4">
-                <div class="card" data-aos="zoom-in" data-aos-delay="200">
-                  <i class="bi bi-camera-reels"></i>
-                  <div class="card-body">
-                    <h5 class="card-title">Visão</h5>
-                    <p class="card-text">
-                      Enxergar um novo valor aos materiais eletrônicos.
-                    </p>
-                    <a href="#" class="readmore">Read more </a>
+            
+              <div class="valores-colum">
+                
+                <img src="assets/img/imgFigma/produtos 1.png" alt="" width="200px">
+                <div class="col-lg-8 mb-4">
+                  <div  data-aos="zoom-in" data-aos-delay="300">
+                    <div class="card-body">
+                      <h5 class="card-title"><b>Valores</b></h5>
+                      <p class="card-text">
+                        Compromentimento com a excelência, respeito e inovação.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-  
-              <div class="col-lg-4 mb-4">
-                <div class="card" data-aos="zoom-in" data-aos-delay="300">
-                  <i class="bi bi-chat-square-text"></i>
-                  <div class="card-body">
-                    <h5 class="card-title">Valores</h5>
-                    <p class="card-text">
-                      Compromentimento com a excelência, respeito e inovação.
-                    </p>
-                    <a href="#" class="readmore">Read more </a>
-                  </div>
-                </div>
-              </div>
+
             </div>
+
+
           </div>
         </section>
         <!-- End Why Us Section -->
@@ -351,7 +355,7 @@
               data-aos-delay="200"
             >
               <div class="member">
-                <img src="assets/img/team-2.jpg" class="img-fluid" alt="" />
+                <img src="assets/img/imgFigma/amanda.png" class="img-fluid-2" alt="" />
                 <div class="member-info">
                   <div class="member-info-content">
                     <h4>Amanda Cupola</h4>
@@ -373,7 +377,7 @@
               data-aos-delay="300"
             >
               <div class="member">
-                <img src="assets/img/team-3.jpg" class="img-fluid" alt="" />
+                <img src="assets/img/imgFigma/felipe.png" class="img-fluid-2" alt="" />
                 <div class="member-info">
                   <div class="member-info-content">
                     <h4>Felipe Santos</h4>
@@ -396,7 +400,7 @@
               data-aos-delay="100"
             >
               <div class="member">
-                <img src="assets/img/team-1.jpg" class="img-fluid" alt="" />
+                <img src="assets/img/imgFigma/Lari.png" class="img-fluid-2" alt="" />
                 <div class="member-info">
                   <div class="member-info-content">
                     <h4>Larisa Sonoda</h4>
@@ -440,7 +444,7 @@
               data-aos-delay="300"
             >
               <div class="member">
-                <img src="assets/img/team-3.jpg" class="img-fluid" alt="" />
+                <img src="assets/img/imgFigma/caetano.jpg" class="img-fluid-2" alt="" />
                 <div class="member-info">
                   <div class="member-info-content">
                     <h4>Caetano</h4>
@@ -519,13 +523,13 @@
                   </div>
                   <div class="my-3">
                     <div class="loading">Loading</div>
-                    <div class="error-message"></div>
+        
                     <div class="sent-message">
                       Your message has been sent. Thank you!
                     </div>
                   </div>
                   <div class="text-center">
-                    <button type="submit" title="Enviar">Send Message</button>
+                    <button type="submit" onclick="submitForm()">Enviar mensagem</button>
                   </div>
                 </form>
               </div>
@@ -546,35 +550,26 @@
       <div class="footer-top">
         <div class="container">
           <div class="row">
-            <div class="col-lg-4 col-md-6 footer-info">
-              <h3>NewBiz</h3>
-              <p>
-                Cras fermentum odio eu feugiat lide par naso tierra. Justo eget
-                nada terra videa magna derita valies darta donna mare fermentum
-                iaculis eu non diam phasellus. Scelerisque felis imperdiet proin
-                fermentum leo. Amet volutpat consequat mauris nunc congue.
-              </p>
-            </div>
 
-            <div class="col-lg-2 col-md-6 footer-links">
+            <div class="col-lg-6 col-md-6 footer-links">
               <h4>Useful Links</h4>
               <ul>
                 <li><a href="#">Home</a></li>
-                <li><a href="#">About us</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Terms of service</a></li>
-                <li><a href="#">Privacy policy</a></li>
+                <li><a href="#">Serviços</a></li>
+                <li><a href="#">Sobre nos</a></li>
+                <li><a href="#">Nossos valores</a></li>
+                <li><a href="#">Contato</a></li>
               </ul>
             </div>
 
             <div class="col-lg-3 col-md-6 footer-contact">
               <h4>Contact Us</h4>
               <p>
-                A108 Adam Street <br />
-                New York, NY 535022<br />
-                United States <br />
-                <strong>Phone:</strong> +1 5589 55488 55<br />
-                <strong>Email:</strong> info@example.com<br />
+                Rua Haddock Lobo, 595<br />
+                Cerqueira César, São Paulo<br />
+                SP, 01414-001 <br />
+                <strong>Phone:</strong> +11 99445521<br />
+                <strong>Email:</strong> impact@gmail.com<br />
               </p>
 
               <div class="social-links">
@@ -589,25 +584,11 @@
                 <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
               </div>
             </div>
-
-            <div class="col-lg-3 col-md-6 footer-newsletter">
-              <h4>Our Newsletter</h4>
-              <p>
-                Tamen quem nulla quae legam multos aute sint culpa legam noster
-                magna veniam enim veniam illum dolore legam minim quorum culpa
-                amet magna export quem marada parida nodela caramase seza.
-              </p>
-              <form action="" method="post">
-                <input type="email" name="email" /><input
-                  type="submit"
-                  value="Subscribe"
-                />
-              </form>
-            </div>
           </div>
         </div>
       </div>
     </footer>
+    </div>
     <!-- End Footer -->
 
     <a
@@ -629,3 +610,31 @@
     <script src="assets/js/main.js"></script>
   </body>
 </html>
+
+<script>
+  // Aguarda o carregamento completo do documento
+  window.addEventListener('load', function() {
+        // Esconde o elemento de carregamento após 1.5 segundos (1500ms)
+        setTimeout(function() {
+            var loadAnimation = document.getElementById('load_animation');
+            var conteudo = document.getElementById('conteudo');
+
+            loadAnimation.style.opacity = '0'; // Define a opacidade como 0
+            conteudo.style.opacity = '1'; // Define a opacidade como 1
+
+            setTimeout(function() {
+                loadAnimation.style.display = 'none'; // Esconde o elemento de carregamento
+            }, 1000); // 1 segundo (1000ms)
+        }, 3000); // 3 segundos (3000ms)
+    });
+
+    function submitForm() {
+  // Aqui você pode adicionar a lógica para enviar o formulário, por exemplo, com AJAX
+
+  // Após enviar o formulário, você pode exibir o SweetAlert
+  swal("Parabéns!", "Mensagem enviada!", "success");
+}
+</script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
