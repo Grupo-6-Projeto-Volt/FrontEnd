@@ -1,0 +1,10 @@
+/* Conteiner para centralizar o conteúdo */
+.centralizador {
+    margin: auto;
+    width: 90%;
+}
+
+.ajuste-card{
+    height: 100%;
+    width: 33.3%;
+}
