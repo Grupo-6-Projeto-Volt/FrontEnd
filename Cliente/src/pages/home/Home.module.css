@@ -1,3 +1,37 @@
 label {
     color: black;
 }
+
+.Home{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    color: black;
+    justify-content: center;
+}
+
+.box-container{
+    display: flex;
+    flex-direction: column;
+    box-shadow: .2rem .1rem .8rem rgb(169, 169, 169);
+    width: 28rem;
+    height: 15rem;
+    padding: 15px;
+    border-radius: 1rem;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn{
+    height: 30%;
+    width: 50%;
+    border-radius: 1rem;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    background-color: crimson;
+    color: white;
+    font-weight: bold;
+    transition: .5s;
+}

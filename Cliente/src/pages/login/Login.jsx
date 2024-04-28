@@ -1,20 +1,28 @@
 import { useState } from 'react';
 import styles from './Login.module.css'
 import api from '../../api';
+import { useNavigate } from "react-router-dom";
 
 function Login(){
 
     let [emailText, setEmailText] = useState("")
     let [passwordText, setPasswordText] = useState("")
+    const navigate = useNavigate()
     
     function handleSubmit(){
-        api.post("http://localhost:8080/login",{
+        api.post(null,{
             email: emailText,
             senha: passwordText
         }).then(resultado => {
-            console.log(resultado.data)
+            const Data = resultado.data;
+            sessionStorage.TOKEN = Data.token;
+            sessionStorage.ID = Data.userId;
+            sessionStorage.EMAIL = Data.email;
+            alert("Login feito com sucesso!!")
+            navigate("/")
         }).catch(erro => {
-            console.error("Houve um erro: " + erro.message);
+            console.error("Houve um erro: " + erro);
+            alert("Email ou senha inválidos!!")
         })
     }
 
