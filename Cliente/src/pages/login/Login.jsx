@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './Login.module.css'
 import api from '../../api';
 import { useNavigate } from "react-router-dom";
+import logo from '../../utils/assets/logo-ichiban.png'
 
 function Login(){
 
@@ -19,7 +20,7 @@ function Login(){
             sessionStorage.ID = Data.userId;
             sessionStorage.EMAIL = Data.email;
             alert("Login feito com sucesso!!")
-            navigate("/")
+            navigate("/pagina")
         }).catch(erro => {
             console.error("Houve um erro: " + erro);
             alert("Email ou senha inválidos!!")
@@ -28,7 +29,19 @@ function Login(){
 
     return(
         <div className={styles["Login"]}>
+            <div className={styles["box-logo"]}>
+                <img src={logo} className={styles["logo"]}></img>
+            </div>
             <div className={styles["form"]}>
+                <div className={styles["voltar"]}>
+                <p
+              onClick={() => {
+                navigate("/pagina");
+              }}
+            >
+              Voltar
+            </p>
+                </div>
                 <h1 className={styles["titulo"]}>Entrar</h1>
                 <div className={styles["input-group"]}>
                     <div className={styles["input-box"]}>
@@ -43,8 +56,16 @@ function Login(){
                             setPasswordText(evento.target.value)
                         }} placeholder='*******' type='password'></input>
                     </div>
+                    <div className={styles["box-senha"]}>
+                    <p className={styles["redefinir-senha"]}>Esqueceu a senha?</p>
+                    </div>
                 </div>
                 <button onClick={handleSubmit} className={styles["btn"]}>Entrar</button>
+                <p onClick={() => {
+                    navigate("/cadastro")
+                }}>Não possui conta ainda? Cadastre-se agora</p>
+                </div>
+                <div>
             </div>
         </div>
     )
