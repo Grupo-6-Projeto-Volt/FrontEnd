@@ -1,0 +1,102 @@
+h2,
+h4 {
+	padding: 0;
+	margin: 0;
+}
+
+.Chamados {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	background-color: #ffffff;
+}
+
+.content {
+	margin-left: 15vw;
+	margin-top: 8vw;
+	height: 150vh;
+	width: 85vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 8vh;
+	margin-left: 15vw;
+}
+
+.container {
+	width: 92%;
+	height: 90%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+section {
+	width: 100%;
+	height: 49%;
+	border-radius: 45px;
+	box-shadow: 0 0.2rem 0.5rem rgb(190, 190, 190);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.section-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: 13%;
+}
+
+.input-group {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 50%;
+	height: 100%;
+}
+
+.section-title {
+	display: flex;
+	flex-direction: column;
+	width: 45%;
+	height: 100%;
+	justify-content: center;
+	align-items: start;
+}
+
+.section-title h2 {
+	font-family: "PoppinsBold";
+}
+
+.section-title h4 {
+	color: #16c098;
+}
+
+.filter-group {
+	width: 12rem;
+	height: 3rem;
+	display: flex;
+	padding-right: 10px;
+	padding-left: 10px;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #f9fbff;
+}
+
+.filter-group span {
+	font-size: 14px;
+}
+
+select {
+	background-color: transparent;
+	border: 1px solid #f9fbff;
+	width: 60%;
+	height: 100%;
+}
