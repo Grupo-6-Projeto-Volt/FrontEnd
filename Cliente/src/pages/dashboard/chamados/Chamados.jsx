@@ -1,9 +1,109 @@
+import Table from "../../../components/list/Table";
 import Navbar from "../../../components/navbar/dashboard/Navbar";
 import Searchbar from "../../../components/searchbar/Searchbar";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import styles from "./Chamados.module.css";
 
 function Chamados() {
+	let headers_chamados = [
+		"Id",
+		"Nome Completo",
+		"Número Telefone",
+		"Email",
+		"Data Compra",
+		"Compra Realizada",
+	];
+
+	let values_chamados = [
+		{
+			id: "#29393",
+			nome: "João Silva",
+			telefone: "(11) 98765-4321",
+			email: "joaosilva@email.com",
+			dataCompra: "13/05/2024",
+			compraRealizada: () => (
+				<div className={styles["table-btn-area"]}>
+					<button className={styles["table-btn-red"]}>Não</button>
+					<button className={styles["table-btn-green"]}>Sim</button>
+				</div>
+			),
+		},
+		{
+			id: "#02934",
+			nome: "Maria Santos",
+			telefone: "(21) 12345-6789",
+			email: "mariasantos@email.com",
+			dataCompra: "13/05/2024",
+			compraRealizada: () => (
+				<div className={styles["table-btn-area"]}>
+					<button className={styles["table-btn-red"]}>Não</button>
+					<button className={styles["table-btn-green"]}>Sim</button>
+				</div>
+			),
+		},
+		{
+			id: "#92484",
+			nome: "Pedro Oliveira",
+			telefone: "(31) 45678-9012",
+			email: "pedrooliveira@email.com",
+			dataCompra: "13/05/2024",
+			compraRealizada: () => (
+				<div className={styles["table-btn-area"]}>
+					<button className={styles["table-btn-red"]}>Não</button>
+					<button className={styles["table-btn-green"]}>Sim</button>
+				</div>
+			),
+		},
+		{
+			id: "#92484",
+			nome: "Pedro Oliveira",
+			telefone: "(31) 45678-9012",
+			email: "pedrooliveira@email.com",
+			dataCompra: "13/05/2024",
+			compraRealizada: () => (
+				<div className={styles["table-btn-area"]}>
+					<button className={styles["table-btn-red"]}>Não</button>
+					<button className={styles["table-btn-green"]}>Sim</button>
+				</div>
+			),
+		},
+	];
+
+	let headers_clientes = ["Nome Completo", "Número Telefone", "Data", "Email"];
+
+	let values_clientes = [
+		{
+			nome: "João Silva",
+			telefone: "(11) 98765-4321",
+			dataCompra: "13/05/2024",
+			email: "joaosilva@email.com",
+		},
+		{
+			nome: "Maria Santos",
+			telefone: "(21) 12345-6789",
+			dataCompra: "13/05/2024",
+			email: "mariasantos@email.com",
+		},
+		{
+			nome: "Pedro Oliveira",
+			telefone: "(31) 45678-9012",
+			dataCompra: "13/05/2024",
+			email: "pedrooliveira@email.com",
+		},
+		{
+			nome: "Ana Pereira",
+			telefone: "(41) 98765-1234",
+			dataCompra: "13/05/2024",
+			email: "anapereira@email.com",
+		},
+		{
+			nome: "Felipe Santos",
+			telefone: "(11) 97525-4321",
+			dataCompra: "13/05/2024",
+			email: "felipe@email.com",
+		},
+	];
+
 	return (
 		<div className={styles["Chamados"]}>
 			<Navbar />
@@ -29,7 +129,13 @@ function Chamados() {
 									</div>
 								</div>
 							</div>
-							<div className="purchase-request-list"></div>
+							<div className={styles["purchase-request-list"]}>
+								<Table
+									headers={headers_chamados}
+									values={values_chamados}
+									limit={4}
+								/>
+							</div>
 						</div>
 					</section>
 					<section>
@@ -46,7 +152,13 @@ function Chamados() {
 									<Searchbar />
 								</div>
 							</div>
-							<div className="purchase-request-list"></div>
+							<div className={styles["purchase-request-list"]}>
+								<Table
+									headers={headers_clientes}
+									values={values_clientes}
+									limit={4}
+								/>
+							</div>
 						</div>
 					</section>
 				</div>
