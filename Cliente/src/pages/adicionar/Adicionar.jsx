@@ -1,7 +1,6 @@
 import api from "../../api";
 import React, { useState } from "react";
 import styles from "./Adicionar.module.css";
-import logo from "../../utils/assets/logo.svg";
 import { useNavigate } from "react-router-dom";
 import imgCantor from "../../utils/assets/pessoa-ouvindo-disco.svg";
 import { toast } from "react-toastify";
@@ -32,7 +31,7 @@ function Adicionar() {
             toast.success("Novo Card criado com sucesso!");
             sessionStorage.setItem("editado",
                 JSON.stringify(objetoAdicionado));
-            navigate("/pagina")
+            navigate("/musicas")
         }).catch(() => {
             toast.error("Ocorreu um erro ao salvar os dados, por favor, tente novamente.");
         })
@@ -41,7 +40,7 @@ function Adicionar() {
         setStateFunction(event.target.value);
     }
     const handleBack = () => {
-        navigate("/pagina");
+        navigate("/musicas");
     };
 
     return (

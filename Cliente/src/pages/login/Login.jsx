@@ -11,7 +11,7 @@ function Login(){
     const navigate = useNavigate()
     
     function handleSubmit(){
-        api.post(null,{
+        api.post("/login",{
             email: emailText,
             senha: passwordText
         }).then(resultado => {
@@ -61,9 +61,9 @@ function Login(){
                     </div>
                 </div>
                 <button onClick={handleSubmit} className={styles["btn"]}>Entrar</button>
-                <p onClick={() => {
+                <p>Não possui conta ainda? <a className="link" onClick={() => {
                     navigate("/cadastro")
-                }}>Não possui conta ainda? Cadastre-se agora</p>
+                }}>Cadastre-se agora</a></p>
                 </div>
                 <div>
             </div>

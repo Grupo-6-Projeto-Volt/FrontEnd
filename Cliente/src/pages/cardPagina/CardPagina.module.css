@@ -7,7 +7,7 @@
     height: 26rem !important;
     border: 2px solid white;
     width: 17.5rem !important;
-    background-color: #3d4f51;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .imagem-container {
@@ -27,7 +27,6 @@
 .textos {
     width: 85%;
     padding: 10px;
-    background-color: #3d4f51;
 }
 
 .textos p {
@@ -54,7 +53,7 @@
 }
 
 .textos span {
-    color: #FFDF94;
+    color: #000000;
 }
 
 .botoes {
