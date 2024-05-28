@@ -1,5 +1,5 @@
 import styles from "./Navbar.module.css";
-
+import { FaBell } from "react-icons/fa6";
 function Navbar() {
 	return (
 		<div className={styles["Navbar"]}>
@@ -14,14 +14,8 @@ function Navbar() {
 				/>
 				<div className={styles["navbar-items"]}>
 					<div className={styles["notification-area"]}>
-						<img
-							src={require("../../../utils/assets/icon/notificacao.png")}
-							alt="Notificações"
-							style={{
-								height: "55%",
-								width: "auto",
-							}}
-						/>
+						<FaBell color="b0c3cc" size={25} />
+						<div className={styles["notification-warning"]}></div>
 					</div>
 					<span className={styles["username"]}>Henrique Akira</span>
 					<div className={styles["user-image-area"]}>

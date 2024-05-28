@@ -88,6 +88,7 @@ section {
 	align-items: center;
 	justify-content: space-between;
 	background-color: #f9fbff;
+	border-radius: 10px;
 }
 
 .filter-group span {
@@ -98,7 +99,8 @@ select {
 	background-color: transparent;
 	border: 1px solid #f9fbff;
 	width: 60%;
-	height: 100%;
+	height: 90%;
+	border-radius: 10px;
 }
 
 .purchase-request-list {

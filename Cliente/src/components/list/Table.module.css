@@ -48,6 +48,18 @@ td {
 	width: 30px;
 	height: 30px;
 	background-color: #f9fbff;
+	color: #404b52;
+	border: none;
+	border-radius: 5px;
+	font-family: "PoppinsBold";
+	cursor: pointer;
+}
+
+.btn-slider-pressed {
+	width: 30px;
+	height: 30px;
+	background-color: #5932ea;
+	color: #f9fbff;
 	border: none;
 	border-radius: 5px;
 	font-family: "PoppinsBold";
