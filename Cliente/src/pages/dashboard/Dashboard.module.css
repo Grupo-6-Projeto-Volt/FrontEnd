@@ -1,0 +1,9 @@
+.container{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+Linechart{
+    width: 30vw;
+    height: 30vh;
+}
