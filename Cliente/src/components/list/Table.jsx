@@ -59,6 +59,14 @@ function Table({ headers, values, limit }) {
 						btns.push(
 							<button
 								className={styles["btn-slider"]}
+								style={{
+									display:
+										(index > selectedIndex - 2 && index < selectedIndex + 2) ||
+										index === 0 ||
+										index === Math.floor(lastIndex)
+											? "block"
+											: "none",
+								}}
 								onClick={() => {
 									setFirstIndex(index * limit);
 									setLastIndex(

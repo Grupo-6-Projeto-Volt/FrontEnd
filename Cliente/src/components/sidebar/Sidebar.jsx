@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 import {
 	FaCartShopping,
@@ -8,6 +9,8 @@ import {
 } from "react-icons/fa6";
 
 function Sidebar() {
+	const location = useLocation();
+
 	return (
 		<div className={styles["Sidebar"]}>
 			<div className={styles["container"]}>
@@ -16,7 +19,15 @@ function Sidebar() {
 						<h4>MENU</h4>
 					</div>
 					<div className={styles["content-body"]}>
-						<div className={styles["content-item"]}>
+						<div
+							className={
+								styles[
+									location.pathname === "/"
+										? "content-item-active"
+										: "content-item"
+								]
+							}
+						>
 							<div className={styles["content-block"]}>
 								<FaFileLines />
 								<span>Clientes</span>
