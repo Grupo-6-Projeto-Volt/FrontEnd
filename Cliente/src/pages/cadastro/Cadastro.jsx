@@ -80,7 +80,7 @@ const Cadastro = () => {
           <div className="input-group">
             <div className="input-box">
                         <label>Nome:</label>
-                        <input onChange={(evento) => {
+                        <input invalid onChange={(evento) => {
                             setNomeText(evento.target.value)
                         }} placeholder='Joao Silva' type='nome'></input>
                     </div>
