@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './NavBar.module.css';
 import { Menubar } from 'primereact/menubar';
+import logo from '../../utils/assets/img/logo.png'
+import { Button } from 'primereact/button';
 
 const items = [
     { label: 'Home' },
@@ -10,10 +12,13 @@ const items = [
     { label: 'Nosso Time' }
 ];
 
+const logoNav = <img src={logo} alt="logo-impact" className={styles['logo']} />;
+const contato =  <Button label="Contate-nos" className="p-button-rounded" />
 const NavBar = () => {
     return(
     <div className={styles['card']}>
-        <Menubar model={items} />
+        <Menubar className={styles['menu']} start={logoNav} model={items} end={contato}>
+        </Menubar>
     </div>);
 }
 

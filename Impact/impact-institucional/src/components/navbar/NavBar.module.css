@@ -1,6 +1,26 @@
+*{
+    font-family: "Inter", sans-serif;
+}
+
 .card {
     background: var(--surface-card);
     padding: 2rem;
     border-radius: 10px;
     margin-bottom: 1rem;
+}
+
+.menu{
+    border-radius: 50rem;
+    border-color: #FFF;
+    background-color: #FFF;
+}
+
+.logo{
+    width: 100px;
+}
+
+Button{
+    background-color: #FF8F50;
+    border: 0;
+    font-weight:lighter;
 }
