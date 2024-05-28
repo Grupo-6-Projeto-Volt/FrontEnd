@@ -10,9 +10,9 @@
 
 .form{
     width:  41rem;
-    height: 80%;
+    height: 33rem;
     box-shadow: .2rem .1rem .8rem rgb(169, 169, 169);
-    border-radius: 1rem;
+    border-radius: 2.5rem;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -21,8 +21,8 @@
 }
 
 .btn{
-    height: 3rem;
-    width: 82%;
+    height: 8rem;
+    width: 90%;
     border: none;
     cursor: pointer;
     font-size: 20px;
@@ -30,6 +30,7 @@
     color: white;
     font-weight: bold;
     transition: .5s;
+    border-radius: 0.4rem;
     margin-top: 3%;
 }
 
@@ -39,8 +40,8 @@
 }
 
 .input-group{
-    height: 75%;
-    width: 90%;
+    height: 100%;
+    width: 85%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -59,7 +60,7 @@
 }
 
 .input-box input{
-    height: 2.0rem;    
+    height: 60%;
     width: 100%;
     border: none;
     padding-left: .7rem;
@@ -73,6 +74,10 @@
     align-items: flex-start;
     color: black;
     font-size: 20px;
+}
+
+.voltar p{
+    text-decoration: underline;
 }
 
 .logo{
@@ -119,4 +124,13 @@
 .link{
     cursor: pointer;
     color: #BB2020;
+}
+
+.box-logar{
+    display: flex;
+    width: 70%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 0.5%;
 }

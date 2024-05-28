@@ -6,6 +6,7 @@ import api from '../../api';
 import { useNavigate } from "react-router-dom";
 import logo from '../../utils/assets/logo-ichiban.png';
 import { useState } from 'react'; 
+import styles from "./Cadastro.css";
 
 const Cadastro = () => {
     let [nomeText, setNomeText] = useState("");
@@ -75,7 +76,7 @@ const Cadastro = () => {
               Voltar
             </p>
           </div>
-          <h1 className="titulo">Cadastro</h1>
+          <h1 className="titulo">Cadastrar</h1>
           <div className="input-group">
             <div className="input-box">
                         <label>Nome:</label>
@@ -105,13 +106,25 @@ const Cadastro = () => {
                         <label>Confirme a senha:</label>
                         <input placeholder='Confirme a senha' type='password'></input>
             </div>
-          </div>
-          <button onClick={handleRegister} className="btn" type="submit">
+            <button onClick={handleRegister} className="btn" type="submit">
             Cadastrar
           </button>
-          <p>Já possui conta?<a className="link" onClick={() => {
-                    navigate("/login")
-                }}> Logar-se agora</a></p>
+          </div>
+          <div className="box-logar">
+          <div>
+            <p>Já possui conta?</p>
+          </div>
+          <div>
+            <a
+              className="link"
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Logar-se agora
+            </a>
+          </div>
+        </div>
         </Form>
       </Formik>
     </div>
