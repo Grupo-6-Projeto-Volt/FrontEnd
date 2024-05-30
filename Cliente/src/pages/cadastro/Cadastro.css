@@ -1,5 +1,5 @@
 .Cadastro{
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -10,7 +10,7 @@
 
 .form{
     width:  41rem;
-    height: 33rem;
+    height: 100%;
     box-shadow: .2rem .1rem .8rem rgb(169, 169, 169);
     border-radius: 2.5rem;
     padding: 20px;
@@ -61,7 +61,7 @@
 }
 
 .input-box input{
-    height: 60%;
+    height: 40%;
     width: 100%;
     border: none;
     padding-left: .7rem;
@@ -83,6 +83,7 @@
 
 .logo{
     width: 9rem;
+    padding-top: 5%;
 }
 
 .box-logo{
@@ -134,4 +135,8 @@
     align-items: center;
     justify-content: space-around;
     margin-top: 0.5%;
+}
+
+.error-message{
+    color: red;
 }
