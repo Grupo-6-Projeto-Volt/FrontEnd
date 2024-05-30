@@ -8,9 +8,100 @@ function Table({ headers, values, limit }) {
 	);
 	let [selectedIndex, setSelectedIndex] = useState(0);
 
+	function handleBack() {
+		if (selectedIndex > 0) {
+			setFirstIndex((selectedIndex - 1) * limit);
+			setLastIndex(selectedIndex * limit);
+			setSelectedIndex(--selectedIndex);
+		}
+	}
+
+	function handleNext() {
+		if ((selectedIndex + 1) * limit < values.length) {
+			setSelectedIndex(++selectedIndex);
+			setFirstIndex(selectedIndex * limit);
+			setLastIndex(
+				(selectedIndex + 1) * limit > values.length
+					? values.length
+					: (selectedIndex + 1) * limit
+			);
+		}
+	}
+
+	function handleClick(index) {
+		setFirstIndex(index * limit);
+		setLastIndex(
+			(index + 1) * limit > values.length ? values.length : (index + 1) * limit
+		);
+		setSelectedIndex(index);
+	}
+
+	function deployTable() {
+		const table = [];
+		for (let index = firstIndex; index < lastIndex; index++) {
+			table.push(
+				<tr>
+					{Object.keys(values[index]).map((key) => (
+						<td>
+							{typeof values[index][key] === "function"
+								? values[index][key]()
+								: values[index][key]}
+						</td>
+					))}
+				</tr>
+			);
+		}
+		return table;
+	}
+
+	function deployBtnSlider() {
+		const btns = [];
+		const lastIndex = values.length / limit;
+
+		for (let index = 0; index < lastIndex; index++) {
+			btns.push(
+				<button
+					className={styles["btn-slider"]}
+					style={{
+						display:
+							(index > selectedIndex - 2 && index < selectedIndex + 2) ||
+							index === 0 ||
+							index === Math.floor(lastIndex)
+								? "block"
+								: "none",
+					}}
+					onClick={() => handleClick(index)}
+				>
+					{index + 1}
+				</button>
+			);
+		}
+
+		btns[selectedIndex] = (
+			<button className={styles["btn-slider-pressed"]}>
+				{selectedIndex + 1}
+			</button>
+		);
+		return btns;
+	}
+
+	function deployTableSlider() {
+		return (
+			<>
+				<button className={styles["btn-slider"]} onClick={handleBack}>
+					{"<"}
+				</button>
+				{deployBtnSlider()}
+				<button className={styles["btn-slider"]} onClick={handleNext}>
+					{">"}
+				</button>
+			</>
+		);
+	}
+
 	return (
 		<div className={styles["Table"]}>
-			<table className={styles["table"]}>
+			<table>
 				<thead>
 					<tr>
 						{headers.map((header) => (
@@ -18,94 +109,9 @@ function Table({ headers, values, limit }) {
 						))}
 					</tr>
 				</thead>
-				<tbody>
-					{(() => {
-						const table = [];
-						for (let index = firstIndex; index < lastIndex; index++) {
-							table.push(
-								<tr>
-									{Object.keys(values[index]).map((key) => (
-										<td>
-											{typeof values[index][key] === "function"
-												? values[index][key]()
-												: values[index][key]}
-										</td>
-									))}
-								</tr>
-							);
-						}
-						return table;
-					})()}
-				</tbody>
+				<tbody>{deployTable()}</tbody>
 			</table>
-			<div className={styles["table-slider"]}>
-				<button
-					className={styles["btn-slider"]}
-					onClick={() => {
-						if (selectedIndex > 0) {
-							setFirstIndex((selectedIndex - 1) * limit);
-							setLastIndex(selectedIndex * limit);
-							setSelectedIndex(--selectedIndex);
-						}
-					}}
-				>
-					{"<"}
-				</button>
-				{(() => {
-					const btns = [];
-					const lastIndex = values.length / limit;
-
-					for (let index = 0; index < lastIndex; index++) {
-						btns.push(
-							<button
-								className={styles["btn-slider"]}
-								style={{
-									display:
-										(index > selectedIndex - 2 && index < selectedIndex + 2) ||
-										index === 0 ||
-										index === Math.floor(lastIndex)
-											? "block"
-											: "none",
-								}}
-								onClick={() => {
-									setFirstIndex(index * limit);
-									setLastIndex(
-										(index + 1) * limit > values.length
-											? values.length
-											: (index + 1) * limit
-									);
-									setSelectedIndex(index);
-								}}
-							>
-								{index + 1}
-							</button>
-						);
-					}
-
-					btns[selectedIndex] = (
-						<button className={styles["btn-slider-pressed"]}>
-							{selectedIndex + 1}
-						</button>
-					);
-					return btns;
-				})()}
-				<button
-					className={styles["btn-slider"]}
-					onClick={() => {
-						if ((selectedIndex + 1) * limit < values.length) {
-							setSelectedIndex(++selectedIndex);
-							setFirstIndex(selectedIndex * limit);
-							setLastIndex(
-								(selectedIndex + 1) * limit > values.length
-									? values.length
-									: (selectedIndex + 1) * limit
-							);
-						}
-					}}
-				>
-					{">"}
-				</button>
-			</div>
+			<div className={styles["table-slider"]}>{deployTableSlider()}</div>
 		</div>
 	);
 }

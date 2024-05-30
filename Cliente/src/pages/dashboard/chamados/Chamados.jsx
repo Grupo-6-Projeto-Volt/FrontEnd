@@ -1,300 +1,87 @@
+import { useEffect, useState } from "react";
 import Table from "../../../components/list/Table";
 import Navbar from "../../../components/navbar/dashboard/Navbar";
 import Searchbar from "../../../components/searchbar/Searchbar";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import styles from "./Chamados.module.css";
+import { chamadosModel } from "../../../model/chamadosModel";
 
 function Chamados() {
-	let headers_chamados = [
-		"Id",
-		"Nome Completo",
-		"Número Telefone",
-		"Email",
-		"Data Compra",
-		"Compra Realizada",
-	];
+	let [chamados, setChamados] = useState([]);
+	let [headersChamados, setHeadersChamados] = useState([]);
+	let [filtro, setFiltro] = useState(0);
+	let [valorBuscaChamados, setValorBuscaChamados] = useState("");
+	let [chamadosEncontrados, setChamadosEncontrados] = useState([]);
 
-	let values_chamados = [
-		{
-			id: "#29393",
-			nome: "João Silva",
-			telefone: "(11) 98765-4321",
-			email: "joaosilva@email.com",
-			dataCompra: "13/05/2024",
-			compraRealizada: () => (
-				<div className={styles["table-btn-area"]}>
-					<button className={styles["table-btn-red"]}>Não</button>
-					<button className={styles["table-btn-green"]}>Sim</button>
-				</div>
-			),
-		},
-		{
-			id: "#02934",
-			nome: "Maria Santos",
-			telefone: "(21) 12345-6789",
-			email: "mariasantos@email.com",
-			dataCompra: "13/05/2024",
-			compraRealizada: () => (
-				<div className={styles["table-btn-area"]}>
-					<button className={styles["table-btn-red"]}>Não</button>
-					<button className={styles["table-btn-green"]}>Sim</button>
-				</div>
-			),
-		},
-		{
-			id: "#92484",
-			nome: "Pedro Oliveira",
-			telefone: "(31) 45678-9012",
-			email: "pedrooliveira@email.com",
-			dataCompra: "13/05/2024",
-			compraRealizada: () => (
-				<div className={styles["table-btn-area"]}>
-					<button className={styles["table-btn-red"]}>Não</button>
-					<button className={styles["table-btn-green"]}>Sim</button>
-				</div>
-			),
-		},
-		{
-			id: "#92484",
-			nome: "Pedro Oliveira",
-			telefone: "(31) 45678-9012",
-			email: "pedrooliveira@email.com",
-			dataCompra: "13/05/2024",
-			compraRealizada: () => (
-				<div className={styles["table-btn-area"]}>
-					<button className={styles["table-btn-red"]}>Não</button>
-					<button className={styles["table-btn-green"]}>Sim</button>
-				</div>
-			),
-		},
-	];
+	async function getChamados() {
+		let response = await ordenarChamados();
+
+		if (response.error) {
+			alert(response.error);
+			return;
+		}
+
+		let id = 0;
+		let tabelaChamados = [];
+
+		let headersChamados = [
+			"Id",
+			"Nome Completo",
+			"Número Telefone",
+			"Produto Solicitado",
+			"Data Compra",
+			"Compra Realizada",
+		];
+
+		response.forEach((element) => {
+			tabelaChamados.push({
+				id: ++id,
+				nomeCompleto: element.usuarioDto.nome,
+				numeroTelefone: element.usuarioDto.telefone,
+				produto: element.produtoDto.nome,
+				dataCompra: element.dataHoraAbertura,
+				compraRealizada: () => (
+					<div className={styles["table-btn-area"]}>
+						<button className={styles["table-btn-red"]}>Não</button>
+						<button className={styles["table-btn-green"]}>Sim</button>
+					</div>
+				),
+			});
+		});
+
+		setChamados(tabelaChamados);
+		setHeadersChamados(headersChamados);
+	}
+
+	async function ordenarChamados() {
+		let response;
+
+		switch (filtro) {
+			case "0":
+				response = await chamadosModel.listarChamadosPorDataAberturaDesc();
+				break;
+			case "1":
+				response = await chamadosModel.listarChamadosPorDataAberturaAsc();
+				break;
+			default:
+				response = await chamadosModel.listarChamadosPorDataAberturaDesc();
+		}
+
+		return response;
+	}
+
+	function buscarChamadoPorId() {
+		let chamadosEncontrados = chamados.filter((chamado) =>
+			String(chamado.id).includes(valorBuscaChamados)
+		);
+		setChamadosEncontrados(chamadosEncontrados);
+	}
+
+	useEffect(() => {
+		getChamados();
+	}, []);
 
 	let headers_clientes = ["Nome Completo", "Número Telefone", "Data", "Email"];
-
-	let values_clientes = [
-		{
-			nome: "João Silva",
-			telefone: "(11) 98765-4321",
-			dataCompra: "13/05/2024",
-			email: "joaosilva@email.com",
-		},
-		{
-			nome: "Maria Santos",
-			telefone: "(21) 12345-6789",
-			dataCompra: "13/05/2024",
-			email: "mariasantos@email.com",
-		},
-		{
-			nome: "Pedro Oliveira",
-			telefone: "(31) 45678-9012",
-			dataCompra: "13/05/2024",
-			email: "pedrooliveira@email.com",
-		},
-		{
-			nome: "Ana Pereira",
-			telefone: "(41) 98765-1234",
-			dataCompra: "13/05/2024",
-			email: "anapereira@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-		{
-			nome: "Felipe Santos",
-			telefone: "(11) 97525-4321",
-			dataCompra: "13/05/2024",
-			email: "felipe@email.com",
-		},
-	];
 
 	return (
 		<div className={styles["Chamados"]}>
@@ -310,23 +97,30 @@ function Chamados() {
 									<h4>Solicitaram produto pelo whatsapp</h4>
 								</div>
 								<div className={styles["input-group"]}>
-									<Searchbar />
+									<Searchbar
+										placeholder={"Id:"}
+										onChange={(e) => {
+											setValorBuscaChamados(e);
+										}}
+										onClick={() => {
+											buscarChamadoPorId();
+										}}
+									/>
 									<div className={styles["filter-group"]}>
 										<span>Filtrar por: </span>
-										<select>
-											<option value="0">Sim</option>
-											<option value="1">Não</option>
-											<option value="2">Talvez</option>
+										<select
+											onChange={(e) => {
+												setFiltro(e.target.value);
+											}}
+										>
+											<option value="0">Mais Recentes</option>
+											<option value="1">Mais Antigos</option>
 										</select>
 									</div>
 								</div>
 							</div>
 							<div className={styles["purchase-request-list"]}>
-								<Table
-									headers={headers_chamados}
-									values={values_chamados}
-									limit={4}
-								/>
+								<Table headers={headersChamados} values={chamados} limit={4} />
 							</div>
 						</div>
 					</section>
@@ -341,15 +135,16 @@ function Chamados() {
 									className={styles["input-group"]}
 									style={{ justifyContent: "right" }}
 								>
-									<Searchbar />
+									<Searchbar
+										placeholder={"Id:"}
+										onChange={(e) => {
+											console.log(e);
+										}}
+									/>
 								</div>
 							</div>
 							<div className={styles["purchase-request-list"]}>
-								<Table
-									headers={headers_clientes}
-									values={values_clientes}
-									limit={4}
-								/>
+								<Table headers={headers_clientes} values={[]} limit={4} />
 							</div>
 						</div>
 					</section>

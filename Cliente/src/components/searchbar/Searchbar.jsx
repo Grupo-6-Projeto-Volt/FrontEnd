@@ -1,6 +1,6 @@
 import styles from "./Searchbar.module.css";
 
-function Searchbar() {
+function Searchbar({ onChange, onClick, placeholder }) {
 	return (
 		<div className={styles["Searchbar"]}>
 			<img
@@ -11,8 +11,16 @@ function Searchbar() {
 					height: "30px",
 					cursor: "pointer",
 				}}
+				onClick={onClick}
 			/>
-			<input type="text" placeholder="Pesquisar" />
+			<input
+				type="text"
+				placeholder={placeholder}
+				onChange={(e) => {
+					onChange(e.target.value);
+				}}
+				maxLength={6}
+			/>
 		</div>
 	);
 }
