@@ -7,23 +7,23 @@ import { Button } from 'primereact/button';
 const items = [
     {
         label: 'Home',
-        className: 'ml-8'
+        className: 'lg:ml-8'
     },
     {
         label: 'Serviços',
-        className: 'ml-5'
+        className: 'lg:ml-5'
     },
     {
         label: 'Competências',
-        className: 'ml-5'
+        className: 'lg:ml-5'
     },
     {
         label: 'Sobre',
-        className: 'ml-5'
+        className: 'lg:ml-5'
     },
     {
         label: 'Nosso Time',
-        className: 'ml-5'
+        className: 'lg:ml-5'
     }
 ];
 
@@ -32,7 +32,7 @@ const contato = <Button label="Contate-nos" className="p-button-rounded font-lig
 const NavBar = () => {
     return (
         <div className={styles['card']}>
-            <Menubar className={[styles['menu'], 'z-2 absolute']} start={logoNav} model={items} end={contato}>
+            <Menubar className={[styles['menu'], 'z-1 absolute']} start={logoNav} model={items} end={contato}>
             </Menubar>
         </div>);
 }
