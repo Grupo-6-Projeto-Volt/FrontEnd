@@ -1,0 +1,25 @@
+.container{
+    height: 20vh;
+    width: 20vw;
+    background-color: black;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+ }
+.header{
+    width: 20vw;
+    height: 10vh;
+}
+.main{
+    width: 20vw;
+    height: 10vh;
+}
+
+.header title{
+    font-size: medium;
+    color: white;
+}
+.main p{
+    font-size: large;
+    color: white;
+}
