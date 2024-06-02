@@ -113,11 +113,7 @@ function Table({ headers, values, limit }) {
 		<div className={styles["Table"]}>
 			<table>
 				<thead>
-					<tr>
-						{headers.map((header) => (
-							<th>{header}</th>
-						))}
-					</tr>
+					<tr>{headers && headers.map((header) => <th>{header}</th>)}</tr>
 				</thead>
 				<tbody>{deployTable()}</tbody>
 			</table>

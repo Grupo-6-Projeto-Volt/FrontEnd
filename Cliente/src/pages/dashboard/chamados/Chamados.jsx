@@ -11,22 +11,37 @@ import { FaArrowRotateLeft } from "react-icons/fa6";
 
 function Chamados() {
 	let [chamados, setChamados] = useState([]);
-	let [existemChamadosFechados, setExistemChamadosFechados] = useState();
 	let [headersChamados, setHeadersChamados] = useState([]);
-	let [filtro, setFiltro] = useState(0);
+	let [filtroChamados, setFiltroChamados] = useState(0);
 	let [valorBuscaChamados, setValorBuscaChamados] = useState("");
+	let [existemChamadosFechados, setExistemChamadosFechados] = useState();
+
+	let [leads, setLeads] = useState([]);
+	let [headersLeads, setHeadersLeads] = useState([]);
+	let [filtroLeads, setFiltroLeads] = useState(0);
+	let [valorBuscaLeads, setValorBuscaLeads] = useState("");
 
 	async function getChamados() {
 		try {
-			let response = await ordenarChamados();
-			formatarDadosTabelaChamados(response);
+			let chamados = await ordenarChamados();
+			formatarDadosTabelaChamados(chamados);
 		} catch (e) {
 			console.log(e);
 			formatarDadosTabelaChamados(null);
 		}
 	}
 
-	function formatarDadosTabelaChamados(dados) {
+	async function getLeads() {
+		try {
+			let leads = await ordenarLeads();
+			formatarDadosTabelaLeads(leads);
+		} catch (e) {
+			console.log(e);
+			formatarDadosTabelaLeads(null);
+		}
+	}
+
+	function formatarDadosTabelaChamados(chamados) {
 		let tabelaChamados = [];
 
 		let headersChamados = [
@@ -38,21 +53,21 @@ function Chamados() {
 			"Compra Realizada",
 		];
 
-		if (dados) {
-			dados.forEach((element) => {
+		if (chamados) {
+			chamados.forEach((chamado) => {
 				tabelaChamados.push({
-					id: element.id,
-					nomeCompleto: element.usuarioDto.nome,
-					numeroTelefone: formatPhoneNumber(element.usuarioDto.telefone),
-					produto: element.produtoDto.nome,
-					dataCompra: formatDateTime(element.dataHoraAbertura),
+					id: chamado.id,
+					nomeCompleto: chamado.usuarioDto.nome,
+					numeroTelefone: formatPhoneNumber(chamado.usuarioDto.telefone),
+					produto: chamado.produtoDto.nome,
+					dataCompra: formatDateTime(chamado.dataHoraAbertura),
 					compraRealizada: () => (
 						<div className={styles["table-btn-area"]}>
 							<button
 								className={styles["table-btn-red"]}
 								onClick={() => {
-									chamadosModel.cancelarChamado(element.id);
-									guardarDadosNaPilha(element.id);
+									chamadosModel.cancelarChamado(chamado.id);
+									guardarDadosNaPilha(chamado.id);
 								}}
 							>
 								Não
@@ -60,8 +75,8 @@ function Chamados() {
 							<button
 								className={styles["table-btn-green"]}
 								onClick={() => {
-									chamadosModel.concluirChamado(element.id);
-									guardarDadosNaPilha(element.id);
+									chamadosModel.concluirChamado(chamado.id);
+									guardarDadosNaPilha(chamado.id);
 								}}
 							>
 								Sim
@@ -74,6 +89,25 @@ function Chamados() {
 
 		setChamados(tabelaChamados);
 		setHeadersChamados(headersChamados);
+	}
+
+	function formatarDadosTabelaLeads(leads) {
+		let tabelaLeads = [];
+		let headersLeads = ["Id", "Nome Completo", "Número Telefone", "Email"];
+
+		if (leads) {
+			leads.forEach((lead) => {
+				tabelaLeads.push({
+					id: lead.id,
+					nomeCompleto: lead.usuarioDto.nome,
+					numeroTelefone: formatPhoneNumber(lead.usuarioDto.telefone),
+					email: lead.usuarioDto.email,
+				});
+			});
+		}
+
+		setLeads(tabelaLeads);
+		setHeadersLeads(headersLeads);
 	}
 
 	function guardarDadosNaPilha(id) {
@@ -111,7 +145,7 @@ function Chamados() {
 	async function ordenarChamados() {
 		let response;
 
-		switch (filtro) {
+		switch (filtroChamados) {
 			case "0":
 				response = await chamadosModel.listarChamadosPorDataAberturaDesc(0);
 				break;
@@ -120,6 +154,29 @@ function Chamados() {
 				break;
 			default:
 				response = await chamadosModel.listarChamadosPorDataAberturaDesc(0);
+		}
+
+		return response;
+	}
+
+	async function ordenarLeads() {
+		let response;
+
+		switch (filtroLeads) {
+			case "0":
+				response = await chamadosModel.listarLeadsPorIdAsc(2);
+				break;
+			case "1":
+				response = await chamadosModel.listarLeadsPorIdDesc(2);
+				break;
+			case "2":
+				response = await chamadosModel.listarLeadsPorNomeAsc(2);
+				break;
+			case "3":
+				response = await chamadosModel.listarLeadsPorNomeDesc(2);
+				break;
+			default:
+				response = await chamadosModel.listarLeadsPorIdAsc(2);
 		}
 
 		return response;
@@ -149,7 +206,16 @@ function Chamados() {
 				JSON.stringify({ stack: [], top: -1 })
 			);
 		}
-	}, [filtro, setChamados, restaurarChamadoFechado, guardarDadosNaPilha]);
+	}, [
+		filtroChamados,
+		setChamados,
+		restaurarChamadoFechado,
+		guardarDadosNaPilha,
+	]);
+
+	useEffect(() => {
+		getLeads();
+	}, [filtroLeads, setLeads]);
 
 	useEffect(() => {
 		let chamadosFechados = JSON.parse(
@@ -157,8 +223,6 @@ function Chamados() {
 		).top;
 		setExistemChamadosFechados(chamadosFechados);
 	}, [setExistemChamadosFechados]);
-
-	let headers_clientes = ["Nome Completo", "Número Telefone", "Data", "Email"];
 
 	return (
 		<div className={styles["Chamados"]}>
@@ -197,7 +261,7 @@ function Chamados() {
 										<span>Filtrar por: </span>
 										<select
 											onChange={(e) => {
-												setFiltro(e.target.value);
+												setFiltroChamados(e.target.value);
 											}}
 										>
 											<option value="0">Mais Recentes</option>
@@ -228,10 +292,23 @@ function Chamados() {
 											setValorBuscaChamados(e);
 										}}
 									/>
+									<div className={styles["filter-group"]}>
+										<span>Ordenadar por: </span>
+										<select
+											onChange={(e) => {
+												setFiltroLeads(e.target.value);
+											}}
+										>
+											<option value="0">Id</option>
+											<option value="1">Id reverso</option>
+											<option value="2">Nome</option>
+											<option value="3">Nome reverso</option>
+										</select>
+									</div>
 								</div>
 							</div>
 							<div className={styles["purchase-request-list"]}>
-								{/* <Table headers={headers_clientes} values={[]} limit={4} /> */}
+								<Table headers={headersLeads} values={leads} limit={4} />
 							</div>
 						</div>
 					</section>
