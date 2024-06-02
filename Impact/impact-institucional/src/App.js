@@ -2,6 +2,7 @@ import './App.css';
 import NavBar from './components/navbar/NavBar';
 import Banner from './components/banner/Banner';
 import { Servicos } from './components/servicos/Servicos';
+import Squad from './components/squad/Squad';
 function App() {
   return (
     <>
@@ -10,6 +11,7 @@ function App() {
         <NavBar />
       </div>
       <Servicos />
+      <Squad />
 
     </>
   );
