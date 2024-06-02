@@ -1,16 +1,12 @@
 import styles from "./Kpi.module.css"
-
-export const Kpi = (props) => {
-    const head = props.title;
-    const content = props.paragraph;
+export const Kpi= (props) =>{
     return(
-        <div className={styles['container']}>
-            <div className={styles["header"]}>
-                <title>{head}</title>
+        <div className={styles["container"]}>
+            <div className={styles["content"]}>
+                <p>{props.text.title}</p>
+                <h3>{props.text.paragraph}</h3>
             </div>
-                <div className={styles["main"]}>
-                    <p>{content}</p>
-                </div>
         </div>
     )
 }
+

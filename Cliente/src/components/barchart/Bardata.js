@@ -28,12 +28,9 @@ export const bar_options = {
         data: [1400,2000,300],
         borderColor: ['#5A6ACF','#8593ED','#C7CEFF' ],
         backgroundColor: ['#5A6ACF','#8593ED','#C7CEFF'],
+        borderWidth: 1,
+        barPercentage: 0.5,
+        categoryPercentage: 0.25
       },
-    //   {
-    //     label: 'Dataset 2',
-    //     data: [60,70,80,90,100,120],
-    //     borderColor: 'rgb(53, 162, 235)',
-    //     backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    //   },
     ],
   };

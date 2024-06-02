@@ -1,25 +1,27 @@
 .container{
     height: 20vh;
-    width: 20vw;
-    background-color: black;
-    border-radius: 25px;
+    width: 18vw;
+    background-color:#5A6ACF;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
- }
-.header{
-    width: 20vw;
-    height: 10vh;
+    margin: 20px;
+    margin-top: 0;
 }
-.main{
-    width: 20vw;
-    height: 10vh;
+.content p{
+    color: #FFFF;
+    margin-left: 25px;
+    margin-right: 25px;
+    text-align: center;
+    font-size: medium;
+    font-family: 'Poppins-Regular';
+}
+.content h3{
+    color: #FFFF;
+    margin-top: 0;
+    line-height: 15px;
+    text-align: center;
+    font-size: x-large;
+    font-family: 'Poppins-Bold';
 }
 
-.header title{
-    font-size: medium;
-    color: white;
-}
-.main p{
-    font-size: large;
-    color: white;
-}

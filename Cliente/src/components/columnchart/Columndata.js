@@ -34,12 +34,18 @@ export const column_options = {
         data: [6000,4000,8000,7000],
         backgroundColor: '#F94144',
         stack: 'Stack 0',
+        borderWidth: 1,
+        barPercentage: 0.5,
+        categoryPercentage: 0.25
       },
       {
         label: 'Concluído',
         data: [4000,2000,6000,3000],
         backgroundColor: '#90BE6D',
         stack: 'Stack 1',
+        borderWidth: 1,
+        barPercentage: 0.5,
+        categoryPercentage: 0.25
       },
     ],
   };
