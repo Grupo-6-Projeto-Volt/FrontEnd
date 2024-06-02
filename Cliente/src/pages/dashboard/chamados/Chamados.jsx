@@ -7,22 +7,23 @@ import styles from "./Chamados.module.css";
 import { chamadosModel } from "../../../model/chamadosModel";
 import { formatDateTime, formatPhoneNumber } from "../../../utils/global";
 import { Stack } from "../../../utils/Stack";
+import { FaArrowRotateLeft } from "react-icons/fa6";
 
 function Chamados() {
 	let [chamados, setChamados] = useState([]);
+	let [existemChamadosFechados, setExistemChamadosFechados] = useState();
 	let [headersChamados, setHeadersChamados] = useState([]);
 	let [filtro, setFiltro] = useState(0);
 	let [valorBuscaChamados, setValorBuscaChamados] = useState("");
 
 	async function getChamados() {
-		let response = await ordenarChamados();
-
-		if (response.error) {
-			alert(response.error);
-			return;
+		try {
+			let response = await ordenarChamados();
+			formatarDadosTabelaChamados(response);
+		} catch (e) {
+			console.log(e);
+			formatarDadosTabelaChamados(null);
 		}
-
-		formatarDadosTabelaChamados(response);
 	}
 
 	function formatarDadosTabelaChamados(dados) {
@@ -51,32 +52,7 @@ function Chamados() {
 								className={styles["table-btn-red"]}
 								onClick={() => {
 									chamadosModel.cancelarChamado(element.id);
-
-									if (
-										localStorage.length === 0 ||
-										localStorage.getItem("chamadosFechados") === null
-									) {
-										localStorage.setItem(
-											"chamadosFechados",
-											JSON.stringify({ stack: [], top: -1 })
-										);
-									}
-
-									let { stack, top } = JSON.parse(
-										localStorage.getItem("chamadosFechados")
-									);
-
-									let newStack = new Stack(stack, top);
-									newStack.push(element.id);
-									console.log(newStack);
-
-									localStorage.setItem(
-										"chamadosFechados",
-										JSON.stringify({
-											stack: newStack.getStack(),
-											top: newStack.getTop(),
-										})
-									);
+									guardarDadosNaPilha(element.id);
 								}}
 							>
 								Não
@@ -85,6 +61,7 @@ function Chamados() {
 								className={styles["table-btn-green"]}
 								onClick={() => {
 									chamadosModel.concluirChamado(element.id);
+									guardarDadosNaPilha(element.id);
 								}}
 							>
 								Sim
@@ -97,6 +74,38 @@ function Chamados() {
 
 		setChamados(tabelaChamados);
 		setHeadersChamados(headersChamados);
+	}
+
+	function guardarDadosNaPilha(id) {
+		let { stack, top } = JSON.parse(localStorage.getItem("chamadosFechados"));
+
+		let newStack = new Stack(stack, top);
+		newStack.push(id);
+		setExistemChamadosFechados(newStack.getTop());
+
+		localStorage.setItem(
+			"chamadosFechados",
+			JSON.stringify({
+				stack: newStack.getStack(),
+				top: newStack.getTop(),
+			})
+		);
+	}
+
+	function restaurarChamadoFechado() {
+		let { stack, top } = JSON.parse(localStorage.getItem("chamadosFechados"));
+
+		let newStack = new Stack(stack, top);
+		chamadosModel.restaurarChamadoFechado(newStack.pop());
+		setExistemChamadosFechados(newStack.getTop());
+
+		localStorage.setItem(
+			"chamadosFechados",
+			JSON.stringify({
+				stack: newStack.getStack(),
+				top: newStack.getTop(),
+			})
+		);
 	}
 
 	async function ordenarChamados() {
@@ -131,7 +140,23 @@ function Chamados() {
 
 	useEffect(() => {
 		getChamados();
-	}, [filtro, setChamados]);
+		if (
+			localStorage.length === 0 ||
+			localStorage.getItem("chamadosFechados") === null
+		) {
+			localStorage.setItem(
+				"chamadosFechados",
+				JSON.stringify({ stack: [], top: -1 })
+			);
+		}
+	}, [filtro, setChamados, restaurarChamadoFechado, guardarDadosNaPilha]);
+
+	useEffect(() => {
+		let chamadosFechados = JSON.parse(
+			localStorage.getItem("chamadosFechados")
+		).top;
+		setExistemChamadosFechados(chamadosFechados);
+	}, [setExistemChamadosFechados]);
 
 	let headers_clientes = ["Nome Completo", "Número Telefone", "Data", "Email"];
 
@@ -149,6 +174,16 @@ function Chamados() {
 									<h4>Solicitaram produto pelo whatsapp</h4>
 								</div>
 								<div className={styles["input-group"]}>
+									<FaArrowRotateLeft
+										visibility={
+											existemChamadosFechados !== -1 ? "visible" : "hidden"
+										}
+										size={20}
+										cursor={"pointer"}
+										onClick={() => {
+											restaurarChamadoFechado();
+										}}
+									/>
 									<Searchbar
 										placeholder={"Id:"}
 										onChange={(e) => {

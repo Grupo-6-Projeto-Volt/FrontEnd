@@ -16,7 +16,7 @@ export class Stack {
 		if (!this.isEmpty()) {
 			return this.stack[this.top--];
 		} else {
-			throw new Error("A pilha está vazia!");
+			alert("Não há ações para desfazer!");
 		}
 	}
 

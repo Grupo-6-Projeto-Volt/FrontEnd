@@ -78,4 +78,19 @@ export const chamadosModel = {
 			});
 		return resposta;
 	},
+	restaurarChamadoFechado: (id) => {
+		let resposta = api
+			.patch(`/produtochamados/restaurar/${id}`)
+			.then((resultado) => {
+				if (resultado.status === 200) {
+					return resultado.data;
+				}
+				return null;
+			})
+			.catch((erro) => {
+				console.error("Houve um erro: " + erro);
+				return null;
+			});
+		return resposta;
+	},
 };
