@@ -3,6 +3,9 @@ import styles from "./Login.module.css";
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
 import logo from "../../utils/assets/logo-ichiban.png";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Login() {
   let [emailText, setEmailText] = useState("");
@@ -20,16 +23,27 @@ function Login() {
         sessionStorage.TOKEN = Data.token;
         sessionStorage.ID = Data.userId;
         sessionStorage.EMAIL = Data.email;
-        alert("Login feito com sucesso!!");
+        toast.success('Login realizado com sucesso!!', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
         navigate("/pagina");
       })
       .catch((erro) => {
         console.error("Houve um erro: " + erro);
-        alert("Email ou senha inválidos!!");
+        toast.error("Email ou senha inválidos!!");
       });
   }
 
   return (
+    <>
+      <ToastContainer />
     <div className={styles["Login"]}>
       <div className={styles["box-logo"]}>
         <img src={logo} className={styles["logo"]}></img>
@@ -91,6 +105,7 @@ function Login() {
       </div>
       <div></div>
     </div>
+    </>
   );
 }
 

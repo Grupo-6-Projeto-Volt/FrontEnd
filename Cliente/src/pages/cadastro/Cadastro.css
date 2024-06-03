@@ -87,6 +87,7 @@
 }
 
 .box-logo{
+    margin-top: 3%;
     display: flex;
     align-items: flex-start;
     margin-right: 74rem;

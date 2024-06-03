@@ -5,6 +5,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
 import logo from "../../utils/assets/logo-ichiban.png";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Cadastro = () => {
   const [nomeText, setNomeText] = useState("");
@@ -31,12 +33,12 @@ const Cadastro = () => {
         sessionStorage.EMAIL = Data.email;
         sessionStorage.TELEFONE = Data.telefone;
         sessionStorage.CATEGORIA = Data.categoria;
-        alert("Cadastro feito com sucesso!!");
+        toast.success("Cadastro feito com sucesso!!");
         navigate("/pagina");
       })
       .catch((erro) => {
         console.error("Houve um erro: " + erro);
-        alert("Informações incorretas!!");
+        toast.error("Informações incorretas!!");
       });
   };
 
