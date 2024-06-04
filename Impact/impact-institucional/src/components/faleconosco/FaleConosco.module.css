@@ -15,6 +15,7 @@ h1{
         margin: auto;
         width: 80%;
         flex-direction: column;
+        margin-top: 4%;
 }
 
 .form{
