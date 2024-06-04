@@ -1,0 +1,27 @@
+*{
+    font-family: "Inter", sans-serif;
+}
+
+.card {
+    background: var(--surface-card);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.menu{
+    width: 90vw;
+    border-radius: 50rem;
+    border-color: #FFF;
+    background-color: #fff;
+    box-shadow: 4px 4px 4px #bcbbbb;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logo{
+    width: 100px;
+}
+
+
+
