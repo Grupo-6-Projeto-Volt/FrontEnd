@@ -1,11 +1,12 @@
 import styles from "./Navbar.module.css";
 import { FaBell } from "react-icons/fa6";
+import imagem from '../../utils/assets/img/logo-ichiban.png'
 function Navbar() {
 	return (
 		<div className={styles["Navbar"]}>
 			<div className={styles["container"]}>
 				<img
-					src={require("../../utils/assets/img/logo-ichiban.png")}
+					src={imagem}
 					alt="Logo da Ichiban Eletrônicos"
 					style={{
 						width: "13%",

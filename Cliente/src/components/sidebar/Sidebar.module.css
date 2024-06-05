@@ -1,7 +1,21 @@
+@media (min-width: 800px) and (max-width: 1000px) {
+	.Sidebar {
+		display: flex;
+		height: 92vh;
+		width: 20vw;
+		background-color: #f1f2f7;
+		justify-content: center;
+		align-items: center;
+		position: fixed;
+		left: 0;
+		top: 8vh;
+	}
+}
+
 .Sidebar {
 	display: flex;
 	height: 92vh;
-	width: 15vw;
+	width: fit-content;
 	background-color: #f1f2f7;
 	justify-content: center;
 	align-items: center;
