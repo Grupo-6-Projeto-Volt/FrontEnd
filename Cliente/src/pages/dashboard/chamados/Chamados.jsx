@@ -11,6 +11,7 @@ import { FaArrowRotateLeft } from "react-icons/fa6";
 
 function Chamados() {
 	let [chamados, setChamados] = useState([]);
+	let [tabelaChamados, setTabelaChamados] = useState([]);
 	let [headersChamados, setHeadersChamados] = useState([]);
 	let [filtroChamados, setFiltroChamados] = useState(0);
 	let [valorBuscaChamados, setValorBuscaChamados] = useState("");
@@ -31,6 +32,46 @@ function Chamados() {
 		}
 	}
 
+	function getTabelaChamados() {
+		let tabelaChamados = [];
+		if (chamados) {
+			chamados.forEach((item) => {
+				tabelaChamados.push({
+					id: item.id,
+					nomeCompleto: item.nomeCompleto,
+					numeroTelefone: formatPhoneNumber(item.numeroTelefone),
+					produto: item.produto,
+					dataCompra: formatDateTime(item.dataCompra),
+					compraRealizada: () => (
+						<div className={styles["table-btn-area"]}>
+							<button
+								className={styles["table-btn-red"]}
+								onClick={() => {
+									chamadosModel.cancelarChamado(item.id);
+									guardarDadosNaPilha(item.id);
+									getChamados();
+								}}
+							>
+								Não
+							</button>
+							<button
+								className={styles["table-btn-green"]}
+								onClick={() => {
+									chamadosModel.concluirChamado(item.id);
+									guardarDadosNaPilha(item.id);
+									getChamados();
+								}}
+							>
+								Sim
+							</button>
+						</div>
+					),
+				});
+			});
+		}
+		setTabelaChamados(tabelaChamados);
+	}
+
 	async function getLeads() {
 		try {
 			let leads = await ordenarLeads();
@@ -42,8 +83,6 @@ function Chamados() {
 	}
 
 	function formatarDadosTabelaChamados(chamados) {
-		let tabelaChamados = [];
-
 		let headersChamados = [
 			"Id",
 			"Nome Completo",
@@ -53,52 +92,31 @@ function Chamados() {
 			"Compra Realizada",
 		];
 
+		let chamadosFormatados = [];
+
 		if (chamados) {
 			chamados.forEach((chamado) => {
-				tabelaChamados.push({
+				chamadosFormatados.push({
 					id: chamado.id,
 					nomeCompleto: chamado.usuarioDto.nome,
 					numeroTelefone: formatPhoneNumber(chamado.usuarioDto.telefone),
 					produto: chamado.produtoDto.nome,
 					dataCompra: formatDateTime(chamado.dataHoraAbertura),
-					compraRealizada: () => (
-						<div className={styles["table-btn-area"]}>
-							<button
-								className={styles["table-btn-red"]}
-								onClick={() => {
-									chamadosModel.cancelarChamado(chamado.id);
-									guardarDadosNaPilha(chamado.id);
-								}}
-							>
-								Não
-							</button>
-							<button
-								className={styles["table-btn-green"]}
-								onClick={() => {
-									chamadosModel.concluirChamado(chamado.id);
-									guardarDadosNaPilha(chamado.id);
-								}}
-							>
-								Sim
-							</button>
-						</div>
-					),
 				});
 			});
 		}
 
-		setChamados(tabelaChamados);
+		setChamados(chamadosFormatados);
 		setHeadersChamados(headersChamados);
 	}
 
 	function formatarDadosTabelaLeads(leads) {
 		let tabelaLeads = [];
-		let headersLeads = ["Id", "Nome Completo", "Número Telefone", "Email"];
+		let headersLeads = ["Nome Completo", "Número Telefone", "Email"];
 
 		if (leads) {
 			leads.forEach((lead) => {
 				tabelaLeads.push({
-					id: lead.id,
 					nomeCompleto: lead.usuarioDto.nome,
 					numeroTelefone: formatPhoneNumber(lead.usuarioDto.telefone),
 					email: lead.usuarioDto.email,
@@ -140,6 +158,7 @@ function Chamados() {
 				top: newStack.getTop(),
 			})
 		);
+		getChamados();
 	}
 
 	async function ordenarChamados() {
@@ -164,15 +183,9 @@ function Chamados() {
 
 		switch (filtroLeads) {
 			case "0":
-				response = await chamadosModel.listarLeadsPorIdAsc(2);
-				break;
-			case "1":
-				response = await chamadosModel.listarLeadsPorIdDesc(2);
-				break;
-			case "2":
 				response = await chamadosModel.listarLeadsPorNomeAsc(2);
 				break;
-			case "3":
+			case "1":
 				response = await chamadosModel.listarLeadsPorNomeDesc(2);
 				break;
 			default:
@@ -197,6 +210,7 @@ function Chamados() {
 
 	useEffect(() => {
 		getChamados();
+		getLeads();
 		if (
 			localStorage.length === 0 ||
 			localStorage.getItem("chamadosFechados") === null
@@ -206,16 +220,19 @@ function Chamados() {
 				JSON.stringify({ stack: [], top: -1 })
 			);
 		}
-	}, [
-		filtroChamados,
-		setChamados,
-		restaurarChamadoFechado,
-		guardarDadosNaPilha,
-	]);
+	}, []);
+
+	useEffect(() => {
+		getTabelaChamados();
+	}, [chamados, existemChamadosFechados]);
+
+	useEffect(() => {
+		getChamados();
+	}, [filtroChamados, existemChamadosFechados]);
 
 	useEffect(() => {
 		getLeads();
-	}, [filtroLeads, setLeads]);
+	}, [filtroLeads, chamados]);
 
 	useEffect(() => {
 		let chamadosFechados = JSON.parse(
@@ -271,7 +288,11 @@ function Chamados() {
 								</div>
 							</div>
 							<div className={styles["purchase-request-list"]}>
-								<Table headers={headersChamados} values={chamados} limit={4} />
+								<Table
+									headers={headersChamados}
+									values={tabelaChamados}
+									limit={4}
+								/>
 							</div>
 						</div>
 					</section>
@@ -293,16 +314,14 @@ function Chamados() {
 										}}
 									/>
 									<div className={styles["filter-group"]}>
-										<span>Ordenadar por: </span>
+										<span>Filtrar por: </span>
 										<select
 											onChange={(e) => {
 												setFiltroLeads(e.target.value);
 											}}
 										>
-											<option value="0">Id</option>
-											<option value="1">Id reverso</option>
-											<option value="2">Nome</option>
-											<option value="3">Nome reverso</option>
+											<option value="0">Nome</option>
+											<option value="1">Nome reverso</option>
 										</select>
 									</div>
 								</div>
