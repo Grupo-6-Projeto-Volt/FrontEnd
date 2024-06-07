@@ -93,38 +93,6 @@ export const chamadosModel = {
 			});
 		return resposta;
 	},
-	listarLeadsPorIdAsc: (status) => {
-		let resposta = api
-			.get("/produtochamados/filtro/buscar-leads-por-id-asc", {
-				params: {
-					status: status,
-				},
-			})
-			.then((resultado) => {
-				return resultado.data;
-			})
-			.catch((erro) => {
-				console.error("Houve um erro: " + erro);
-				return erro;
-			});
-		return resposta;
-	},
-	listarLeadsPorIdDesc: (status) => {
-		let resposta = api
-			.get("/produtochamados/filtro/buscar-leads-por-id-desc", {
-				params: {
-					status: status,
-				},
-			})
-			.then((resultado) => {
-				return resultado.data;
-			})
-			.catch((erro) => {
-				console.error("Houve um erro: " + erro);
-				return erro;
-			});
-		return resposta;
-	},
 	listarLeadsPorNomeAsc: (status) => {
 		let resposta = api
 			.get("/produtochamados/filtro/buscar-leads-por-nome-asc", {

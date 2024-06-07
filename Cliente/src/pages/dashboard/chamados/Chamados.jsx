@@ -22,6 +22,11 @@ function Chamados() {
 	let [filtroLeads, setFiltroLeads] = useState(0);
 	let [valorBuscaLeads, setValorBuscaLeads] = useState("");
 
+	// setInterval(() => {
+	// 	getChamados();
+	// 	getLeads();
+	// }, 180000);
+
 	async function getChamados() {
 		try {
 			let chamados = await ordenarChamados();
@@ -46,8 +51,8 @@ function Chamados() {
 						<div className={styles["table-btn-area"]}>
 							<button
 								className={styles["table-btn-red"]}
-								onClick={() => {
-									chamadosModel.cancelarChamado(item.id);
+								onClick={async () => {
+									await chamadosModel.cancelarChamado(item.id);
 									guardarDadosNaPilha(item.id);
 									getChamados();
 								}}
@@ -56,8 +61,8 @@ function Chamados() {
 							</button>
 							<button
 								className={styles["table-btn-green"]}
-								onClick={() => {
-									chamadosModel.concluirChamado(item.id);
+								onClick={async () => {
+									await chamadosModel.concluirChamado(item.id);
 									guardarDadosNaPilha(item.id);
 									getChamados();
 								}}
@@ -144,11 +149,11 @@ function Chamados() {
 		);
 	}
 
-	function restaurarChamadoFechado() {
+	async function restaurarChamadoFechado() {
 		let { stack, top } = JSON.parse(localStorage.getItem("chamadosFechados"));
 
 		let newStack = new Stack(stack, top);
-		chamadosModel.restaurarChamadoFechado(newStack.pop());
+		await chamadosModel.restaurarChamadoFechado(newStack.pop());
 		setExistemChamadosFechados(newStack.getTop());
 
 		localStorage.setItem(
@@ -189,7 +194,7 @@ function Chamados() {
 				response = await chamadosModel.listarLeadsPorNomeDesc(2);
 				break;
 			default:
-				response = await chamadosModel.listarLeadsPorIdAsc(2);
+				response = await chamadosModel.listarLeadsPorNomeAsc(2);
 		}
 
 		return response;
@@ -255,16 +260,21 @@ function Chamados() {
 									<h4>Solicitaram produto pelo whatsapp</h4>
 								</div>
 								<div className={styles["input-group"]}>
-									<FaArrowRotateLeft
-										visibility={
-											existemChamadosFechados !== -1 ? "visible" : "hidden"
-										}
-										size={20}
-										cursor={"pointer"}
-										onClick={() => {
-											restaurarChamadoFechado();
+									<span
+										style={{
+											visibility:
+												existemChamadosFechados !== -1 ? "visible" : "hidden",
+											fontSize: 12,
+											width: "30%",
+											textAlign: "center",
+											cursor: "pointer",
 										}}
-									/>
+										onClick={async () => {
+											await restaurarChamadoFechado();
+										}}
+									>
+										Restaurar chamados fechados
+									</span>
 									<Searchbar
 										placeholder={"Id:"}
 										onChange={(e) => {
