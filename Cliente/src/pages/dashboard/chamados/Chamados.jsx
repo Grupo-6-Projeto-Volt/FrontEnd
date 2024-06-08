@@ -5,83 +5,246 @@ import Searchbar from "../../../components/searchbar/Searchbar";
 import Sidebar from "../../../components/sidebar/Sidebar";
 import styles from "./Chamados.module.css";
 import { chamadosModel } from "../../../model/chamadosModel";
+import { formatDateTime, formatPhoneNumber } from "../../../utils/global";
+import { Stack } from "../../../utils/Stack";
+import { FaArrowRotateLeft } from "react-icons/fa6";
 
 function Chamados() {
 	let [chamados, setChamados] = useState([]);
+	let [tabelaChamados, setTabelaChamados] = useState([]);
 	let [headersChamados, setHeadersChamados] = useState([]);
-	let [filtro, setFiltro] = useState(0);
+	let [filtroChamados, setFiltroChamados] = useState(0);
 	let [valorBuscaChamados, setValorBuscaChamados] = useState("");
-	let [chamadosEncontrados, setChamadosEncontrados] = useState([]);
+	let [existemChamadosFechados, setExistemChamadosFechados] = useState();
+
+	let [leads, setLeads] = useState([]);
+	let [headersLeads, setHeadersLeads] = useState([]);
+	let [filtroLeads, setFiltroLeads] = useState(0);
+	let [valorBuscaLeads, setValorBuscaLeads] = useState("");
+
+	// setInterval(() => {
+	// 	getChamados();
+	// 	getLeads();
+	// }, 180000);
 
 	async function getChamados() {
-		let response = await ordenarChamados();
-
-		if (response.error) {
-			alert(response.error);
-			return;
+		try {
+			let chamados = await ordenarChamados();
+			formatarDadosTabelaChamados(chamados);
+		} catch (e) {
+			console.log(e);
+			formatarDadosTabelaChamados(null);
 		}
+	}
 
-		let id = 0;
+	function getTabelaChamados() {
 		let tabelaChamados = [];
+		if (chamados) {
+			chamados.forEach((item) => {
+				tabelaChamados.push({
+					id: item.id,
+					nomeCompleto: item.nomeCompleto,
+					numeroTelefone: formatPhoneNumber(item.numeroTelefone),
+					produto: item.produto,
+					dataCompra: formatDateTime(item.dataCompra),
+					compraRealizada: () => (
+						<div className={styles["table-btn-area"]}>
+							<button
+								className={styles["table-btn-red"]}
+								onClick={async () => {
+									await chamadosModel.cancelarChamado(item.id);
+									guardarDadosNaPilha(item.id);
+									getChamados();
+								}}
+							>
+								Não
+							</button>
+							<button
+								className={styles["table-btn-green"]}
+								onClick={async () => {
+									await chamadosModel.concluirChamado(item.id);
+									guardarDadosNaPilha(item.id);
+									getChamados();
+								}}
+							>
+								Sim
+							</button>
+						</div>
+					),
+				});
+			});
+		}
+		setTabelaChamados(tabelaChamados);
+	}
 
+	async function getLeads() {
+		try {
+			let leads = await ordenarLeads();
+			formatarDadosTabelaLeads(leads);
+		} catch (e) {
+			console.log(e);
+			formatarDadosTabelaLeads(null);
+		}
+	}
+
+	function formatarDadosTabelaChamados(chamados) {
 		let headersChamados = [
 			"Id",
 			"Nome Completo",
 			"Número Telefone",
 			"Produto Solicitado",
-			"Data Compra",
+			"Data Solicitação",
 			"Compra Realizada",
 		];
 
-		response.forEach((element) => {
-			tabelaChamados.push({
-				id: ++id,
-				nomeCompleto: element.usuarioDto.nome,
-				numeroTelefone: element.usuarioDto.telefone,
-				produto: element.produtoDto.nome,
-				dataCompra: element.dataHoraAbertura,
-				compraRealizada: () => (
-					<div className={styles["table-btn-area"]}>
-						<button className={styles["table-btn-red"]}>Não</button>
-						<button className={styles["table-btn-green"]}>Sim</button>
-					</div>
-				),
-			});
-		});
+		let chamadosFormatados = [];
 
-		setChamados(tabelaChamados);
+		if (chamados) {
+			chamados.forEach((chamado) => {
+				chamadosFormatados.push({
+					id: chamado.id,
+					nomeCompleto: chamado.usuarioDto.nome,
+					numeroTelefone: formatPhoneNumber(chamado.usuarioDto.telefone),
+					produto: chamado.produtoDto.nome,
+					dataCompra: formatDateTime(chamado.dataHoraAbertura),
+				});
+			});
+		}
+
+		setChamados(chamadosFormatados);
 		setHeadersChamados(headersChamados);
+	}
+
+	function formatarDadosTabelaLeads(leads) {
+		let tabelaLeads = [];
+		let headersLeads = ["Nome Completo", "Número Telefone", "Email"];
+
+		if (leads) {
+			leads.forEach((lead) => {
+				tabelaLeads.push({
+					nomeCompleto: lead.usuarioDto.nome,
+					numeroTelefone: formatPhoneNumber(lead.usuarioDto.telefone),
+					email: lead.usuarioDto.email,
+				});
+			});
+		}
+
+		setLeads(tabelaLeads);
+		setHeadersLeads(headersLeads);
+	}
+
+	function guardarDadosNaPilha(id) {
+		let { stack, top } = JSON.parse(localStorage.getItem("chamadosFechados"));
+
+		let newStack = new Stack(stack, top);
+		newStack.push(id);
+		setExistemChamadosFechados(newStack.getTop());
+
+		localStorage.setItem(
+			"chamadosFechados",
+			JSON.stringify({
+				stack: newStack.getStack(),
+				top: newStack.getTop(),
+			})
+		);
+	}
+
+	async function restaurarChamadoFechado() {
+		let { stack, top } = JSON.parse(localStorage.getItem("chamadosFechados"));
+
+		let newStack = new Stack(stack, top);
+		await chamadosModel.restaurarChamadoFechado(newStack.pop());
+		setExistemChamadosFechados(newStack.getTop());
+
+		localStorage.setItem(
+			"chamadosFechados",
+			JSON.stringify({
+				stack: newStack.getStack(),
+				top: newStack.getTop(),
+			})
+		);
+		getChamados();
 	}
 
 	async function ordenarChamados() {
 		let response;
 
-		switch (filtro) {
+		switch (filtroChamados) {
 			case "0":
-				response = await chamadosModel.listarChamadosPorDataAberturaDesc();
+				response = await chamadosModel.listarChamadosPorDataAberturaDesc(0);
 				break;
 			case "1":
-				response = await chamadosModel.listarChamadosPorDataAberturaAsc();
+				response = await chamadosModel.listarChamadosPorDataAberturaAsc(0);
 				break;
 			default:
-				response = await chamadosModel.listarChamadosPorDataAberturaDesc();
+				response = await chamadosModel.listarChamadosPorDataAberturaDesc(0);
 		}
 
 		return response;
 	}
 
-	function buscarChamadoPorId() {
-		let chamadosEncontrados = chamados.filter((chamado) =>
-			String(chamado.id).includes(valorBuscaChamados)
+	async function ordenarLeads() {
+		let response;
+
+		switch (filtroLeads) {
+			case "0":
+				response = await chamadosModel.listarLeadsPorNomeAsc(2);
+				break;
+			case "1":
+				response = await chamadosModel.listarLeadsPorNomeDesc(2);
+				break;
+			default:
+				response = await chamadosModel.listarLeadsPorNomeAsc(2);
+		}
+
+		return response;
+	}
+
+	async function buscarChamadoPorId() {
+		let chamadosEncontrado = await chamadosModel.buscarChamadoPorId(
+			valorBuscaChamados
 		);
-		setChamadosEncontrados(chamadosEncontrados);
+
+		if (chamadosEncontrado !== null) {
+			formatarDadosTabelaChamados([chamadosEncontrado]);
+		} else {
+			alert("Nenhum chamado encontrado");
+			getChamados();
+		}
 	}
 
 	useEffect(() => {
 		getChamados();
+		getLeads();
+		if (
+			localStorage.length === 0 ||
+			localStorage.getItem("chamadosFechados") === null
+		) {
+			localStorage.setItem(
+				"chamadosFechados",
+				JSON.stringify({ stack: [], top: -1 })
+			);
+		}
 	}, []);
 
-	let headers_clientes = ["Nome Completo", "Número Telefone", "Data", "Email"];
+	useEffect(() => {
+		getTabelaChamados();
+	}, [chamados, existemChamadosFechados]);
+
+	useEffect(() => {
+		getChamados();
+	}, [filtroChamados, existemChamadosFechados]);
+
+	useEffect(() => {
+		getLeads();
+	}, [filtroLeads, chamados]);
+
+	useEffect(() => {
+		let chamadosFechados = JSON.parse(
+			localStorage.getItem("chamadosFechados")
+		).top;
+		setExistemChamadosFechados(chamadosFechados);
+	}, [setExistemChamadosFechados]);
 
 	return (
 		<div className={styles["Chamados"]}>
@@ -97,6 +260,21 @@ function Chamados() {
 									<h4>Solicitaram produto pelo whatsapp</h4>
 								</div>
 								<div className={styles["input-group"]}>
+									<span
+										style={{
+											visibility:
+												existemChamadosFechados !== -1 ? "visible" : "hidden",
+											fontSize: 12,
+											width: "30%",
+											textAlign: "center",
+											cursor: "pointer",
+										}}
+										onClick={async () => {
+											await restaurarChamadoFechado();
+										}}
+									>
+										Restaurar chamados fechados
+									</span>
 									<Searchbar
 										placeholder={"Id:"}
 										onChange={(e) => {
@@ -110,7 +288,7 @@ function Chamados() {
 										<span>Filtrar por: </span>
 										<select
 											onChange={(e) => {
-												setFiltro(e.target.value);
+												setFiltroChamados(e.target.value);
 											}}
 										>
 											<option value="0">Mais Recentes</option>
@@ -120,7 +298,11 @@ function Chamados() {
 								</div>
 							</div>
 							<div className={styles["purchase-request-list"]}>
-								<Table headers={headersChamados} values={chamados} limit={4} />
+								<Table
+									headers={headersChamados}
+									values={tabelaChamados}
+									limit={4}
+								/>
 							</div>
 						</div>
 					</section>
@@ -138,13 +320,24 @@ function Chamados() {
 									<Searchbar
 										placeholder={"Id:"}
 										onChange={(e) => {
-											console.log(e);
+											setValorBuscaChamados(e);
 										}}
 									/>
+									<div className={styles["filter-group"]}>
+										<span>Filtrar por: </span>
+										<select
+											onChange={(e) => {
+												setFiltroLeads(e.target.value);
+											}}
+										>
+											<option value="0">Nome</option>
+											<option value="1">Nome reverso</option>
+										</select>
+									</div>
 								</div>
 							</div>
 							<div className={styles["purchase-request-list"]}>
-								<Table headers={headers_clientes} values={[]} limit={4} />
+								<Table headers={headersLeads} values={leads} limit={4} />
 							</div>
 						</div>
 					</section>

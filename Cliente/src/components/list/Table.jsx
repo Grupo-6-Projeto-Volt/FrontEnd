@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Table.module.css";
 
 function Table({ headers, values, limit }) {
@@ -7,6 +7,12 @@ function Table({ headers, values, limit }) {
 		values.length < limit ? values.length : limit
 	);
 	let [selectedIndex, setSelectedIndex] = useState(0);
+
+	useEffect(() => {
+		setLastIndex(values.length < limit ? values.length : limit);
+		setSelectedIndex(0);
+		setFirstIndex(0);
+	}, [headers, values, limit]);
 
 	function handleBack() {
 		if (selectedIndex > 0) {
@@ -38,18 +44,21 @@ function Table({ headers, values, limit }) {
 
 	function deployTable() {
 		const table = [];
+
 		for (let index = firstIndex; index < lastIndex; index++) {
-			table.push(
-				<tr>
-					{Object.keys(values[index]).map((key) => (
-						<td>
-							{typeof values[index][key] === "function"
-								? values[index][key]()
-								: values[index][key]}
-						</td>
-					))}
-				</tr>
-			);
+			if (values[index] !== undefined) {
+				table.push(
+					<tr>
+						{Object.keys(values[index]).map((key) => (
+							<td>
+								{typeof values[index][key] === "function"
+									? values[index][key]()
+									: values[index][key]}
+							</td>
+						))}
+					</tr>
+				);
+			}
 		}
 		return table;
 	}
@@ -82,6 +91,7 @@ function Table({ headers, values, limit }) {
 				{selectedIndex + 1}
 			</button>
 		);
+
 		return btns;
 	}
 
@@ -103,11 +113,7 @@ function Table({ headers, values, limit }) {
 		<div className={styles["Table"]}>
 			<table>
 				<thead>
-					<tr>
-						{headers.map((header) => (
-							<th>{header}</th>
-						))}
-					</tr>
+					<tr>{headers && headers.map((header) => <th>{header}</th>)}</tr>
 				</thead>
 				<tbody>{deployTable()}</tbody>
 			</table>
