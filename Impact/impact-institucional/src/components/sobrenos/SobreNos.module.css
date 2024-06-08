@@ -1,0 +1,66 @@
+*{
+    font-family: "Inter", sans-serif;
+}
+
+h1{
+    margin: 0;
+    font-size: 45px;
+}
+
+.box-titulo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2%;
+}
+
+.box-valores{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 3%;
+}
+
+.valores{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    padding: 2%;
+    border-left: #fcb68d solid 2px;
+    border-radius: 0.5rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.valores h1{
+    font-size: 35px;
+}
+
+.valores p{
+    font-size: 24px;
+}
+
+.container-sobreNos{
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin: auto;
+    width: 80%;
+    flex-direction: column;
+}
+
+.box-img{
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin: auto;
+    width: 100%;
+    height: 20rem;
+    flex-direction: column;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    align-items: center;
+}
+
+.logosSobrenos{
+    width: 45%;
+}

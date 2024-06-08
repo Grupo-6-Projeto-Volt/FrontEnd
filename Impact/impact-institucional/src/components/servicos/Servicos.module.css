@@ -1,0 +1,29 @@
+.container{
+    display: flex;
+    align-content: space-between;
+    width: 80%;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+    margin-top: 6rem;
+}
+.titulo{
+    text-transform: capitalize;
+    font-weight: 900;
+    font-size: 50px;
+}
+
+.textoSobre{
+    font-size: 24px;
+    width: 90%;
+}
+
+.botao{
+    align-self: center;
+    background-color: #FF8F50;
+    border: none;
+    color: #000;
+    font-weight: lighter;
+    padding-left: 10%;
+    padding-right: 10%;
+}

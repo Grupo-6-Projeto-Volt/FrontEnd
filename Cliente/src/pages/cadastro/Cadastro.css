@@ -1,5 +1,5 @@
-.Login{
-    width: 100vw;
+.Cadastro{
+    width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -10,7 +10,7 @@
 
 .form{
     width:  41rem;
-    height: 33rem;
+    height: 100%;
     box-shadow: .2rem .1rem .8rem rgb(169, 169, 169);
     border-radius: 2.5rem;
     padding: 20px;
@@ -20,19 +20,8 @@
     align-items: center;
 }
 
-.voltar p{
-    text-decoration: underline;
-}
-
-.titulo{
-    height: 10%;
-    width: 100%;
-    text-align: center;
-    font-size: 40px;
-}
-
 .btn{
-    height: 4rem;
+    height: 8rem;
     width: 90%;
     border: none;
     cursor: pointer;
@@ -51,7 +40,7 @@
 }
 
 .input-group{
-    height: 75%;
+    height: 100%;
     width: 85%;
     display: flex;
     flex-direction: column;
@@ -64,6 +53,7 @@
     flex-direction: column;
     height: 45%;
     width: 90%;
+    margin-bottom: 1.3%;
 }
 
 .input-box label{
@@ -71,7 +61,7 @@
 }
 
 .input-box input{
-    height: 45%;
+    height: 40%;
     width: 100%;
     border: none;
     padding-left: .7rem;
@@ -85,14 +75,19 @@
     align-items: flex-start;
     color: black;
     font-size: 20px;
-    height: 4%;
+}
+
+.voltar p{
+    text-decoration: underline;
 }
 
 .logo{
-    width: 12rem;
+    width: 9rem;
+    padding-top: 5%;
 }
 
 .box-logo{
+    margin-top: 3%;
     display: flex;
     align-items: flex-start;
     margin-right: 74rem;
@@ -110,16 +105,39 @@
     margin-right: 25rem;
 }
 
+.voltar{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-items: flex-start;
+    color: black;
+    font-size: 20px;
+    height: 0.1%;
+}
+
+.logo{
+    width: 12rem;
+}
+
+.box-logo{
+    display: flex;
+    align-items: flex-start;
+}
+
 .link{
     cursor: pointer;
     color: #BB2020;
 }
 
-.box-cadastar{
+.box-logar{
     display: flex;
+    width: 70%;
     flex-direction: row;
     align-items: center;
-    width: 100%;
-    justify-content: space-evenly;
-    margin-top: 3%;
+    justify-content: space-around;
+    margin-top: 0.5%;
+}
+
+.error-message{
+    color: red;
 }
