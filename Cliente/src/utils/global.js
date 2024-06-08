@@ -1,13 +1,17 @@
+export const validateAuth = () => {
+	const token = sessionStorage.TOKEN;
+	if (!token) {
+		return false;
+	}
+	return true;
+};
+
 export const formatPhoneNumber = (value) => {
-	return value
-		.replace(/\D/g, "")
-		.replace(/(\d{2})(\d)/, "($1) $2")
-		.replace(/(\d{4})(\d)/, "$1-$2");
+	let regex = /(\d{2})(\d{1})(\d{4})(\d)/;
+	return value.replace(regex, "($1) $2 $3-$4");
 };
 
 export const formatDateTime = (value) => {
-	return value.replace(
-		/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/,
-		"$3/$2/$1 $4:$5"
-	);
+	let regex = /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/;
+	return value.replace(regex, "$3/$2/$1 $4:$5");
 };
