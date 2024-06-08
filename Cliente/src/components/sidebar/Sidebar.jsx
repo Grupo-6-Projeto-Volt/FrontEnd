@@ -22,7 +22,7 @@ function Sidebar() {
 						<div
 							className={
 								styles[
-									location.pathname === "/"
+									location.pathname === "/dashboard-chamados"
 										? "content-item-active"
 										: "content-item"
 								]

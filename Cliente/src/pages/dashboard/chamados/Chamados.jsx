@@ -1,13 +1,18 @@
+import styles from "./Chamados.module.css";
 import { useEffect, useState } from "react";
+import { Stack } from "../../../utils/Stack";
 import Table from "../../../components/list/Table";
+import Sidebar from "../../../components/sidebar/Sidebar";
+import { chamadosModel } from "../../../model/chamadosModel";
 import Navbar from "../../../components/navbar/dashboard/Navbar";
 import Searchbar from "../../../components/searchbar/Searchbar";
-import Sidebar from "../../../components/sidebar/Sidebar";
-import styles from "./Chamados.module.css";
-import { chamadosModel } from "../../../model/chamadosModel";
-import { formatDateTime, formatPhoneNumber } from "../../../utils/global";
-import { Stack } from "../../../utils/Stack";
-import { FaArrowRotateLeft } from "react-icons/fa6";
+
+import {
+	formatDateTime,
+	formatPhoneNumber,
+	validateAuth,
+} from "../../../utils/global";
+import { useNavigate } from "react-router-dom";
 
 function Chamados() {
 	let [chamados, setChamados] = useState([]);
@@ -22,10 +27,14 @@ function Chamados() {
 	let [filtroLeads, setFiltroLeads] = useState(0);
 	let [valorBuscaLeads, setValorBuscaLeads] = useState("");
 
-	// setInterval(() => {
-	// 	getChamados();
-	// 	getLeads();
-	// }, 180000);
+	let navigate = useNavigate();
+
+	function validateAuthentication() {
+		if (!validateAuth()) {
+			alert("Você não possui acesso à esse recurso!");
+			navigate("/login");
+		}
+	}
 
 	async function getChamados() {
 		try {
@@ -214,6 +223,7 @@ function Chamados() {
 	}
 
 	useEffect(() => {
+		validateAuthentication();
 		getChamados();
 		getLeads();
 		if (
@@ -245,6 +255,11 @@ function Chamados() {
 		).top;
 		setExistemChamadosFechados(chamadosFechados);
 	}, [setExistemChamadosFechados]);
+
+	// setInterval(() => {
+	// 	getChamados();
+	// 	getLeads();
+	// }, 180000);
 
 	return (
 		<div className={styles["Chamados"]}>
