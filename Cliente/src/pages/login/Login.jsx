@@ -32,7 +32,7 @@ function Login() {
 					progress: undefined,
 					theme: "light",
 				});
-				navigate("/pagina");
+				navigate("/dashboard-chamados");
 			})
 			.catch((erro) => {
 				console.error("Houve um erro: " + erro);
@@ -88,7 +88,7 @@ function Login() {
 					</div>
 					<div className={styles["box-cadastar"]}>
 						<div>
-							<p>Não possui conta ainda?</p>
+							<p>Não possui conta ainda?   </p>
 						</div>
 						<div>
 							<a
@@ -97,7 +97,7 @@ function Login() {
 									navigate("/cadastro");
 								}}
 							>
-								Cadastre-se agora
+								  Cadastre-se agora
 							</a>
 						</div>
 					</div>
