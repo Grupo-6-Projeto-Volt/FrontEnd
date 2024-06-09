@@ -23,9 +23,9 @@ function Chamados() {
 	let [existemChamadosFechados, setExistemChamadosFechados] = useState();
 
 	let [leads, setLeads] = useState([]);
+	let [leadsEncontrados, setLeadsEncontrados] = useState([]);
 	let [headersLeads, setHeadersLeads] = useState([]);
 	let [filtroLeads, setFiltroLeads] = useState(0);
-	let [valorBuscaLeads, setValorBuscaLeads] = useState("");
 
 	let navigate = useNavigate();
 
@@ -139,6 +139,7 @@ function Chamados() {
 		}
 
 		setLeads(tabelaLeads);
+		setLeadsEncontrados(tabelaLeads);
 		setHeadersLeads(headersLeads);
 	}
 
@@ -222,6 +223,13 @@ function Chamados() {
 		}
 	}
 
+	function buscarLeadsPorNome(e) {
+		let leadsEncontrados = leads.filter((item) =>
+			item.nomeCompleto.toLowerCase().includes(e.toLowerCase())
+		);
+		setLeadsEncontrados(leadsEncontrados);
+	}
+
 	useEffect(() => {
 		validateAuthentication();
 		getChamados();
@@ -298,6 +306,7 @@ function Chamados() {
 										onClick={() => {
 											buscarChamadoPorId();
 										}}
+										maxLength={6}
 									/>
 									<div className={styles["filter-group"]}>
 										<span>Filtrar por: </span>
@@ -333,10 +342,11 @@ function Chamados() {
 									style={{ justifyContent: "right" }}
 								>
 									<Searchbar
-										placeholder={"Id:"}
+										placeholder={"Nome: "}
 										onChange={(e) => {
-											setValorBuscaChamados(e);
+											buscarLeadsPorNome(e);
 										}}
+										width={"10rem"}
 									/>
 									<div className={styles["filter-group"]}>
 										<span>Filtrar por: </span>
@@ -352,7 +362,11 @@ function Chamados() {
 								</div>
 							</div>
 							<div className={styles["purchase-request-list"]}>
-								<Table headers={headersLeads} values={leads} limit={4} />
+								<Table
+									headers={headersLeads}
+									values={leadsEncontrados}
+									limit={4}
+								/>
 							</div>
 						</div>
 					</section>
