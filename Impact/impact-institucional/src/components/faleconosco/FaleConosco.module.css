@@ -72,10 +72,12 @@ input{
 .form button{
     margin-top: 3%;
     width: 12%;
+    background-color: #FF8F50;
+    border: #FF8F50;
 }
 
 .form button:hover {
-    background-color: #FF8F50;
+    background-color: #ffb387;
 }
 
 textarea{
