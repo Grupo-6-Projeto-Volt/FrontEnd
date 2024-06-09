@@ -43,9 +43,15 @@ const Cadastro = () => {
   };
 
   const validationsRegister = yup.object().shape({
-    nome: yup.string().required("Nome é obrigatório"),
-    email: yup.string().email("Email inválido").required("O email é obrigatório"),
-    telefone: yup.string().required("Telefone é obrigatório"),
+    nome: yup
+      .string().required("Nome é obrigatório")
+      .min(3, "O nome deve ter pelo menos 3 caracteres"),
+    email: yup
+      .string().email("Email deve conter @").required("O email é obrigatório")
+      .min(3, "O email deve ter pelo menos 3 caracteres"),
+    telefone: yup
+      .string().required("Telefone é obrigatório")
+      .min(10, "O telefone deve ter pelo menos 10 caracteres"),
     password: yup
       .string()
       .min(8, "A senha deve ter pelo menos 8 caracteres")
