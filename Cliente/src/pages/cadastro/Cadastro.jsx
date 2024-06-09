@@ -84,31 +84,31 @@ const Cadastro = () => {
           </div>
           <h1 className="titulo">Cadastrar</h1>
           <div className="input-group">
-            <div className="input-group-1">
+            <div className="input-group-2">              
               <div className="input-box">
                 <label htmlFor="nome">Nome:</label>
                 <Field name="nome" type="text" placeholder="João Silva" />
                 <ErrorMessage name="nome" component="div" className="error-message" />
               </div>
+            </div>
+              <div className="input-group-1">
+                <div className="input-box">
+                    <label htmlFor="email">Email:</label>
+                    <Field name="email" type="email" placeholder="exemplo@gmail.com" />
+                    <ErrorMessage name="email" component="div" className="error-message" />
+                  </div>     
+                <div className="input-box">
+                    <label htmlFor="telefone">Telefone:</label>
+                    <Field name="telefone" type="text" placeholder="11 99442-5521" />
+                    <ErrorMessage name="telefone" component="div" className="error-message" />
+                  </div>
+              </div> 
+              <div className="input-group-1">  
               <div className="input-box">
-                <label htmlFor="email">Email:</label>
-                <Field name="email" type="email" placeholder="exemplo@gmail.com" />
-                <ErrorMessage name="email" component="div" className="error-message" />
+                <label htmlFor="password">Senha:</label>
+                <Field name="password" type="password" placeholder="*******" />
+                <ErrorMessage name="password" component="div" className="error-message" />
               </div>
-            </div>      
-            <div className="input-group-1">
-            <div className="input-box">
-              <label htmlFor="telefone">Telefone:</label>
-              <Field name="telefone" type="text" placeholder="11 99442-5521" />
-              <ErrorMessage name="telefone" component="div" className="error-message" />
-            </div>  
-            <div className="input-box">
-              <label htmlFor="password">Senha:</label>
-              <Field name="password" type="password" placeholder="*******" />
-              <ErrorMessage name="password" component="div" className="error-message" />
-            </div>
-            </div>
-            <div className="input-group-2">
             <div className="input-box">
               <label htmlFor="confirmPassword">Confirme a senha:</label>
               <Field name="confirmPassword" type="password" placeholder="Confirme a senha" />
