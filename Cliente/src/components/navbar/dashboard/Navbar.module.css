@@ -7,6 +7,7 @@
 	background-color: #ffffff;
 	border-bottom: 0.05rem solid #c8cbd9;
 	position: fixed;
+	z-index: 1;
 	top: 0;
 }
 
@@ -19,7 +20,7 @@
 }
 
 .navbar-items {
-	width: 15%;
+	width: 20%;
 	height: 100%;
 	display: flex;
 	justify-content: space-evenly;
@@ -53,7 +54,18 @@
 
 .user-image-area {
 	height: 55%;
-	width: 16%;
+	width: 13%;
 	border-radius: 50%;
 	background-color: rgba(255, 0, 0, 0.258);
+}
+
+.notification-box {
+	width: 15rem;
+	height: 20rem;
+	position: absolute;
+	top: 100%;
+	right: 0;
+	border-radius: 1rem;
+	background-color: #ffffff;
+	box-shadow: 0 0.2rem 0.5rem rgb(190, 190, 190);
 }

@@ -271,7 +271,7 @@ function Chamados() {
 
 	return (
 		<div className={styles["Chamados"]}>
-			<Navbar />
+			<Navbar chamadosNovos={chamados} />
 			<Sidebar />
 			<div className={styles["content"]}>
 				<div className={styles["container"]}>
