@@ -11,11 +11,10 @@
 		top: 8vh;
 	}
 }
-
 .Sidebar {
 	display: flex;
 	height: 92vh;
-	width: fit-content;
+	width: 15vw;
 	background-color: #f1f2f7;
 	justify-content: center;
 	align-items: center;

@@ -1,0 +1,20 @@
+.banner{
+    height: 80vh;
+    width: 98.5vw;
+}
+.textoBanner{
+    z-index: 2;
+    width: 63vw;
+    line-height: 65px;
+    font-size: 40px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 800;
+    text-shadow: 5px 5px 2px #00000041;
+    position: absolute;
+    top: 32%;
+    left: 7%;
+}
+.divBanner{
+    height: fit-content;
+}

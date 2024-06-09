@@ -1,0 +1,143 @@
+.Cadastro{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    flex-direction: column;
+}
+
+.form{
+    width:  41rem;
+    height: 100%;
+    box-shadow: .2rem .1rem .8rem rgb(169, 169, 169);
+    border-radius: 2.5rem;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.btn{
+    height: 8rem;
+    width: 90%;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    background-color: #BB2020;
+    color: white;
+    font-weight: bold;
+    transition: .5s;
+    border-radius: 0.4rem;
+    margin-top: 3%;
+}
+
+.btn:hover{
+    background-color: rgb(220, 72, 102);
+    transition: .5s;
+}
+
+.input-group{
+    height: 100%;
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.input-box{
+    display: flex;
+    flex-direction: column;
+    height: 45%;
+    width: 90%;
+    margin-bottom: 1.3%;
+}
+
+.input-box label{
+    align-self: flex-start;
+}
+
+.input-box input{
+    height: 40%;
+    width: 100%;
+    border: none;
+    padding-left: .7rem;
+    background-color: #F5F5F5;
+}
+
+.voltar{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-items: flex-start;
+    color: black;
+    font-size: 20px;
+}
+
+.voltar p{
+    text-decoration: underline;
+}
+
+.logo{
+    width: 9rem;
+    padding-top: 5%;
+}
+
+.box-logo{
+    margin-top: 3%;
+    display: flex;
+    align-items: flex-start;
+    margin-right: 74rem;
+}
+
+.box-cadastrar{
+    display: flex;
+    align-items: self-start;
+}
+
+.box-senha{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 25rem;
+}
+
+.voltar{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-items: flex-start;
+    color: black;
+    font-size: 20px;
+    height: 0.1%;
+}
+
+.logo{
+    width: 12rem;
+}
+
+.box-logo{
+    display: flex;
+    align-items: flex-start;
+}
+
+.link{
+    cursor: pointer;
+    color: #BB2020;
+}
+
+.box-logar{
+    display: flex;
+    width: 70%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 0.5%;
+}
+
+.error-message{
+    color: red;
+}
