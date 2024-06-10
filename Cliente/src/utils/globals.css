@@ -18,6 +18,7 @@
 	src: url("../utils/fonts/Poppins-Thin.ttf") format("truetype");
 }
 
+
 *:focus {
 	outline: none;
 	border: none;
