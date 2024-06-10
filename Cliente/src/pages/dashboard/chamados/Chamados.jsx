@@ -198,7 +198,7 @@ function Chamados() {
 
 		switch (filtroLeads) {
 			case "0":
-				response = await chamadosModel.listarLeadsPorNomeAsc(2);
+				response = await chamadosModel.listarLeadsPorNomeAsc();
 				break;
 			case "1":
 				response = await chamadosModel.listarLeadsPorNomeDesc(2);
@@ -264,10 +264,11 @@ function Chamados() {
 		setExistemChamadosFechados(chamadosFechados);
 	}, [setExistemChamadosFechados]);
 
-	// setInterval(() => {
-	// 	getChamados();
-	// 	getLeads();
-	// }, 180000);
+	setInterval(() => {
+		validateAuthentication();
+		getChamados();
+		getLeads();
+	}, 180000);
 
 	return (
 		<div className={styles["Chamados"]}>

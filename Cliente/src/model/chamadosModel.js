@@ -33,6 +33,23 @@ export const chamadosModel = {
 			});
 		return resposta;
 	},
+	buscarNovosChamados: (status, dataHora) => {
+		let resposta = api
+			.get("/produtochamados/buscar-novos-chamados", {
+				params: {
+					status: status,
+					dataHora: dataHora,
+				},
+			})
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.error("Houve um erro: " + erro);
+				return erro;
+			});
+		return resposta;
+	},
 	buscarChamadoPorId: (id) => {
 		let resposta = api
 			.get(`/produtochamados/${id}`)
@@ -93,13 +110,9 @@ export const chamadosModel = {
 			});
 		return resposta;
 	},
-	listarLeadsPorNomeAsc: (status) => {
+	listarLeadsPorNomeAsc: () => {
 		let resposta = api
-			.get("/produtochamados/filtro/buscar-leads-por-nome-asc", {
-				params: {
-					status: status,
-				},
-			})
+			.get("/produtochamados/filtro/buscar-leads-por-nome-asc")
 			.then((resultado) => {
 				return resultado.data;
 			})
