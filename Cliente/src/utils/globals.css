@@ -18,25 +18,6 @@
 	src: url("../utils/fonts/Poppins-Thin.ttf") format("truetype");
 }
 
-@font-face {
-    font-family: "Lalezar";
-    src: url("../utils/fonts/Lalezar-Regular.ttf") format("truetype");
-}
-
-@font-face {
-	font-family: "PoppinsMedium";
-	src: url("../utils/fonts/Poppins-Medium.ttf") format("truetype");
-}
-
-@font-face {
-	font-family: "PoppinsRegular";
-	src: url("../utils/fonts/Poppins-Regular.ttf") format("truetype");
-}
-
-@font-face {
-	font-family: "PoppinsThin";
-	src: url("../utils/fonts/Poppins-Thin.ttf") format("truetype");
-}
 
 *:focus {
 	outline: none;
