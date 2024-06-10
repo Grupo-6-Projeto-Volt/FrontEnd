@@ -21,7 +21,10 @@ function Login() {
 				const Data = resultado.data;
 				sessionStorage.TOKEN = Data.token;
 				sessionStorage.ID = Data.userId;
+				sessionStorage.NOME = Data.nome;
 				sessionStorage.EMAIL = Data.email;
+				sessionStorage.TELEFONE = Data.telefone;
+				sessionStorage.CATEGORIA = Data.categoria;
 				toast.success("Login realizado com sucesso!!", {
 					position: "top-right",
 					autoClose: 5000,
@@ -97,7 +100,7 @@ function Login() {
 									navigate("/cadastro");
 								}}
 							>
-								  Cadastre-se agora
+								Cadastre-se agora
 							</a>
 						</div>
 					</div>
