@@ -6,13 +6,17 @@
  import {Kpi} from "../../components/kpi/Kpi.jsx"
  import Navbar from "../../components/navbar/Navbar.jsx"
  import Sidebar from "../../components/sidebar/Sidebar.jsx"
- import MostAccessedProducts from "../../components/products/Prodcuts.jsx"
- 
+ import {ProductsData} from "../../components/products/Prodcuts.jsx"
+import { ObterDadosChamadosGrafico } from "../../components/columnchart/Columndata.js"
+import { ObterDadosCategoriaGrafico } from "../../components/barchart/Bardata.js"
 export default function Dashboard(){
     const seven_days_acess = { title: 'Total de visitantes nos últimos 7 dias', paragraph: '304 pessoas' };
     const return_tax = { title: 'Taxa de retorno dos usúarios', paragraph: '35%' };
     const total_orders = { title: 'Total de pedidos nos últimos 7 dias', paragraph: '123 pessoas' };
     const revenue = { title: 'Faturamento', paragraph: 'R$ 17.400,00' };
+
+    ObterDadosChamadosGrafico();
+    ObterDadosCategoriaGrafico();
 
     const products = [
         { image: 'https://imgs.casasbahia.com.br/1562258295/1xg.jpg', name: 'Iphone 13 Pro Max', quantity: 183, id: '13802382' },
@@ -50,7 +54,7 @@ export default function Dashboard(){
                             <div className={styles["Listname"]}>
                                 <h3>Produtos mais acessados</h3>
                             </div>
-                            <MostAccessedProducts products={products}></MostAccessedProducts>
+                        <ProductsData></ProductsData>
                         </div>
                     </div>
                     <div className={styles["Graphics"]}>
