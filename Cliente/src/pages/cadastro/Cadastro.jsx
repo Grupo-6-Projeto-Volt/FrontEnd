@@ -34,7 +34,7 @@ const Cadastro = () => {
         sessionStorage.TELEFONE = Data.telefone;
         sessionStorage.CATEGORIA = Data.categoria;
         toast.success("Cadastro feito com sucesso!!");
-        navigate("/pagina");
+        navigate("/dashboard-chamados");
       })
       .catch((erro) => {
         console.error("Houve um erro: " + erro);
@@ -43,9 +43,15 @@ const Cadastro = () => {
   };
 
   const validationsRegister = yup.object().shape({
-    nome: yup.string().required("Nome é obrigatório"),
-    email: yup.string().email("Email inválido").required("O email é obrigatório"),
-    telefone: yup.string().required("Telefone é obrigatório"),
+    nome: yup
+      .string().required("Nome é obrigatório")
+      .min(3, "O nome deve ter pelo menos 3 caracteres"),
+    email: yup
+      .string().email("Email deve conter @").required("O email é obrigatório")
+      .min(3, "O email deve ter pelo menos 3 caracteres"),
+    telefone: yup
+      .string().required("Telefone é obrigatório")
+      .min(10, "O telefone deve ter pelo menos 10 caracteres"),
     password: yup
       .string()
       .min(8, "A senha deve ter pelo menos 8 caracteres")
@@ -76,7 +82,7 @@ const Cadastro = () => {
           <div className="voltar">
             <p
               onClick={() => {
-                navigate("/login");
+                navigate("/ ");
               }}
             >
               Voltar
@@ -84,30 +90,36 @@ const Cadastro = () => {
           </div>
           <h1 className="titulo">Cadastrar</h1>
           <div className="input-group">
-            <div className="input-box">
-              <label htmlFor="nome">Nome:</label>
-              <Field name="nome" type="text" placeholder="João Silva" />
-              <ErrorMessage name="nome" component="div" className="error-message" />
+            <div className="input-group-2">              
+              <div className="input-box">
+                <label htmlFor="nome">Nome:</label>
+                <Field name="nome" type="text" placeholder="João Silva" />
+                <ErrorMessage name="nome" component="div" className="error-message" />
+              </div>
             </div>
-            <div className="input-box">
-              <label htmlFor="email">Email:</label>
-              <Field name="email" type="email" placeholder="exemplo@gmail.com" />
-              <ErrorMessage name="email" component="div" className="error-message" />
-            </div>
-            <div className="input-box">
-              <label htmlFor="telefone">Telefone:</label>
-              <Field name="telefone" type="text" placeholder="11 99442-5521" />
-              <ErrorMessage name="telefone" component="div" className="error-message" />
-            </div>
-            <div className="input-box">
-              <label htmlFor="password">Senha:</label>
-              <Field name="password" type="password" placeholder="*******" />
-              <ErrorMessage name="password" component="div" className="error-message" />
-            </div>
+              <div className="input-group-1">
+                <div className="input-box">
+                    <label htmlFor="email">Email:</label>
+                    <Field name="email" type="email" placeholder="exemplo@gmail.com" />
+                    <ErrorMessage name="email" component="div" className="error-message" />
+                  </div>     
+                <div className="input-box">
+                    <label htmlFor="telefone">Telefone:</label>
+                    <Field name="telefone" type="text" placeholder="11 99442-5521" />
+                    <ErrorMessage name="telefone" component="div" className="error-message" />
+                  </div>
+              </div> 
+              <div className="input-group-1">  
+              <div className="input-box">
+                <label htmlFor="password">Senha:</label>
+                <Field name="password" type="password" placeholder="*******" />
+                <ErrorMessage name="password" component="div" className="error-message" />
+              </div>
             <div className="input-box">
               <label htmlFor="confirmPassword">Confirme a senha:</label>
               <Field name="confirmPassword" type="password" placeholder="Confirme a senha" />
               <ErrorMessage name="confirmPassword" component="div" className="error-message" />
+            </div>
             </div>
             <button className="btn" type="submit">
               Cadastrar
@@ -121,7 +133,7 @@ const Cadastro = () => {
               <a
                 className="link"
                 onClick={() => {
-                  navigate("/login");
+                  navigate("/");
                 }}
               >
                 Logar-se agora
