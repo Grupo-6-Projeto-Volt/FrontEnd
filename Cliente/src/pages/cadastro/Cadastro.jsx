@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../utils/assets/logo-ichiban.png";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { formatPhoneNumber } from "../../utils/global";
 
 const Cadastro = () => {
   const [nomeText, setNomeText] = useState("");
@@ -26,15 +27,8 @@ const Cadastro = () => {
         senha: values.password,
       })
       .then((resultado) => {
-        const Data = resultado.data;
-        sessionStorage.TOKEN = Data.token;
-        sessionStorage.ID = Data.userId;
-        sessionStorage.NOME = Data.nome;
-        sessionStorage.EMAIL = Data.email;
-        sessionStorage.TELEFONE = Data.telefone;
-        sessionStorage.CATEGORIA = Data.categoria;
         toast.success("Cadastro feito com sucesso!!");
-        navigate("/dashboard-chamados");
+        navigate("/login");
       })
       .catch((erro) => {
         console.error("Houve um erro: " + erro);
@@ -105,7 +99,7 @@ const Cadastro = () => {
                   </div>     
                 <div className="input-box">
                     <label htmlFor="telefone">Telefone:</label>
-                    <Field name="telefone" type="text" placeholder="11 99442-5521" />
+                    <Field name="telefone" type="text" placeholder="(11) 9 9442-5521" onBlur={(e) => e.target.value = (formatPhoneNumber(e.target.value))} maxLength={11}/>
                     <ErrorMessage name="telefone" component="div" className="error-message" />
                   </div>
               </div> 
