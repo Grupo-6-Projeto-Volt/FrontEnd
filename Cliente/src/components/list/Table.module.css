@@ -43,6 +43,7 @@ td {
 	position: relative;
 	align-items: center;
 	align-self: flex-end;
+	z-index: 0;
 }
 
 .btn-slider {

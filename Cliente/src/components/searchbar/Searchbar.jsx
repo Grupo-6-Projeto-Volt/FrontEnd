@@ -1,8 +1,8 @@
 import styles from "./Searchbar.module.css";
 
-function Searchbar({ onChange, onClick, placeholder }) {
+function Searchbar({ onChange, onClick, placeholder, width, maxLength }) {
 	return (
-		<div className={styles["Searchbar"]}>
+		<div className={styles["Searchbar"]} style={{ width: width }}>
 			<img
 				src={require("../../utils/assets/icon/lupa.png")}
 				alt="Buscar"
@@ -19,7 +19,7 @@ function Searchbar({ onChange, onClick, placeholder }) {
 				onChange={(e) => {
 					onChange(e.target.value);
 				}}
-				maxLength={6}
+				maxLength={maxLength}
 			/>
 		</div>
 	);

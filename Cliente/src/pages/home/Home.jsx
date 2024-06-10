@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import { useNavigate } from "react-router-dom";
-import existeToken from "../../validarToken";
+import { validateAuth } from "../../utils/global";
 
 const Home = () => {
 	const navigate = useNavigate();
 	let [isLogado, setLogado] = useState();
 
 	useEffect(() => {
-		setLogado(existeToken());
+		setLogado(validateAuth());
 	}, []);
 
 	return (

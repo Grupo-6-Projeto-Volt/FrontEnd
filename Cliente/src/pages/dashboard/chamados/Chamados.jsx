@@ -1,13 +1,18 @@
+import styles from "./Chamados.module.css";
 import { useEffect, useState } from "react";
+import { Stack } from "../../../utils/Stack";
 import Table from "../../../components/list/Table";
+import Sidebar from "../../../components/sidebar/Sidebar";
+import { chamadosModel } from "../../../model/chamadosModel";
 import Navbar from "../../../components/navbar/dashboard/Navbar";
 import Searchbar from "../../../components/searchbar/Searchbar";
-import Sidebar from "../../../components/sidebar/Sidebar";
-import styles from "./Chamados.module.css";
-import { chamadosModel } from "../../../model/chamadosModel";
-import { formatDateTime, formatPhoneNumber } from "../../../utils/global";
-import { Stack } from "../../../utils/Stack";
-import { FaArrowRotateLeft } from "react-icons/fa6";
+
+import {
+	formatDateTime,
+	formatPhoneNumber,
+	validateAuth,
+} from "../../../utils/global";
+import { useNavigate } from "react-router-dom";
 
 function Chamados() {
 	let [chamados, setChamados] = useState([]);
@@ -18,14 +23,18 @@ function Chamados() {
 	let [existemChamadosFechados, setExistemChamadosFechados] = useState();
 
 	let [leads, setLeads] = useState([]);
+	let [leadsEncontrados, setLeadsEncontrados] = useState([]);
 	let [headersLeads, setHeadersLeads] = useState([]);
 	let [filtroLeads, setFiltroLeads] = useState(0);
-	let [valorBuscaLeads, setValorBuscaLeads] = useState("");
 
-	// setInterval(() => {
-	// 	getChamados();
-	// 	getLeads();
-	// }, 180000);
+	let navigate = useNavigate();
+
+	function validateAuthentication() {
+		if (!validateAuth()) {
+			alert("Você não possui acesso à esse recurso!");
+			navigate("/login");
+		}
+	}
 
 	async function getChamados() {
 		try {
@@ -130,6 +139,7 @@ function Chamados() {
 		}
 
 		setLeads(tabelaLeads);
+		setLeadsEncontrados(tabelaLeads);
 		setHeadersLeads(headersLeads);
 	}
 
@@ -188,7 +198,7 @@ function Chamados() {
 
 		switch (filtroLeads) {
 			case "0":
-				response = await chamadosModel.listarLeadsPorNomeAsc(2);
+				response = await chamadosModel.listarLeadsPorNomeAsc();
 				break;
 			case "1":
 				response = await chamadosModel.listarLeadsPorNomeDesc(2);
@@ -213,7 +223,15 @@ function Chamados() {
 		}
 	}
 
+	function buscarLeadsPorNome(e) {
+		let leadsEncontrados = leads.filter((item) =>
+			item.nomeCompleto.toLowerCase().includes(e.toLowerCase())
+		);
+		setLeadsEncontrados(leadsEncontrados);
+	}
+
 	useEffect(() => {
+		validateAuthentication();
 		getChamados();
 		getLeads();
 		if (
@@ -246,9 +264,15 @@ function Chamados() {
 		setExistemChamadosFechados(chamadosFechados);
 	}, [setExistemChamadosFechados]);
 
+	setInterval(() => {
+		validateAuthentication();
+		getChamados();
+		getLeads();
+	}, 180000);
+
 	return (
 		<div className={styles["Chamados"]}>
-			<Navbar />
+			<Navbar chamadosNovos={chamados} />
 			<Sidebar />
 			<div className={styles["content"]}>
 				<div className={styles["container"]}>
@@ -283,6 +307,7 @@ function Chamados() {
 										onClick={() => {
 											buscarChamadoPorId();
 										}}
+										maxLength={6}
 									/>
 									<div className={styles["filter-group"]}>
 										<span>Filtrar por: </span>
@@ -318,10 +343,11 @@ function Chamados() {
 									style={{ justifyContent: "right" }}
 								>
 									<Searchbar
-										placeholder={"Id:"}
+										placeholder={"Nome: "}
 										onChange={(e) => {
-											setValorBuscaChamados(e);
+											buscarLeadsPorNome(e);
 										}}
+										width={"10rem"}
 									/>
 									<div className={styles["filter-group"]}>
 										<span>Filtrar por: </span>
@@ -337,7 +363,11 @@ function Chamados() {
 								</div>
 							</div>
 							<div className={styles["purchase-request-list"]}>
-								<Table headers={headersLeads} values={leads} limit={4} />
+								<Table
+									headers={headersLeads}
+									values={leadsEncontrados}
+									limit={4}
+								/>
 							</div>
 						</div>
 					</section>
