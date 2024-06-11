@@ -4,6 +4,7 @@
     background-color:#5A6ACF;
     border-radius: 20px;
     display: flex;
+    justify-content: center;
     flex-direction: column;
     flex-wrap: wrap;
     margin: 2vh;
