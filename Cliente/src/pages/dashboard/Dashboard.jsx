@@ -7,7 +7,6 @@ import { Kpi } from "../../components/kpi/Kpi.jsx"
 import Navbar from "../../components/navbar/Navbar.jsx"
 import Sidebar from "../../components/sidebar/Sidebar.jsx"
 import { ProductsData } from "../../components/products/Prodcuts.jsx"
-import { ProdutosMaisAcessados } from "../../components/products/Prodcuts.jsx"
 import { ObterDadosChamadosGrafico } from "../../components/columnchart/Columndata.js"
 import { ObterDadosCategoriaGrafico } from "../../components/barchart/Bardata.js"
 export default function Dashboard() {
@@ -19,14 +18,14 @@ export default function Dashboard() {
     ObterDadosChamadosGrafico();
     ObterDadosCategoriaGrafico();
 
-    const products = [
-        { image: 'https://imgs.casasbahia.com.br/1562258295/1xg.jpg', name: 'Iphone 13 Pro Max', quantity: 183, id: '13802382' },
-        { image: 'https://i5.walmartimages.com/seo/Straight-Talk-Apple-iPhone-13-Pro-Max-128GB-Gold-Prepaid-Smartphone-Locked-to-Straight-Talk_38276f17-7d6c-46dd-baa2-09aa8a5bd12d.94b4bfdbd75aa8f2478a6e531349cac8.jpeg', name: 'Iphone 13 Pro', quantity: 171, id: '13802382' },
-        { image: 'https://imgs.casasbahia.com.br/55064660/1g.jpg', name: 'Iphone 13 Pro', quantity: 149, id: '13802382' },
-        { image: 'https://imgs.casasbahia.com.br/1562258295/1xg.jpg', name: 'Iphone 13 Pro Max', quantity: 100, id: '13802382' },
-        { image: 'https://i5.walmartimages.com/seo/Straight-Talk-Apple-iPhone-13-Pro-Max-128GB-Gold-Prepaid-Smartphone-Locked-to-Straight-Talk_38276f17-7d6c-46dd-baa2-09aa8a5bd12d.94b4bfdbd75aa8f2478a6e531349cac8.jpeg', name: 'Iphone 13 Pro', quantity: 72, id: '13802382' },
-        { image: 'https://imgs.casasbahia.com.br/55064660/1g.jpg', name: 'Iphone 13 Pro', quantity: 41, id: '13802382' },
-    ];
+    // const products = [
+    //     { image: 'https://imgs.casasbahia.com.br/1562258295/1xg.jpg', name: 'Iphone 13 Pro Max', quantity: 183, id: '13802382' },
+    //     { image: 'https://i5.walmartimages.com/seo/Straight-Talk-Apple-iPhone-13-Pro-Max-128GB-Gold-Prepaid-Smartphone-Locked-to-Straight-Talk_38276f17-7d6c-46dd-baa2-09aa8a5bd12d.94b4bfdbd75aa8f2478a6e531349cac8.jpeg', name: 'Iphone 13 Pro', quantity: 171, id: '13802382' },
+    //     { image: 'https://imgs.casasbahia.com.br/55064660/1g.jpg', name: 'Iphone 13 Pro', quantity: 149, id: '13802382' },
+    //     { image: 'https://imgs.casasbahia.com.br/1562258295/1xg.jpg', name: 'Iphone 13 Pro Max', quantity: 100, id: '13802382' },
+    //     { image: 'https://i5.walmartimages.com/seo/Straight-Talk-Apple-iPhone-13-Pro-Max-128GB-Gold-Prepaid-Smartphone-Locked-to-Straight-Talk_38276f17-7d6c-46dd-baa2-09aa8a5bd12d.94b4bfdbd75aa8f2478a6e531349cac8.jpeg', name: 'Iphone 13 Pro', quantity: 72, id: '13802382' },
+    //     { image: 'https://imgs.casasbahia.com.br/55064660/1g.jpg', name: 'Iphone 13 Pro', quantity: 41, id: '13802382' },
+    // ];
 
     return (
         <div className={styles["Dashboard"]}>
