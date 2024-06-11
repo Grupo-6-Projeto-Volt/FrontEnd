@@ -110,7 +110,7 @@ function Navbar() {
 						></div>
 						{newNotificationsBox()}
 					</div>
-					<span className={styles["username"]}>{sessionStorage.NOME}</span>
+					<span className={styles["username"]}>{sessionStorage.EMAIL}</span>
 					<div className={styles["user-image-area"]}>
 						<img src="" alt="" />
 					</div>
