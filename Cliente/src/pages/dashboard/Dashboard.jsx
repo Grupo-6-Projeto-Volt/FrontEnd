@@ -4,7 +4,7 @@ import { column_data, column_options } from "../../components/columnchart/Column
 import { bar_data, bar_options } from "../../components/barchart/Bardata.js"
 import styles from "./Dashboard.module.css"
 import { Kpi } from "../../components/kpi/Kpi.jsx"
-import Navbar from "../../components/navbar/Navbar.jsx"
+import Navbar from "../../components/navbar/dashboard/Navbar"
 import Sidebar from "../../components/sidebar/Sidebar.jsx"
 import { ProductsData } from "../../components/products/Prodcuts.jsx"
 import { ObterDadosChamadosGrafico } from "../../components/columnchart/Columndata.js"
@@ -33,9 +33,9 @@ export default function Dashboard() {
     }
     
     // const seven_days_acess = { title: 'Total de visitantes nos últimos 7 dias', paragraph: totalOrders };
-    const return_tax = { title: 'Taxa de retorno dos usúarios', paragraph: taxaRetorno };
-    // const total_orders = { title: 'Total de pedidos nos últimos 7 dias', paragraph: totalOrders };
-    const revenue = { title: 'Faturamento', paragraph: 'R$ ' + revenueVar };
+    const return_tax = { title: 'Taxa de retorno dos usúarios', paragraph: taxaRetorno + '%'};
+    const total_orders = { title: 'Total de pedidos nos últimos 7 dias', paragraph: (totalOrders != [] ? totalOrders : 0) };
+    const revenue = { title: 'Faturamento', paragraph: 'R$ ' + revenueVar + ',00' };
 
     ObterDadosChamadosGrafico();
     ObterDadosCategoriaGrafico();
@@ -50,7 +50,7 @@ export default function Dashboard() {
     // ];
     useEffect(() => {taxaDeRetorno()}, [])
     useEffect(() => {faturamento()}, [])
-    // useEffect(() => {totalOrdersKpi()}, [])
+    useEffect(() => {totalOrdersKpi()}, [])
     return (
         <div className={styles["Dashboard"]}>
             <div className={styles["Navbar"]}>
@@ -68,7 +68,7 @@ export default function Dashboard() {
                         <div className={styles["Kpispace"]}>
                             {/* <Kpi text={seven_days_acess}></Kpi> */}
                             <Kpi text={return_tax}></Kpi>
-                            {/* <Kpi text={total_orders}></Kpi> */}
+                            <Kpi text={total_orders}></Kpi>
                             <Kpi text={revenue}></Kpi>
                         </div>
                     </div>
@@ -105,5 +105,4 @@ export default function Dashboard() {
             </div>
         </div>
     )
-
 }

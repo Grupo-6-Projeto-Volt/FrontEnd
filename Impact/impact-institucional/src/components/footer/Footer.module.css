@@ -1,0 +1,17 @@
+*{
+    font-family: "Inter", sans-serif;
+}
+
+.container-footer{
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 2%;
+}
+
+p{
+    margin: 5px;
+}
+
