@@ -9,7 +9,7 @@ export function ObterDadosCategoriaGrafico(){
     async function obterCategoriasAcessadas(){
       try {
         let resposta = await listarCategoriasMaisAcessadas();
-        console.log(resposta)
+        // console.log(resposta)
         adicionarDadosGrafico(resposta);
       } catch (e) {
         console.log(e);
@@ -21,9 +21,9 @@ export function ObterDadosCategoriaGrafico(){
 
   
   function adicionarDadosGrafico(resposta){
-    console.log(resposta)
-    console.log(resposta[0].categoria)
-    console.log(resposta[0].acessos)
+    // console.log(resposta)
+    // console.log(resposta[0].categoria)
+    // console.log(resposta[0].acessos)
      if(resposta){
       for(var i = 0; i < resposta.length; i++){
         if(dadosCategorias.length < 3){
@@ -41,8 +41,8 @@ export function ObterDadosCategoriaGrafico(){
   }
 }
 
-console.log(dadosCategorias)
-console.log(labels)
+// console.log(dadosCategorias)
+// console.log(labels)
 export const bar_data = {
   labels,
   datasets: [

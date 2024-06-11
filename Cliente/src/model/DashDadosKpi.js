@@ -5,7 +5,7 @@ export const capturarTaxaDeRetorno = () => {
 			.get("/clicks-produtos/capturar-dados/taxa-de-retorno", {
 			})
 			.then((resultado) => {
-				console.log(resultado.data)
+				// console.log(resultado.data)
 				return resultado.data;
 			})
 			.catch((erro) => {

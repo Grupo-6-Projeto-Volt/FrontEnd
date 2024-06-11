@@ -35,7 +35,6 @@ export const listarProdutosMaisAcessados = () => {
 				
 			})
 			.then((resultado) => {
-				console.log()
 				return resultado.data;
 			})
 			.catch((erro) => {
