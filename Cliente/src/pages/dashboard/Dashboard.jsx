@@ -34,7 +34,7 @@ export default function Dashboard() {
     
     // const seven_days_acess = { title: 'Total de visitantes nos últimos 7 dias', paragraph: totalOrders };
     const return_tax = { title: 'Taxa de retorno dos usúarios', paragraph: taxaRetorno + '%'};
-    const total_orders = { title: 'Total de pedidos nos últimos 7 dias', paragraph: (totalOrders != [] ? totalOrders : 0) };
+    const total_orders = { title: 'Total de visitantes nos últimos 7 dias', paragraph: (totalOrders != [] ? totalOrders : 0) };
     const revenue = { title: 'Faturamento', paragraph: 'R$ ' + revenueVar + ',00' };
 
     ObterDadosChamadosGrafico();
