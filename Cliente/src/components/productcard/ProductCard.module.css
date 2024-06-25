@@ -1,0 +1,12 @@
+.produto{
+    width: 18rem;
+    height: 19rem;
+    border-radius: 10px;
+    box-shadow: #0000004d 0px 4px 4px;
+    padding: 2%;
+}
+.produto img{
+    width: 150px;
+    height: 150px;
+    margin: 18%
+}
