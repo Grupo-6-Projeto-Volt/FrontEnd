@@ -4,9 +4,20 @@
     border-radius: 10px;
     box-shadow: #0000004d 0px 4px 4px;
     padding: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.produto:hover{
+    box-shadow: #bb202087 0px 4px 4px;
+    cursor: pointer;
 }
 .produto img{
-    width: 150px;
-    height: 150px;
-    margin: 18%
+    width: 10rem;
+    height: 10rem;
+    margin: auto;
+}
+.produto .nomeProd{
+    width: 100%;
+    font-weight: 500;
 }

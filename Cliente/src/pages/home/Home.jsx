@@ -3,12 +3,13 @@ import styles from "./Home.module.css";
 import { useNavigate } from "react-router-dom";
 import { validateAuth } from "../../utils/global";
 import { NavBarPadrao } from "../../components/navBarHome/NavBar";
-import { Produto } from "../../components/productcard/ProductCard";
+import { ProdutosData } from "../../components/produtoslist/ProdutosList";
 const Home = () => {
 	return (
 		<>
 			<NavBarPadrao />
-			<Produto />
+			<ProdutosData
+			secao = 'Ofertas' />
 		</>
 	)
 }
