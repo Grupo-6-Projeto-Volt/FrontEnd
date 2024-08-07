@@ -4,6 +4,7 @@ import InputText from "../../components/input/inputtext/InputText";
 import Navbar from "../../components/navbar/dashboard/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./CadastroProdutos.module.css";
+import InputFile from "../../components/input/inputfile/InputFile";
 
 function CadastroProdutos() {
 	return (
@@ -43,7 +44,9 @@ function CadastroProdutos() {
 								Adicionar Imagens do Produto
 							</span>
 							<div className={styles["section-content"]}>
-								<div className={styles["product-information-form"]}></div>
+								<div className={styles["product-information-form"]}>
+									<InputFile tituloCampo={"Inserir Imagem"} />
+								</div>
 							</div>
 						</div>
 					</div>
