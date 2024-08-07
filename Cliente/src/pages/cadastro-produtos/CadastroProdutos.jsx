@@ -44,8 +44,9 @@ function CadastroProdutos() {
 								Adicionar Imagens do Produto
 							</span>
 							<div className={styles["section-content"]}>
-								<div className={styles["product-information-form"]}>
-									<InputFile tituloCampo={"Inserir Imagem"} />
+								<div className={styles["insert-image-form"]}>
+									<InputFile tituloCampo={"Fazer Upload"} />
+									<div className={styles["image-list"]}></div>
 								</div>
 							</div>
 						</div>
