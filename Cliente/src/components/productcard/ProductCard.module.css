@@ -5,6 +5,8 @@
     box-shadow: #0000004d 0px 4px 4px;
     padding: 2%;
     display: flex;
+    margin-left: 1vw;
+    margin-right: 1vw;
     flex-direction: column;
     justify-content: space-evenly;
 }
