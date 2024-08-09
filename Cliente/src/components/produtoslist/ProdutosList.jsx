@@ -3,12 +3,12 @@ import { produtos } from "../../model/ProdutosListModel"
 import { Produto } from "../productcard/ProductCard";
 import React, { useEffect, useState } from 'react';
 
-export const list = document.getElementById('item-list');
-export const itemWidth = 150;
+export const itemWidth = 130;
 export const padding = 16;
 export const prev = document.getElementById('prev-btn');
 export const next = document.getElementById('next-btn');
 // import * as ProdutosList from './ProdutosList';
+export const list = document.getElementById('item-list');
 export function ProdutosData({ secao }) {
     let [dadosProduto, setDadosProduto] = useState([]);
 
@@ -32,31 +32,12 @@ export function ProdutosData({ secao }) {
     useEffect(() => {
         getProdutos()
     }, [])
-
-    // function onClick(btn){
-    //     if(btn === 'prev'){
-    useEffect(() => {
-        if(prev){
-            prev.addEventListener('click',()=>{
-                list.scrollLeft -= (itemWidth + padding);
-            })
-        }
-        if(next){
-            next.addEventListener('click',()=>{
-                list.scrollLeft += (itemWidth + padding)
-            })
-        }
-    })
-            
-        // }else{
-        // }
-    // }
     
     return (
-        // <div className={styles['listaProdutos']}>
         <div className={styles['container']}>
+            <h1>{secao}</h1>
             <div className={styles['carousel-view']}>
-                <button id="prev-btn" class="prev-btn"> </button>
+                {/* <button id="prev-btn" class="prev-btn"> </button> */}
                 <div id="item-list" className={styles['item-list']}>
                     {dadosProduto.map((produto) => (
                         <Produto className={styles['item']}
@@ -66,8 +47,7 @@ export function ProdutosData({ secao }) {
                             preco={produto.preco} />
                     ))}
                 </div>
-
-                <button id="next-btn" class="next-btn"> </button>
+                {/* <button id="next-btn" className={styles['next-btn']}> </button> */}
             </div>
         </div> 
     )
