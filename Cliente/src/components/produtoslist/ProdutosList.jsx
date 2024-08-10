@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./ProdutosList.module.css"
 import { produtos } from "../../model/ProdutosListModel"
 import { Produto } from "../productcard/ProductCard";
@@ -16,6 +17,7 @@ export function ProdutosData({ secao }) {
         let response;
         try {
             if (secao === "Ofertas") {
+                console.log("TESTE")
                 response = await produtos.listarOfertas();
             } else {
                 response = await produtos.listarProdutos()

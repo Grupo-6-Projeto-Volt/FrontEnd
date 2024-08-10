@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Home.module.css";
-import { useNavigate } from "react-router-dom";
-import { validateAuth } from "../../utils/global";
+import React from "react";
 import { NavBarPadrao } from "../../components/navBarHome/NavBar";
 import { ProdutosData } from "../../components/produtoslist/ProdutosList.jsx";
+import { Sobre } from "../../components/sobre/Sobre.jsx";
+import styles from "./Home.module.css";
 const Home = () => {
 	return (
 		<>
 			<NavBarPadrao />
-			<ProdutosData
-			secao = 'Ofertas' />
+			<div className={styles["container"]}>
+				<ProdutosData
+					secao='Ofertas' />
+				<Sobre />
+			</div>
 		</>
 	)
 }

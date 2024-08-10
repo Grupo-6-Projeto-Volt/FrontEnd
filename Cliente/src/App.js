@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import Cadastro from "./pages/cadastro/Cadastro";
 import Chamados from "./pages/dashboard/chamados/Chamados";
 import Dashboard from "./pages/dashboard/Dashboard";
-import Login from "./pages/login/Login";
 import Home from "./pages/home/Home.jsx";
 function App() {
 	return (
