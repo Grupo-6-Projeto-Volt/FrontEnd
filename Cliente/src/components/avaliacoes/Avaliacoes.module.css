@@ -1,0 +1,42 @@
+.container-avaliacoes{
+    padding: 4%;
+    margin-bottom: 4%;
+}
+
+.linha-horizontal {
+    width: 140px;
+    height: 5px;
+    background-color: #D41F1F;
+    border-radius: 50px;
+}
+
+.avaliacoes{
+    margin-top: 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.avaliacao{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 2%;
+    border-radius: 15px;
+    width: 25%;
+}
+
+.avaliacao-nome{
+    margin-left: 3%;
+}
+
+.avaliacao-nota{
+    margin-left: 35%;
+    color: red;
+    font-size: 18px;
+}
+
+.avaliacao-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
