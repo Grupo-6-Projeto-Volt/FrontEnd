@@ -5,8 +5,12 @@ import Navbar from "../../components/navbar/dashboard/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./CadastroProdutos.module.css";
 import InputFile from "../../components/input/inputfile/InputFile";
+import ImageListItem from "../../components/imagelistitem/ImageListItem";
+import { useEffect, useState } from "react";
 
 function CadastroProdutos() {
+	let [imagens, setImagens] = useState([]);
+
 	return (
 		<div className={styles["CadastroProdutos"]}>
 			<Navbar />
@@ -45,8 +49,33 @@ function CadastroProdutos() {
 							</span>
 							<div className={styles["section-content"]}>
 								<div className={styles["insert-image-form"]}>
-									<InputFile tituloCampo={"Fazer Upload"} />
-									<div className={styles["image-list"]}></div>
+									<InputFile
+										tituloCampo={"Fazer Upload"}
+										multiple={true}
+										onChange={(e) => {
+											let selectedImages = e.target.files;
+
+											for (let i = 0; i < selectedImages.length; i++) {
+												setImagens((imagens) => [
+													...imagens,
+													{
+														name: selectedImages[i].name,
+														url: URL.createObjectURL(selectedImages[i]),
+													},
+												]);
+											}
+										}}
+									/>
+									<div className={styles["image-list"]}>
+										{imagens &&
+											imagens.map((e, key) => (
+												<ImageListItem
+													key={key}
+													nomeImagem={e.name}
+													imagem={e.url}
+												/>
+											))}
+									</div>
 								</div>
 							</div>
 						</div>
