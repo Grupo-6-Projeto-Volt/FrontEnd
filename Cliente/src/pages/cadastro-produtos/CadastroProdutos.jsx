@@ -7,9 +7,11 @@ import styles from "./CadastroProdutos.module.css";
 import InputFile from "../../components/input/inputfile/InputFile";
 import ImageListItem from "../../components/imagelistitem/ImageListItem";
 import { useEffect, useState } from "react";
+import InputDatalist from "../../components/input/inputdatalist/InputDatalist";
 
 function CadastroProdutos() {
 	let [imagens, setImagens] = useState([]);
+	let [tags, setTags] = useState([]);
 
 	return (
 		<div className={styles["CadastroProdutos"]}>
@@ -80,7 +82,39 @@ function CadastroProdutos() {
 							</div>
 						</div>
 					</div>
-					<div className={styles["col"]}></div>
+					<div className={styles["col"]}>
+						<div className={styles["form-section"]}>
+							<span className={styles["section-title"]}>Tags</span>
+							<div className={styles["section-content"]}>
+								<div className={styles["product-tags-form"]}>
+									<InputDatalist
+										tituloCampo={"Adicionar Tag"}
+										onClick={() => {
+											let item = document.getElementById("inputList");
+											let valor = item.value;
+											setTags((tags) => [...tags, valor]);
+										}}
+									/>
+									<div className={styles["tag-list"]}>
+										{tags &&
+											tags.map((e, key) => (
+												<h3
+													key={key}
+													style={{
+														backgroundColor: "#bd1616",
+														padding: "5px",
+														borderRadius: "5px",
+														color: "#F5F5F5",
+													}}
+												>
+													{e}
+												</h3>
+											))}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

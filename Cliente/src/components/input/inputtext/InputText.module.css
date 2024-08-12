@@ -7,7 +7,9 @@
 	justify-content: space-between;
 }
 
-input {
+input[type="text"] {
+	height: 3rem;
+	width: 95%;
 	background-color: #f5f5f5;
 	padding-left: 0.75rem;
 	border-radius: 0.5rem;
