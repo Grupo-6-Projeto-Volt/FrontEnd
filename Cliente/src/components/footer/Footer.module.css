@@ -1,0 +1,28 @@
+*{
+    font-family: "Inter", sans-serif;
+}
+
+.img-logo{
+    width: 15vw;
+    height: 8vh
+}
+
+.container-footer{
+    background-color: #BB2020;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 3%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+p{
+    margin: 5px;
+}
+
+.telefone{
+    margin-top: 1%;
+}
+

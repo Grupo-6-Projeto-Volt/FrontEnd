@@ -3,6 +3,11 @@ import { NavBarPadrao } from "../../components/navBarHome/NavBar";
 import { ProdutosData } from "../../components/produtoslist/ProdutosList.jsx";
 import { Sobre } from "../../components/sobre/Sobre.jsx";
 import styles from "./Home.module.css";
+import Footer from "../../components/footer/Footer.jsx";
+import NossosServicos from "../../components/nossosServicos/NossosServicos.jsx";
+import SolicitarConcerto from "../../components/solicitarConcerto/SolicitarConcerto.jsx";
+import Avaliacoes from "../../components/avaliacoes/Avaliacoes.jsx";
+
 const Home = () => {
 	return (
 		<>
@@ -11,7 +16,11 @@ const Home = () => {
 				<ProdutosData
 					secao='Ofertas' />
 				<Sobre />
+				<NossosServicos />
+				<SolicitarConcerto />
+				<Avaliacoes />
 			</div>
+			<Footer />
 		</>
 	)
 }
