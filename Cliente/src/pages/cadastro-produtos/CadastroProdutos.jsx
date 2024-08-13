@@ -98,15 +98,7 @@ function CadastroProdutos() {
 									<div className={styles["tag-list"]}>
 										{tags &&
 											tags.map((e, key) => (
-												<h3
-													key={key}
-													style={{
-														backgroundColor: "#bd1616",
-														padding: "5px",
-														borderRadius: "5px",
-														color: "#F5F5F5",
-													}}
-												>
+												<h3 key={key} className={styles["tag-card"]}>
 													{e}
 												</h3>
 											))}
