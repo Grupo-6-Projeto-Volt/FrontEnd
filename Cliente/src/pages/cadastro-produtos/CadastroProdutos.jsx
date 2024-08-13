@@ -8,10 +8,12 @@ import InputFile from "../../components/input/inputfile/InputFile";
 import ImageListItem from "../../components/imagelistitem/ImageListItem";
 import { useEffect, useState } from "react";
 import InputDatalist from "../../components/input/inputdatalist/InputDatalist";
+import InputColor from "../../components/input/inputcolor/InputColor";
 
 function CadastroProdutos() {
 	let [imagens, setImagens] = useState([]);
 	let [tags, setTags] = useState([]);
+	let [cores, setCores] = useState([]);
 
 	return (
 		<div className={styles["CadastroProdutos"]}>
@@ -102,6 +104,27 @@ function CadastroProdutos() {
 													{e}
 												</h3>
 											))}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className={styles["form-section"]}>
+							<span className={styles["section-title"]}>Cores</span>
+							<div className={styles["section-content"]}>
+								<div className={styles["insert-image-form"]}>
+									<InputColor
+										tituloCampo={
+											"Escolha as cores disponíveis para este produto"
+										}
+										onBlur={() => {
+											let item = document.getElementById("color");
+											let valor = item.value;
+											setTags((cores) => [...cores, valor]);
+											console.log(cores);
+										}}
+									/>
+									<div className={styles["image-list"]}>
+										{cores && cores.map((e, key) => <div>{e}</div>)}
 									</div>
 								</div>
 							</div>
