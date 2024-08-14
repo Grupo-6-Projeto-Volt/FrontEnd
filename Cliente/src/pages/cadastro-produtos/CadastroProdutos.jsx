@@ -6,7 +6,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./CadastroProdutos.module.css";
 import InputFile from "../../components/input/inputfile/InputFile";
 import ImageListItem from "../../components/imagelistitem/ImageListItem";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import InputDatalist from "../../components/input/inputdatalist/InputDatalist";
 import InputColor from "../../components/input/inputcolor/InputColor";
 
@@ -14,6 +14,17 @@ function CadastroProdutos() {
 	let [imagens, setImagens] = useState([]);
 	let [tags, setTags] = useState([]);
 	let [cores, setCores] = useState([]);
+
+	const dragItem = useRef(0);
+	const draggedOverItem = useRef(0);
+
+	function handleSort() {
+		const imagesClone = [...imagens];
+		const aux = imagesClone[dragItem.current];
+		imagesClone[dragItem.current] = imagesClone[draggedOverItem.current];
+		imagesClone[draggedOverItem.current] = aux;
+		setImagens(imagesClone);
+	}
 
 	return (
 		<div className={styles["CadastroProdutos"]}>
@@ -77,6 +88,11 @@ function CadastroProdutos() {
 													key={key}
 													nomeImagem={e.name}
 													imagem={e.url}
+													draggable={true}
+													onDragStart={() => (dragItem.current = key)}
+													onDragEnter={() => (draggedOverItem.current = key)}
+													onDragEnd={handleSort}
+													onDragOver={(e) => e.preventDefault()}
 												/>
 											))}
 									</div>
@@ -111,7 +127,7 @@ function CadastroProdutos() {
 						<div className={styles["form-section"]}>
 							<span className={styles["section-title"]}>Cores</span>
 							<div className={styles["section-content"]}>
-								<div className={styles["insert-image-form"]}>
+								<div className={styles["product-color-form"]}>
 									<InputColor
 										tituloCampo={
 											"Escolha as cores disponíveis para este produto"

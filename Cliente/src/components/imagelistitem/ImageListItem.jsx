@@ -1,9 +1,26 @@
 import { FaTrash } from "react-icons/fa6";
 import styles from "./ImageListItem.module.css";
 
-function ImageListItem({ nomeImagem, imagem }) {
+function ImageListItem({
+	nomeImagem,
+	imagem,
+	draggable,
+	onDragStart,
+	onDragEnd,
+	onDragEnter,
+	onDragLeave,
+	onDragOver,
+}) {
 	return (
-		<div className={styles["ImageListItem"]}>
+		<div
+			className={styles["ImageListItem"]}
+			draggable={draggable}
+			onDragStart={onDragStart}
+			onDragEnd={onDragEnd}
+			onDragEnter={onDragEnter}
+			onDragLeave={onDragLeave}
+			onDragOver={onDragOver}
+		>
 			<div className={styles["item-content"]}>
 				<span className={styles["item-title"]}>Imagem enviada!</span>
 				<span>Imagem {nomeImagem} adicionada com sucesso!</span>
