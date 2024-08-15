@@ -1,6 +1,7 @@
 import React from "react";
 import { NavBarPadrao } from "../../components/navBarHome/NavBar";
-import { ProdutosData } from "../../components/produtoslist/ProdutosList.jsx";
+import { ProdutosData as Lancamentos } from "../../components/produtoslist/ProdutosList.jsx";
+import { ProdutosData as Ofertas } from "../../components/produtoslist/ProdutosList.jsx";
 import { Sobre } from "../../components/sobre/Sobre.jsx";
 import styles from "./Home.module.css";
 import Footer from "../../components/footer/Footer.jsx";
@@ -13,8 +14,12 @@ const Home = () => {
 		<>
 			<NavBarPadrao />
 			<div className={styles["container"]}>
-				<ProdutosData
-					secao='Ofertas' />
+				<Lancamentos className="lancamentos"
+					secao='Lançamentos'
+					nome = 'lancamentos' />
+				<Ofertas
+					secao='Ofertas'
+					nome = 'ofertas' />
 				<Sobre />
 				<NossosServicos />
 				<SolicitarConcerto />

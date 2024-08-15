@@ -9,19 +9,32 @@ export const padding = 16;
 export const prev = document.getElementById('prev-btn');
 export const next = document.getElementById('next-btn');
 // import * as ProdutosList from './ProdutosList';
-export const list = document.getElementById('item-list');
-export function ProdutosData({ secao }) {
+// export const list = document.getElementById('item-list');
+export function ProdutosData({ secao, nome }) {
     let [dadosProduto, setDadosProduto] = useState([]);
 
+    function handleClick(btn) {
+        const list = document.getElementById(`item-list-${nome}`);
+        const itemWidth = 185
+        const padding = 8
+        if (btn === 'prev') {
+            list.scrollLeft -= (itemWidth + padding)
+        } else {
+            list.scrollLeft += (itemWidth + padding)
+        }
+    }
     async function getProdutos() {
         let response;
         try {
-            if (secao === "Ofertas") {
-                console.log("TESTE")
-                response = await produtos.listarOfertas();
-            } else {
-                response = await produtos.listarProdutos()
-            };
+            switch (secao) {
+                case ("Ofertas"):
+                    response = await produtos.listarOfertas();
+                    break;
+                default:
+                    response = await produtos.listarProdutos()
+                    break;
+            }
+
             setDadosProduto(response);
         } catch (e) {
             console.log(e);
@@ -34,27 +47,30 @@ export function ProdutosData({ secao }) {
     useEffect(() => {
         getProdutos()
     }, [])
-    
+
+    dadosProduto.map((produto) => (console.log(produto.imagensProduto.at(0))))
+
     return (
-        <div className={styles['container']}>
-            <h1>{secao}</h1>
-            <div className={styles['carousel-view']}>
-                {/* <button id="prev-btn" class="prev-btn"> </button> */}
-                <div id="item-list" className={styles['item-list']}>
-                    {dadosProduto.map((produto) => (
-                        <Produto className={styles['item']}
-                            nome={produto.nome}
-                            estado={produto.estadoGeral}
-                            imgUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrhiivQ-a9g_wMJYALyFjZIE9ylQuwprSM3A&s"
-                            preco={produto.preco} />
-                    ))}
+        // <div className={`${nome}`}>
+            <div className={styles['container']}>
+                <h1>{secao}</h1>
+                <div className={styles['carousel-view']}>
+                    <button id={`prev-btn-${nome}`} onClick={handleClick.bind(this, 'prev')} className={styles['btn-prev']}> </button>
+                    <div id={`item-list-${nome}`} className={styles['item-list']}>
+                        {dadosProduto.map((produto) => (
+                            <Produto className={styles['item']}
+                                nome={produto.nome}
+                                estado={produto.estadoGeral}
+                                imgUrl={produto.imagensProduto.at(0).codigoImagem}
+                                preco={produto.preco} />
+                        ))}
+                    </div>
+                    <button id={`next-btn-${nome}`} onClick={handleClick.bind(this, 'next')} className={styles['btn-next']}> </button>
                 </div>
-                {/* <button id="next-btn" className={styles['next-btn']}> </button> */}
             </div>
-        </div> 
+        // </div>
     )
 }
 
 
 
- 
