@@ -48,7 +48,7 @@ function Login() {
 			<ToastContainer />
 			<div className={styles["Login"]}>
 				<div className={styles["box-logo"]}>
-					<img src={logo} className={styles["logo"]}></img>
+					<img src={logo} alt="ichiban logo" className={styles["logo"]}></img>
 				</div>
 				<div className={styles["form"]}>
 					<div className={styles["voltar"]}>
@@ -65,7 +65,7 @@ function Login() {
 					</h1>
 					<div className={styles["input-group"]}>
 						<div className={styles["input-box"]}>
-							<label>Email:</label>
+							<label>E-mail:</label>
 							<input
 								onChange={(evento) => {
 									setEmailText(evento.target.value);

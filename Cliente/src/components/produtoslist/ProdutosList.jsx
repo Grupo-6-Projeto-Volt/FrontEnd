@@ -8,8 +8,6 @@ export const itemWidth = 130;
 export const padding = 16;
 export const prev = document.getElementById('prev-btn');
 export const next = document.getElementById('next-btn');
-// import * as ProdutosList from './ProdutosList';
-// export const list = document.getElementById('item-list');
 export function ProdutosData({ secao, nome }) {
     let [dadosProduto, setDadosProduto] = useState([]);
 
