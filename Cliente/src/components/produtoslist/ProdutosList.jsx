@@ -52,25 +52,25 @@ export function ProdutosData({ secao }) {
         // }
     // }
     
-    return (
-        // <div className={styles['listaProdutos']}>
-        <div className={styles['container']}>
-            <div className={styles['carousel-view']}>
-                <button id="prev-btn" class="prev-btn"> </button>
-                <div id="item-list" className={styles['item-list']}>
-                    {dadosProduto.map((produto) => (
-                        <Produto className={styles['item']}
-                            nome={produto.nome}
-                            estado={produto.estadoGeral}
-                            imgUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrhiivQ-a9g_wMJYALyFjZIE9ylQuwprSM3A&s"
-                            preco={produto.preco} />
-                    ))}
-                </div>
+    // return (
+    //     // <div className={styles['listaProdutos']}>
+    //     <div className={styles['container']}>
+    //         <div className={styles['carousel-view']}>
+    //             <button id="prev-btn" class="prev-btn"> </button>
+    //             <div id="item-list" className={styles['item-list']}>
+    //                 {dadosProduto.map((produto) => (
+    //                     <Produto className={styles['item']}
+    //                         nome={produto.nome}
+    //                         estado={produto.estadoGeral}
+    //                         imgUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrhiivQ-a9g_wMJYALyFjZIE9ylQuwprSM3A&s"
+    //                         preco={produto.preco} />
+    //                 ))}
+    //             </div>
 
-                <button id="next-btn" class="next-btn"> </button>
-            </div>
-        </div> 
-    )
+    //             <button id="next-btn" class="next-btn"> </button>
+    //         </div>
+    //     </div> 
+    // )
 }
 
 
