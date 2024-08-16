@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Home.module.css";
-import { useNavigate } from "react-router-dom";
-import { validateAuth } from "../../utils/global";
+import React from "react";
 import { NavBarPadrao } from "../../components/navBarHome/NavBar";
 import { ProdutosData } from "../../components/produtoslist/ProdutosList.jsx";
 const Home = () => {
