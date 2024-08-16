@@ -1,11 +1,11 @@
 import styles from "./InputFile.module.css";
 
-function InputFile({ tituloCampo, multiple, onChange }) {
+function InputFile({ tituloCampo, textoBotao, multiple, onChange }) {
 	return (
 		<div className={styles["InputFile"]}>
-			<label htmlFor="">Adicione as imagens do produto</label>
+			<label htmlFor="">{tituloCampo}</label>
 			<label htmlFor="file" className={styles["input-file-button"]}>
-				{tituloCampo}
+				{textoBotao}
 			</label>
 			<input
 				type="file"

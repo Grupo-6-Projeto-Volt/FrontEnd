@@ -9,6 +9,7 @@
 
 .input-datalist {
 	display: flex;
+	height: 3rem;
 	gap: 1.5rem;
 	justify-content: start;
 	align-items: center;

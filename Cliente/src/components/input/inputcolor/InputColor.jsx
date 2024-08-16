@@ -1,6 +1,6 @@
 import styles from "./InputColor.module.css";
 
-function InputColor({ tituloCampo, onBlur, onClick }) {
+function InputColor({ tituloCampo, onChange, onClick }) {
 	return (
 		<div className={styles["InputColor"]}>
 			<label>{tituloCampo}</label>
@@ -11,7 +11,7 @@ function InputColor({ tituloCampo, onBlur, onClick }) {
 				type="color"
 				name="color"
 				id="color"
-				onBlur={onBlur}
+				onChange={onChange}
 				onClick={onClick}
 			/>
 		</div>

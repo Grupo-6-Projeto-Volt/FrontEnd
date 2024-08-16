@@ -65,7 +65,8 @@ function CadastroProdutos() {
 							<div className={styles["section-content"]}>
 								<div className={styles["insert-image-form"]}>
 									<InputFile
-										tituloCampo={"Fazer Upload"}
+										tituloCampo={"Adicione as imagens do produto"}
+										textoBotao={"Fazer Upload"}
 										multiple={true}
 										onChange={(e) => {
 											let selectedImages = e.target.files;
@@ -132,15 +133,26 @@ function CadastroProdutos() {
 										tituloCampo={
 											"Escolha as cores disponíveis para este produto"
 										}
-										onBlur={() => {
+										onClick={() => {
 											let item = document.getElementById("color");
 											let valor = item.value;
-											setTags((cores) => [...cores, valor]);
-											console.log(cores);
+											setCores((cores) => [...cores, valor]);
+										}}
+										onChange={() => {
+											let item = document.getElementById("color");
+											let valor = item.value;
+											setCores((cores) => [...cores.slice(0, -1), valor]);
 										}}
 									/>
-									<div className={styles["image-list"]}>
-										{cores && cores.map((e, key) => <div>{e}</div>)}
+									<div className={styles["color-list"]}>
+										{cores &&
+											cores.map((e, key) => (
+												<div
+													key={key}
+													style={{ backgroundColor: e }}
+													className={styles["color-card"]}
+												></div>
+											))}
 									</div>
 								</div>
 							</div>
