@@ -17,7 +17,7 @@ const Home = () => {
 			secao = 'Ofertas' />
 			<NossosServicos />
 			<SolicitarConcerto />
-			<Avaliacoes />
+			<Avaliacoes /> 
 			<Footer />
 		</>
 	)
