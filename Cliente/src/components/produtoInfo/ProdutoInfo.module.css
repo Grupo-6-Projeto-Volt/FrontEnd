@@ -1,0 +1,97 @@
+.conteiner{
+    padding: 3%;
+}
+
+.button-voltar{
+    cursor: pointer;
+    font-size: 18px;
+    width: 20px;
+}
+
+.titulo-bottao{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.imagens-produto{
+    width: 70%;
+}
+
+.info-produto{
+    width: 30%;
+}
+
+.conteiner-info{
+    display: flex;
+    flex-direction: row;
+}
+
+.img-iphonePrincipal{
+    width: 95%;
+}
+
+.info-produto p{
+    font-size: 20px;
+}
+
+.heart {
+    font-size: 50px;
+    color: #000000;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+  
+.heart.active {
+    color: #ff0000;
+}
+
+.info-produto h3{
+    font-size: 22px;
+}
+
+.cores{
+    margin-top: 5%;
+}
+
+.paletas{
+    display: flex;
+    flex-direction: row;
+}
+
+.cor-vermelha{
+    background-color: #A93933;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    margin-left: 2%;
+}
+
+.cor-azul{
+    background-color: #394578;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    margin-left: 2%;
+}
+
+.cor-preta{
+    background-color: #323232;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    margin-left: 2%;
+}
+
+.botao-comprar{
+    height: 50px;
+    border-radius: 50px;
+    margin-top: 1%;
+    width: 95%;
+}
+
+.img-iphone-secundarias{
+    height: 133px;
+    margin-left: 4%;
+    margin-top: 2%;
+}

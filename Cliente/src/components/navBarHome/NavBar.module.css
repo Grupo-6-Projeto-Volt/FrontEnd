@@ -1,0 +1,64 @@
+.img-logo{
+    width: 15vw;
+    height: 8vh
+}
+.navbar{
+    width: 99vw;
+    height: 20%;
+}
+.navBarBaixo{
+    background-color: #000000;
+    width: 100%;
+    padding: 0.1vh;
+}
+.navBarBaixo ul{
+    display: flex;
+    justify-content: center;
+    padding-inline-start: 0;
+}
+.navBarBaixo ul li{
+    color: #fff;
+    display: inline;
+    padding-right: 3%;
+}
+.container-navbar{
+    padding-left: 2%;
+    padding-top: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.pesquisa{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.containerPesquisaUser input{
+    border: 1px solid #000000!important;
+    width: 60%;
+    border-radius: 2px;
+    height: 35px;
+    margin-right: 0.5vw;
+}
+.usuario{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50px;
+    margin-right: 0.5vw;
+}
+.favoritos{
+    width: 2.2rem;
+    height: 2.2rem;
+}
+.containerPesquisaUser{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 60%;
+}
+.usuarioDiv{
+    display: flex;
+    align-items: center;
+}

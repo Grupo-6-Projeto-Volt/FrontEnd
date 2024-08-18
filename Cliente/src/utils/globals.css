@@ -1,40 +1,50 @@
 @font-face {
-    font-family: "Lalezar";
-    src: url("../utils/fonts/Lalezar-Regular.ttf") format("truetype");
+	font-family: "PoppinsBold";
+	src: url("../utils/fonts/Poppins-Bold.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "Akshar";
-    src: url("../utils/fonts/Akshar-Light.ttf") format("truetype");
+	font-family: "PoppinsMedium";
+	src: url("../utils/fonts/Poppins-Medium.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "Akshar";
-    src: url("../utils/fonts/Akshar-Medium.ttf") format("truetype");
+	font-family: "PoppinsRegular";
+	src: url("../utils/fonts/Poppins-Regular.ttf") format("truetype");
+}
+
+@font-face {
+	font-family: "PoppinsThin";
+	src: url("../utils/fonts/Poppins-Thin.ttf") format("truetype");
+}
+
+
+*:focus {
+	outline: none;
+	border: none;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    font-size: 1rem;
-    font-weight: 400;
-    color: #FFFFFF;
-    font-family: "Lalezar", sans-serif;
+	margin: 0;
+	padding: 0;
+	font-size: 1rem;
+	color: #1f384c;
+	font-family: "PoppinsRegular", sans-serif;
 }
 
 ::-webkit-scrollbar {
-    width: 0.8rem; 
+	width: 0.8rem;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 6px;
+	background-color: #888;
+	border-radius: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
+	background-color: #f1f1f1;
 }
 
 ::-webkit-scrollbar-button {
-    display: none;
+	display: none;
 }

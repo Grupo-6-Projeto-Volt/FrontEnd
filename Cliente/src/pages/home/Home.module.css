@@ -9,8 +9,8 @@ label {
     align-items: center;
     color: black;
     justify-content: center;
+    flex-direction: column;
 }
-
 .box-container{
     display: flex;
     flex-direction: column;
@@ -34,4 +34,9 @@ label {
     color: white;
     font-weight: bold;
     transition: .5s;
+}
+
+.logo{
+    width:30%;
+    margin-top: 2%;
 }
