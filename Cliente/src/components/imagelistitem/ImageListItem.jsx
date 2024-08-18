@@ -10,6 +10,7 @@ function ImageListItem({
 	onDragEnter,
 	onDragLeave,
 	onDragOver,
+	onDelete,
 }) {
 	return (
 		<div
@@ -29,7 +30,7 @@ function ImageListItem({
 				<img src={imagem} alt={nomeImagem} />
 			</div>
 			<div className={styles["item-delete-icon"]}>
-				<FaTrash />
+				<FaTrash onClick={onDelete} cursor={"pointer"} />
 			</div>
 		</div>
 	);

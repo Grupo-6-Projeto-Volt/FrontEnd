@@ -9,6 +9,7 @@ import ImageListItem from "../../components/imagelistitem/ImageListItem";
 import { useEffect, useRef, useState } from "react";
 import InputDatalist from "../../components/input/inputdatalist/InputDatalist";
 import InputColor from "../../components/input/inputcolor/InputColor";
+import { FaClosedCaptioning, FaX } from "react-icons/fa6";
 
 function CadastroProdutos() {
 	let [imagens, setImagens] = useState([]);
@@ -94,6 +95,11 @@ function CadastroProdutos() {
 													onDragEnter={() => (draggedOverItem.current = key)}
 													onDragEnd={handleSort}
 													onDragOver={(e) => e.preventDefault()}
+													onDelete={() => {
+														let newImages = [...imagens];
+														newImages.splice(key, 1);
+														setImagens(newImages);
+													}}
 												/>
 											))}
 									</div>
@@ -111,7 +117,18 @@ function CadastroProdutos() {
 										onClick={() => {
 											let item = document.getElementById("inputList");
 											let valor = item.value;
-											setTags((tags) => [...tags, valor]);
+
+											if (valor.trim() && valor.length > 3) {
+												if (!tags.includes(valor)) {
+													setTags((tags) => [...tags, valor]);
+												} else {
+													alert("Tag já existente");
+												}
+											} else {
+												alert("Tag inválida. Deve ter pelo menos 4 caracteres");
+											}
+
+											item.value = "";
 										}}
 									/>
 									<div className={styles["tag-list"]}>
@@ -151,7 +168,18 @@ function CadastroProdutos() {
 													key={key}
 													style={{ backgroundColor: e }}
 													className={styles["color-card"]}
-												></div>
+												>
+													<button
+														className={styles["remove-color-btn"]}
+														onClick={() => {
+															let newCores = [...cores];
+															newCores.splice(key, 1);
+															setCores(newCores);
+														}}
+													>
+														x
+													</button>
+												</div>
 											))}
 									</div>
 								</div>
