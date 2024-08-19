@@ -16,7 +16,8 @@ export const NavBarPadrao = () => {
                 navigate("/login");
             }} />
         } else {
-            return <img src={userExample} alt="" className={styles["usuario"]} />
+            return <h2>Olá, user</h2>
+            // return <img src={userExample} alt="" className={styles["usuario"]} />
         }
     }
 
@@ -35,7 +36,7 @@ export const NavBarPadrao = () => {
                     <h3>|</h3>
                     <div className={styles["usuarioDiv"]}>
                         {validateAuthentication()}
-                        <FaRegHeart className={styles["favoritos"]} />
+                        <FaRegHeart className={styles["favoritos"]} onClick={() => { navigate("/favoritos")}} />
                     </div>
                 </div>
             </div>

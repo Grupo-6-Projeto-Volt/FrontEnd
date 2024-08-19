@@ -12,8 +12,6 @@ function Rotas() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    {/* CONFIGURAR PÁGINA NOT FOUND */}
-                    <Route path="*" element={<Home />} />
                     <Route path="/cadastro" element={<Cadastro />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/dashboard-chamados" element={<Chamados />}></Route>

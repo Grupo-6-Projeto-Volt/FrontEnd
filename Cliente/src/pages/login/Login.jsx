@@ -65,7 +65,7 @@ function Login() {
 					</h1>
 					<div className={styles["input-group"]}>
 						<div className={styles["input-box"]}>
-							<label>Email:</label>
+							<label>E-mail:</label>
 							<input
 								onChange={(evento) => {
 									setEmailText(evento.target.value);
