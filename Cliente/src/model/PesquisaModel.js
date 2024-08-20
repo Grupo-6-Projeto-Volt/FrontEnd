@@ -9,7 +9,7 @@ export const pesquisaProdutos = (produtoDigitado) =>{
     }
     let resposta = api.get("/produtos/loja",{
         params:{
-        textoBusca: produtoPesquisado
+        textoBusca: produtoPesquisado.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     }
 }).then((resultado)=>{
         console.log(resultado.data);
