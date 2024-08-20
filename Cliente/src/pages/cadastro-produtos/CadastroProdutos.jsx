@@ -185,6 +185,20 @@ function CadastroProdutos() {
 								</div>
 							</div>
 						</div>
+						<div className={styles["form-section"]}>
+							<span className={styles["section-title"]}>Desconto</span>
+							<div className={styles["section-content"]}>
+								<div className={styles["discount-form"]}>
+									<div className={styles["apply-discount-slider"]}>
+										<label htmlFor="nome">Aplicar Desconto?</label>
+										<label className={styles["switch"]}>
+											<input type="checkbox" />
+											<span className={styles["slider"]}></span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
