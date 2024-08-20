@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { validateAuth } from "../../utils/global";
 import { NavBarPadrao } from '../../components/navBarHome/NavBar';
 import Footer from '../../components/footer/Footer';
-const Favoritos = () => {
+const Favoritos = (idUser) => {
     let navigate = useNavigate();
 
     function validateAuthentication() {
