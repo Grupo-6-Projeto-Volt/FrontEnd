@@ -129,7 +129,6 @@ label {
 
 .product-color-form {
 	width: 100%;
-	height: 40%;
 	display: flex;
 	flex-direction: column;
 	justify-content: start;
@@ -149,7 +148,6 @@ label {
 
 .color-list {
 	width: 100%;
-	height: 5rem;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
@@ -164,6 +162,14 @@ label {
 	margin-top: 0.2rem;
 	margin-right: 0.2rem;
 	cursor: pointer;
+}
+
+.discount-form {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	justify-content: start;
+	gap: 1.5rem;
 }
 
 .apply-discount-slider {
@@ -223,4 +229,18 @@ input:checked + .slider:before {
 	-webkit-transform: translateX(46px);
 	-ms-transform: translateX(46px);
 	transform: translateX(46px);
+}
+
+.apply-discount-picker {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	gap: 1.5rem;
+}
+
+.prev-new-values {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
 }

@@ -9,12 +9,20 @@ import ImageListItem from "../../components/imagelistitem/ImageListItem";
 import { useEffect, useRef, useState } from "react";
 import InputDatalist from "../../components/input/inputdatalist/InputDatalist";
 import InputColor from "../../components/input/inputcolor/InputColor";
-import { FaClosedCaptioning, FaX } from "react-icons/fa6";
 
 function CadastroProdutos() {
+	let [nome, setNome] = useState("");
+	let [categoria, setCategoria] = useState("");
+	let [estado, setEstado] = useState("");
+	let [preco, setPreco] = useState("");
+	let [descricao, setDescricao] = useState("");
+	let [desconto, setDesconto] = useState("");
+
 	let [imagens, setImagens] = useState([]);
 	let [tags, setTags] = useState([]);
 	let [cores, setCores] = useState([]);
+
+	let [aplicarDesconto, setAplicarDesconto] = useState(false);
 
 	const dragItem = useRef(0);
 	const draggedOverItem = useRef(0);
@@ -43,18 +51,27 @@ function CadastroProdutos() {
 									<InputText
 										tituloCampo={"Nome Produto"}
 										placeholder={"Ex: Iphone 13 Max"}
+										onChange={(e) => setNome(e.target.value)}
 									/>
-									<InputSelection tituloCampo={"Categoria"} />
-									<InputSelection tituloCampo={"Estado do Produto"} />
+									<InputSelection
+										tituloCampo={"Categoria"}
+										// onChange={(e) => setCategoria(e.target.value)}
+									/>
+									<InputSelection
+										tituloCampo={"Estado do Produto"}
+										// onChange={(e) => setEstado(e.target.value)}
+									/>
 									<InputText
 										tituloCampo={"Preço do Produto"}
 										placeholder={"Ex: R$500,00"}
+										onChange={(e) => setPreco(e.target.value)}
 									/>
 									<InputBigText
 										tituloCampo={"Descrição do Produto"}
 										placeholder={
 											"Ex: Descrição técnica e características do produto"
 										}
+										// onChange={(e) => setDescricao(e.target.value)}
 									/>
 								</div>
 							</div>
@@ -192,9 +209,52 @@ function CadastroProdutos() {
 									<div className={styles["apply-discount-slider"]}>
 										<label htmlFor="nome">Aplicar Desconto?</label>
 										<label className={styles["switch"]}>
-											<input type="checkbox" />
+											<input
+												type="checkbox"
+												onChange={(e) => {
+													setAplicarDesconto(e.target.checked);
+												}}
+											/>
 											<span className={styles["slider"]}></span>
 										</label>
+									</div>
+									<div
+										className={styles["apply-discount-picker"]}
+										style={{ display: aplicarDesconto ? "flex" : "none" }}
+									>
+										<InputText
+											tituloCampo={"Desconto do Produto"}
+											placeholder={"%"}
+											onChange={(e) => {
+												// validates if the value in higher than 0 and lower or equal to 100. Also validates if the value contains a comma and, if it does, replaces it for a dot
+												let value = e.target.value.replace(",", ".");
+												if (Number(value) >= 0 && Number(value) <= 100) {
+													setDesconto(e.target.value);
+												} else {
+													alert(
+														"Desconto inválido. Deve ser um número entre 0 e 100."
+													);
+													setDesconto("");
+													e.target.value = "";
+													e.target.focus();
+												}
+											}}
+										/>
+										<div className={styles["prev-new-values"]}>
+											<label htmlFor="">
+												Valor original: <b>R${Number(preco).toFixed(2)}</b>
+											</label>
+											<label htmlFor="">
+												Novo valor:{" "}
+												<b>
+													R$
+													{(
+														((100 - Number(desconto)) / 100) *
+														Number(preco)
+													).toFixed(2)}
+												</b>
+											</label>
+										</div>
 									</div>
 								</div>
 							</div>
