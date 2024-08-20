@@ -259,6 +259,12 @@ function CadastroProdutos() {
 								</div>
 							</div>
 						</div>
+						<div className={styles["form-submit-area"]}>
+							<button className={styles["form-submit-button"]}>Postar</button>
+							<button className={styles["form-submit-button"]}>
+								Visualizar Layout
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
