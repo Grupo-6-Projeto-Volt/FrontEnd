@@ -2,6 +2,7 @@ import styles from "./ProdutosList.module.css"
 import { produtos } from "../../model/ProdutosListModel"
 import { Produto } from "../productcard/ProductCard";
 import React, { useEffect, useState } from 'react';
+import { pesquisaProdutos } from "../../model/PesquisaModel";
 
 export const list = document.getElementById('item-list');
 export const itemWidth = 150;
@@ -9,15 +10,18 @@ export const padding = 16;
 export const prev = document.getElementById('prev-btn');
 export const next = document.getElementById('next-btn');
 // import * as ProdutosList from './ProdutosList';
-export function ProdutosData({ secao }) {
+export function ProdutosData({ secao,nomeProduto }) {
     let [dadosProduto, setDadosProduto] = useState([]);
 
     async function getProdutos() {
+        console.log(nomeProduto)
         let response;
         try {
             if (secao === "Ofertas") {
                 response = await produtos.listarOfertas();
-            } else {
+            }else if(nomeProduto !== null || nomeProduto !== ""){
+                response = await pesquisaProdutos(nomeProduto)
+            }else {
                 response = await produtos.listarProdutos()
             };
             setDadosProduto(response);

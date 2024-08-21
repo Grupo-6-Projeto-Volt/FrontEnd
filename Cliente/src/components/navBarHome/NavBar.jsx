@@ -4,14 +4,14 @@ import { FaSearch } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import userExample from "../../utils/assets/img/usuario-exemplo.jpg"
 import { useState } from "react";
-import { pesquisaProdutos } from "../../model/PesquisaModel";
+import { useNavigate } from "react-router-dom";
 
 export const NavBarPadrao = () => {
     const [inputValue, setInputValue] = useState("");
+    let navigate = useNavigate();
 
     const buscarProduto = () => {
-        pesquisaProdutos(inputValue);
-    };
+        navigate('/pesquisa',{state:{valor: inputValue}})};
 
     return (
         <nav className={styles["navbar"]}>
