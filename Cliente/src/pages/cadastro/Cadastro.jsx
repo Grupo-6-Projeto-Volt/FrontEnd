@@ -93,7 +93,7 @@ const Cadastro = () => {
             </div>
               <div className="input-group-1">
                 <div className="input-box">
-                    <label htmlFor="email">E-mail:</label>
+                    <label htmlFor="email">Email:</label>
                     <Field name="email" type="email" placeholder="exemplo@gmail.com" />
                     <ErrorMessage name="email" component="div" className="error-message" />
                   </div>     

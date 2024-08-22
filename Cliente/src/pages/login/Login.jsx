@@ -1,10 +1,10 @@
 import { useState } from "react";
+import styles from "./Login.module.css";
+import api from "../../api";
 import { useNavigate } from "react-router-dom";
+import logo from "../../utils/assets/logo-ichiban.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import api from "../../api";
-import logo from "../../utils/assets/logo-ichiban.png";
-import styles from "./Login.module.css";
 
 function Login() {
 	let [emailText, setEmailText] = useState("");
@@ -25,7 +25,6 @@ function Login() {
 				sessionStorage.EMAIL = Data.email;
 				sessionStorage.TELEFONE = Data.telefone;
 				sessionStorage.CATEGORIA = Data.categoria;
-				console.log(Data);
 				toast.success("Login realizado com sucesso!!", {
 					position: "top-right",
 					autoClose: 5000,
@@ -49,7 +48,7 @@ function Login() {
 			<ToastContainer />
 			<div className={styles["Login"]}>
 				<div className={styles["box-logo"]}>
-					<img src={logo} alt="logo ichiban" className={styles["logo"]}></img>
+					<img src={logo} className={styles["logo"]}></img>
 				</div>
 				<div className={styles["form"]}>
 					<div className={styles["voltar"]}>
@@ -66,7 +65,7 @@ function Login() {
 					</h1>
 					<div className={styles["input-group"]}>
 						<div className={styles["input-box"]}>
-							<label>E-mail:</label>
+							<label>Email:</label>
 							<input
 								onChange={(evento) => {
 									setEmailText(evento.target.value);
@@ -100,7 +99,6 @@ function Login() {
 								onClick={() => {
 									navigate("/cadastro");
 								}}
-								href="/cadastro"
 							>
 								Cadastre-se agora
 							</a>

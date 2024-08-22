@@ -25,7 +25,6 @@ export const produtos = {
                 console.log("Houve um erro:", erro)
                 return erro;
             });
-            console.log(resposta)
         return resposta;
     }
 }
