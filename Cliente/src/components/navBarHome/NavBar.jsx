@@ -2,6 +2,7 @@ import styles from "./NavBar.module.css"
 import logo from "../../utils/assets/img/logo-ichiban.png"
 import { FaSearch } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
+import userExample from "../../utils/assets/img/usuario-exemplo.jpg"
 import { validateAuth } from "../../utils/global";
 import userPadrao from "../../utils/assets/img/user_padrao.png"
 import { useEffect } from 'react';
