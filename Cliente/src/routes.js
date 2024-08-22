@@ -5,6 +5,7 @@ import Chamados from "./pages/dashboard/chamados/Chamados";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Home from "./pages/home/Home.jsx";
 import Login from "./pages/login/Login.jsx"
+import Favoritos from "./pages/favoritos/Favoritos.jsx";
 function Rotas() {
     return (
         <>
@@ -15,6 +16,7 @@ function Rotas() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/dashboard-chamados" element={<Chamados />}></Route>
                     <Route path="/dashboard" element={<Dashboard />}></Route>
+                    <Route path="/favoritos" element={<Favoritos />} />
                 </Routes>
             </BrowserRouter>
         </>
