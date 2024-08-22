@@ -2,11 +2,10 @@ import React from "react";
 import { NavBarPadrao } from "../../components/navBarHome/NavBar";
 import { ProdutosData as Lancamentos } from "../../components/produtoslist/ProdutosList.jsx";
 import { ProdutosData as Ofertas } from "../../components/produtoslist/ProdutosList.jsx";
-import { Sobre } from "../../components/sobre/Sobre.jsx";
+// import { Sobre } from "../../components/sobre/Sobre.jsx";
 import styles from "./Home.module.css";
 import Footer from "../../components/footer/Footer.jsx";
 import NossosServicos from "../../components/nossosServicos/NossosServicos.jsx";
-import SolicitarConcerto from "../../components/solicitarConcerto/SolicitarConcerto.jsx";
 import Avaliacoes from "../../components/avaliacoes/Avaliacoes.jsx";
 
 const Home = () => {
@@ -20,9 +19,9 @@ const Home = () => {
 				<Ofertas
 					secao='Ofertas'
 					nome = 'ofertas' />
-				<Sobre />
+				{/* <Sobre /> */}
 				<NossosServicos />
-				<SolicitarConcerto />
+				{/* <SolicitarConcerto /> */}
 				<Avaliacoes />
 			</div>
 			<Footer />
