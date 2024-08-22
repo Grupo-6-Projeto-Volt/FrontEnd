@@ -10,17 +10,17 @@ export const padding = 16;
 export const prev = document.getElementById('prev-btn');
 export const next = document.getElementById('next-btn');
 // import * as ProdutosList from './ProdutosList';
-export function ProdutosData({ secao,nomeProduto }) {
+export function ProdutosData({ secao,nomeProduto, pesquisa }) {
     let [dadosProduto, setDadosProduto] = useState([]);
 
     async function getProdutos() {
-        console.log(nomeProduto)
+        console.log(pesquisa)
         let response;
         try {
             if (secao === "Ofertas") {
                 response = await produtos.listarOfertas();
-            }else if(nomeProduto !== null || nomeProduto !== ""){
-                response = await pesquisaProdutos(nomeProduto)
+            }else if(secao === 'Pesquisa'){
+                response = await pesquisaProdutos(pesquisa.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
             }else {
                 response = await produtos.listarProdutos()
             };
@@ -56,25 +56,32 @@ export function ProdutosData({ secao,nomeProduto }) {
         // }
     // }
     
-    return (
-        // <div className={styles['listaProdutos']}>
-        <div className={styles['container']}>
-            <div className={styles['carousel-view']}>
-                <button id="prev-btn" class="prev-btn"> </button>
-                <div id="item-list" className={styles['item-list']}>
-                    {dadosProduto.map((produto) => (
-                        <Produto className={styles['item']}
-                            nome={produto.nome}
-                            estado={produto.estadoGeral}
-                            imgUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrhiivQ-a9g_wMJYALyFjZIE9ylQuwprSM3A&s"
-                            preco={produto.preco} />
-                    ))}
-                </div>
+    if(dadosProduto.length > 0){
 
-                <button id="next-btn" class="next-btn"> </button>
-            </div>
-        </div> 
-    )
+        return (
+            // <div className={styles['listaProdutos']}>
+            <div className={styles['container']}>
+                <div className={styles['carousel-view']}>
+                    <button id="prev-btn" class="prev-btn"> </button>
+                    <div id="item-list" className={styles['item-list']}>
+                        {dadosProduto.map((produto) => (
+                            <Produto className={styles['item']}
+                                nome={produto.nome}
+                                estado={produto.estadoGeral}
+                                imgUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrhiivQ-a9g_wMJYALyFjZIE9ylQuwprSM3A&s"
+                                preco={produto.preco} />
+                        ))}
+                    </div>
+    
+                    <button id="next-btn" class="next-btn"> </button>
+                </div>
+            </div> 
+        )
+    }else{
+        return (
+            <></>
+        )
+    }
 }
 
 

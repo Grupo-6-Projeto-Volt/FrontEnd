@@ -1,8 +1,7 @@
 import { NavBarPadrao } from "../../components/navBarHome/NavBar";
 import { useLocation } from "react-router-dom";
 import { useEffect,useState } from "react";
-import { ProductsData } from "../../components/products/Prodcuts";
-
+import { ProdutosData } from "../../components/produtoslist/ProdutosList.jsx";
 
 export default function Pesquisa(){
      let location = useLocation();
@@ -10,15 +9,15 @@ export default function Pesquisa(){
      useEffect((
      )=>{
           let valor = location.state.valor;
+          console.log(location)
           setProduto(valor)
-          console.log(valor);
           console.log(produto)
      },[produto])
 
     return(
         <>
           <NavBarPadrao/>
-          <ProductsData secao='' nomeProduto={produto}/>
+          <ProdutosData secao='Pesquisa' pesquisa={produto}/>
         </>
     )
 }
