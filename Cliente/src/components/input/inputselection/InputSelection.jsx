@@ -1,14 +1,16 @@
 import styles from "./InputSelection.module.css";
 
-function InputSelection({ tituloCampo }) {
+function InputSelection({ id, tituloCampo, items, onChange }) {
 	return (
 		<div className={styles["InputSelection"]}>
 			<label htmlFor="nome">{tituloCampo}</label>
-			<select id="">
-				<option value="">Nenhum</option>
-				<option value="">Novo</option>
-				<option value="">Seminovo</option>
-				<option value="">Outlet</option>
+			<select id={id} onChange={(e) => onChange(e)}>
+				{items &&
+					items.map((item, key) => (
+						<option key={key} value={item}>
+							{item}
+						</option>
+					))}
 			</select>
 		</div>
 	);

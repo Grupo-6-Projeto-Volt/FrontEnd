@@ -35,6 +35,19 @@ function CadastroProdutos() {
 		setImagens(imagesClone);
 	}
 
+	function handleSubmit() {
+		console.log("Nome:", nome);
+		console.log("Categoria:", categoria);
+		console.log("Estado:", estado);
+		console.log("Preço:", preco);
+		console.log("Descrição:", descricao);
+		console.log("Desconto:", desconto);
+		console.log("Imagens:", imagens);
+		console.log("Tags:", tags);
+		console.log("Cores:", cores);
+		alert("Produto Cadastrado!");
+	}
+
 	return (
 		<div className={styles["CadastroProdutos"]}>
 			<Navbar />
@@ -54,12 +67,29 @@ function CadastroProdutos() {
 										onChange={(e) => setNome(e.target.value)}
 									/>
 									<InputSelection
+										id={"ipt_categoria"}
 										tituloCampo={"Categoria"}
-										// onChange={(e) => setCategoria(e.target.value)}
+										items={[
+											"NA",
+											"Celular",
+											"Computador",
+											"Tablet",
+											"Acessório",
+										]}
+										onChange={(e) => setCategoria(e.target.value)}
 									/>
 									<InputSelection
+										id={"ipt_estado"}
 										tituloCampo={"Estado do Produto"}
-										// onChange={(e) => setEstado(e.target.value)}
+										items={[
+											"NA",
+											"Novo",
+											"Seminovo",
+											"Usado",
+											"Velho",
+											"Outlet",
+										]}
+										onChange={(e) => setEstado(e.target.value)}
 									/>
 									<InputText
 										tituloCampo={"Preço do Produto"}
@@ -71,7 +101,7 @@ function CadastroProdutos() {
 										placeholder={
 											"Ex: Descrição técnica e características do produto"
 										}
-										// onChange={(e) => setDescricao(e.target.value)}
+										onChange={(e) => setDescricao(e.target.value)}
 									/>
 								</div>
 							</div>
@@ -100,7 +130,10 @@ function CadastroProdutos() {
 											}
 										}}
 									/>
-									<div className={styles["image-list"]}>
+									<div
+										className={styles["image-list"]}
+										style={{ height: imagens.length > 3 ? "10rem" : "auto" }}
+									>
 										{imagens &&
 											imagens.map((e, key) => (
 												<ImageListItem
@@ -148,11 +181,24 @@ function CadastroProdutos() {
 											item.value = "";
 										}}
 									/>
-									<div className={styles["tag-list"]}>
+									<div
+										className={styles["tag-list"]}
+										style={{ height: tags.length > 4 ? "5rem" : "auto" }}
+									>
 										{tags &&
 											tags.map((e, key) => (
 												<h3 key={key} className={styles["tag-card"]}>
 													{e}
+													<button
+														className={styles["remove-tag-btn"]}
+														onClick={() => {
+															let newTags = [...tags];
+															newTags.splice(key, 1);
+															setTags(newTags);
+														}}
+													>
+														x
+													</button>
 												</h3>
 											))}
 									</div>
@@ -178,7 +224,10 @@ function CadastroProdutos() {
 											setCores((cores) => [...cores.slice(0, -1), valor]);
 										}}
 									/>
-									<div className={styles["color-list"]}>
+									<div
+										className={styles["color-list"]}
+										style={{ height: cores.length > 14 ? "8rem" : "auto" }}
+									>
 										{cores &&
 											cores.map((e, key) => (
 												<div
@@ -229,7 +278,7 @@ function CadastroProdutos() {
 												// validates if the value in higher than 0 and lower or equal to 100. Also validates if the value contains a comma and, if it does, replaces it for a dot
 												let value = e.target.value.replace(",", ".");
 												if (Number(value) >= 0 && Number(value) <= 100) {
-													setDesconto(e.target.value);
+													setDesconto(value);
 												} else {
 													alert(
 														"Desconto inválido. Deve ser um número entre 0 e 100."
@@ -260,7 +309,12 @@ function CadastroProdutos() {
 							</div>
 						</div>
 						<div className={styles["form-submit-area"]}>
-							<button className={styles["form-submit-button"]}>Postar</button>
+							<button
+								className={styles["form-submit-button"]}
+								onClick={handleSubmit}
+							>
+								Postar
+							</button>
 							<button className={styles["form-submit-button"]}>
 								Visualizar Layout
 							</button>
