@@ -17,7 +17,6 @@ export const NavBarPadrao = () => {
             }} />
         } else {
             return <h2>Olá, user</h2>
-            // return <img src={userExample} alt="" className={styles["usuario"]} />
         }
     }
 

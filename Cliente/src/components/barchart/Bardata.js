@@ -9,7 +9,6 @@ export function ObterDadosCategoriaGrafico() {
     async function obterCategoriasAcessadas() {
       try {
         let resposta = await listarCategoriasMaisAcessadas();
-        // console.log(resposta)
         adicionarDadosGrafico(resposta);
       } catch (e) {
         console.log(e);

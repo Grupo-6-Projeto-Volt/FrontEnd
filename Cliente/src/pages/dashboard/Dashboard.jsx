@@ -29,7 +29,6 @@ export default function Dashboard() {
     async function totalOrdersKpi(){
         let resultado = await listarAcessosNosUltimosSeteDias();
         setTotalOrders(resultado);
-        console.log(resultado)
     }
     
     // const seven_days_acess = { title: 'Total de visitantes nos últimos 7 dias', paragraph: totalOrders };
