@@ -8,16 +8,27 @@ import Footer from "../../components/footer/Footer.jsx";
 import NossosServicos from "../../components/nossosServicos/NossosServicos.jsx";
 import SolicitarConcerto from "../../components/solicitarConcerto/SolicitarConcerto.jsx";
 import Avaliacoes from "../../components/avaliacoes/Avaliacoes.jsx";
+import Banner from "../../components/banner/Banner.jsx";
+import OfertaEspecial from "../../components/ofertaEspecial/OfertaEspecial.jsx";
 
 const Home = () => {
 	return (
 		<>
 			<NavBarPadrao />
-			<ProdutosData
-			secao = 'Ofertas' />
-			<NossosServicos />
-			<SolicitarConcerto />
-			<Avaliacoes /> 
+			<div className={styles["container"]}>
+				<Banner></Banner>
+				<Lancamentos className="lancamentos"
+					secao='Lançamentos'
+					nome = 'lancamentos' />
+				<Ofertas
+					secao='Ofertas'
+					nome = 'ofertas' />
+				{/* <Sobre /> */}
+				<OfertaEspecial></OfertaEspecial>
+				<NossosServicos />
+				{/* <SolicitarConcerto /> */}
+				<Avaliacoes />
+			</div>
 			<Footer />
 		</>
 	)
