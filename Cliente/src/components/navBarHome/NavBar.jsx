@@ -3,6 +3,10 @@ import logo from "../../utils/assets/img/logo-ichiban.png"
 import { FaSearch } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import userExample from "../../utils/assets/img/usuario-exemplo.jpg"
+import { validateAuth } from "../../utils/global";
+import userPadrao from "../../utils/assets/img/user_padrao.png"
+import { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 export const NavBarPadrao = () => {
     let navigate = useNavigate();
 
@@ -30,8 +34,8 @@ export const NavBarPadrao = () => {
                     </div>
                     <h3>|</h3>
                     <div className={styles["usuarioDiv"]}>
-                        <img src={userExample} alt="" className={styles["usuario"]} />
-                        <FaRegHeart className={styles["favoritos"]} />
+                        {validateAuthentication()}
+                        <FaRegHeart className={styles["favoritos"]} onClick={() => { navigate("/favoritos")}} />
                     </div>
                 </div>
             </div>
