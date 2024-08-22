@@ -1,37 +1,33 @@
-.conteiner{
+.container {
     padding: 3%;
 }
 
-.button-voltar{
+.buttonVoltar {
     cursor: pointer;
     font-size: 18px;
     width: 20px;
 }
 
-.titulo-bottao{
+.tituloBotao {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.imagens-produto{
-    width: 70%;
-}
-
-.info-produto{
+.infoProduto {
     width: 30%;
 }
 
-.conteiner-info{
+.imagensProduto{
+    width: 70%;
+}
+
+.containerInfo {
     display: flex;
     flex-direction: row;
 }
 
-.img-iphonePrincipal{
-    width: 95%;
-}
-
-.info-produto p{
+.infoProduto p {
     font-size: 20px;
 }
 
@@ -46,52 +42,96 @@
     color: #ff0000;
 }
 
-.info-produto h3{
+.infoProduto h3 {
     font-size: 22px;
 }
 
-.cores{
-    margin-top: 5%;
-}
-
-.paletas{
-    display: flex;
-    flex-direction: row;
-}
-
-.cor-vermelha{
-    background-color: #A93933;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    margin-left: 2%;
-}
-
-.cor-azul{
-    background-color: #394578;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    margin-left: 2%;
-}
-
-.cor-preta{
-    background-color: #323232;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    margin-left: 2%;
-}
-
-.botao-comprar{
+.botaoComprar {
     height: 50px;
     border-radius: 50px;
     margin-top: 1%;
     width: 95%;
+    cursor: pointer;
 }
 
-.img-iphone-secundarias{
-    height: 133px;
-    margin-left: 4%;
-    margin-top: 2%;
+.color {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin: 5px 9px 0 0;
 }
+
+.color.active:before {
+    display: block;
+    position: relative;
+    top: -4px;
+    left: -4px;
+    width: 41px;
+    height: 41px;
+    content: ' ';
+    border-radius: 50%;
+    border: solid 1px #267cbf;
+}
+
+.cores p{
+    font-size: 19px;
+    color: rgb(104, 104, 104);
+}
+
+.productGallery {
+    padding: 20px;
+    margin: 3px;
+    width: 315px;
+  }
+  
+  .productView {
+    height: 500px;
+    margin: 10px 0;
+    overflow: hidden;
+    width: 95%;
+  }
+  
+  .productView img {
+    overflow: hidden;
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+    object-fit: contain;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .productView .toFull {
+    cursor: pointer;
+  }
+  
+  .productMedia {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin-top: 4%;
+  }
+  
+  .productMedia img {
+    border-radius: 10px;
+    width: 150px;
+    height: 150px;
+    border: 1px solid lightgray;
+    object-fit: cover;
+    cursor: pointer;
+    transition: border 0.3s;
+  }
+  
+  .productMedia img:hover {
+    border: 1px solid gray;
+  }
+  
+  .productMedia img.select {
+    border: 1px solid gray;
+  }
+
+  .whatsapp{
+    margin-left: 3%;
+    width: 22px;
+  }
+  
