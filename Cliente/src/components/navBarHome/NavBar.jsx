@@ -4,6 +4,24 @@ import { FaSearch } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import userExample from "../../utils/assets/img/usuario-exemplo.jpg"
 export const NavBarPadrao = () => {
+<<<<<<< HEAD
+=======
+    let navigate = useNavigate();
+
+    function validateAuthentication() {
+        if (!validateAuth()) {
+            return <img src={userPadrao} alt="" className={styles["usuario"]} onClick={() => {
+                navigate("/login");
+            }} />
+        } else {
+            return <h2>Olá, user</h2>
+        }
+    }
+
+    useEffect(() => {
+        validateAuthentication();
+    })
+>>>>>>> 9a75c35 (removendo logs)
     return (
         <nav className={styles["navbar"]}>
             <div className={styles["container-navbar"]}>
