@@ -9,6 +9,7 @@ import ImageListItem from "../../components/imagelistitem/ImageListItem";
 import { useEffect, useRef, useState } from "react";
 import InputDatalist from "../../components/input/inputdatalist/InputDatalist";
 import InputColor from "../../components/input/inputcolor/InputColor";
+import InputDate from "../../components/input/inputdate/InputDate";
 
 function CadastroProdutos() {
 	let [nome, setNome] = useState("");
@@ -17,6 +18,9 @@ function CadastroProdutos() {
 	let [preco, setPreco] = useState("");
 	let [descricao, setDescricao] = useState("");
 	let [desconto, setDesconto] = useState("");
+
+	let [dataInicioDesconto, setDataInicioDesconto] = useState("");
+	let [dataFimDesconto, setDataFimDesconto] = useState("");
 
 	let [imagens, setImagens] = useState([]);
 	let [tags, setTags] = useState([]);
@@ -42,6 +46,8 @@ function CadastroProdutos() {
 		console.log("Preço:", preco);
 		console.log("Descrição:", descricao);
 		console.log("Desconto:", desconto);
+		console.log("Data Início Desconto:", dataInicioDesconto);
+		console.log("Data Fim Desconto:", dataFimDesconto);
 		console.log("Imagens:", imagens);
 		console.log("Tags:", tags);
 		console.log("Cores:", cores);
@@ -262,6 +268,22 @@ function CadastroProdutos() {
 												type="checkbox"
 												onChange={(e) => {
 													setAplicarDesconto(e.target.checked);
+													if (!aplicarDesconto) {
+														setDesconto("");
+														setDataInicioDesconto("");
+														setDataFimDesconto("");
+
+														document.getElementById("ipt_vlr_desconto").value =
+															"";
+
+														document.getElementById(
+															"ipt_data_inicio_desconto"
+														).value = "";
+
+														document.getElementById(
+															"ipt_data_fim_desconto"
+														).value = "";
+													}
 												}}
 											/>
 											<span className={styles["slider"]}></span>
@@ -272,10 +294,10 @@ function CadastroProdutos() {
 										style={{ display: aplicarDesconto ? "flex" : "none" }}
 									>
 										<InputText
+											id={"ipt_vlr_desconto"}
 											tituloCampo={"Desconto do Produto"}
 											placeholder={"%"}
 											onChange={(e) => {
-												// validates if the value in higher than 0 and lower or equal to 100. Also validates if the value contains a comma and, if it does, replaces it for a dot
 												let value = e.target.value.replace(",", ".");
 												if (Number(value) >= 0 && Number(value) <= 100) {
 													setDesconto(value);
@@ -286,6 +308,46 @@ function CadastroProdutos() {
 													setDesconto("");
 													e.target.value = "";
 													e.target.focus();
+												}
+											}}
+										/>
+										<InputDate
+											id={"ipt_data_inicio_desconto"}
+											tituloCampo={"Data de Início do Desconto"}
+											onChange={(e) => setDataInicioDesconto(e.target.value)}
+											onBlur={() => {
+												if (
+													dataInicioDesconto &&
+													dataInicioDesconto <
+														new Date().toISOString().split("T")[0]
+												) {
+													alert(
+														"Data de Início do Desconto inválida. Deve ser posterior à data atual."
+													);
+													setDataInicioDesconto("");
+
+													document.getElementById(
+														"ipt_data_inicio_desconto"
+													).value = "";
+												}
+											}}
+										/>
+										<InputDate
+											id={"ipt_data_fim_desconto"}
+											tituloCampo={"Data de Fim do Desconto"}
+											onChange={(e) => setDataFimDesconto(e.target.value)}
+											onBlur={() => {
+												if (
+													dataFimDesconto &&
+													dataFimDesconto < dataInicioDesconto
+												) {
+													alert(
+														"Data de Fim do Desconto inválida. Deve ser posterior à Data de Início do Desconto."
+													);
+													setDataFimDesconto("");
+													document.getElementById(
+														"ipt_data_fim_desconto"
+													).value = "";
 												}
 											}}
 										/>
