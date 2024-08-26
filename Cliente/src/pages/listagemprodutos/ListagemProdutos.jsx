@@ -7,23 +7,24 @@ import { FaPencil, FaTrash } from "react-icons/fa6";
 
 function ListagemProdutos() {
 	let headersProdutos = [
-		"Imagem",
+		"",
 		"Id",
 		"Nome do Produto",
 		"Categoria",
 		"Estado",
 		"Preço",
-		"Ações",
+		"",
 	];
 
 	let valoresProdutos = [
 		{
 			image: () => {
 				return (
-					<div
-						className=""
-						style={{ width: "5rem", height: "5rem", backgroundColor: "red" }}
-					></div>
+					<img
+						className={styles["list-image"]}
+						src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UF1000,1000_QL80_.jpg"
+						alt="Iphone"
+					/>
 				);
 			},
 			id: "#456134",
@@ -33,20 +34,21 @@ function ListagemProdutos() {
 			preço: "R$5000,00",
 			acoes: () => {
 				return (
-					<>
-						<FaPencil />
-						<FaTrash />
-					</>
+					<div className={styles["list-btn-area"]}>
+						<FaPencil cursor={"pointer"} />
+						<FaTrash cursor={"pointer"} />
+					</div>
 				);
 			},
 		},
 		{
 			image: () => {
 				return (
-					<div
-						className=""
-						style={{ width: "5rem", height: "5rem", backgroundColor: "red" }}
-					></div>
+					<img
+						className={styles["list-image"]}
+						src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UF1000,1000_QL80_.jpg"
+						alt="Iphone"
+					/>
 				);
 			},
 			id: "#456134",
@@ -56,20 +58,21 @@ function ListagemProdutos() {
 			preço: "R$5000,00",
 			acoes: () => {
 				return (
-					<>
-						<FaPencil />
-						<FaTrash />
-					</>
+					<div className={styles["list-btn-area"]}>
+						<FaPencil cursor={"pointer"} />
+						<FaTrash cursor={"pointer"} />
+					</div>
 				);
 			},
 		},
 		{
 			image: () => {
 				return (
-					<div
-						className=""
-						style={{ width: "5rem", height: "5rem", backgroundColor: "red" }}
-					></div>
+					<img
+						className={styles["list-image"]}
+						src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UF1000,1000_QL80_.jpg"
+						alt="Iphone"
+					/>
 				);
 			},
 			id: "#456134",
@@ -79,20 +82,21 @@ function ListagemProdutos() {
 			preço: "R$5000,00",
 			acoes: () => {
 				return (
-					<>
-						<FaPencil />
-						<FaTrash />
-					</>
+					<div className={styles["list-btn-area"]}>
+						<FaPencil cursor={"pointer"} />
+						<FaTrash cursor={"pointer"} />
+					</div>
 				);
 			},
 		},
 		{
 			image: () => {
 				return (
-					<div
-						className=""
-						style={{ width: "5rem", height: "5rem", backgroundColor: "red" }}
-					></div>
+					<img
+						className={styles["list-image"]}
+						src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UF1000,1000_QL80_.jpg"
+						alt="Iphone"
+					/>
 				);
 			},
 			id: "#456134",
@@ -102,20 +106,21 @@ function ListagemProdutos() {
 			preço: "R$5000,00",
 			acoes: () => {
 				return (
-					<>
-						<FaPencil />
-						<FaTrash />
-					</>
+					<div className={styles["list-btn-area"]}>
+						<FaPencil cursor={"pointer"} />
+						<FaTrash cursor={"pointer"} />
+					</div>
 				);
 			},
 		},
 		{
 			image: () => {
 				return (
-					<div
-						className=""
-						style={{ width: "5rem", height: "5rem", backgroundColor: "red" }}
-					></div>
+					<img
+						className={styles["list-image"]}
+						src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UF1000,1000_QL80_.jpg"
+						alt="Iphone"
+					/>
 				);
 			},
 			id: "#456134",
@@ -125,20 +130,21 @@ function ListagemProdutos() {
 			preço: "R$5000,00",
 			acoes: () => {
 				return (
-					<>
-						<FaPencil />
-						<FaTrash />
-					</>
+					<div className={styles["list-btn-area"]}>
+						<FaPencil cursor={"pointer"} />
+						<FaTrash cursor={"pointer"} />
+					</div>
 				);
 			},
 		},
 		{
 			image: () => {
 				return (
-					<div
-						className=""
-						style={{ width: "5rem", height: "5rem", backgroundColor: "red" }}
-					></div>
+					<img
+						className={styles["list-image"]}
+						src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UF1000,1000_QL80_.jpg"
+						alt="Iphone"
+					/>
 				);
 			},
 			id: "#456134",
@@ -148,56 +154,10 @@ function ListagemProdutos() {
 			preço: "R$5000,00",
 			acoes: () => {
 				return (
-					<>
-						<FaPencil />
-						<FaTrash />
-					</>
-				);
-			},
-		},
-		{
-			image: () => {
-				return (
-					<div
-						className=""
-						style={{ width: "5rem", height: "5rem", backgroundColor: "red" }}
-					></div>
-				);
-			},
-			id: "#456134",
-			nomeProduto: "Iphone 13 Pro Max",
-			categoria: "Celular",
-			estado: "Outlet",
-			preço: "R$5000,00",
-			acoes: () => {
-				return (
-					<>
-						<FaPencil />
-						<FaTrash />
-					</>
-				);
-			},
-		},
-		{
-			image: () => {
-				return (
-					<div
-						className=""
-						style={{ width: "5rem", height: "5rem", backgroundColor: "red" }}
-					></div>
-				);
-			},
-			id: "#456134",
-			nomeProduto: "Iphone 13 Pro Max",
-			categoria: "Celular",
-			estado: "Outlet",
-			preço: "R$5000,00",
-			acoes: () => {
-				return (
-					<>
-						<FaPencil />
-						<FaTrash />
-					</>
+					<div className={styles["list-btn-area"]}>
+						<FaPencil cursor={"pointer"} />
+						<FaTrash cursor={"pointer"} />
+					</div>
 				);
 			},
 		},
@@ -237,7 +197,7 @@ function ListagemProdutos() {
 						<Table
 							headers={headersProdutos}
 							values={valoresProdutos}
-							limit={7}
+							limit={5}
 						/>
 					</div>
 				</div>
