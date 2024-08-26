@@ -73,3 +73,16 @@
 	height: 5rem;
 	width: auto;
 }
+
+.new-product-btn {
+	background-color: #bd2626;
+	color: #f5f5f5;
+	font-family: "PoppinsBold";
+	display: flex;
+	justify-content: space-around;
+	padding: 0 0.5rem;
+	align-items: center;
+	width: 10rem;
+	height: 100%;
+	border-radius: 0.5rem;
+}

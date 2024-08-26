@@ -3,7 +3,7 @@ import Navbar from "../../components/navbar/dashboard/Navbar";
 import Searchbar from "../../components/searchbar/Searchbar";
 import Table from "../../components/list/Table";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { FaPencil, FaTrash } from "react-icons/fa6";
+import { FaPencil, FaPlus, FaTrash } from "react-icons/fa6";
 
 function ListagemProdutos() {
 	let headersProdutos = [
@@ -191,6 +191,10 @@ function ListagemProdutos() {
 								<option value="4">Categoria</option>
 								<option value="5">Estado</option>
 							</select>
+						</div>
+						<div className={styles["new-product-btn"]}>
+							<span>Adicionar Produto</span>
+							<FaPlus />
 						</div>
 					</div>
 					<div className={styles["table-area"]}>
