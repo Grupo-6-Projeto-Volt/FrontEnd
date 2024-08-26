@@ -6,6 +6,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import Home from "./pages/home/Home.jsx";
 import Login from "./pages/login/Login.jsx"
 import ProductPage from "./pages/productpage/ProductPage.jsx";
+import Favoritos from "./pages/favoritos/Favoritos.jsx";
 
 function Rotas() {
     return (
@@ -17,6 +18,7 @@ function Rotas() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/productpage" element={<ProductPage />} />
                     <Route path="/dashboard-chamados" element={<Chamados />}></Route>
+                    <Route path="/favoritos" element={<Favoritos />} />
                     <Route path="/dashboard" element={<Dashboard />}></Route>
                 </Routes>
             </BrowserRouter>

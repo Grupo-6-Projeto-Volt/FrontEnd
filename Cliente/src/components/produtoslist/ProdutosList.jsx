@@ -49,9 +49,10 @@ export function ProdutosData({ secao, nome }) {
     dadosProduto.map((produto) => (console.log(produto.imagensProduto.at(0))))
 
     return (
-        // <div className={`${nome}`}>
+        <>
             <div className={styles['container']}>
                 <h1>{secao}</h1>
+                <div className={styles["linha-horizontal"]}></div>
                 <div className={styles['carousel-view']}>
                     <button id={`prev-btn-${nome}`} onClick={handleClick.bind(this, 'prev')} className={styles['btn-prev']}> </button>
                     <div id={`item-list-${nome}`} className={styles['item-list']}>
@@ -66,7 +67,7 @@ export function ProdutosData({ secao, nome }) {
                     <button id={`next-btn-${nome}`} onClick={handleClick.bind(this, 'next')} className={styles['btn-next']}> </button>
                 </div>
             </div>
-        // </div>
+        </>
     )
 }
 
