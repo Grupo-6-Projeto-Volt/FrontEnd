@@ -48,3 +48,11 @@ body {
 ::-webkit-scrollbar-button {
 	display: none;
 }
+
+button{
+	background-color: #bd2626;
+	border: none;
+	border-radius: 40px;
+	color: #fff;
+	font-size: large;
+}
