@@ -10,20 +10,22 @@ export const padding = 16;
 export const prev = document.getElementById('prev-btn');
 export const next = document.getElementById('next-btn');
 // import * as ProdutosList from './ProdutosList';
-export function ProdutosData({ secao,nomeProduto, pesquisa }) {
+export function ProdutosData({ secao,pesquisa }) {
     let [dadosProduto, setDadosProduto] = useState([]);
-
     async function getProdutos() {
-        console.log(pesquisa)
         let response;
+        console.log(pesquisa)
         try {
-            if (secao === "Ofertas") {
-                response = await produtos.listarOfertas();
-            }else if(secao === 'Pesquisa'){
+            //Tratar melhor o if-else
+            // if (secao === "Ofertas") {
+            //     response = await produtos.listarOfertas();
+            if(pesquisa !== ""){
+                console.log(pesquisa)
                 response = await pesquisaProdutos(pesquisa.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
             }else {
                 response = await produtos.listarProdutos()
             };
+            console.log("response", response)
             setDadosProduto(response);
         } catch (e) {
             console.log(e);
@@ -35,7 +37,7 @@ export function ProdutosData({ secao,nomeProduto, pesquisa }) {
 
     useEffect(() => {
         getProdutos()
-    }, [])
+    }, [pesquisa])
 
     // function onClick(btn){
     //     if(btn === 'prev'){
@@ -64,8 +66,10 @@ export function ProdutosData({ secao,nomeProduto, pesquisa }) {
                 <div className={styles['carousel-view']}>
                     <button id="prev-btn" class="prev-btn"> </button>
                     <div id="item-list" className={styles['item-list']}>
-                        {dadosProduto.map((produto) => (
-                            <Produto className={styles['item']}
+                        {dadosProduto.map((produto, index) => (
+                            <Produto 
+                                key={index}
+                                className={styles['item']}
                                 nome={produto.nome}
                                 estado={produto.estadoGeral}
                                 imgUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrhiivQ-a9g_wMJYALyFjZIE9ylQuwprSM3A&s"

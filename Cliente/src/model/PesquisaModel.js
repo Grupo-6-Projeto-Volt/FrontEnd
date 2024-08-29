@@ -1,15 +1,18 @@
 import api from "../api";
 
 export const pesquisaProdutos = (produtoDigitado) =>{
+    console.log(produtoDigitado)
     let produtoPesquisado = produtoDigitado;
     console.log(produtoPesquisado)
     if(produtoPesquisado === ''){
         alert("Nenhum produto foi encontrado!");
-        return 0;
+        alert(produtoPesquisado)
     }
+    let produtoBuscado = produtoPesquisado.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    console.log(produtoBuscado)
     let resposta = api.get("/produtos/loja",{
         params:{
-        textoBusca: produtoPesquisado.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        textoBusca: produtoBuscado
     }
 }).then((resultado)=>{
         console.log(resultado.data);

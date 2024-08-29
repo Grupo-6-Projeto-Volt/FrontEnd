@@ -5,11 +5,16 @@ import { validateAuth } from "../../utils/global";
 import { NavBarPadrao } from "../../components/navBarHome/NavBar";
 import { ProdutosData } from "../../components/produtoslist/ProdutosList.jsx";
 const Home = () => {
+	const [produtoBuscado, setProdutoBuscado] = useState("");
+
+    const handleSearch = (term) => {
+        setProdutoBuscado(term);
+    };
 	return (
 		<>
-			<NavBarPadrao />
+			<NavBarPadrao onSearch={handleSearch}/>
 			<ProdutosData
-			secao = 'Ofertas' />
+			secao = 'Ofertas' pesquisa={produtoBuscado}/>
 		</>
 	)
 }

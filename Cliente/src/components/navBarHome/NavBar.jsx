@@ -4,30 +4,21 @@ import { FaSearch } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import userExample from "../../utils/assets/img/usuario-exemplo.jpg"
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Pesquisa from "../../pages/pesquisa/Pesquisa";
-export const NavBarPadrao = () => {
-    const [inputValue, setInputValue] = useState("");
-    let navigate = useNavigate();
-
-    const buscarProduto = () => {
-        // console.log(window.location.href.includes('pesquisa'))
-        // if(window.location.href.includes('pesquisa')){
-        //     Pesquisa.setState({valor: inputValue});
-        // }else{
-            navigate('/pesquisa', { state: { valor: inputValue } })
-        // }
-        console.log(inputValue)
+export const NavBarPadrao = ({onSearch}) => {
+    const [busca,setBusca ] = useState("");
+    const handleInputChange = (event) => {
+        setBusca(event.target.value);
+        onSearch(event.target.value);
     };
-
     return (
         <nav className={styles["navbar"]}>
             <div className={styles["container-navbar"]}>
-                <img src={logo} alt="logo ichiban" className={styles["img-logo"]} />
+                <img src={logo} alt="logo ichiban" className={styles["img-logo"]}/>
                 <div className={styles["containerPesquisaUser"]}>
                     <div className={styles["pesquisa"]}>
-                        <input type="text" id="busca-produto" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
-                        <FaSearch className={styles['search']} onClick={buscarProduto} />
+                        <input type="text" id="busca-produto"  value={busca} onChange={handleInputChange}
+                            placeholder="Pesquisar..." />
+                        <FaSearch className={styles['search']}/>
                     </div>
                     <h3>|</h3>
                     <div className={styles["usuarioDiv"]}>
