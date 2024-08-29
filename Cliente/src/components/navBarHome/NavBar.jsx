@@ -8,8 +8,6 @@ import userPadrao from "../../utils/assets/img/user_padrao.png"
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 export const NavBarPadrao = () => {
-<<<<<<< HEAD
-=======
     let navigate = useNavigate();
 
     function validateAuthentication() {
@@ -25,7 +23,6 @@ export const NavBarPadrao = () => {
     useEffect(() => {
         validateAuthentication();
     })
->>>>>>> 9a75c35 (removendo logs)
     return (
         <nav className={styles["navbar"]}>
             <div className={styles["container-navbar"]}>
