@@ -6,6 +6,8 @@ import {
 	FaChartColumn,
 	FaGear,
 	FaUser,
+	FaTags,
+	FaList,
 } from "react-icons/fa6";
 
 function Sidebar() {
@@ -28,7 +30,7 @@ function Sidebar() {
 										: "content-item"
 								]
 							}
-							onClick={() => navigate("/dashboard-chamados")}
+							onClick={() => navigate("/dashboard")}
 						>
 							<div className={styles["content-block"]}>
 								<FaFileLines />
@@ -38,22 +40,31 @@ function Sidebar() {
 						<div
 							className={
 								styles[
-									location.pathname === "/dashboard"
+									location.pathname === "/produtos"
 										? "content-item-active"
 										: "content-item"
 								]
 							}
-							onClick={() => navigate("/dashboard")}
+							onClick={() => navigate("/tags")}
 						>
 							<div className={styles["content-block"]}>
-								<FaChartColumn />
-								<span>Dashboard Geral</span>
+								<FaTags />
+								<span>Produtos</span>
 							</div>
 						</div>
-						<div className={styles["content-item"]}>
+						<div
+							className={
+								styles[
+									location.pathname === "/tags"
+										? "content-item-active"
+										: "content-item"
+								]
+							}
+							onClick={() => navigate("/tags")}
+						>
 							<div className={styles["content-block"]}>
-								<FaCartShopping />
-								<span>Vendas</span>
+								<FaTags />
+								<span>Tags</span>
 							</div>
 						</div>
 					</div>
@@ -76,14 +87,8 @@ function Sidebar() {
 							// onClick={() => navigate("/cadastro-produtos")}
 						>
 							<div className={styles["content-block"]}>
-								<FaGear />
-								<span>Settings página web</span>
-							</div>
-						</div>
-						<div className={styles["content-item"]}>
-							<div className={styles["content-block"]}>
-								<FaUser />
-								<span>Conta</span>
+								<FaList />
+								<span>Categorias</span>
 							</div>
 						</div>
 					</div>
