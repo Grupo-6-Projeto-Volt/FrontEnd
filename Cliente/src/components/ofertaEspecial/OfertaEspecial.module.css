@@ -1,0 +1,21 @@
+.container-oferta{
+    padding: 4%;
+}
+
+h1 {
+    font-size: 2.0rem;
+    margin-bottom: 0.1px;
+}
+
+.linha-horizontal {
+    width: 140px;
+    height: 5px;
+    background-color: #D41F1F;
+    border-radius: 50px;
+    margin-bottom: 2%;
+}
+
+.img-oferta{
+    height: 50%;
+    width: 100%;
+}
