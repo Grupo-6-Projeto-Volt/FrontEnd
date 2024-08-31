@@ -10,7 +10,7 @@ function Login() {
 	let [emailText, setEmailText] = useState("");
 	let [passwordText, setPasswordText] = useState("");
 	const navigate = useNavigate();
-
+	let categoria;
 	function handleSubmit() {
 		api
 			.post("/login", {
@@ -24,7 +24,8 @@ function Login() {
 				sessionStorage.NOME = Data.nome;
 				sessionStorage.EMAIL = Data.email;
 				sessionStorage.TELEFONE = Data.telefone;
-				sessionStorage.CATEGORIA = Data.categoria;
+				sessionStorage.ID_USER = Data.idUsuario;
+				categoria = Data.categoria;
 				toast.success("Login realizado com sucesso!!", {
 					position: "top-right",
 					autoClose: 5000,
@@ -35,7 +36,13 @@ function Login() {
 					progress: undefined,
 					theme: "light",
 				});
-				navigate("/dashboard-chamados");
+				// console.log(sessionStorage.getItem('ID_USER'))
+				if(categoria === 1){
+					navigate("/dashboard-chamados");
+				}else{
+					navigate("/");
+				}
+				// console.log(Data)
 			})
 			.catch((erro) => {
 				console.error("Houve um erro: " + erro);
