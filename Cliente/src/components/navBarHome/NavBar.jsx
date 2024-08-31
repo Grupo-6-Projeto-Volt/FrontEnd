@@ -8,8 +8,10 @@ export const NavBarPadrao = ({onSearch}) => {
     const [busca,setBusca ] = useState("");
     const handleInputChange = (event) => {
         setBusca(event.target.value);
-        onSearch(event.target.value);
     };
+    const handleClickSearch = ()=>{
+        onSearch(busca);
+    }
     return (
         <nav className={styles["navbar"]}>
             <div className={styles["container-navbar"]}>
@@ -18,7 +20,7 @@ export const NavBarPadrao = ({onSearch}) => {
                     <div className={styles["pesquisa"]}>
                         <input type="text" id="busca-produto"  value={busca} onChange={handleInputChange}
                             placeholder="Pesquisar..." />
-                        <FaSearch className={styles['search']}/>
+                        <FaSearch className={styles['search']} onClick={handleClickSearch}/>
                     </div>
                     <h3>|</h3>
                     <div className={styles["usuarioDiv"]}>

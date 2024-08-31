@@ -1,0 +1,42 @@
+.listaProdutos{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 95vw;
+    margin: auto!important;
+}
+
+.item-list{
+    max-width: 90vw;
+    width: 88vw;
+    display: flex;
+    scroll-behavior: smooth;
+    overflow: auto;
+    scroll-snap-type: x mandatory;
+}
+
+.item{
+    scroll-snap-align: center;
+}
+
+.carousel-view{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.item-list::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .item-list {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+button{
+    width: 2vw;
+    height: 5vh;
+    margin: 1vw;
+}

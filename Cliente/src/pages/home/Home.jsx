@@ -4,19 +4,35 @@ import { useNavigate } from "react-router-dom";
 import { validateAuth } from "../../utils/global";
 import { NavBarPadrao } from "../../components/navBarHome/NavBar";
 import { ProdutosData } from "../../components/produtoslist/ProdutosList.jsx";
+import Footer from "../../components/footer/Footer.jsx";
+import { ProdutosBuscados } from "../../components/productsearch/ProductSearch.jsx";
 const Home = () => {
 	const [produtoBuscado, setProdutoBuscado] = useState("");
 
     const handleSearch = (term) => {
         setProdutoBuscado(term);
     };
-	return (
-		<>
-			<NavBarPadrao onSearch={handleSearch}/>
-			<ProdutosData
-			secao = 'Ofertas' pesquisa={produtoBuscado}/>
-		</>
-	)
+	console.log(produtoBuscado)
+
+	if(produtoBuscado == ""){
+		return (
+			<>
+				<NavBarPadrao onSearch={handleSearch}/>
+				<ProdutosData
+				secao = 'Ofertas'/>
+				<Footer/>
+			</>
+		)
+	}else{
+		return(
+			<>
+				<NavBarPadrao onSearch={handleSearch}/>
+				<ProdutosBuscados
+			pesquisa={produtoBuscado}/>
+			<Footer/>
+			</>
+		)
+	}
 }
 // const Home = () => {
 // 	const navigate = useNavigate();

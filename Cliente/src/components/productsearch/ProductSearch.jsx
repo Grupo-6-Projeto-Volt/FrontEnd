@@ -1,7 +1,7 @@
-import styles from "./ProdutosList.module.css"
-import { produtos } from "../../model/ProdutosListModel"
+import styles from "../productsearch/ProductSearch.module.css"
 import { Produto } from "../productcard/ProductCard";
 import React, { useEffect, useState } from 'react';
+import { pesquisaProdutos } from "../../model/PesquisaModel";
 
 export const list = document.getElementById('item-list');
 export const itemWidth = 150;
@@ -9,20 +9,19 @@ export const padding = 16;
 export const prev = document.getElementById('prev-btn');
 export const next = document.getElementById('next-btn');
 // import * as ProdutosList from './ProdutosList';
-export function ProdutosData({secao}) {
+export function ProdutosBuscados({ pesquisa }) {
     let [dadosProduto, setDadosProduto] = useState([]);
     async function getProdutos() {
         let response;
+        console.log(pesquisa)
         try {
-             if (secao === "Ofertas") {
-                response = await produtos.listarOfertas();
-             }else{
-                response = await produtos.listarProdutos();
+            if(pesquisa !== "" && pesquisa.length > 0){
+                console.log(pesquisa)
+                response = await pesquisaProdutos(pesquisa.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
             }
-            console.log("response", response);
+            console.log("response", response)
             setDadosProduto(response);
-            }
-            catch (e) {
+        } catch (e) {
             console.log(e);
             return <h1>
                 Erro
@@ -32,22 +31,22 @@ export function ProdutosData({secao}) {
 
     useEffect(() => {
         getProdutos()
-    }, [])
+    }, [pesquisa])
 
     // function onClick(btn){
     //     if(btn === 'prev'){
-    useEffect(() => {
-        if(prev){
-            prev.addEventListener('click',()=>{
-                list.scrollLeft -= (itemWidth + padding);
-            })
-        }
-        if(next){
-            next.addEventListener('click',()=>{
-                list.scrollLeft += (itemWidth + padding)
-            })
-        }
-    })
+    // useEffect(() => {
+    //     if(prev){
+    //         prev.addEventListener('click',()=>{
+    //             list.scrollLeft -= (itemWidth + padding);
+    //         })
+    //     }
+    //     if(next){
+    //         next.addEventListener('click',()=>{
+    //             list.scrollLeft += (itemWidth + padding)
+    //         })
+    //     }
+    // })
             
         // }else{
         // }
@@ -59,7 +58,7 @@ export function ProdutosData({secao}) {
             // <div className={styles['listaProdutos']}>
             <div className={styles['container']}>
                 <div className={styles['carousel-view']}>
-                    <button id="prev-btn" class="prev-btn"> </button>
+                    {/* <button id="prev-btn" class="prev-btn"> </button> */}
                     <div id="item-list" className={styles['item-list']}>
                         {dadosProduto.map((produto, index) => (
                             <Produto 
@@ -72,14 +71,9 @@ export function ProdutosData({secao}) {
                         ))}
                     </div>
     
-                    <button id="next-btn" class="next-btn"> </button>
+                    {/* <button id="next-btn" class="next-btn"> </button> */}
                 </div>
             </div> 
-        )
-    }else{
-        return (
-            <>
-            </>
         )
     }
 }
