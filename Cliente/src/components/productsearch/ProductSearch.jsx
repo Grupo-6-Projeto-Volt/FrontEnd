@@ -6,9 +6,6 @@ import { pesquisaProdutos } from "../../model/PesquisaModel";
 export const list = document.getElementById('item-list');
 export const itemWidth = 150;
 export const padding = 16;
-export const prev = document.getElementById('prev-btn');
-export const next = document.getElementById('next-btn');
-// import * as ProdutosList from './ProdutosList';
 export function ProdutosBuscados({ pesquisa }) {
     let [dadosProduto, setDadosProduto] = useState([]);
     async function getProdutos() {
@@ -32,46 +29,25 @@ export function ProdutosBuscados({ pesquisa }) {
     useEffect(() => {
         getProdutos()
     }, [pesquisa])
-
-    // function onClick(btn){
-    //     if(btn === 'prev'){
-    // useEffect(() => {
-    //     if(prev){
-    //         prev.addEventListener('click',()=>{
-    //             list.scrollLeft -= (itemWidth + padding);
-    //         })
-    //     }
-    //     if(next){
-    //         next.addEventListener('click',()=>{
-    //             list.scrollLeft += (itemWidth + padding)
-    //         })
-    //     }
-    // })
-            
-        // }else{
-        // }
-    // }
     
     if(dadosProduto.length > 0){
-
         return (
-            // <div className={styles['listaProdutos']}>
             <div className={styles['container']}>
-                <div className={styles['carousel-view']}>
-                    {/* <button id="prev-btn" class="prev-btn"> </button> */}
+                <div className={styles['products-view']}>
                     <div id="item-list" className={styles['item-list']}>
-                        {dadosProduto.map((produto, index) => (
+                    {dadosProduto.map((produto, index) => (
+                        <React.Fragment key={index}>
                             <Produto 
-                                key={index}
                                 className={styles['item']}
                                 nome={produto.nome}
                                 estado={produto.estadoGeral}
                                 imgUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrhiivQ-a9g_wMJYALyFjZIE9ylQuwprSM3A&s"
-                                preco={produto.preco} />
-                        ))}
-                    </div>
-    
-                    {/* <button id="next-btn" class="next-btn"> </button> */}
+                                preco={produto.preco} 
+                            />
+                            {(index) % 4 === 0 && <br />}
+                        </React.Fragment>
+                    ))}
+                    </div>    
                 </div>
             </div> 
         )

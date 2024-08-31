@@ -1,42 +1,38 @@
-.listaProdutos{
+.item-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    width: 95vw;
-    margin: auto!important;
+    justify-content: center;
+    max-width: 100%;
+    overflow-x: hidden;
+    white-space: nowrap;
 }
 
-.item-list{
-    max-width: 90vw;
-    width: 88vw;
-    display: flex;
-    scroll-behavior: smooth;
-    overflow: auto;
-    scroll-snap-type: x mandatory;
+.item-list > * {
+    flex: 0 0 calc(25% - 20px);
+    margin: 10px; 
 }
 
-.item{
-    scroll-snap-align: center;
+.item {
+    display: inline-block;
+    width: 100%; /* Garantir que o item ocupe 100% do espaço disponível */
 }
 
-.carousel-view{
+.container {
+    max-width: 100%;
+    overflow-x: hidden; /* Evita scrollbar horizontal no contêiner pai */
+}
+
+
+
+
+/* .item-list::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+} */
+
+.products-view {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-/* Hide scrollbar for Chrome, Safari and Opera */
-.item-list::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .item-list {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
-
-button{
-    width: 2vw;
-    height: 5vh;
-    margin: 1vw;
+    overflow-x: hidden;
 }
