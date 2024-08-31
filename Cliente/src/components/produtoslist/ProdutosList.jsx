@@ -46,8 +46,6 @@ export function ProdutosData({ secao, nome }) {
         getProdutos()
     }, [])
 
-    dadosProduto.map((produto) => (console.log(produto.imagensProduto.at(0))))
-
     return (
         <>
             <div className={styles['container']}>

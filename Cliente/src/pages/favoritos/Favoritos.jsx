@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { validateAuth } from "../../utils/global";
 import { NavBarPadrao } from "../../components/navBarHome/NavBar";
 import Footer from '../../components/footer/Footer';
-import ListFav from '../../components/produtoslist/ProdutosListFav';
+import {ListFav} from '../../components/produtoslist/ProdutosListFav';
 const Favoritos = (idUser) => {
     let navigate = useNavigate();
 
@@ -26,7 +26,7 @@ const Favoritos = (idUser) => {
                 <NavBarPadrao />
                 <div className={styles['container']}>
                     <h1>Favoritos</h1>
-                    <ListFav />
+                    <ListFav className={styles['listFav']} />
                 </div>
                 <Footer />
             </>

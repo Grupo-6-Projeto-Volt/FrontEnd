@@ -1,3 +1,9 @@
 .container{
     display: flex;
+    width: 95vw;
+    margin: auto;
+    padding: 2vh;
+    height: fit-content;
+    flex-wrap: wrap;
+
 }
