@@ -1,0 +1,60 @@
+.container {
+    /* width: fit-content; */
+    display: flex;
+    flex-direction: column;
+  }
+  .container h1 {
+    text-decoration: underline;
+    text-decoration-color: #bd2626;
+  }
+  .item-list {
+    height: fit-content;
+    max-width: fit-content;
+    width: 90vw;
+    display: flex;
+    scroll-behavior: smooth;
+    overflow: auto;
+    scroll-snap-type: x mandatory;
+  }
+  
+  .item {
+    width: 8rem;
+    position: fixed;
+    scroll-snap-align: center;
+  }
+  
+  .carousel-view {
+    display: flex;
+    height: fit-content;
+    margin: auto !important;
+    justify-content: center;
+    align-items: center;
+  }
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .item-list::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .item-list {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .btn-prev {
+    width: 30px;
+    height: 30px;
+    margin-right: 1vw;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("https://img.icons8.com/ios/30/chevron-left.png");
+  }
+  
+  .btn-next {
+    width: 30px;
+    cursor: pointer;
+    height: 30px;
+    margin-left: 1vw;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("https://img.icons8.com/ios/30/chevron-right.png");
+  }

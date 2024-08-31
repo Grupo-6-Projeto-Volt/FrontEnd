@@ -1,0 +1,78 @@
+.container-servicos {
+    text-align: center;
+    margin: 50px 0;
+}
+
+h1 {
+    font-size: 2.0rem;
+    margin-bottom: 0.1px;
+}
+
+.linha-horizontal {
+    width: 140px;
+    margin-left: 41%;
+    height: 5px;
+    background-color: #D41F1F;
+    border-radius: 50px;
+}
+
+.servicos-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-top: 3%;
+}
+
+.servicos-grid-1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.servico-img{
+    background-color: #BD2626;
+    border-radius: 10px;
+    width: auto;
+    height: auto;
+    padding: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4%;
+}
+
+.servico{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 35%;
+}
+
+.servico-2{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 65%;
+}
+
+.servico-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.servico-titulo h1{
+    font-size: 28px;
+    font-weight: normal;
+    text-align: left;
+    margin-left: 3%;
+}
+
+.servico-texto{
+    font-size: 16px;
+    font-weight: normal;
+    display: flex;
+    text-align: left;
+    margin-left: 3%;
+}
