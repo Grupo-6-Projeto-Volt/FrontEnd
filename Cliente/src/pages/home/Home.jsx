@@ -9,6 +9,7 @@ import NossosServicos from "../../components/nossosServicos/NossosServicos.jsx";
 import Avaliacoes from "../../components/avaliacoes/Avaliacoes.jsx";
 import Banner from "../../components/banner/Banner.jsx";
 import Oferta from "../../components/oferta/Oferta.jsx";
+import Categorias from "../../components/categorias/Categorias.jsx";
 
 const Home = () => {
 	return (
@@ -23,6 +24,7 @@ const Home = () => {
 					secao='Ofertas'
 					nome = 'ofertas' />
 					<Oferta></Oferta>
+				<Categorias></Categorias>
 				{/* <Sobre /> */}
 				<NossosServicos />
 				{/* <SolicitarConcerto /> */}
