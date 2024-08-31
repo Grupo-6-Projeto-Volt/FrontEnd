@@ -7,22 +7,24 @@ import Login from "./pages/login/Login";
 import CadastroProdutos from "./pages/cadastro-produtos/CadastroProdutos";
 import Home from "./pages/home/Home.jsx";
 import ProductPage from "./pages/productpage/ProductPage.jsx";
+import ListagemProdutos from "./pages/listagemprodutos/ListagemProdutos.jsx";
 
 function Rotas() {
-    return (
-        <>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/cadastro" element={<Cadastro />} />
+	return (
+		<>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/cadastro" element={<Cadastro />} />
+					<Route path="/login" element={<Login />} />
                     <Route path="/cadastro-produtos" element={<CadastroProdutos />}></Route>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/productpage" element={<ProductPage />} />
-                    <Route path="/dashboard-chamados" element={<Chamados />}></Route>
-                    <Route path="/dashboard" element={<Dashboard />}></Route>
-                </Routes>
-            </BrowserRouter>
-        </>
-    )
+					<Route path="/listagem-produtos" element={<ListagemProdutos />} />
+					<Route path="/productpage" element={<ProductPage />} />
+					<Route path="/dashboard-chamados" element={<Chamados />}></Route>
+					<Route path="/dashboard" element={<Dashboard />}></Route>
+				</Routes>
+			</BrowserRouter>
+		</>
+	);
 }
 export default Rotas;
