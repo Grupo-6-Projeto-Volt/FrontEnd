@@ -17,7 +17,7 @@ const Avaliacoes = () => {
                             <img src={fotoGuilherme} alt="fotoGuilherme" className={styles["img-fotoGuilherme"]} />
                         </div>
                         <div className={styles["avaliacao-nome"]}>
-                            <div>Guilherme Dias</div>
+                            <div>João Dias</div>
                             <div>
                                 <img src={star} alt="star" className={styles["img-star"]} />
                                 <img src={star} alt="star" className={styles["img-star"]} />
