@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Cadastro from "./pages/cadastro/Cadastro";
 import Chamados from "./pages/dashboard/chamados/Chamados";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Login from "./pages/login/Login";
+import CadastroProdutos from "./pages/cadastro-produtos/CadastroProdutos";
 import Home from "./pages/home/Home.jsx";
-import Login from "./pages/login/Login.jsx"
 import ProductPage from "./pages/productpage/ProductPage.jsx";
 
 function Rotas() {
@@ -14,6 +15,7 @@ function Rotas() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/cadastro" element={<Cadastro />} />
+                    <Route path="/cadastro-produtos" element={<CadastroProdutos />}></Route>
                     <Route path="/login" element={<Login />} />
                     <Route path="/productpage" element={<ProductPage />} />
                     <Route path="/dashboard-chamados" element={<Chamados />}></Route>
