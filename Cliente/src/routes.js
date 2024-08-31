@@ -3,26 +3,30 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Cadastro from "./pages/cadastro/Cadastro";
 import Chamados from "./pages/dashboard/chamados/Chamados";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Login from "./pages/login/Login";
+import CadastroProdutos from "./pages/cadastro-produtos/CadastroProdutos";
 import Home from "./pages/home/Home.jsx";
-import Login from "./pages/login/Login.jsx"
 import ProductPage from "./pages/productpage/ProductPage.jsx";
 import Favoritos from "./pages/favoritos/Favoritos.jsx";
+import ListagemProdutos from "./pages/listagemprodutos/ListagemProdutos.jsx";
 
 function Rotas() {
-    return (
-        <>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/cadastro" element={<Cadastro />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/productpage" element={<ProductPage />} />
-                    <Route path="/dashboard-chamados" element={<Chamados />}></Route>
+	return (
+		<>
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route path="/cadastro" element={<Cadastro />} />
+					<Route path="/login" element={<Login />} />
+                    <Route path="/cadastro-produtos" element={<CadastroProdutos />}></Route>
+					<Route path="/listagem-produtos" element={<ListagemProdutos />} />
                     <Route path="/favoritos" element={<Favoritos />} />
-                    <Route path="/dashboard" element={<Dashboard />}></Route>
-                </Routes>
-            </BrowserRouter>
-        </>
-    )
+					<Route path="/productpage" element={<ProductPage />} />
+					<Route path="/dashboard-chamados" element={<Chamados />}></Route>
+					<Route path="/dashboard" element={<Dashboard />}></Route>
+				</Routes>
+			</BrowserRouter>
+		</>
+	);
 }
 export default Rotas;

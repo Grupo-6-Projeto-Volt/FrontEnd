@@ -63,7 +63,18 @@ function Sidebar() {
 						<h4>OUTROS</h4>
 					</div>
 					<div className={styles["content-body"]}>
-						<div className={styles["content-item"]}>
+						<div
+							// className={styles["content-item"]}
+							// onClick={() => navigate("/listagem-produtos")}
+							// className={
+							// 	styles[
+							// 		location.pathname === "/cadastro-produtos"
+							// 			? "content-item-active"
+							// 			: "content-item"
+							// 	]
+							// }
+							// onClick={() => navigate("/cadastro-produtos")}
+						>
 							<div className={styles["content-block"]}>
 								<FaGear />
 								<span>Settings página web</span>
