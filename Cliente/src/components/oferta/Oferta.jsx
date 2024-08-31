@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./OfertaEspecial.module.css";
+import styles from "./Oferta.module.css";
 import Oferta from "../../utils/assets/img/ofertaEspecial.png"
 
-const OfertaEspecial = () => {
+const Ofertas = () => {
     return (
         <div className={styles["container-oferta"]}>
             <h1>Ofertas Especiais</h1>
@@ -12,4 +12,4 @@ const OfertaEspecial = () => {
     );
 };
 
-export default OfertaEspecial;
+export default Ofertas;

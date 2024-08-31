@@ -8,6 +8,7 @@ import Footer from "../../components/footer/Footer.jsx";
 import NossosServicos from "../../components/nossosServicos/NossosServicos.jsx";
 import Avaliacoes from "../../components/avaliacoes/Avaliacoes.jsx";
 import Banner from "../../components/banner/Banner.jsx";
+import Oferta from "../../components/oferta/Oferta.jsx";
 
 const Home = () => {
 	return (
@@ -21,6 +22,7 @@ const Home = () => {
 				<Ofertas
 					secao='Ofertas'
 					nome = 'ofertas' />
+					<Oferta></Oferta>
 				{/* <Sobre /> */}
 				<NossosServicos />
 				{/* <SolicitarConcerto /> */}
