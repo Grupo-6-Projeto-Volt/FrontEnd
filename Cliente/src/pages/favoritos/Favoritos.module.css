@@ -1,6 +1,8 @@
 .container{
     width: 85vw;
     margin: auto;
+    margin-bottom: 5%;
+    margin-top: 4%;
 }
 .favoritos-deslogado{
     padding-top: 2vh;

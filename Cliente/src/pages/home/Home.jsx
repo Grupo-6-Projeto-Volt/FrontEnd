@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavBarPadrao } from "../../components/navBarHome/NavBar";
 import { ProdutosData as Lancamentos } from "../../components/produtoslist/ProdutosList.jsx";
 import { ProdutosData as Ofertas } from "../../components/produtoslist/ProdutosList.jsx";
