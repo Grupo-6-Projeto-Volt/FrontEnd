@@ -1,0 +1,27 @@
+.container{
+    width: 85vw;
+    margin: auto;
+}
+.favoritos-deslogado{
+    padding-top: 2vh;
+    width: 50%;
+    text-align: center;
+    margin: auto ;
+}
+.container button{
+    width: 40%;
+    cursor: pointer;
+    padding: 2vh;
+    font-weight: bold;
+}
+.cadastrar{
+    cursor: pointer;
+    color: #5A6ACF;
+}
+.cadastrar:hover{
+    text-decoration: underline;
+}
+.listFav{
+    width: 100%;
+    margin: auto;
+}

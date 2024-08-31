@@ -7,6 +7,7 @@ import Login from "./pages/login/Login";
 import CadastroProdutos from "./pages/cadastro-produtos/CadastroProdutos";
 import Home from "./pages/home/Home.jsx";
 import ProductPage from "./pages/productpage/ProductPage.jsx";
+import Favoritos from "./pages/favoritos/Favoritos.jsx";
 import ListagemProdutos from "./pages/listagemprodutos/ListagemProdutos.jsx";
 
 function Rotas() {
@@ -19,6 +20,7 @@ function Rotas() {
 					<Route path="/login" element={<Login />} />
                     <Route path="/cadastro-produtos" element={<CadastroProdutos />}></Route>
 					<Route path="/listagem-produtos" element={<ListagemProdutos />} />
+                    <Route path="/favoritos" element={<Favoritos />} />
 					<Route path="/productpage" element={<ProductPage />} />
 					<Route path="/dashboard-chamados" element={<Chamados />}></Route>
 					<Route path="/dashboard" element={<Dashboard />}></Route>
