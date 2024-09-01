@@ -4,8 +4,12 @@ import Searchbar from "../../components/searchbar/Searchbar";
 import Table from "../../components/list/Table";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { FaPencil, FaPlus, FaTrash } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
+import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 
 function ListagemProdutos() {
+	let navigate = useNavigate();
+
 	let headersProdutos = [
 		"",
 		"Id",
@@ -163,6 +167,10 @@ function ListagemProdutos() {
 		},
 	];
 
+	function handleNewProductPress() {
+		navigate("/cadastro-produtos");
+	}
+
 	return (
 		<div className={styles["ListagemProdutos"]}>
 			<Navbar />
@@ -192,10 +200,10 @@ function ListagemProdutos() {
 								<option value="5">Estado</option>
 							</select>
 						</div>
-						<div className={styles["new-product-btn"]}>
-							<span>Adicionar Produto</span>
-							<FaPlus />
-						</div>
+						<DefaultButton
+							text={"Adicionar Produto"}
+							onClick={handleNewProductPress}
+						/>
 					</div>
 					<div className={styles["table-area"]}>
 						<Table
