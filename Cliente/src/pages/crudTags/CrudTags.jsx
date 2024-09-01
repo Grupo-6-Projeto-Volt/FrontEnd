@@ -4,6 +4,7 @@ import styles from "./CrudTags.module.css";
 import Searchbar from "../../components/searchbar/Searchbar";
 import Table from "../../components/list/Table";
 import { FaPencil, FaTrash } from "react-icons/fa6";
+import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 
 function CrudTags() {
 	let headersTags = ["Id", "Nome da Tag", ""];
@@ -23,9 +24,7 @@ function CrudTags() {
 			botao: () => {
 				return (
 					<div className={styles["list-btn-area"]}>
-						<div className={styles["new-tag-btn"]}>
-							<span>Adicionar Tag</span>
-						</div>
+						<DefaultButton text={"Listagem de Tags"} />
 					</div>
 				);
 			},

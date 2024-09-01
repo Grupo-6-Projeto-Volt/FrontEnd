@@ -4,6 +4,7 @@ import styles from "./CrudCategorias.module.css";
 import Searchbar from "../../components/searchbar/Searchbar";
 import Table from "../../components/list/Table";
 import { FaPencil, FaTrash } from "react-icons/fa6";
+import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 
 function CrudCategorias() {
 	let headersTags = ["Id", "Nome da Categoria", ""];
@@ -23,9 +24,7 @@ function CrudCategorias() {
 			botao: () => {
 				return (
 					<div className={styles["list-btn-area"]}>
-						<div className={styles["new-category-btn"]}>
-							<span>Adicionar Categoria</span>
-						</div>
+						<DefaultButton text={"Listagem de Categorias"} />
 					</div>
 				);
 			},

@@ -3,7 +3,7 @@ import Navbar from "../../components/navbar/dashboard/Navbar";
 import Searchbar from "../../components/searchbar/Searchbar";
 import Table from "../../components/list/Table";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { FaPencil, FaPlus, FaTrash } from "react-icons/fa6";
+import { FaPencil, FaTrash } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 
