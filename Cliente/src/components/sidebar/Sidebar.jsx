@@ -25,7 +25,7 @@ function Sidebar() {
 						<div
 							className={
 								styles[
-									location.pathname === "/dashboard-chamados"
+									location.pathname === "/dashboard"
 										? "content-item-active"
 										: "content-item"
 								]
@@ -33,8 +33,8 @@ function Sidebar() {
 							onClick={() => navigate("/dashboard")}
 						>
 							<div className={styles["content-block"]}>
-								<FaFileLines />
-								<span>Clientes</span>
+								<FaChartColumn />
+								<span>Dashboard Geral</span>
 							</div>
 						</div>
 						<div
