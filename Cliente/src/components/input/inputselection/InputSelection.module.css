@@ -7,7 +7,7 @@
 	justify-content: space-between;
 }
 
-select {
+.select {
 	background-color: #f5f5f5;
 	padding-left: 0.75rem;
 	border-radius: 0.5rem;
