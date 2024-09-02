@@ -6,9 +6,13 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import { FaPencil, FaTrash } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
+import { produtosModel } from "../../model/produtosModel";
+import { useEffect, useState } from "react";
 
 function ListagemProdutos() {
 	let navigate = useNavigate();
+
+	let [produtos, setProdutos] = useState([]);
 
 	let headersProdutos = [
 		"",
@@ -20,155 +24,49 @@ function ListagemProdutos() {
 		"",
 	];
 
-	let valoresProdutos = [
-		{
-			image: () => {
-				return (
-					<img
-						className={styles["list-image"]}
-						src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UF1000,1000_QL80_.jpg"
-						alt="Iphone"
-					/>
-				);
-			},
-			id: "#456134",
-			nomeProduto: "Iphone 13 Pro Max",
-			categoria: "Celular",
-			estado: "Outlet",
-			preço: "R$5000,00",
-			acoes: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			image: () => {
-				return (
-					<img
-						className={styles["list-image"]}
-						src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UF1000,1000_QL80_.jpg"
-						alt="Iphone"
-					/>
-				);
-			},
-			id: "#456134",
-			nomeProduto: "Iphone 13 Pro Max",
-			categoria: "Celular",
-			estado: "Outlet",
-			preço: "R$5000,00",
-			acoes: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			image: () => {
-				return (
-					<img
-						className={styles["list-image"]}
-						src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UF1000,1000_QL80_.jpg"
-						alt="Iphone"
-					/>
-				);
-			},
-			id: "#456134",
-			nomeProduto: "Iphone 13 Pro Max",
-			categoria: "Celular",
-			estado: "Outlet",
-			preço: "R$5000,00",
-			acoes: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			image: () => {
-				return (
-					<img
-						className={styles["list-image"]}
-						src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UF1000,1000_QL80_.jpg"
-						alt="Iphone"
-					/>
-				);
-			},
-			id: "#456134",
-			nomeProduto: "Iphone 13 Pro Max",
-			categoria: "Celular",
-			estado: "Outlet",
-			preço: "R$5000,00",
-			acoes: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			image: () => {
-				return (
-					<img
-						className={styles["list-image"]}
-						src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UF1000,1000_QL80_.jpg"
-						alt="Iphone"
-					/>
-				);
-			},
-			id: "#456134",
-			nomeProduto: "Iphone 13 Pro Max",
-			categoria: "Celular",
-			estado: "Outlet",
-			preço: "R$5000,00",
-			acoes: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			image: () => {
-				return (
-					<img
-						className={styles["list-image"]}
-						src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UF1000,1000_QL80_.jpg"
-						alt="Iphone"
-					/>
-				);
-			},
-			id: "#456134",
-			nomeProduto: "Iphone 13 Pro Max",
-			categoria: "Celular",
-			estado: "Outlet",
-			preço: "R$5000,00",
-			acoes: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-	];
-
 	function handleNewProductPress() {
 		navigate("/cadastro-produtos");
+	}
+
+	useEffect(() => {
+		getProductsList();
+	}, []);
+
+	async function getProductsList() {
+		try {
+			let response = await produtosModel.listarProdutos();
+			let lista = [];
+			let count = 0;
+			response.forEach((produto) => {
+				lista.push({
+					image: () => {
+						return (
+							<img
+								className={styles["list-image"]}
+								src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UF1000,1000_QL80_.jpg"
+								alt="Iphone"
+							/>
+						);
+					},
+					id: ++count,
+					nome: produto.nome,
+					categoria: produto.categoria,
+					estado: produto.estadoGeral,
+					preco: "R$" + Number(produto.preco).toFixed(2),
+					acoes: () => {
+						return (
+							<div className={styles["list-btn-area"]}>
+								<FaPencil cursor={"pointer"} />
+								<FaTrash cursor={"pointer"} />
+							</div>
+						);
+					},
+				});
+			});
+			setProdutos(lista);
+		} catch (error) {
+			console.error("Erro:", error);
+		}
 	}
 
 	return (
@@ -206,11 +104,7 @@ function ListagemProdutos() {
 						/>
 					</div>
 					<div className={styles["table-area"]}>
-						<Table
-							headers={headersProdutos}
-							values={valoresProdutos}
-							limit={5}
-						/>
+						<Table headers={headersProdutos} values={produtos} limit={5} />
 					</div>
 				</div>
 			</div>

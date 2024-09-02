@@ -5,8 +5,10 @@ import Searchbar from "../../components/searchbar/Searchbar";
 import Table from "../../components/list/Table";
 import { FaPencil, FaTrash } from "react-icons/fa6";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
+import { useState } from "react";
 
 function CrudCategorias() {
+	let [categorias, setCategorias] = useState([]);
 	let headersTags = ["Id", "Nome da Categoria", ""];
 
 	let data = [
@@ -24,7 +26,7 @@ function CrudCategorias() {
 			botao: () => {
 				return (
 					<div className={styles["list-btn-area"]}>
-						<DefaultButton text={"Listagem de Categorias"} />
+						<DefaultButton text={"Adicionar Categoria"} />
 					</div>
 				);
 			},
@@ -90,6 +92,16 @@ function CrudCategorias() {
 			},
 		},
 	];
+
+	// async function getCategoryList() {
+	// 	try {
+	//         let response = await fetch("http://localhost:3000/categorias");
+	//         let data = await response.json();
+	//         setCategorias(data);
+	//     } catch (error) {
+	//         console.error(error);
+	//     }
+	// }
 
 	return (
 		<div className={styles["CrudCategorias"]}>

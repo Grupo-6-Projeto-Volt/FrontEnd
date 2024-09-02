@@ -5,115 +5,62 @@ import Searchbar from "../../components/searchbar/Searchbar";
 import Table from "../../components/list/Table";
 import { FaPencil, FaTrash } from "react-icons/fa6";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
+import { useEffect, useState } from "react";
+import { tagsModel } from "../../model/tagsModel";
 
 function CrudTags() {
+	let [tags, setTags] = useState([]);
 	let headersTags = ["Id", "Nome da Tag", ""];
 
-	let data = [
-		{
-			id: "",
-			nome: () => {
-				return (
-					<input
-						type="text"
-						className={styles["ipt-tag"]}
-						placeholder="Ex: Lançamento"
-					/>
-				);
-			},
-			botao: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<DefaultButton text={"Listagem de Tags"} />
-					</div>
-				);
-			},
-		},
-		{
-			id: "1",
-			nome: "Lançamento",
-			botao: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			id: "2",
-			nome: "Novidade",
-			botao: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			id: "3",
-			nome: "Promoção",
-			botao: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			id: "4",
-			nome: "Especial",
-			botao: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			id: "5",
-			nome: "Oferta",
-			botao: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			id: "6",
-			nome: "Outra Tag",
-			botao: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			id: "7",
-			nome: "Outra Tag",
-			botao: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-	];
+	useEffect(() => {
+		getTagsList();
+	}, []);
+
+	async function getTagsList() {
+		try {
+			let response = await tagsModel.listarTags();
+			let lista = [
+				{
+					id: "",
+					nome: () => {
+						return (
+							<input
+								type="text"
+								className={styles["ipt-tag"]}
+								placeholder="Ex: Celular"
+							/>
+						);
+					},
+					botao: () => {
+						return (
+							<div className={styles["list-btn-area"]}>
+								<DefaultButton text={"Adicionar Categoria"} />
+							</div>
+						);
+					},
+				},
+			];
+
+			let count = 0;
+			response.arr.forEach((tag) => {
+				lista.push({
+					id: ++count,
+					nome: tag.tag,
+					botao: () => {
+						return (
+							<div className={styles["list-btn-area"]}>
+								<FaPencil cursor={"pointer"} />
+								<FaTrash cursor={"pointer"} />
+							</div>
+						);
+					},
+				});
+			});
+			setTags(lista);
+		} catch (error) {
+			console.error("Erro:", error);
+		}
+	}
 
 	return (
 		<div className={styles["CrudTags"]}>
@@ -142,7 +89,7 @@ function CrudTags() {
 						</div>
 					</div>
 					<div className={styles["table-area"]}>
-						<Table headers={headersTags} values={data} limit={8} />
+						<Table headers={headersTags} values={tags} limit={8} />
 					</div>
 				</div>
 			</div>
