@@ -25,6 +25,7 @@ function CrudTags() {
 					nome: () => {
 						return (
 							<input
+								id="ipt_new_tag"
 								type="text"
 								className={styles["ipt-tag"]}
 								placeholder="Ex: Celular"
@@ -34,7 +35,10 @@ function CrudTags() {
 					botao: () => {
 						return (
 							<div className={styles["list-btn-area"]}>
-								<DefaultButton text={"Adicionar Categoria"} />
+								<DefaultButton
+									text={"Adicionar Categoria"}
+									onClick={handleNewTag}
+								/>
 							</div>
 						);
 					},
@@ -60,6 +64,18 @@ function CrudTags() {
 		} catch (error) {
 			console.error("Erro:", error);
 		}
+	}
+
+	function handleNewTag() {
+		let valor = document.getElementById("ipt_new_tag").value;
+
+		if (valor.trim() && valor.length > 3) {
+			tagsModel.inserirTag(valor);
+		} else {
+			alert("Tag inválida. Deve ter pelo menos 4 caracteres");
+		}
+
+		getTagsList();
 	}
 
 	return (
