@@ -1,6 +1,7 @@
 .img-logo{
     width: 15vw;
-    height: 8vh
+    height: 8vh;
+    cursor: pointer;
 }
 .navbar{
     width: 99vw;
@@ -10,6 +11,7 @@
     background-color: #000000;
     width: 100%;
     padding: 0.1vh;
+    cursor: pointer;
 }
 .navBarBaixo ul{
     display: flex;

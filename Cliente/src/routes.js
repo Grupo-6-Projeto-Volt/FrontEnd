@@ -11,6 +11,7 @@ import CrudCategorias from "./pages/crudCategorias/CrudCategorias.jsx";
 import ProductPage from "./pages/productpage/ProductPage.jsx";
 import Favoritos from "./pages/favoritos/Favoritos.jsx";
 import ListagemProdutos from "./pages/listagemprodutos/ListagemProdutos.jsx";
+import PaginaProdutos from "./pages/pagina-produtos/PaginaProdutos.jsx";
 
 function Rotas() {
 	return (
@@ -28,6 +29,7 @@ function Rotas() {
 					<Route path="/dashboard" element={<Dashboard />}></Route>
                     <Route path="/tags" element={<CrudTags />} />
 					<Route path="/categorias" element={<CrudCategorias />} />
+					<Route path="/pagina-produtos" element={<PaginaProdutos />} />
 				</Routes>
 			</BrowserRouter>
 		</>

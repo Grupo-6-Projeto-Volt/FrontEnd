@@ -25,7 +25,7 @@ export const NavBarPadrao = () => {
     return (
         <nav className={styles["navbar"]}>
             <div className={styles["container-navbar"]}>
-                <img src={logo} alt="logo ichiban" className={styles["img-logo"]} />
+                <img onClick={() => navigate("/")} src={logo} alt="logo ichiban" className={styles["img-logo"]} />
                 <div className={styles["containerPesquisaUser"]}>
                     <div className={styles["pesquisa"]}>
                         <input type="text" />
@@ -43,7 +43,7 @@ export const NavBarPadrao = () => {
                     <li>Mais Comprados</li>
                     <li>Comprar Novamente</li>
                     <li>Ofertas</li>
-                    <li>Celulares</li>
+                    <li onClick={() => navigate("/pagina-produtos")}>Celulares</li>
                     <li>Notebooks</li>
                     <li>Acessórios</li>
                 </ul>
