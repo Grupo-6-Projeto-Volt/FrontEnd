@@ -5,103 +5,63 @@ import Searchbar from "../../components/searchbar/Searchbar";
 import Table from "../../components/list/Table";
 import { FaPencil, FaTrash } from "react-icons/fa6";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { categoriasModel } from "../../model/categoriasModel";
 
 function CrudCategorias() {
 	let [categorias, setCategorias] = useState([]);
 	let headersTags = ["Id", "Nome da Categoria", ""];
 
-	let data = [
-		{
-			id: "",
-			nome: () => {
-				return (
-					<input
-						type="text"
-						className={styles["ipt-categoria"]}
-						placeholder="Ex: Celular"
-					/>
-				);
-			},
-			botao: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<DefaultButton text={"Adicionar Categoria"} />
-					</div>
-				);
-			},
-		},
-		{
-			id: "1",
-			nome: "Celular",
-			botao: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			id: "2",
-			nome: "Tablet",
-			botao: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			id: "3",
-			nome: "Computador",
-			botao: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			id: "4",
-			nome: "Acessórios",
-			botao: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-		{
-			id: "5",
-			nome: "Outros",
-			botao: () => {
-				return (
-					<div className={styles["list-btn-area"]}>
-						<FaPencil cursor={"pointer"} />
-						<FaTrash cursor={"pointer"} />
-					</div>
-				);
-			},
-		},
-	];
+	useEffect(() => {
+		getCategoryList();
+	}, []);
 
-	// async function getCategoryList() {
-	// 	try {
-	//         let response = await fetch("http://localhost:3000/categorias");
-	//         let data = await response.json();
-	//         setCategorias(data);
-	//     } catch (error) {
-	//         console.error(error);
-	//     }
-	// }
+	async function getCategoryList() {
+		try {
+			let response = await categoriasModel.listarCategorias();
+			let lista = [
+				{
+					id: "",
+					nome: () => {
+						return (
+							<input
+								id="ipt_new_category"
+								type="text"
+								className={styles["ipt-category"]}
+								placeholder="Ex: Novo"
+							/>
+						);
+					},
+					botao: () => {
+						return (
+							<div className={styles["list-btn-area"]}>
+								<DefaultButton text={"Adicionar Categoria"} />
+							</div>
+						);
+					},
+				},
+			];
+
+			let count = 0;
+			response.forEach((category) => {
+				lista.push({
+					id: ++count,
+					nome: category.nome,
+					botao: () => {
+						return (
+							<div className={styles["list-btn-area"]}>
+								<FaPencil cursor={"pointer"} />
+								<FaTrash cursor={"pointer"} />
+							</div>
+						);
+					},
+				});
+			});
+			setCategorias(lista);
+		} catch (error) {
+			console.error("Erro:", error);
+		}
+	}
 
 	return (
 		<div className={styles["CrudCategorias"]}>
@@ -130,7 +90,7 @@ function CrudCategorias() {
 						</div>
 					</div>
 					<div className={styles["table-area"]}>
-						<Table headers={headersTags} values={data} limit={8} />
+						<Table headers={headersTags} values={categorias} limit={8} />
 					</div>
 				</div>
 			</div>

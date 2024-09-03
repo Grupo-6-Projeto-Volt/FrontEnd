@@ -35,10 +35,7 @@ function CrudTags() {
 					botao: () => {
 						return (
 							<div className={styles["list-btn-area"]}>
-								<DefaultButton
-									text={"Adicionar Categoria"}
-									onClick={handleNewTag}
-								/>
+								<DefaultButton text={"Adicionar Tag"} onClick={handleNewTag} />
 							</div>
 						);
 					},
