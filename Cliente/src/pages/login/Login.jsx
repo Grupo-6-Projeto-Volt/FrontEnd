@@ -61,7 +61,7 @@ function Login() {
 					<div className={styles["voltar"]}>
 						<p
 							onClick={() => {
-								navigate("/pagina");
+								navigate("/");
 							}}
 						>
 							Voltar
