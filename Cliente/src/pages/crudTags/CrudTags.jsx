@@ -3,7 +3,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./CrudTags.module.css";
 import Searchbar from "../../components/searchbar/Searchbar";
 import Table from "../../components/list/Table";
-import { FaPencil, FaTrash } from "react-icons/fa6";
+import { FaCheck, FaPencil, FaTrash, FaX } from "react-icons/fa6";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 import { useEffect, useState } from "react";
 import { tagsModel } from "../../model/tagsModel";
@@ -12,6 +12,160 @@ function CrudTags() {
 	let [tags, setTags] = useState([]);
 	let headersTags = ["Id", "Nome da Tag", ""];
 
+	function handleEdit(
+		tagId,
+		editIconId,
+		deleteIconId,
+		confirmEditIconId,
+		cancelEditIconId
+	) {
+		let iptTag = document.getElementById(tagId);
+
+		let iptDeleteIcon = document.getElementById(deleteIconId);
+		let iptEditIcon = document.getElementById(editIconId);
+		let iptConfirmEditIcon = document.getElementById(confirmEditIconId);
+		let iptCancelEditIcon = document.getElementById(cancelEditIconId);
+
+		iptTag.disabled = false;
+		iptTag.className = styles["ipt-tag"];
+		iptTag.focus();
+
+		iptDeleteIcon.style.display = "none";
+		iptEditIcon.style.display = "none";
+		iptConfirmEditIcon.style.display = "inline-block";
+		iptCancelEditIcon.style.display = "inline-block";
+	}
+
+	function handleDelete(
+		tagId,
+		editIconId,
+		deleteIconId,
+		confirmDeleteIconId,
+		cancelDeleteIconId
+	) {
+		let iptTag = document.getElementById(tagId);
+
+		let iptDeleteIcon = document.getElementById(deleteIconId);
+		let iptEditIcon = document.getElementById(editIconId);
+		let iptConfirmDeleteIcon = document.getElementById(confirmDeleteIconId);
+		let iptCancelDeleteIcon = document.getElementById(cancelDeleteIconId);
+
+		iptDeleteIcon.style.display = "none";
+		iptEditIcon.style.display = "none";
+		iptConfirmDeleteIcon.style.display = "inline-block";
+		iptCancelDeleteIcon.style.display = "inline-block";
+	}
+
+	async function handleConfirmEdit(
+		id,
+		tagId,
+		confirmEditIconId,
+		cancelEditIconId,
+		editIconId,
+		deleteIconId
+	) {
+		let iptTag = document.getElementById(tagId);
+		let iptConfirmEditIcon = document.getElementById(confirmEditIconId);
+		let iptCancelEditIcon = document.getElementById(cancelEditIconId);
+		let iptEditIcon = document.getElementById(editIconId);
+		let iptDeleteIcon = document.getElementById(deleteIconId);
+
+		iptTag.disabled = true;
+		iptTag.placeholder = iptTag.value;
+
+		await tagsModel
+			.atualizarTag(id, iptTag.value)
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((error) => {
+				console.log("Houve um erro ao alterar a tag: " + error);
+			});
+
+		iptTag.value = "";
+		iptTag.className = styles["ipt-editable-tag"];
+
+		iptConfirmEditIcon.style.display = "none";
+		iptCancelEditIcon.style.display = "none";
+		iptEditIcon.style.display = "inline-block";
+		iptDeleteIcon.style.display = "inline-block";
+
+		getTagsList();
+	}
+
+	function handleCancelEdit(
+		tagId,
+		confirmEditIconId,
+		cancelEditIconId,
+		editIconId,
+		deleteIconId
+	) {
+		let iptTag = document.getElementById(tagId);
+		let iptConfirmEditIcon = document.getElementById(confirmEditIconId);
+		let iptCancelEditIcon = document.getElementById(cancelEditIconId);
+		let iptEditIcon = document.getElementById(editIconId);
+		let iptDeleteIcon = document.getElementById(deleteIconId);
+
+		iptTag.disabled = true;
+		iptTag.value = "";
+		iptTag.className = styles["ipt-editable-tag"];
+
+		iptConfirmEditIcon.style.display = "none";
+		iptCancelEditIcon.style.display = "none";
+		iptEditIcon.style.display = "inline-block";
+		iptDeleteIcon.style.display = "inline-block";
+	}
+
+	async function handleConfirmDelete(
+		id,
+		tagId,
+		confirmDeleteIconId,
+		cancelDeleteIconId,
+		editIconId,
+		deleteIconId
+	) {
+		let iptTag = document.getElementById(tagId);
+		let iptConfirmDeleteIcon = document.getElementById(confirmDeleteIconId);
+		let iptCancelDeleteIcon = document.getElementById(cancelDeleteIconId);
+		let iptEditIcon = document.getElementById(editIconId);
+		let iptDeleteIcon = document.getElementById(deleteIconId);
+
+		iptTag.className = styles["ipt-editable-tag"];
+
+		await tagsModel
+			.deletarTag(id)
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((error) => {
+				console.log("Houve um erro ao deletar a tag:", error);
+			});
+
+		iptConfirmDeleteIcon.style.display = "none";
+		iptCancelDeleteIcon.style.display = "none";
+		iptEditIcon.style.display = "inline-block";
+		iptDeleteIcon.style.display = "inline-block";
+
+		getTagsList();
+	}
+
+	function handleCancelDelete(
+		confirmDeleteIconId,
+		cancelDeleteIconId,
+		editIconId,
+		deleteIconId
+	) {
+		let iptConfirmDeleteIcon = document.getElementById(confirmDeleteIconId);
+		let iptCancelDeleteIcon = document.getElementById(cancelDeleteIconId);
+		let iptEditIcon = document.getElementById(editIconId);
+		let iptDeleteIcon = document.getElementById(deleteIconId);
+
+		iptConfirmDeleteIcon.style.display = "none";
+		iptCancelDeleteIcon.style.display = "none";
+		iptEditIcon.style.display = "inline-block";
+		iptDeleteIcon.style.display = "inline-block";
+	}
+
 	useEffect(() => {
 		getTagsList();
 	}, []);
@@ -19,6 +173,7 @@ function CrudTags() {
 	async function getTagsList() {
 		try {
 			let response = await tagsModel.listarTags();
+			console.log(response);
 			let lista = [
 				{
 					id: "",
@@ -35,23 +190,130 @@ function CrudTags() {
 					botao: () => {
 						return (
 							<div className={styles["list-btn-area"]}>
-								<DefaultButton text={"Adicionar Tag"} onClick={handleNewTag} />
+								<DefaultButton
+									text={"Adicionar Tag"}
+									onClick={() => {
+										handleNewTag();
+										getTagsList();
+									}}
+								/>
 							</div>
 						);
 					},
 				},
 			];
 
-			let count = 0;
 			response.arr.forEach((tag) => {
+				let tagId = `ipt_tag_${tag.id}`;
+
+				let editIconId = `ipt_edit_icon_${tag.id}`;
+				let deleteIconId = `ipt_delete_icon_${tag.id}`;
+
+				let confirmDeleteIconId = `ipt_confirm_delete_icon_${tag.id}`;
+				let cancelDeleteIconId = `ipt_cancel_delete_icon_${tag.id}`;
+
+				let confirmEditIconId = `ipt_confirm_edit_icon_${tag.id}`;
+				let cancelEditIconId = `ipt_cancel_edit_icon_${tag.id}`;
+
 				lista.push({
-					id: ++count,
-					nome: tag.tag,
+					id: tag.id,
+					nome: () => {
+						return (
+							<input
+								id={tagId}
+								placeholder={tag.tag}
+								disabled={true}
+								type="text"
+								className={styles["ipt-editable-tag"]}
+							/>
+						);
+					},
 					botao: () => {
 						return (
 							<div className={styles["list-btn-area"]}>
-								<FaPencil cursor={"pointer"} />
-								<FaTrash cursor={"pointer"} />
+								<FaPencil
+									id={editIconId}
+									cursor={"pointer"}
+									onClick={() =>
+										handleEdit(
+											tagId,
+											editIconId,
+											deleteIconId,
+											confirmEditIconId,
+											cancelEditIconId
+										)
+									}
+								/>
+								<FaTrash
+									id={deleteIconId}
+									cursor={"pointer"}
+									onClick={() =>
+										handleDelete(
+											tagId,
+											editIconId,
+											deleteIconId,
+											confirmDeleteIconId,
+											cancelDeleteIconId
+										)
+									}
+								/>
+								<FaCheck
+									id={confirmEditIconId}
+									cursor={"pointer"}
+									display={"none"}
+									onClick={() =>
+										handleConfirmEdit(
+											tag.id,
+											tagId,
+											confirmEditIconId,
+											cancelEditIconId,
+											editIconId,
+											deleteIconId
+										)
+									}
+								/>
+								<FaX
+									id={cancelEditIconId}
+									cursor={"pointer"}
+									display={"none"}
+									onClick={() =>
+										handleCancelEdit(
+											tagId,
+											confirmEditIconId,
+											cancelEditIconId,
+											editIconId,
+											deleteIconId
+										)
+									}
+								/>
+								<FaCheck
+									id={confirmDeleteIconId}
+									cursor={"pointer"}
+									display={"none"}
+									onClick={() =>
+										handleConfirmDelete(
+											tag.id,
+											tagId,
+											confirmDeleteIconId,
+											cancelDeleteIconId,
+											editIconId,
+											deleteIconId
+										)
+									}
+								/>
+								<FaX
+									id={cancelDeleteIconId}
+									cursor={"pointer"}
+									display={"none"}
+									onClick={() =>
+										handleCancelDelete(
+											confirmDeleteIconId,
+											cancelDeleteIconId,
+											editIconId,
+											deleteIconId
+										)
+									}
+								/>
 							</div>
 						);
 					},
@@ -71,8 +333,6 @@ function CrudTags() {
 		} else {
 			alert("Tag inválida. Deve ter pelo menos 4 caracteres");
 		}
-
-		getTagsList();
 	}
 
 	return (

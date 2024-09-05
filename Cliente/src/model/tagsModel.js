@@ -25,4 +25,28 @@ export const tagsModel = {
 			});
 		return resposta;
 	},
+	deletarTag: (id) => {
+		let resposta = api
+			.delete(`/tags/${id}`)
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
+	atualizarTag: (id, tag) => {
+		let resposta = api
+			.patch(`/tags/${id}?tag=${tag}`)
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
 };
