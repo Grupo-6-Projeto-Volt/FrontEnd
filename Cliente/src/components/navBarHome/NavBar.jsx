@@ -12,13 +12,18 @@ export const NavBarPadrao = ({onSearch}) => {
     const handleClickSearch = ()=>{
         onSearch(busca);
     }
+    const handleKeyDown = (event) =>{
+        if(event.key === "Enter"){
+            handleClickSearch()
+        }
+    }
     return (
         <nav className={styles["navbar"]}>
             <div className={styles["container-navbar"]}>
                 <img src={logo} alt="logo ichiban" className={styles["img-logo"]}/>
                 <div className={styles["containerPesquisaUser"]}>
                     <div className={styles["pesquisa"]}>
-                        <input type="text" id="busca-produto"  value={busca} onChange={handleInputChange}
+                        <input type="text" id="busca-produto"  value={busca} onChange={handleInputChange} onKeyDown={handleKeyDown}
                             placeholder="Pesquisar..." />
                         <FaSearch className={styles['search']} onClick={handleClickSearch}/>
                     </div>

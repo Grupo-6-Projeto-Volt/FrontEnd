@@ -10,13 +10,11 @@ export function ProdutosBuscados({ pesquisa }) {
     let [dadosProduto, setDadosProduto] = useState([]);
     async function getProdutos() {
         let response;
-        console.log(pesquisa)
         try {
             if(pesquisa !== "" && pesquisa.length > 0){
                 console.log(pesquisa)
                 response = await pesquisaProdutos(pesquisa.normalize("NFD").replace(/[\u0300-\u036f]/g, ""))
             }
-            console.log("response", response)
             setDadosProduto(response);
         } catch (e) {
             console.log(e);
