@@ -171,38 +171,37 @@ function CrudTags() {
 	}, []);
 
 	async function getTagsList() {
+		let firstRow = {
+			id: "",
+			nome: () => {
+				return (
+					<input
+						id="ipt_new_tag"
+						type="text"
+						className={styles["ipt-tag"]}
+						placeholder="Ex: Multi-Colorido"
+					/>
+				);
+			},
+			botao: () => {
+				return (
+					<div className={styles["list-btn-area"]}>
+						<DefaultButton
+							text={"Adicionar Tag"}
+							onClick={() => {
+								handleNewTag();
+								getTagsList();
+							}}
+						/>
+					</div>
+				);
+			},
+		};
+
+		let lista = [firstRow];
+
 		try {
 			let response = await tagsModel.listarTags();
-			console.log(response);
-			let lista = [
-				{
-					id: "",
-					nome: () => {
-						return (
-							<input
-								id="ipt_new_tag"
-								type="text"
-								className={styles["ipt-tag"]}
-								placeholder="Ex: Celular"
-							/>
-						);
-					},
-					botao: () => {
-						return (
-							<div className={styles["list-btn-area"]}>
-								<DefaultButton
-									text={"Adicionar Tag"}
-									onClick={() => {
-										handleNewTag();
-										getTagsList();
-									}}
-								/>
-							</div>
-						);
-					},
-				},
-			];
-
 			response.arr.forEach((tag) => {
 				let tagId = `ipt_tag_${tag.id}`;
 
@@ -319,10 +318,11 @@ function CrudTags() {
 					},
 				});
 			});
-			setTags(lista);
 		} catch (error) {
 			console.error("Erro:", error);
 		}
+
+		setTags(lista);
 	}
 
 	function handleNewTag() {
@@ -333,6 +333,8 @@ function CrudTags() {
 		} else {
 			alert("Tag inválida. Deve ter pelo menos 4 caracteres");
 		}
+
+		getTagsList();
 	}
 
 	return (
