@@ -1,0 +1,54 @@
+.container{
+    padding: 2%;
+}
+
+.produto{
+    width: 18rem;
+    height: 19rem;
+    border-radius: 10px;
+    box-shadow: #0000004d 0px 4px 4px;
+    padding: 2%;
+    display: flex;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.produto:hover{
+    box-shadow: #bb202087 0px 4px 4px;
+    cursor: pointer;
+}
+.produto img{
+    width: 10rem;
+    height: 10rem;
+    margin: auto;
+}
+.produto .nomeProd{
+    width: 100%;
+    font-weight: 500;
+}
+
+.produtos{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2%;
+}
+
+.button-voltar{
+    cursor: pointer;
+    font-size: 18px;
+    width: 20px;
+}
+
+.titulo-produtos{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 1%;
+    margin-bottom: 1%;
+}
+
+.filtro{
+    width: 2%;
+}

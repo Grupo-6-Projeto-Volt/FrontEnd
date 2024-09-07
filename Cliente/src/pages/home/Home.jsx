@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Home.module.css";
-import { useNavigate } from "react-router-dom";
-import { validateAuth } from "../../utils/global";
+import React, { useEffect,useState } from "react";
 import { NavBarPadrao } from "../../components/navBarHome/NavBar";
-import { ProdutosData } from "../../components/produtoslist/ProdutosList.jsx";
+import { ProdutosData as Lancamentos } from "../../components/produtoslist/ProdutosList.jsx";
+import { ProdutosData as Ofertas } from "../../components/produtoslist/ProdutosList.jsx";
+// import { Sobre } from "../../components/sobre/Sobre.jsx";
+import styles from "./Home.module.css";
 import Footer from "../../components/footer/Footer.jsx";
+import NossosServicos from "../../components/nossosServicos/NossosServicos.jsx";
+import Avaliacoes from "../../components/avaliacoes/Avaliacoes.jsx";
+import Banner from "../../components/banner/Banner.jsx";
+import Oferta from "../../components/oferta/Oferta.jsx";
+import Categorias from "../../components/categorias/Categorias.jsx";
 import { ProdutosBuscados } from "../../components/productsearch/ProductSearch.jsx";
+
 const Home = () => {
 	const [produtoBuscado, setProdutoBuscado] = useState("");
 
@@ -16,13 +22,26 @@ const Home = () => {
 
 	if(produtoBuscado == ""){
 		return (
-			<>
-				<NavBarPadrao onSearch={handleSearch}/>
-				<ProdutosData
-				secao = 'Ofertas'/>
-				<Footer/>
-			</>
-		)
+		<>
+			<NavBarPadrao onSearch={handleSearch}/>
+			<div className={styles["container"]}>
+				<Banner></Banner>
+				<Lancamentos className="lancamentos"
+					secao='Lançamentos'
+					nome = 'lancamentos' />
+				<Ofertas
+					secao='Ofertas'
+					nome = 'ofertas' />
+					<Oferta></Oferta>
+				<Categorias></Categorias>
+				{/* <Sobre /> */}
+				<NossosServicos />
+				{/* <SolicitarConcerto /> */}
+				<Avaliacoes />
+			</div>
+			<Footer />
+		</>
+	)
 	}else{
 		return(
 			<>
