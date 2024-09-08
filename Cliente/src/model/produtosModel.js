@@ -13,4 +13,28 @@ export const produtosModel = {
 			});
 		return resposta;
 	},
+	buscarProdutoPorId: (id) => {
+		let resposta = api
+			.get(`/produtos/loja/${id}`)
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
+	deletarProduto: (id) => {
+		let resposta = api
+			.delete(`/produtos/estoque/${id}`)
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
 };

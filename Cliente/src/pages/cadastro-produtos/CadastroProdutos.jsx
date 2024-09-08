@@ -6,11 +6,14 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./CadastroProdutos.module.css";
 import InputFile from "../../components/input/inputfile/InputFile";
 import ImageListItem from "../../components/imagelistitem/ImageListItem";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import InputDatalist from "../../components/input/inputdatalist/InputDatalist";
 import InputColor from "../../components/input/inputcolor/InputColor";
 import InputDate from "../../components/input/inputdate/InputDate";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
+import { useNavigate, useParams } from "react-router-dom";
+import { produtosModel } from "../../model/produtosModel";
+import { categoriasModel } from "../../model/categoriasModel";
 
 function CadastroProdutos() {
 	let [nome, setNome] = useState("");
@@ -28,6 +31,13 @@ function CadastroProdutos() {
 	let [cores, setCores] = useState([]);
 
 	let [aplicarDesconto, setAplicarDesconto] = useState(false);
+
+	const { id } = useParams();
+	let navigate = useNavigate();
+
+	let [editModeOn, setEditModeOn] = useState(id !== undefined);
+	let [produto, setProduto] = useState(null);
+	let [categorias, setCategorias] = useState([]);
 
 	const dragItem = useRef(0);
 	const draggedOverItem = useRef(0);
@@ -55,6 +65,72 @@ function CadastroProdutos() {
 		alert("Produto Cadastrado!");
 	}
 
+	async function getProduto() {
+		let produto = await produtosModel.buscarProdutoPorId(id);
+
+		setNome(produto.nome);
+		setPreco(produto.preco);
+		setCategoria(produto.categoria);
+		setEstado(produto.estadoGeral);
+		setDescricao(produto.descricao);
+		setAplicarDesconto(produto.desconto === 0 ? false : true);
+		setDesconto(produto.desconto);
+
+		document.getElementById("ipt_nome").value = produto.nome;
+		document.getElementById("ipt_preco").value = `R$${Number(
+			produto.preco
+		).toFixed(2)}`;
+		document.getElementById("ipt_categoria").value = produto.categoria;
+		document.getElementById("ipt_estado").value = produto.estadoGeral;
+		document.getElementById("ipt_desc").value = produto.descricao;
+
+		document.getElementById("ipt_check_discount").checked =
+			produto.desconto === 0 ? false : true;
+		document.getElementById("ipt_vlr_desconto").value = `${produto.desconto}%`;
+
+		let listaImagens = [];
+
+		for (let i = 0; i < produto.imagensProduto.length; i++) {
+			listaImagens.push({
+				name: produto.imagensProduto[i].nome,
+				url: produto.imagensProduto[i].codigoImagem,
+			});
+		}
+
+		let listaTags = [];
+		produto.tagsProduto.forEach((item) => {
+			listaTags.push(item.tag);
+		});
+
+		console.log(produto);
+		setAplicarDesconto(produto.desconto === 0 ? false : true);
+		setTags(listaTags);
+		setImagens(listaImagens);
+		setProduto(produto);
+	}
+
+	async function getCategorias() {
+		let response = await categoriasModel.listarCategorias();
+		let lista = ["NA"];
+		response.forEach((item) => {
+			lista.push(item.nome);
+		});
+		setCategorias(lista);
+	}
+
+	async function handleDelete(id) {
+		let response = await produtosModel.deletarProduto(id);
+		alert("Produto deletado com sucesso!");
+		navigate("/listagem-produtos");
+	}
+
+	useEffect(() => {
+		if (editModeOn) {
+			getProduto();
+		}
+		getCategorias();
+	}, []);
+
 	return (
 		<div className={styles["CadastroProdutos"]}>
 			<Navbar />
@@ -69,6 +145,7 @@ function CadastroProdutos() {
 							<div className={styles["section-content"]}>
 								<div className={styles["product-information-form"]}>
 									<InputText
+										id={"ipt_nome"}
 										tituloCampo={"Nome Produto"}
 										placeholder={"Ex: Iphone 13 Max"}
 										onChange={(e) => setNome(e.target.value)}
@@ -76,13 +153,7 @@ function CadastroProdutos() {
 									<InputSelection
 										id={"ipt_categoria"}
 										tituloCampo={"Categoria"}
-										items={[
-											"NA",
-											"Celular",
-											"Computador",
-											"Tablet",
-											"Acessório",
-										]}
+										items={categorias}
 										onChange={(e) => setCategoria(e.target.value)}
 									/>
 									<InputSelection
@@ -99,11 +170,13 @@ function CadastroProdutos() {
 										onChange={(e) => setEstado(e.target.value)}
 									/>
 									<InputText
+										id={"ipt_preco"}
 										tituloCampo={"Preço do Produto"}
 										placeholder={"Ex: R$500,00"}
 										onChange={(e) => setPreco(e.target.value)}
 									/>
 									<InputBigText
+										id={"ipt_desc"}
 										tituloCampo={"Descrição do Produto"}
 										placeholder={
 											"Ex: Descrição técnica e características do produto"
@@ -266,6 +339,7 @@ function CadastroProdutos() {
 										<label htmlFor="nome">Aplicar Desconto?</label>
 										<label className={styles["switch"]}>
 											<input
+												id="ipt_check_discount"
 												type="checkbox"
 												onChange={(e) => {
 													setAplicarDesconto(e.target.checked);
@@ -371,9 +445,27 @@ function CadastroProdutos() {
 								</div>
 							</div>
 						</div>
-						<div className={styles["form-submit-area"]}>
+						<div
+							className={styles["form-submit-area"]}
+							style={{ display: editModeOn ? "none" : "flex" }}
+						>
 							<DefaultButton text={"Postar"} onClick={handleSubmit} />
 							<DefaultButton text={"Visualizar Layout"} />
+						</div>
+						<div
+							className={styles["form-submit-area"]}
+							style={{ display: editModeOn ? "flex" : "none" }}
+						>
+							<DefaultButton text={"Atualizar"} onClick={handleSubmit} />
+							<DefaultButton text={"Visualizar Layout"} />
+							<button
+								className={styles["delete-btn"]}
+								onClick={() => {
+									handleDelete(id);
+								}}
+							>
+								Excluir
+							</button>
 						</div>
 					</div>
 				</div>

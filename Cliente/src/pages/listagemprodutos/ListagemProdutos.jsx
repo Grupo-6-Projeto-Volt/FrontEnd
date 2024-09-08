@@ -36,7 +36,6 @@ function ListagemProdutos() {
 		try {
 			let response = await produtosModel.listarProdutos();
 			let lista = [];
-			let count = 0;
 			response.forEach((produto) => {
 				lista.push({
 					image: () => {
@@ -48,7 +47,7 @@ function ListagemProdutos() {
 							/>
 						);
 					},
-					id: ++count,
+					id: produto.id,
 					nome: produto.nome,
 					categoria: produto.categoria,
 					estado: produto.estadoGeral,
@@ -56,7 +55,10 @@ function ListagemProdutos() {
 					acoes: () => {
 						return (
 							<div className={styles["list-btn-area"]}>
-								<FaPencil cursor={"pointer"} />
+								<FaPencil
+									cursor={"pointer"}
+									onClick={() => navigate(`/editar-produtos/${produto.id}`)}
+								/>
 								<FaTrash cursor={"pointer"} />
 							</div>
 						);

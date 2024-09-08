@@ -21,13 +21,14 @@ function Rotas() {
 					<Route path="/" element={<Home />} />
 					<Route path="/cadastro" element={<Cadastro />} />
 					<Route path="/login" element={<Login />} />
-                    <Route path="/cadastro-produtos" element={<CadastroProdutos />}></Route>
+					<Route path="/cadastro-produtos" element={<CadastroProdutos />} />
+					<Route path="/editar-produtos/:id" element={<CadastroProdutos />} />
 					<Route path="/listagem-produtos" element={<ListagemProdutos />} />
-                    <Route path="/favoritos" element={<Favoritos />} />
+					<Route path="/favoritos" element={<Favoritos />} />
 					<Route path="/productpage" element={<ProductPage />} />
 					<Route path="/dashboard-chamados" element={<Chamados />}></Route>
 					<Route path="/dashboard" element={<Dashboard />}></Route>
-                    <Route path="/tags" element={<CrudTags />} />
+					<Route path="/tags" element={<CrudTags />} />
 					<Route path="/categorias" element={<CrudCategorias />} />
 					<Route path="/pagina-produtos" element={<PaginaProdutos />} />
 				</Routes>
