@@ -2,9 +2,24 @@ import styles from "./NavBar.module.css"
 import logo from "../../utils/assets/img/logo-ichiban.png"
 import { FaSearch } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
+import { validateAuth } from "../../utils/global";
+import userPadrao from "../../utils/assets/img/user_padrao.png"
+import { useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import userExample from "../../utils/assets/img/usuario-exemplo.jpg"
 import { useState } from "react";
 export const NavBarPadrao = ({onSearch}) => {
+    let navigate = useNavigate();
+    function validateAuthentication() {
+        if (!validateAuth()) {
+            return <img src={userPadrao} alt="" className={styles["usuario"]} onClick={() => {
+                navigate("/login");
+            }} />
+        } else {
+            return <h2>Olá, user</h2>
+        }
+    }
+
     const [busca,setBusca ] = useState("");
     const handleInputChange = (event) => {
         setBusca(event.target.value);
@@ -29,8 +44,8 @@ export const NavBarPadrao = ({onSearch}) => {
                     </div>
                     <h3>|</h3>
                     <div className={styles["usuarioDiv"]}>
-                        <img src={userExample} alt="" className={styles["usuario"]} />
-                        <FaRegHeart className={styles["favoritos"]} />
+                        {validateAuthentication()}
+                        <FaRegHeart className={styles["favoritos"]} onClick={() => { navigate("/favoritos")}} />
                     </div>
                 </div>
             </div>
@@ -39,7 +54,7 @@ export const NavBarPadrao = ({onSearch}) => {
                     <li>Mais Comprados</li>
                     <li>Comprar Novamente</li>
                     <li>Ofertas</li>
-                    <li>Celulares</li>
+                    <li onClick={() => navigate("/pagina-produtos")}>Celulares</li>
                     <li>Notebooks</li>
                     <li>Acessórios</li>
                 </ul>
