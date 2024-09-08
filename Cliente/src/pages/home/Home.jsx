@@ -12,6 +12,7 @@ import Oferta from "../../components/oferta/Oferta.jsx";
 import Categorias from "../../components/categorias/Categorias.jsx";
 
 const Home = () => {
+
 	return (
 		<>
 			<NavBarPadrao />
@@ -19,7 +20,8 @@ const Home = () => {
 				<Banner></Banner>
 				<Lancamentos className="lancamentos"
 					secao='Lançamentos'
-					nome = 'lancamentos' />
+					nome='lancamentos' />
+
 				<Ofertas
 					secao='Ofertas'
 					nome = 'ofertas' />
