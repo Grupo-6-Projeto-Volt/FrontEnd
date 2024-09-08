@@ -37,14 +37,11 @@ function CrudTags() {
 	}
 
 	function handleDelete(
-		tagId,
 		editIconId,
 		deleteIconId,
 		confirmDeleteIconId,
 		cancelDeleteIconId
 	) {
-		let iptTag = document.getElementById(tagId);
-
 		let iptDeleteIcon = document.getElementById(deleteIconId);
 		let iptEditIcon = document.getElementById(editIconId);
 		let iptConfirmDeleteIcon = document.getElementById(confirmDeleteIconId);
@@ -248,7 +245,6 @@ function CrudTags() {
 									cursor={"pointer"}
 									onClick={() =>
 										handleDelete(
-											tagId,
 											editIconId,
 											deleteIconId,
 											confirmDeleteIconId,

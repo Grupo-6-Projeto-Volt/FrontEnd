@@ -14,6 +14,7 @@ import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 import { useNavigate, useParams } from "react-router-dom";
 import { produtosModel } from "../../model/produtosModel";
 import { categoriasModel } from "../../model/categoriasModel";
+import { tagsModel } from "../../model/tagsModel";
 
 function CadastroProdutos() {
 	let [nome, setNome] = useState("");
@@ -38,6 +39,7 @@ function CadastroProdutos() {
 	let [editModeOn, setEditModeOn] = useState(id !== undefined);
 	let [produto, setProduto] = useState(null);
 	let [categorias, setCategorias] = useState([]);
+	let [allTags, setAllTags] = useState([]);
 
 	const dragItem = useRef(0);
 	const draggedOverItem = useRef(0);
@@ -97,16 +99,25 @@ function CadastroProdutos() {
 			});
 		}
 
-		let listaTags = [];
+		let listaTagsProduto = [];
 		produto.tagsProduto.forEach((item) => {
-			listaTags.push(item.tag);
+			listaTagsProduto.push(item.tag);
 		});
 
-		console.log(produto);
 		setAplicarDesconto(produto.desconto === 0 ? false : true);
-		setTags(listaTags);
+		setTags(listaTagsProduto);
 		setImagens(listaImagens);
 		setProduto(produto);
+	}
+
+	async function getTags() {
+		let response = await tagsModel.listarTags();
+		let listaTodasTags = [];
+		response.arr.forEach((item) => {
+			listaTodasTags.push(item.tag);
+		});
+		console.log(listaTodasTags);
+		setAllTags(listaTodasTags);
 	}
 
 	async function getCategorias() {
@@ -119,7 +130,7 @@ function CadastroProdutos() {
 	}
 
 	async function handleDelete(id) {
-		let response = await produtosModel.deletarProduto(id);
+		await produtosModel.deletarProduto(id);
 		alert("Produto deletado com sucesso!");
 		navigate("/listagem-produtos");
 	}
@@ -129,6 +140,7 @@ function CadastroProdutos() {
 			getProduto();
 		}
 		getCategorias();
+		getTags();
 	}, []);
 
 	return (
@@ -244,6 +256,7 @@ function CadastroProdutos() {
 								<div className={styles["product-tags-form"]}>
 									<InputDatalist
 										tituloCampo={"Adicionar Tag"}
+										values={allTags}
 										onClick={() => {
 											let item = document.getElementById("inputList");
 											let valor = item.value;
