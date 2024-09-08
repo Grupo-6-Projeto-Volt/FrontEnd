@@ -10,6 +10,7 @@ function InputText({ id, tituloCampo, placeholder, onChange, onBlur }) {
 				placeholder={placeholder}
 				onChange={(e) => onChange(e)}
 				onBlur={onBlur}
+				className={styles["input"]}
 			/>
 		</div>
 	);
