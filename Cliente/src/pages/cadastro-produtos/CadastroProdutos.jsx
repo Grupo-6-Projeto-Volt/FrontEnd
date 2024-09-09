@@ -69,6 +69,7 @@ function CadastroProdutos() {
 
 	async function getProduto() {
 		let produto = await produtosModel.buscarProdutoPorId(id);
+		console.log(produto);
 
 		setNome(produto.nome);
 		setPreco(produto.preco);
@@ -77,6 +78,8 @@ function CadastroProdutos() {
 		setDescricao(produto.descricao);
 		setAplicarDesconto(produto.desconto === 0 ? false : true);
 		setDesconto(produto.desconto);
+		setDataInicioDesconto(produto.dataInicioDesconto);
+		setDataFimDesconto(produto.dataFimDesconto);
 
 		document.getElementById("ipt_nome").value = produto.nome;
 		document.getElementById("ipt_preco").value = `R$${Number(
@@ -88,7 +91,12 @@ function CadastroProdutos() {
 
 		document.getElementById("ipt_check_discount").checked =
 			produto.desconto === 0 ? false : true;
+
 		document.getElementById("ipt_vlr_desconto").value = `${produto.desconto}%`;
+		document.getElementById("ipt_data_inicio_desconto").value =
+			produto.dataInicioDesconto;
+		document.getElementById("ipt_data_fim_desconto").value =
+			produto.dataFimDesconto;
 
 		let listaImagens = [];
 
