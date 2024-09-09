@@ -24,12 +24,14 @@ export function ProdutosData({ secao, nome }) {
     async function getProdutos() {
         let response;
         try {
-            if (secao === "Ofertas") {
-                response = await produtos.listarOfertas();
-            } else {
-                response = await produtos.listarProdutos();
+            switch (secao) {
+                case ("Ofertas"):
+                    response = await produtos.listarOfertas();
+                    break;
+                default:
+                    response = await produtos.listarProdutos()
+                    break;
             }
-            console.log("response", response);
 
             setDadosProduto(response);
         }

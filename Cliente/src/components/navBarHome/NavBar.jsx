@@ -33,14 +33,10 @@ export const NavBarPadrao = ({onSearch}) => {
             return <h2>Olá, user</h2>
         }
     }
-
-    useEffect(() => {
-        validateAuthentication();
-    })
     return (
         <nav className={styles["navbar"]}>
             <div className={styles["container-navbar"]}>
-                <img onClick={() => navigate("/")} src={logo} alt="logo ichiban" className={styles["img-logo"]} />
+                <img src={logo} alt="logo ichiban" className={styles["img-logo"]}/>
                 <div className={styles["containerPesquisaUser"]}>
                     <div className={styles["pesquisa"]}>
                         <input type="text" id="busca-produto"  value={busca} onChange={handleInputChange} onKeyDown={handleKeyDown}
