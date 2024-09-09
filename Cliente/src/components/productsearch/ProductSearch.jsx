@@ -43,7 +43,7 @@ export function ProdutosBuscados({ pesquisa }) {
                                 className={styles['item']}
                                 nome={produto.nome}
                                 estado={produto.estadoGeral}
-                                imgUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrhiivQ-a9g_wMJYALyFjZIE9ylQuwprSM3A&s"
+                                imgUrl={produto.imagensProduto.at(0).codigoImagem}
                                 preco={produto.preco} 
                             />
                             {(index) % 4 === 0 && <br />}

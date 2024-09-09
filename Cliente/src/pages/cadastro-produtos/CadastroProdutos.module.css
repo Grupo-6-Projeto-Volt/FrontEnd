@@ -1,0 +1,275 @@
+h2,
+h4 {
+	padding: 0;
+	margin: 0;
+}
+
+label {
+	height: 1.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.CadastroProdutos {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	background-color: #ffffff;
+}
+
+.content {
+	margin-left: 15vw;
+	margin-top: 8vw;
+	height: 92vh;
+	width: 85vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 8vh;
+	margin-left: 15vw;
+}
+
+.container {
+	width: 92%;
+	height: 90%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.col {
+	width: 48%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 1.5rem;
+}
+
+.form-section {
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.section-content {
+	width: 100%;
+	height: 95%;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+}
+
+.section-title {
+	font-size: 24px;
+	font-family: "PoppinsBold";
+	height: 2rem;
+	width: 100%;
+}
+
+.product-information-form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	gap: 1.5rem;
+}
+
+.insert-image-form {
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	gap: 1.5rem;
+}
+
+.image-list {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	overflow-y: auto;
+	margin-bottom: 2rem;
+}
+
+.product-tags-form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	gap: 1.5rem;
+}
+
+.tag-list {
+	width: 100%;
+	height: 80%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-content: flex-start;
+	gap: 0.5rem;
+	overflow-y: auto;
+}
+
+.tag-card {
+	background-color: #bd1616;
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.5rem;
+	margin: 0;
+	color: #f5f5f5;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+}
+
+.remove-tag-btn {
+	background-color: transparent;
+	border: none;
+	width: 1rem;
+	height: 1rem;
+	border-radius: 50%;
+	cursor: pointer;
+	text-align: center;
+	vertical-align: middle;
+	align-self: flex-start;
+	color: #f5f5f5;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.product-color-form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	gap: 1.5rem;
+}
+
+.color-card {
+	width: 3.5rem;
+	height: 3.5rem;
+	border: 1px solid black;
+	border-radius: 0.5rem;
+	margin-right: 0.5rem;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-start;
+}
+
+.color-list {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-content: flex-start;
+	gap: 0.5rem;
+	overflow-y: auto;
+}
+
+.remove-color-btn {
+	background-color: #f5f5f5;
+	border: none;
+	border-radius: 50%;
+	margin-top: 0.2rem;
+	margin-right: 0.2rem;
+	cursor: pointer;
+}
+
+.discount-form {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	justify-content: start;
+	gap: 1.5rem;
+}
+
+.apply-discount-slider {
+	display: flex;
+	flex-direction: column;
+	height: 5rem;
+}
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 80px;
+	height: 34px;
+}
+
+.switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+	border-radius: 34px;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+	border-radius: 50%;
+}
+
+input:checked + .slider {
+	background-color: #bd1616;
+}
+
+input:focus + .slider {
+	box-shadow: 0 0 1px #bd1616;
+}
+
+input:checked + .slider:before {
+	-webkit-transform: translateX(46px);
+	-ms-transform: translateX(46px);
+	transform: translateX(46px);
+}
+
+.apply-discount-picker {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	gap: 1.5rem;
+}
+
+.prev-new-values {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.form-submit-area {
+	width: 100%;
+	height: auto;
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+	padding-bottom: 2rem;
+}
