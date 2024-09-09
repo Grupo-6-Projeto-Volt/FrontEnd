@@ -99,7 +99,6 @@ function CadastroProdutos() {
 			produto.dataFimDesconto;
 
 		let listaImagens = [];
-
 		for (let i = 0; i < produto.imagensProduto.length; i++) {
 			listaImagens.push({
 				name: produto.imagensProduto[i].nome,
@@ -112,9 +111,15 @@ function CadastroProdutos() {
 			listaTagsProduto.push(item.tag);
 		});
 
+		let listaCores = [];
+		produto.coresProduto.forEach((item) => {
+			listaCores.push(item.hexId);
+		});
+
 		setAplicarDesconto(produto.desconto === 0 ? false : true);
 		setTags(listaTagsProduto);
 		setImagens(listaImagens);
+		setCores(listaCores);
 		setProduto(produto);
 	}
 
