@@ -1,0 +1,38 @@
+.item-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+.item-list > * {
+    flex: 0 0 calc(25% - 20px);
+    margin: 10px; 
+}
+
+.item {
+    display: inline-block;
+    width: 100%; /* Garantir que o item ocupe 100% do espaço disponível */
+}
+
+.container {
+    max-width: 100%;
+    overflow-x: hidden; /* Evita scrollbar horizontal no contêiner pai */
+}
+
+
+
+
+/* .item-list::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+} */
+
+.products-view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+}

@@ -1,0 +1,111 @@
+h2,
+h4 {
+	padding: 0;
+	margin: 0;
+}
+
+label {
+	height: 1.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.BannersEPropagandas {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	background-color: #ffffff;
+}
+
+.content {
+	margin-left: 15vw;
+	margin-top: 8vw;
+	height: 92vh;
+	width: 85vw;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 8vh;
+	margin-left: 15vw;
+}
+
+.container {
+	width: 92%;
+	height: 90%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.col {
+	width: 48%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 1.5rem;
+}
+
+.form-section {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.section-content {
+	width: 100%;
+	height: 95%;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+}
+
+.section-title {
+	font-size: 24px;
+	font-family: "PoppinsBold";
+	height: 2rem;
+	width: 100%;
+}
+
+.insert-image-form {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	gap: 1.5rem;
+}
+
+.image-list {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	overflow-y: auto;
+	margin-bottom: 2rem;
+}
+
+.product-tags-form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	gap: 1.5rem;
+}
+
+.form-submit-area {
+	width: 100%;
+	height: auto;
+	display: flex;
+	align-items: flex-start;
+	gap: 0.5rem;
+	padding-bottom: 2rem;
+}
