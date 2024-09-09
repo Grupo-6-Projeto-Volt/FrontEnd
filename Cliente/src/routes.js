@@ -25,13 +25,11 @@ function Rotas() {
 						element={<BannersEPropagandas />}
 					/>
 					<Route path="/cadastro" element={<Cadastro />} />
-					<Route
-						path="/cadastro-produtos"
-						element={<CadastroProdutos />}
-					></Route>
+					<Route path="/cadastro-produtos" element={<CadastroProdutos />} />
 					<Route path="/categorias" element={<CrudCategorias />} />
-					<Route path="/dashboard" element={<Dashboard />}></Route>
-					<Route path="/dashboard-chamados" element={<Chamados />}></Route>
+					<Route path="/dashboard" element={<Dashboard />} />
+					<Route path="/dashboard-chamados" element={<Chamados />} />
+					<Route path="/editar-produtos/:id" element={<CadastroProdutos />} />
 					<Route path="/favoritos" element={<Favoritos />} />
 					<Route path="/listagem-produtos" element={<ListagemProdutos />} />
 					<Route path="/login" element={<Login />} />
