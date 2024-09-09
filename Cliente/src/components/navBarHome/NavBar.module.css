@@ -44,6 +44,9 @@
     height: 35px;
     margin-right: 0.5vw;
 }
+.search{
+    cursor: pointer;
+}
 .usuario{
     width: 2.5rem;
     height: 2.5rem;
@@ -66,4 +69,7 @@
 .usuarioDiv{
     display: flex;
     align-items: center;
+}
+ul{
+    cursor: pointer;
 }

@@ -34,7 +34,8 @@ export function ProdutosData({ secao, nome }) {
             }
 
             setDadosProduto(response);
-        } catch (e) {
+        }
+        catch (e) {
             console.log(e);
             return <h1>
                 Erro
