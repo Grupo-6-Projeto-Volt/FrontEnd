@@ -273,3 +273,14 @@ input:checked + .slider:before {
 	gap: 0.5rem;
 	padding-bottom: 2rem;
 }
+
+.delete-btn {
+	background-color: transparent;
+	color: #bd1616;
+	border: 1px solid #bd1616;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	padding: 0.7rem 1.5rem;
+	font-size: 16px;
+	font-family: "PoppinsBold";
+}

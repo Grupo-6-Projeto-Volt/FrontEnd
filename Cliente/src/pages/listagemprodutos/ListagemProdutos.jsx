@@ -3,7 +3,7 @@ import Navbar from "../../components/navbar/dashboard/Navbar";
 import Searchbar from "../../components/searchbar/Searchbar";
 import Table from "../../components/list/Table";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { FaPencil, FaTrash } from "react-icons/fa6";
+import { FaCheck, FaPencil, FaTrash, FaX } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 import { produtosModel } from "../../model/produtosModel";
@@ -28,6 +28,69 @@ function ListagemProdutos() {
 		navigate("/cadastro-produtos");
 	}
 
+	function handleDelete(
+		editIconId,
+		deleteIconId,
+		confirmDeleteIconId,
+		cancelDeleteIconId
+	) {
+		let iptDeleteIcon = document.getElementById(deleteIconId);
+		let iptEditIcon = document.getElementById(editIconId);
+		let iptConfirmDeleteIcon = document.getElementById(confirmDeleteIconId);
+		let iptCancelDeleteIcon = document.getElementById(cancelDeleteIconId);
+
+		iptDeleteIcon.style.display = "none";
+		iptEditIcon.style.display = "none";
+		iptConfirmDeleteIcon.style.display = "inline-block";
+		iptCancelDeleteIcon.style.display = "inline-block";
+	}
+
+	async function handleConfirmDelete(
+		id,
+		confirmDeleteIconId,
+		cancelDeleteIconId,
+		editIconId,
+		deleteIconId
+	) {
+		let iptConfirmDeleteIcon = document.getElementById(confirmDeleteIconId);
+		let iptCancelDeleteIcon = document.getElementById(cancelDeleteIconId);
+		let iptEditIcon = document.getElementById(editIconId);
+		let iptDeleteIcon = document.getElementById(deleteIconId);
+
+		await produtosModel
+			.deletarProduto(id)
+			.then((response) => {
+				console.log(response);
+			})
+			.catch((error) => {
+				console.log("Houve um erro ao deletar o produto:", error);
+			});
+
+		iptConfirmDeleteIcon.style.display = "none";
+		iptCancelDeleteIcon.style.display = "none";
+		iptEditIcon.style.display = "inline-block";
+		iptDeleteIcon.style.display = "inline-block";
+
+		getProductsList();
+	}
+
+	function handleCancelDelete(
+		confirmDeleteIconId,
+		cancelDeleteIconId,
+		editIconId,
+		deleteIconId
+	) {
+		let iptConfirmDeleteIcon = document.getElementById(confirmDeleteIconId);
+		let iptCancelDeleteIcon = document.getElementById(cancelDeleteIconId);
+		let iptEditIcon = document.getElementById(editIconId);
+		let iptDeleteIcon = document.getElementById(deleteIconId);
+
+		iptConfirmDeleteIcon.style.display = "none";
+		iptCancelDeleteIcon.style.display = "none";
+		iptEditIcon.style.display = "inline-block";
+		iptDeleteIcon.style.display = "inline-block";
+	}
+
 	useEffect(() => {
 		getProductsList();
 	}, []);
@@ -36,8 +99,13 @@ function ListagemProdutos() {
 		try {
 			let response = await produtosModel.listarProdutos();
 			let lista = [];
-			let count = 0;
 			response.forEach((produto) => {
+				let confirmDeleteIconId = `ipt_confirm_delete_icon_${produto.id}`;
+				let cancelDeleteIconId = `ipt_cancel_delete_icon_${produto.id}`;
+
+				let editIconId = `ipt_edit_icon_${produto.id}`;
+				let deleteIconId = `ipt_delete_icon_${produto.id}`;
+
 				lista.push({
 					image: () => {
 						return (
@@ -48,7 +116,7 @@ function ListagemProdutos() {
 							/>
 						);
 					},
-					id: ++count,
+					id: produto.id,
 					nome: produto.nome,
 					categoria: produto.categoria,
 					estado: produto.estadoGeral,
@@ -56,8 +124,50 @@ function ListagemProdutos() {
 					acoes: () => {
 						return (
 							<div className={styles["list-btn-area"]}>
-								<FaPencil cursor={"pointer"} />
-								<FaTrash cursor={"pointer"} />
+								<FaPencil
+									id={editIconId}
+									cursor={"pointer"}
+									onClick={() => navigate(`/editar-produtos/${produto.id}`)}
+								/>
+								<FaTrash
+									id={deleteIconId}
+									cursor={"pointer"}
+									onClick={() =>
+										handleDelete(
+											editIconId,
+											deleteIconId,
+											confirmDeleteIconId,
+											cancelDeleteIconId
+										)
+									}
+								/>
+								<FaCheck
+									id={confirmDeleteIconId}
+									cursor={"pointer"}
+									display={"none"}
+									onClick={() =>
+										handleConfirmDelete(
+											produto.id,
+											confirmDeleteIconId,
+											cancelDeleteIconId,
+											editIconId,
+											deleteIconId
+										)
+									}
+								/>
+								<FaX
+									id={cancelDeleteIconId}
+									cursor={"pointer"}
+									display={"none"}
+									onClick={() =>
+										handleCancelDelete(
+											confirmDeleteIconId,
+											cancelDeleteIconId,
+											editIconId,
+											deleteIconId
+										)
+									}
+								/>
 							</div>
 						);
 					},
