@@ -25,7 +25,7 @@ function Sidebar() {
 						<div
 							className={
 								styles[
-									location.pathname === "/dashboard-chamados"
+									location.pathname === "/dashboard"
 										? "content-item-active"
 										: "content-item"
 								]
@@ -33,19 +33,19 @@ function Sidebar() {
 							onClick={() => navigate("/dashboard")}
 						>
 							<div className={styles["content-block"]}>
-								<FaFileLines />
-								<span>Clientes</span>
+								<FaChartColumn />
+								<span>Dashboard Geral</span>
 							</div>
 						</div>
 						<div
 							className={
 								styles[
-									location.pathname === "/produtos"
+									location.pathname === "/listagem-produtos"
 										? "content-item-active"
 										: "content-item"
 								]
 							}
-							onClick={() => navigate("/tags")}
+							onClick={() => navigate("/listagem-produtos")}
 						>
 							<div className={styles["content-block"]}>
 								<FaTags />
@@ -67,24 +67,15 @@ function Sidebar() {
 								<span>Tags</span>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div className={styles["sidebar-content"]}>
-					<div className={styles["content-header"]}>
-						<h4>OUTROS</h4>
-					</div>
-					<div className={styles["content-body"]}>
 						<div
-							// className={styles["content-item"]}
-							// onClick={() => navigate("/listagem-produtos")}
-							// className={
-							// 	styles[
-							// 		location.pathname === "/cadastro-produtos"
-							// 			? "content-item-active"
-							// 			: "content-item"
-							// 	]
-							// }
-							// onClick={() => navigate("/cadastro-produtos")}
+							className={
+								styles[
+									location.pathname === "/categorias"
+										? "content-item-active"
+										: "content-item"
+								]
+							}
+							onClick={() => navigate("/categorias")}
 						>
 							<div className={styles["content-block"]}>
 								<FaList />

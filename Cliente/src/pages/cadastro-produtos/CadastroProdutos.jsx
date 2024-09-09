@@ -6,10 +6,11 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./CadastroProdutos.module.css";
 import InputFile from "../../components/input/inputfile/InputFile";
 import ImageListItem from "../../components/imagelistitem/ImageListItem";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import InputDatalist from "../../components/input/inputdatalist/InputDatalist";
 import InputColor from "../../components/input/inputcolor/InputColor";
 import InputDate from "../../components/input/inputdate/InputDate";
+import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 
 function CadastroProdutos() {
 	let [nome, setNome] = useState("");
@@ -371,15 +372,8 @@ function CadastroProdutos() {
 							</div>
 						</div>
 						<div className={styles["form-submit-area"]}>
-							<button
-								className={styles["form-submit-button"]}
-								onClick={handleSubmit}
-							>
-								Postar
-							</button>
-							<button className={styles["form-submit-button"]}>
-								Visualizar Layout
-							</button>
+							<DefaultButton text={"Postar"} onClick={handleSubmit} />
+							<DefaultButton text={"Visualizar Layout"} />
 						</div>
 					</div>
 				</div>

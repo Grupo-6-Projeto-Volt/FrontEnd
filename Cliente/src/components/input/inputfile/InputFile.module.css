@@ -12,8 +12,6 @@ input[type="file"] {
 }
 
 .input-file-button {
-	width: 10rem;
-	height: 2.5rem;
 	background-color: #bd1616;
 	color: #ffffff;
 	border-radius: 0.5rem;
@@ -23,4 +21,6 @@ input[type="file"] {
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	padding: 0.6rem 1.5rem;
+	font-size: 16px;
 }

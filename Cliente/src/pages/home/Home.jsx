@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect,useState } from "react";
 import { NavBarPadrao } from "../../components/navBarHome/NavBar";
 import { ProdutosData as Lancamentos } from "../../components/produtoslist/ProdutosList.jsx";
 import { ProdutosData as Ofertas } from "../../components/produtoslist/ProdutosList.jsx";
@@ -10,8 +10,8 @@ import Avaliacoes from "../../components/avaliacoes/Avaliacoes.jsx";
 import Banner from "../../components/banner/Banner.jsx";
 import Oferta from "../../components/oferta/Oferta.jsx";
 import Categorias from "../../components/categorias/Categorias.jsx";
-import { ProdutosData } from "../../components/produtoslist/ProdutosList.jsx";
 import { ProdutosBuscados } from "../../components/productsearch/ProductSearch.jsx";
+
 const Home = () => {
 	const [produtoBuscado, setProdutoBuscado] = useState("");
 
@@ -22,9 +22,9 @@ const Home = () => {
 
 	if(produtoBuscado == ""){
 		return (
-			<>
-				<NavBarPadrao onSearch={handleSearch}/>
-				<div className={styles["container"]}>
+		<>
+			<NavBarPadrao onSearch={handleSearch}/>
+			<div className={styles["container"]}>
 				<Banner></Banner>
 				<Lancamentos className="lancamentos"
 					secao='Lançamentos'
@@ -40,8 +40,8 @@ const Home = () => {
 				<Avaliacoes />
 			</div>
 			<Footer />
-			</>
-		)
+		</>
+	)
 	}else{
 		return(
 			<>

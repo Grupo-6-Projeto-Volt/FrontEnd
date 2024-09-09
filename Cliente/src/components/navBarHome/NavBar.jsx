@@ -2,24 +2,15 @@ import styles from "./NavBar.module.css"
 import logo from "../../utils/assets/img/logo-ichiban.png"
 import { FaSearch } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
-import { validateAuth } from "../../utils/global";
-import userPadrao from "../../utils/assets/img/user_padrao.png"
-import { useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
-import userExample from "../../utils/assets/img/usuario-exemplo.jpg"
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { validateAuth } from "../../utils/global";
+import { useEffect } from 'react';
+import userPadrao from "../../utils/assets/img/user_padrao.png"
+
+
 export const NavBarPadrao = ({onSearch}) => {
     let navigate = useNavigate();
-    function validateAuthentication() {
-        if (!validateAuth()) {
-            return <img src={userPadrao} alt="" className={styles["usuario"]} onClick={() => {
-                navigate("/login");
-            }} />
-        } else {
-            return <h2>Olá, user</h2>
-        }
-    }
-
     const [busca,setBusca ] = useState("");
     const handleInputChange = (event) => {
         setBusca(event.target.value);
@@ -30,6 +21,16 @@ export const NavBarPadrao = ({onSearch}) => {
     const handleKeyDown = (event) =>{
         if(event.key === "Enter"){
             handleClickSearch()
+        }
+    }
+
+    function validateAuthentication() {
+        if (!validateAuth()) {
+            return <img src={userPadrao} alt="" className={styles["usuario"]} onClick={() => {
+                navigate("/login");
+            }} />
+        } else {
+            return <h2>Olá, user</h2>
         }
     }
     return (

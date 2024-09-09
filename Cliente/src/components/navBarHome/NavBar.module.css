@@ -70,3 +70,6 @@
     display: flex;
     align-items: center;
 }
+ul{
+    cursor: pointer;
+}
