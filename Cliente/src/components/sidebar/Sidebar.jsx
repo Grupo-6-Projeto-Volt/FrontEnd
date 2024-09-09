@@ -8,6 +8,7 @@ import {
 	FaUser,
 	FaTags,
 	FaList,
+	FaImage,
 } from "react-icons/fa6";
 
 function Sidebar() {
@@ -80,6 +81,21 @@ function Sidebar() {
 							<div className={styles["content-block"]}>
 								<FaList />
 								<span>Categorias</span>
+							</div>
+						</div>
+						<div
+							className={
+								styles[
+									location.pathname === "/banners-e-propagandas"
+										? "content-item-active"
+										: "content-item"
+								]
+							}
+							onClick={() => navigate("/banners-e-propagandas")}
+						>
+							<div className={styles["content-block"]}>
+								<FaImage />
+								<span>Banners e Propagandas</span>
 							</div>
 						</div>
 					</div>
