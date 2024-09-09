@@ -1,75 +1,76 @@
-.img-logo{
-    width: 15vw;
-    height: 8vh;
-    cursor: pointer;
+.img-logo {
+	width: 15vw;
+	height: auto;
+	cursor: pointer;
 }
-.navbar{
-    width: 99vw;
-    height: 20%;
+.navbar {
+	width: 99vw;
+	height: 20%;
 }
-.navBarBaixo{
-    background-color: #000000;
-    width: 100%;
-    padding: 0.1vh;
-    cursor: pointer;
+.navBarBaixo {
+	background-color: #000000;
+	width: 100%;
+	padding: 0.1vh;
+	cursor: pointer;
 }
-.navBarBaixo ul{
-    display: flex;
-    justify-content: center;
-    padding-inline-start: 0;
+.navBarBaixo ul {
+	display: flex;
+	justify-content: center;
+	padding-inline-start: 0;
 }
-.navBarBaixo ul li{
-    color: #fff;
-    display: inline;
-    padding-right: 3%;
+.navBarBaixo ul li {
+	color: #fff;
+	display: inline;
+	padding-right: 3%;
 }
-.container-navbar{
-    padding-left: 2%;
-    padding-top: 1%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.container-navbar {
+	padding: 0.5% 1%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
-.pesquisa{
-    width: 70%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+.pesquisa {
+	width: 70%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
 }
-.containerPesquisaUser input{
-    border: 1px solid #000000!important;
-    width: 60%;
-    border-radius: 2px;
-    height: 35px;
-    margin-right: 0.5vw;
+.containerPesquisaUser input {
+	border: 1px solid #000000 !important;
+	width: 60%;
+	border-radius: 2px;
+	height: 35px;
+	margin-right: 0.5vw;
+	padding-left: 0.5rem;
 }
-.search{
-    cursor: pointer;
+.search {
+	width: 1.5rem;
+	height: auto;
+	cursor: pointer;
 }
-.usuario{
-    width: 2.5rem;
-    height: 2.5rem;
-    cursor: pointer;
-    border-radius: 50px;
-    margin-right: 2%;
-    margin-right: 1.5vw;
+.usuario {
+	width: 2rem;
+	height: auto;
+	cursor: pointer;
+	margin-right: 2%;
+	margin-right: 1.5vw;
 }
-.favoritos{
-    width: 2.2rem;
-    height: 2.2rem;
-    cursor: pointer;
+.favoritos {
+	width: 2rem;
+	height: auto;
+	cursor: pointer;
 }
-.containerPesquisaUser{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 60%;
+.containerPesquisaUser {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	width: 60%;
 }
-.usuarioDiv{
-    display: flex;
-    align-items: center;
+.usuarioDiv {
+	display: flex;
+	align-items: center;
 }
-ul{
-    cursor: pointer;
+ul {
+	cursor: pointer;
 }
