@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ProdutoInfo.module.css";
 import { useNavigate } from "react-router-dom";
-import iphonePrincipal from "../../utils/assets/img/foto-iphone-principal.png";
-import imgIphoneSecundarias from "../../utils/assets/img/img-iphone-secundarias.png";
-import imgIphoneSecundarias2 from "../../utils/assets/img/img-iphone-secundarias-2.png";
-import imgIphoneSecundarias3 from "../../utils/assets/img/img-iphone-secundarias-3.png";
-import imgIphoneSecundarias4 from "../../utils/assets/img/img-iphone-secundarias-4.png";
 import { RiHeart3Fill } from "react-icons/ri";
 import api from "../../api";
 
 const ProdutoInfo = () => {
   const navigate = useNavigate();
-  const [produto, setProduto] = useState([]);
+  const [produto, setProduto] = useState(null); // Inicialize com null em vez de []
   const [favoritado, setFavoritado] = useState(false);
 
   const handleButtonClick = () => {
@@ -24,12 +19,12 @@ const ProdutoInfo = () => {
 
   useEffect(() => {
     const fetchProduto = async () => {
-        var idProduto = localStorage.idProduto;
+      const idProduto = localStorage.idProduto;
       try {
-        api.get(`/produtos/loja/${idProduto}`).then((response) => {
-            console.log(`/produtos/loja/${idProduto}`);
-            setProduto(response.data);
-        });
+        const response = await api.get(`/produtos/loja/${idProduto}`);
+        console.log(`/produtos/loja/${idProduto}`);
+        setProduto(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Erro ao buscar o produto:", error);
       }
@@ -44,9 +39,7 @@ const ProdutoInfo = () => {
         Voltar
       </h1>
       <div className={styles["titulo-bottao"]}>
-        <div className={styles["titulo"]}>
-          <h1>{produto.nome}</h1>
-        </div>
+        <div className={styles["titulo"]}></div>
         <div className={styles["bottao-favoritar"]}>
           <RiHeart3Fill
             className={`${styles.heart} ${favoritado ? styles.active : ""}`}
@@ -57,18 +50,21 @@ const ProdutoInfo = () => {
       <div className={styles["conteiner-info"]}>
         <div className={styles["imagens-produto"]}>
           <div className={styles["imagem-principal"]}>
-            <img
-              src={iphonePrincipal}
-              alt="Iphone 13 Azul"
-              className={styles["img-iphonePrincipal"]}
-            />
+            {produto && produto.imagensProduto && produto.imagensProduto.length > 0 ? (
+              <img
+                src={produto.imagensProduto[0].codigoImagem}
+                alt={produto.imagensProduto[0].nome}
+                width="300"
+              />
+            ) : (
+              <p>Imagem não disponível</p>
+            )}
           </div>
           <div className={styles["imagens-carrossel"]}></div>
         </div>
         <div className={styles["info-produto"]}>
-          <p>
-            {produto.descricao}
-          </p>
+          <h1>{produto ? produto.nome : "Carregando..."}</h1>
+          <p>{produto ? produto.descricao : ""}</p>
           <div className={styles["cores"]}>
             <p>Cores</p>
             <div className={styles["paletas"]}>
@@ -77,32 +73,27 @@ const ProdutoInfo = () => {
               <div className={styles["cor-preta"]}></div>
             </div>
           </div>
-          <h3>R$ {produto.preco}</h3>
+          <h3>R$ {produto ? produto.preco : "0.00"}</h3>
           <button className={styles["botao-comprar"]}>Comprar</button>
         </div>
       </div>
       <div className={styles["conteiner-fotos"]}>
-      <img
-        src={imgIphoneSecundarias}
-        alt="Iphone 13 Azul"
-        className={styles["img-iphone-secundarias"]}
-        />
-      <img
-        src={iphonePrincipal}
-        alt="Iphone 13 Azul"
-        className={styles["img-iphone-secundarias"]}
-        />
-      <img
-        src={imgIphoneSecundarias3}
-        alt="Iphone 13 Azul"
-        className={styles["img-iphone-secundarias"]}
-        />
-      <img
-        src={imgIphoneSecundarias4}
-        alt="Iphone 13 Azul"
-        className={styles["img-iphone-secundarias"]}
-        />
-        </div>
+        {produto && produto.imagensProduto && produto.imagensProduto.length > 1 ? (
+          <>
+            {produto.imagensProduto.slice(1).map((imagem, index) => (
+              <div className={styles["img-iphone-secundarias"]} key={index}>
+                <img
+                  src={imagem.codigoImagem}
+                  alt={imagem.nome}
+                  width="300"
+                />
+              </div>
+            ))}
+          </>
+        ) : (
+          <p>Imagens secundárias não disponíveis</p>
+        )}
+      </div>
     </div>
   );
 };
