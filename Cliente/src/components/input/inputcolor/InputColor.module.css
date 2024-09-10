@@ -12,8 +12,6 @@ input[type="color"] {
 }
 
 .input-color-button {
-	width: 8rem;
-	height: 2.5rem;
 	background-color: #bd1616;
 	color: #ffffff;
 	border: none;
@@ -24,4 +22,6 @@ input[type="color"] {
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
+	padding: 0.6rem 1.5rem;
+	font-size: 16px;
 }

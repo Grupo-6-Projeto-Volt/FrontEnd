@@ -271,17 +271,16 @@ input:checked + .slider:before {
 	display: flex;
 	align-items: flex-start;
 	gap: 0.5rem;
-	margin-bottom: 2rem;
+	padding-bottom: 2rem;
 }
 
-.form-submit-button {
-	background-color: #bd1616;
-	color: #ffffff;
-	border: none;
+.delete-btn {
+	background-color: transparent;
+	color: #bd1616;
+	border: 1px solid #bd1616;
 	border-radius: 0.5rem;
 	cursor: pointer;
-	padding: 0.9rem 2.5rem;
+	padding: 0.7rem 1.5rem;
 	font-size: 16px;
-	margin-bottom: 2rem;
-	font-weight: bold;
+	font-family: "PoppinsBold";
 }

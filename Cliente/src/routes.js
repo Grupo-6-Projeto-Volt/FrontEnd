@@ -12,6 +12,7 @@ import ProductPage from "./pages/productpage/ProductPage.jsx";
 import Favoritos from "./pages/favoritos/Favoritos.jsx";
 import ListagemProdutos from "./pages/listagemprodutos/ListagemProdutos.jsx";
 import PaginaProdutos from "./pages/pagina-produtos/PaginaProdutos.jsx";
+import BannersEPropagandas from "./pages/bannersepropagandas/BannersEPropagandas.jsx";
 
 function Rotas() {
 	return (
@@ -19,17 +20,22 @@ function Rotas() {
 			<BrowserRouter>
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route
+						path="/banners-e-propagandas"
+						element={<BannersEPropagandas />}
+					/>
 					<Route path="/cadastro" element={<Cadastro />} />
-					<Route path="/login" element={<Login />} />
-                    <Route path="/cadastro-produtos" element={<CadastroProdutos />}></Route>
-					<Route path="/listagem-produtos" element={<ListagemProdutos />} />
-                    <Route path="/favoritos" element={<Favoritos />} />
-					<Route path="/productpage" element={<ProductPage />} />
-					<Route path="/dashboard-chamados" element={<Chamados />}></Route>
-					<Route path="/dashboard" element={<Dashboard />}></Route>
-                    <Route path="/tags" element={<CrudTags />} />
+					<Route path="/cadastro-produtos" element={<CadastroProdutos />} />
 					<Route path="/categorias" element={<CrudCategorias />} />
+					<Route path="/dashboard" element={<Dashboard />} />
+					<Route path="/dashboard-chamados" element={<Chamados />} />
+					<Route path="/editar-produtos/:id" element={<CadastroProdutos />} />
+					<Route path="/favoritos" element={<Favoritos />} />
+					<Route path="/listagem-produtos" element={<ListagemProdutos />} />
+					<Route path="/login" element={<Login />} />
 					<Route path="/pagina-produtos" element={<PaginaProdutos />} />
+					<Route path="/productpage" element={<ProductPage />} />
+					<Route path="/tags" element={<CrudTags />} />
 				</Routes>
 			</BrowserRouter>
 		</>
