@@ -39,7 +39,14 @@ export const NavBarPadrao = ({ onSearch }) => {
 	return (
 		<nav className={styles["navbar"]}>
 			<div className={styles["container-navbar"]}>
-				<img src={logo} alt="logo ichiban" className={styles["img-logo"]} />
+				<img
+					src={logo}
+					alt="logo ichiban"
+					className={styles["img-logo"]}
+					onClick={() => {
+						navigate("/");
+					}}
+				/>
 				<div className={styles["containerPesquisaUser"]}>
 					<div className={styles["pesquisa"]}>
 						<input
