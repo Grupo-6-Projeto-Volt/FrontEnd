@@ -25,6 +25,18 @@ export const produtosModel = {
 			});
 		return resposta;
 	},
+	buscarProdutoPorCategoria: (categoria) => {
+		let resposta = api
+			.get(`/produtos/filtro/filtrar-por-categoria?categoria=${categoria}`)
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
 	deletarProduto: (id) => {
 		let resposta = api
 			.delete(`/produtos/estoque/${id}`)

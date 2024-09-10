@@ -33,7 +33,10 @@ function Rotas() {
 					<Route path="/favoritos" element={<Favoritos />} />
 					<Route path="/listagem-produtos" element={<ListagemProdutos />} />
 					<Route path="/login" element={<Login />} />
-					<Route path="/pagina-produtos" element={<PaginaProdutos />} />
+					<Route
+						path="/pagina-produtos/:titulo/:categoria"
+						element={<PaginaProdutos />}
+					/>
 					<Route path="/productpage" element={<ProductPage />} />
 					<Route path="/tags" element={<CrudTags />} />
 				</Routes>

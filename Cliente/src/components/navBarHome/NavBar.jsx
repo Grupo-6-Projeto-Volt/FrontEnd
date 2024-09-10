@@ -79,9 +79,15 @@ export const NavBarPadrao = ({ onSearch }) => {
 					<li>Mais Comprados</li>
 					<li>Comprar Novamente</li>
 					<li>Ofertas</li>
-					<li onClick={() => navigate("/pagina-produtos")}>Celulares</li>
-					<li>Notebooks</li>
-					<li>Acessórios</li>
+					<li onClick={() => navigate("/pagina-produtos/Celulares/Celular")}>
+						Celulares
+					</li>
+					<li onClick={() => navigate("/pagina-produtos/Notebooks/Computador")}>
+						Notebooks
+					</li>
+					<li onClick={() => navigate("/pagina-produtos/Acessórios/Acessório")}>
+						Acessórios
+					</li>
 				</ul>
 			</div>
 		</nav>
