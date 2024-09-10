@@ -69,10 +69,12 @@ const ProdutoInfo = () => {
                     <button className={styles["botao-comprar"]}>Comprar</button>
                 </div>
             </div>
+            <div className={styles["conteiner-fotos"]}>
             <img src={imgIphoneSecundarias} alt="Iphone 13 Azul" className={styles["img-iphone-secundarias"]} />
             <img src={iphonePrincipal} alt="Iphone 13 Azul" className={styles["img-iphone-secundarias"]} />
             <img src={imgIphoneSecundarias3} alt="Iphone 13 Azul" className={styles["img-iphone-secundarias"]} />
             <img src={imgIphoneSecundarias4} alt="Iphone 13 Azul" className={styles["img-iphone-secundarias"]} />
+            </div>
         </div>
     );
 };

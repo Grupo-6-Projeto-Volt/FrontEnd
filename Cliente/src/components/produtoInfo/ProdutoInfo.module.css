@@ -95,3 +95,9 @@
     margin-left: 4%;
     margin-top: 2%;
 }
+
+.conteiner-fotos{
+    display: flex;
+    flex-direction: row;
+    width: 900px;
+}
