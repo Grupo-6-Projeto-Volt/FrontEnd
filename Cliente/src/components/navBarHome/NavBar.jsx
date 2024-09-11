@@ -6,14 +6,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { validateAuth } from "../../utils/global";
 
-export const NavBarPadrao = ({ onSearch }) => {
+export const NavBarPadrao = () => {
 	let navigate = useNavigate();
 	const [busca, setBusca] = useState("");
 	const handleInputChange = (event) => {
 		setBusca(event.target.value);
 	};
 	const handleClickSearch = () => {
-		onSearch(busca);
+		navigate(`/pagina-produtos/Busca/${busca}`);
 	};
 	const handleKeyDown = (event) => {
 		if (event.key === "Enter") {
@@ -79,9 +79,15 @@ export const NavBarPadrao = ({ onSearch }) => {
 					<li>Mais Comprados</li>
 					<li>Comprar Novamente</li>
 					<li>Ofertas</li>
-					<li onClick={() => navigate("/pagina-produtos")}>Celulares</li>
-					<li>Notebooks</li>
-					<li>Acessórios</li>
+					<li onClick={() => navigate("/pagina-produtos/Celulares/Celular")}>
+						Celulares
+					</li>
+					<li onClick={() => navigate("/pagina-produtos/Notebooks/Computador")}>
+						Notebooks
+					</li>
+					<li onClick={() => navigate("/pagina-produtos/Acessórios/Acessório")}>
+						Acessórios
+					</li>
 				</ul>
 			</div>
 		</nav>
