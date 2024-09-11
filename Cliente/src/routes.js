@@ -34,7 +34,7 @@ function Rotas() {
 					<Route path="/listagem-produtos" element={<ListagemProdutos />} />
 					<Route path="/login" element={<Login />} />
 					<Route
-						path="/pagina-produtos/:titulo/:categoria"
+						path="/pagina-produtos/:titulo/:busca"
 						element={<PaginaProdutos />}
 					/>
 					<Route path="/productpage" element={<ProductPage />} />

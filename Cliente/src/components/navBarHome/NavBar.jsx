@@ -6,14 +6,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { validateAuth } from "../../utils/global";
 
-export const NavBarPadrao = ({ onSearch }) => {
+export const NavBarPadrao = () => {
 	let navigate = useNavigate();
 	const [busca, setBusca] = useState("");
 	const handleInputChange = (event) => {
 		setBusca(event.target.value);
 	};
 	const handleClickSearch = () => {
-		onSearch(busca);
+		navigate(`/pagina-produtos/Busca/${busca}`);
 	};
 	const handleKeyDown = (event) => {
 		if (event.key === "Enter") {

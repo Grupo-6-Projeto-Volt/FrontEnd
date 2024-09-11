@@ -6,22 +6,32 @@ import { useParams } from "react-router-dom";
 import { produtosModel } from "../../model/produtosModel.js";
 
 const PaginaProdutos = () => {
-	const { titulo, categoria } = useParams();
+	const { titulo, busca } = useParams();
 	let [produtos, setProdutos] = useState([]);
 
 	async function getProdutos() {
-		let response = await produtosModel.buscarProdutoPorCategoria(categoria);
+		let response;
+		if (titulo !== "Busca") {
+			response = await produtosModel.buscarProdutoPorCategoria(busca);
+		} else {
+			response = await produtosModel.pesquisaProdutos(busca);
+		}
 		setProdutos(response);
 	}
 
 	useEffect(() => {
 		getProdutos();
-	}, [categoria, titulo]);
+	}, [busca, titulo]);
 
 	return (
 		<>
 			<NavBarPadrao />
-			<CategoriaProdutos tituloPagina={titulo} dadosProduto={produtos} />
+			<CategoriaProdutos
+				tituloPagina={
+					titulo !== "Busca" ? titulo : `Pesquisa de Produto: "${busca}"`
+				}
+				dadosProduto={produtos}
+			/>
 			<Footer />
 		</>
 	);
