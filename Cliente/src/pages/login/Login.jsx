@@ -25,7 +25,7 @@ function Login() {
 				sessionStorage.EMAIL = Data.email;
 				sessionStorage.TELEFONE = Data.telefone;
 				sessionStorage.ID_USER = Data.idUsuario;
-				categoria = Data.categoria;
+				sessionStorage.CATEGORIA = Data.categoria;
 				toast.success("Login realizado com sucesso!!", {
 					position: "top-right",
 					autoClose: 5000,

@@ -32,7 +32,14 @@ export const NavBarPadrao = () => {
 				/>
 			);
 		} else {
-			return <h2>Olá, user</h2>;
+			if (sessionStorage.getItem('CATEGORIA') === '0') {
+				return <a href="/dashboard">
+					<h2 className={styles['helloUser']}>Olá, {sessionStorage.getItem('NOME')}
+					</h2></a>;
+			} else {
+				return <h2 className={styles['helloUser']}>Olá, {sessionStorage.getItem('NOME')}
+					</h2>
+			}
 		}
 	}
 

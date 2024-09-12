@@ -56,6 +56,9 @@
 	margin-right: 2%;
 	margin-right: 1.5vw;
 }
+.helloUser{
+	margin-right: 3vw;
+}
 .favoritos {
 	width: 2rem;
 	height: auto;
@@ -73,4 +76,8 @@
 }
 ul {
 	cursor: pointer;
+}
+a{
+	text-decoration: none;
+	color: black;
 }
