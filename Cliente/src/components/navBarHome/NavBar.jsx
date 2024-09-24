@@ -6,14 +6,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { validateAuth } from "../../utils/global";
 
-export const NavBarPadrao = ({ onSearch }) => {
+export const NavBarPadrao = () => {
 	let navigate = useNavigate();
 	const [busca, setBusca] = useState("");
 	const handleInputChange = (event) => {
 		setBusca(event.target.value);
 	};
 	const handleClickSearch = () => {
-		onSearch(busca);
+		navigate(`/pagina-produtos/Busca/${busca}`);
 	};
 	const handleKeyDown = (event) => {
 		if (event.key === "Enter") {
@@ -32,14 +32,28 @@ export const NavBarPadrao = ({ onSearch }) => {
 				/>
 			);
 		} else {
-			return <h2>Olá, user</h2>;
+			if (sessionStorage.getItem('CATEGORIA') === '0') {
+				return <a href="/dashboard">
+					<h2 className={styles['helloUser']}>Olá, {sessionStorage.getItem('NOME')}
+					</h2></a>;
+			} else {
+				return <h2 className={styles['helloUser']}>Olá, {sessionStorage.getItem('NOME')}
+					</h2>
+			}
 		}
 	}
 
 	return (
 		<nav className={styles["navbar"]}>
 			<div className={styles["container-navbar"]}>
-				<img src={logo} alt="logo ichiban" className={styles["img-logo"]} />
+				<img
+					src={logo}
+					alt="logo ichiban"
+					className={styles["img-logo"]}
+					onClick={() => {
+						navigate("/");
+					}}
+				/>
 				<div className={styles["containerPesquisaUser"]}>
 					<div className={styles["pesquisa"]}>
 						<input
@@ -72,9 +86,15 @@ export const NavBarPadrao = ({ onSearch }) => {
 					<li>Mais Comprados</li>
 					<li>Comprar Novamente</li>
 					<li>Ofertas</li>
-					<li onClick={() => navigate("/pagina-produtos")}>Celulares</li>
-					<li>Notebooks</li>
-					<li>Acessórios</li>
+					<li onClick={() => navigate("/pagina-produtos/Celulares/Celular")}>
+						Celulares
+					</li>
+					<li onClick={() => navigate("/pagina-produtos/Notebooks/Computador")}>
+						Notebooks
+					</li>
+					<li onClick={() => navigate("/pagina-produtos/Acessórios/Acessório")}>
+						Acessórios
+					</li>
 				</ul>
 			</div>
 		</nav>

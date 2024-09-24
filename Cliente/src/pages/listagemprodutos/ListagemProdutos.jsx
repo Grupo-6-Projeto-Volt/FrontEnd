@@ -111,7 +111,7 @@ function ListagemProdutos() {
 						return (
 							<img
 								className={styles["list-image"]}
-								src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UF1000,1000_QL80_.jpg"
+								src={produto.imagensProduto[0].codigoImagem}
 								alt="Iphone"
 							/>
 						);
