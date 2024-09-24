@@ -1,0 +1,27 @@
+.InputColor {
+	width: 100%;
+	height: 5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: space-between;
+}
+
+input[type="color"] {
+	display: none;
+}
+
+.input-color-button {
+	background-color: #bd1616;
+	color: #ffffff;
+	border: none;
+	border-radius: 0.5rem;
+	font-family: "PoppinsBold";
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	padding: 0.6rem 1.5rem;
+	font-size: 16px;
+}

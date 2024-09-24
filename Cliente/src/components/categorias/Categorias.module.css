@@ -1,0 +1,33 @@
+.container-categorias {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 4%;
+}
+
+.categoria {
+	width: 25%;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	padding: 2%;
+	height: 250px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.img-categorias {
+	width: 60%;
+	margin-left: 20%;
+}
+
+.button-categorias {
+	background-color: rgb(255, 255, 255) !important;
+	border: 1px solid black;
+	color: black;
+	width: 60%;
+	font-size: 15px;
+	padding: 2%;
+	border-radius: 5px;
+	margin-left: 40%;
+	cursor: pointer;
+}

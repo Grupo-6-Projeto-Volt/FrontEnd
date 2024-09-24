@@ -10,7 +10,7 @@ function Login() {
 	let [emailText, setEmailText] = useState("");
 	let [passwordText, setPasswordText] = useState("");
 	const navigate = useNavigate();
-
+	let categoria;
 	function handleSubmit() {
 		api
 			.post("/login", {
@@ -24,6 +24,7 @@ function Login() {
 				sessionStorage.NOME = Data.nome;
 				sessionStorage.EMAIL = Data.email;
 				sessionStorage.TELEFONE = Data.telefone;
+				sessionStorage.ID_USER = Data.idUsuario;
 				sessionStorage.CATEGORIA = Data.categoria;
 				toast.success("Login realizado com sucesso!!", {
 					position: "top-right",
@@ -35,7 +36,13 @@ function Login() {
 					progress: undefined,
 					theme: "light",
 				});
-				navigate("/dashboard-chamados");
+				// console.log(sessionStorage.getItem('ID_USER'))
+				if(categoria === 1){
+					navigate("/dashboard-chamados");
+				}else{
+					navigate("/");
+				}
+				// console.log(Data)
 			})
 			.catch((erro) => {
 				console.error("Houve um erro: " + erro);
@@ -54,7 +61,7 @@ function Login() {
 					<div className={styles["voltar"]}>
 						<p
 							onClick={() => {
-								navigate("/pagina");
+								navigate("/");
 							}}
 						>
 							Voltar

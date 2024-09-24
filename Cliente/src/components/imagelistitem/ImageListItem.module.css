@@ -1,0 +1,42 @@
+.ImageListItem {
+	width: 100%;
+	height: 6rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.item-content {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: center;
+	height: 100%;
+	width: 70%;
+}
+
+.item-title {
+	color: rgb(42, 42, 208);
+	font-family: "PoppinsBold";
+}
+
+.item-image {
+	height: 100%;
+	width: 20%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+img {
+	height: auto;
+	width: 100%;
+}
+
+.item-delete-icon {
+	display: flex;
+	height: 100%;
+	width: 10%;
+	justify-content: center;
+	align-items: center;
+}

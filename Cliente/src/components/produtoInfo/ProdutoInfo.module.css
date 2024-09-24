@@ -90,8 +90,18 @@
     width: 95%;
 }
 
-.img-iphone-secundarias{
-    height: 133px;
-    margin-left: 4%;
-    margin-top: 2%;
+.img-iphone-secundarias img {
+    width: 200px; 
+    margin: 10px; 
+  }
+
+.conteiner-fotos{
+    display: flex;
+    flex-direction: row;
+    width: 900px;
+}
+
+.imagem-principal{
+    width: 50%;
+    margin-left: 20%;
 }

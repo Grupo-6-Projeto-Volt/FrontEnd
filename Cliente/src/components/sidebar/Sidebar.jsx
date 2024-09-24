@@ -6,6 +6,9 @@ import {
 	FaChartColumn,
 	FaGear,
 	FaUser,
+	FaTags,
+	FaList,
+	FaImage,
 } from "react-icons/fa6";
 
 function Sidebar() {
@@ -23,21 +26,6 @@ function Sidebar() {
 						<div
 							className={
 								styles[
-									location.pathname === "/dashboard-chamados"
-										? "content-item-active"
-										: "content-item"
-								]
-							}
-							onClick={() => navigate("/dashboard-chamados")}
-						>
-							<div className={styles["content-block"]}>
-								<FaFileLines />
-								<span>Clientes</span>
-							</div>
-						</div>
-						<div
-							className={
-								styles[
 									location.pathname === "/dashboard"
 										? "content-item-active"
 										: "content-item"
@@ -50,29 +38,64 @@ function Sidebar() {
 								<span>Dashboard Geral</span>
 							</div>
 						</div>
-						<div className={styles["content-item"]}>
+						<div
+							className={
+								styles[
+									location.pathname === "/listagem-produtos"
+										? "content-item-active"
+										: "content-item"
+								]
+							}
+							onClick={() => navigate("/listagem-produtos")}
+						>
 							<div className={styles["content-block"]}>
-								<FaCartShopping />
-								<span>Vendas</span>
+								<FaTags />
+								<span>Produtos</span>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div className={styles["sidebar-content"]}>
-					<div className={styles["content-header"]}>
-						<h4>OUTROS</h4>
-					</div>
-					<div className={styles["content-body"]}>
-						<div className={styles["content-item"]}>
+						<div
+							className={
+								styles[
+									location.pathname === "/tags"
+										? "content-item-active"
+										: "content-item"
+								]
+							}
+							onClick={() => navigate("/tags")}
+						>
 							<div className={styles["content-block"]}>
-								<FaGear />
-								<span>Settings página web</span>
+								<FaTags />
+								<span>Tags</span>
 							</div>
 						</div>
-						<div className={styles["content-item"]}>
+						<div
+							className={
+								styles[
+									location.pathname === "/categorias"
+										? "content-item-active"
+										: "content-item"
+								]
+							}
+							onClick={() => navigate("/categorias")}
+						>
 							<div className={styles["content-block"]}>
-								<FaUser />
-								<span>Conta</span>
+								<FaList />
+								<span>Categorias</span>
+							</div>
+						</div>
+						<div
+							className={
+								styles[
+									location.pathname === "/banners-e-propagandas"
+										? "content-item-active"
+										: "content-item"
+								]
+							}
+							onClick={() => navigate("/banners-e-propagandas")}
+						>
+							<div className={styles["content-block"]}>
+								<FaImage />
+								<span>Banners e Propagandas</span>
 							</div>
 						</div>
 					</div>
