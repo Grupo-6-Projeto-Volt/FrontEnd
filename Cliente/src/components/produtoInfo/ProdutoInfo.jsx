@@ -6,7 +6,7 @@ import api from "../../api";
 
 const ProdutoInfo = () => {
   const navigate = useNavigate();
-  const [produto, setProduto] = useState(null); // Inicialize com null em vez de []
+  const [produto, setProduto] = useState(null);
   const [favoritado, setFavoritado] = useState(false);
 
   const handleButtonClick = () => {
@@ -22,9 +22,7 @@ const ProdutoInfo = () => {
       const idProduto = localStorage.idProduto;
       try {
         const response = await api.get(`/produtos/loja/${idProduto}`);
-        console.log(`/produtos/loja/${idProduto}`);
         setProduto(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Erro ao buscar o produto:", error);
       }
@@ -51,7 +49,7 @@ const ProdutoInfo = () => {
         <div className={styles["imagens-produto"]}>
           <div className={styles["imagem-principal"]}>
             {produto && produto.imagensProduto && produto.imagensProduto.length > 0 ? (
-              <img
+              <img id="imagemPrincipal"
                 src={produto.imagensProduto[0].codigoImagem}
                 alt={produto.imagensProduto[0].nome}
                 width="300"
@@ -77,21 +75,20 @@ const ProdutoInfo = () => {
           <button className={styles["botao-comprar"]}>Comprar</button>
         </div>
       </div>
+
       <div className={styles["conteiner-fotos"]}>
         {produto && produto.imagensProduto && produto.imagensProduto.length > 1 ? (
-          <>
-            {produto.imagensProduto.slice(1).map((imagem, index) => (
-              <div className={styles["img-iphone-secundarias"]} key={index}>
-                <img
-                  src={imagem.codigoImagem}
-                  alt={imagem.nome}
-                  width="300"
-                />
-              </div>
-            ))}
-          </>
+          produto.imagensProduto.slice(0).map((imagem, index) => (
+            <div className={styles["img-iphone-secundarias"]} key={index}>
+              <img 
+                src={imagem.codigoImagem}
+                alt={imagem.nome}
+                width="300"
+              />
+            </div>
+          ))
         ) : (
-          <p>Imagens secundárias não disponíveis</p>
+          <p></p>
         )}
       </div>
     </div>

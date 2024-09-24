@@ -10,6 +10,7 @@ export const padding = 16;
 export const prev = document.getElementById("prev-btn");
 export const next = document.getElementById("next-btn");
 export function ProdutosData({ secao, nome }) {
+  
   let [dadosProduto, setDadosProduto] = useState([]);
 
   const navigate = useNavigate();
