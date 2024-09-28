@@ -13,6 +13,18 @@ export const categoriasModel = {
 			});
 		return resposta;
 	},
+	buscarCategoriasPorNome: (nome) => {
+		let resposta = api
+			.get(`/categorias/buscarPorNomeContendo?nome=${nome}`)
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
 	inserirCategoria: (categoria) => {
 		let resposta = api
 			.post("/categorias", { nome: categoria })

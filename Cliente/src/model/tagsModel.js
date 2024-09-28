@@ -13,6 +13,18 @@ export const tagsModel = {
 			});
 		return resposta;
 	},
+	buscarTagPorNome: (tag) => {
+		let resposta = api
+			.get("/tags")
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
 	inserirTag: (tag) => {
 		let resposta = api
 			.post("/tags", { tag: tag })

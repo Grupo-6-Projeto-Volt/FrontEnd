@@ -1,6 +1,38 @@
 import api from "../api";
 
 export const produtosModel = {
+	adicionarProduto: (
+		nome,
+		descricao,
+		preco,
+		qtdEstoque,
+		estadoGeral,
+		desconto,
+		dataInicioDesconto,
+		dataFimDesconto,
+		idCategoria
+	) => {
+		let resposta = api
+			.post("/produtos/estoque", {
+				nome: nome,
+				descricao: descricao,
+				preco: preco,
+				qtdEstoque: qtdEstoque,
+				estadoGeral: estadoGeral,
+				desconto: desconto,
+				dataInicioDesconto: dataInicioDesconto,
+				dataFimDesconto: dataFimDesconto,
+				idCategoria: idCategoria,
+			})
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
 	listarProdutos: () => {
 		let resposta = api
 			.get("/produtos/loja")

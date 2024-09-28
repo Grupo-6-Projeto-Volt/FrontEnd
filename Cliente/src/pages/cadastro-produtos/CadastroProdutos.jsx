@@ -15,6 +15,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { produtosModel } from "../../model/produtosModel";
 import { categoriasModel } from "../../model/categoriasModel";
 import { tagsModel } from "../../model/tagsModel";
+import { classificacaoProdutosModel } from "../../model/classificacaoProdutosModel";
+import { imagemProdutosModel } from "../../model/imagemProdutosModel";
+import { corProdutosModel } from "../../model/corProdutosModel copy";
 
 function CadastroProdutos() {
 	let [nome, setNome] = useState("");
@@ -52,7 +55,7 @@ function CadastroProdutos() {
 		setImagens(imagesClone);
 	}
 
-	function handleSubmit() {
+	async function handleSubmit() {
 		console.log("Nome:", nome);
 		console.log("Categoria:", categoria);
 		console.log("Estado:", estado);
@@ -65,6 +68,56 @@ function CadastroProdutos() {
 		console.log("Tags:", tags);
 		console.log("Cores:", cores);
 		alert("Produto Cadastrado!");
+
+		let categoriaEncontrada = await categoriasModel.buscarCategoriasPorNome(
+			categoria
+		);
+
+		let produtoCriado = await produtosModel.adicionarProduto(
+			nome,
+			descricao,
+			preco,
+			1,
+			estado,
+			desconto,
+			dataInicioDesconto,
+			dataFimDesconto,
+			categoriaEncontrada.id
+		);
+
+		let tagsEncontradas = [];
+
+		tags.forEach(async (tag) => {
+			let tagEncontrada = await tagsModel.buscarTagPorNome(tag);
+			if (!tagEncontrada) {
+				tagEncontrada = await tagsModel.inserirTag(tag);
+			}
+			tagsEncontradas.push(tagEncontrada);
+		});
+
+		tagsEncontradas.forEach(async (tag) => {
+			await classificacaoProdutosModel.associarTagProduto(
+				produtoCriado.id,
+				tag.id
+			);
+		});
+
+		cores.forEach(async (cor) => {
+			await corProdutosModel.associarCorProduto(
+				cor.nome,
+				cor.hexId,
+				produtoCriado.id
+			);
+		});
+
+		for (let i = 0; i < imagens.length; i++) {
+			await imagemProdutosModel.associarImagemProduto(
+				imagens[i].nome,
+				imagens[i].codigoImagem,
+				i,
+				produtoCriado.id
+			);
+		}
 	}
 
 	async function getProduto() {
