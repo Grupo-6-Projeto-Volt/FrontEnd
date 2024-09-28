@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ProdutoInfo.module.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { RiHeart3Fill } from "react-icons/ri";
 import api from "../../api";
+import { favoritos } from "../../model/favoritosModel";
 
 const ProdutoInfo = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [produto, setProduto] = useState(null); // Inicialize com null em vez de []
   const [favoritado, setFavoritado] = useState(false);
@@ -15,6 +17,15 @@ const ProdutoInfo = () => {
 
   const toggleFavorito = () => {
     setFavoritado(!favoritado);
+  if(sessionStorage.getItem('ID_USER') !== undefined){
+    if(!favoritado){
+      favoritos.favoritar();
+    } else {
+
+    }
+  } else {
+    
+  }
   };
 
   useEffect(() => {
@@ -31,7 +42,8 @@ const ProdutoInfo = () => {
     };
 
     fetchProduto();
-  }, []);
+    console.log(location.pathname)
+  }, [location.pathname]);
 
   return (
     <div className={styles["conteiner"]}>

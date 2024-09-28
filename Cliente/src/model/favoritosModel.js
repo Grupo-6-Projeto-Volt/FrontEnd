@@ -18,5 +18,22 @@ export const favoritos = {
                 return erro;
             });
         return resposta;
+    },
+    favoritar: () => {
+        let resposta = api
+            .post("/favoritos",
+                {
+                    idUsuario: sessionStorage.getItem('ID_USER'),
+                    idProduto: localStorage.idProduto
+                }
+            ).then((resultado) => {
+                return resultado.data;
+            })
+            .catch((erro) => {
+                console.log("Houve um erro:", erro);
+                return erro;
+            });
+        return resposta;
     }
+
 }

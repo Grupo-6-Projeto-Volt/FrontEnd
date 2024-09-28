@@ -25,7 +25,12 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 						return (
 							<div
 								className={styles["produto"]}
-								onClick={() => navigate("/productpage")}
+								onClick={
+									() => {
+										navigate("/productpage")
+										localStorage.idProduto = produto.id
+									}
+								}
 							>
 								<h4>Estado: {produto.estadoGeral}</h4>
 								<img
