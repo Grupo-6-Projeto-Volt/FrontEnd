@@ -15,7 +15,7 @@
 }
 
 .imagens-produto{
-    width: 60%;
+    width: 63%;
 }
 
 .info-produto{
@@ -89,12 +89,13 @@
     border-radius: 50px;
     margin-top: 1%;
     width: 95%;
+    cursor: pointer;
 }
 
 .img-iphone-secundarias img {
     width: 150px; 
     margin: 10px;
-    margin-left: 50%; 
+    cursor: pointer;
   }
 
 .conteiner-fotos{
@@ -107,3 +108,42 @@
     width: 40%;
     margin-left: 30%;
 }
+
+.carousel {
+    display: flex;
+    align-items: center;
+  }
+  
+.carousel-images {
+    display: flex;
+    overflow: hidden; 
+    width: 100%; 
+  }
+  
+  .img-iphone-secundarias {
+    margin: 0 5px; 
+    cursor: pointer;
+  }
+  
+  .btn-prev {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("https://img.icons8.com/ios/30/chevron-left.png");
+  }
+  
+  .btn-next {
+    width: 30px;
+    cursor: pointer;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("https://img.icons8.com/ios/30/chevron-right.png");
+  }
+
+  .btn-prev:disabled,
+  .btn-next:disabled {
+    cursor: not-allowed; 
+    opacity: 0.5; 
+  }
+  

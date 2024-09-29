@@ -1,9 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./ProdutosList.module.css";
 import { produtos } from "../../model/ProdutosListModel";
 import { Produto } from "../productcard/ProductCard";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const itemWidth = 130;
 export const padding = 16;
@@ -14,9 +13,17 @@ export function ProdutosData({ secao, nome }) {
   let [dadosProduto, setDadosProduto] = useState([]);
 
   const navigate = useNavigate();
+  const location = useLocation(); 
+  
   const navigateToProduct = (idProduto) => {
-    navigate("/productpage");
-    localStorage.idProduto = idProduto;
+    if (location.pathname === `/productpage`) {
+      navigate(`/productpage`);
+      localStorage.setItem("idProduto", idProduto); 
+      window.location.reload()  
+    } else {
+      navigate(`/productpage`);
+      localStorage.setItem("idProduto", idProduto); 
+    }
   };
 
   function handleClick(btn) {

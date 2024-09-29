@@ -8,6 +8,8 @@ const ProdutoInfo = () => {
   const navigate = useNavigate();
   const [produto, setProduto] = useState(null);
   const [favoritado, setFavoritado] = useState(false);
+  const [imagemPrincipal, setImagemPrincipal] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleButtonClick = () => {
     navigate("/");
@@ -17,12 +19,41 @@ const ProdutoInfo = () => {
     setFavoritado(!favoritado);
   };
 
+  const handleCompra = () => {
+    if (produto) {
+      const numeroWhatsApp = "5511994425521"; 
+      const mensagem = `Olá, tenho interesse no produto: ${produto.nome} - R$ ${produto.preco}.`;
+      const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+      window.open(urlWhatsApp, "_blank"); 
+    }
+  };
+
+  const trocarImagemPrincipal = (url) => {
+    setImagemPrincipal(url);
+  };
+
+  const handleNext = () => {
+    if (currentIndex < produto.imagensProduto.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
   useEffect(() => {
     const fetchProduto = async () => {
       const idProduto = localStorage.idProduto;
       try {
         const response = await api.get(`/produtos/loja/${idProduto}`);
         setProduto(response.data);
+
+        if (response.data && response.data.imagensProduto && response.data.imagensProduto.length > 0) {
+          setImagemPrincipal(response.data.imagensProduto[0].codigoImagem);
+        }
       } catch (error) {
         console.error("Erro ao buscar o produto:", error);
       }
@@ -48,17 +79,17 @@ const ProdutoInfo = () => {
       <div className={styles["conteiner-info"]}>
         <div className={styles["imagens-produto"]}>
           <div className={styles["imagem-principal"]}>
-            {produto && produto.imagensProduto && produto.imagensProduto.length > 0 ? (
-              <img id="imagemPrincipal"
-                src={produto.imagensProduto[0].codigoImagem}
-                alt={produto.imagensProduto[0].nome}
-                width="300"
+            {imagemPrincipal ? (
+              <img
+                id="imagemPrincipal"
+                src={imagemPrincipal}
+                alt="Imagem Principal do Produto"
+                style={{ maxWidth: "80%" }}
               />
             ) : (
               <p>Imagem não disponível</p>
             )}
           </div>
-          <div className={styles["imagens-carrossel"]}></div>
         </div>
         <div className={styles["info-produto"]}>
           <h1>{produto ? produto.nome : "Carregando..."}</h1>
@@ -72,23 +103,63 @@ const ProdutoInfo = () => {
             </div>
           </div>
           <h3>R$ {produto ? produto.preco : "0.00"}</h3>
-          <button className={styles["botao-comprar"]}>Comprar</button>
+          <button className={styles["botao-comprar"]} onClick={handleCompra}>
+            Comprar
+          </button>
         </div>
       </div>
 
       <div className={styles["conteiner-fotos"]}>
-        {produto && produto.imagensProduto && produto.imagensProduto.length > 1 ? (
-          produto.imagensProduto.slice(0).map((imagem, index) => (
-            <div className={styles["img-iphone-secundarias"]} key={index}>
-              <img 
-                src={imagem.codigoImagem}
-                alt={imagem.nome}
-                width="300"
-              />
-            </div>
-          ))
+        {produto && produto.imagensProduto && produto.imagensProduto.length > 0 ? (
+          produto.imagensProduto.length > 4 ? ( 
+            <>
+              <div className={styles["carousel"]}>
+                <button 
+                  className={styles["btn-prev"]} 
+                  onClick={handlePrev} 
+                  disabled={currentIndex === 0} 
+                >
+                </button>
+                <div className={styles["carousel-images"]}>
+                  {produto.imagensProduto.slice(currentIndex, currentIndex + 4).map((imagem, index) => (
+                    <div
+                      className={styles["img-iphone-secundarias"]}
+                      key={index}
+                      onClick={() => trocarImagemPrincipal(imagem.codigoImagem)}
+                    >
+                      <img
+                        src={imagem.codigoImagem}
+                        alt={imagem.nome}
+                        width="300"
+                      />
+                    </div>
+                  ))}
+                </div>
+                <button 
+                  className={styles["btn-next"]} 
+                  onClick={handleNext} 
+                  disabled={currentIndex >= produto.imagensProduto.length - 4} 
+                >
+                </button>
+              </div>
+            </>
+          ) : (
+            produto.imagensProduto.map((imagem, index) => ( 
+              <div
+                className={styles["img-iphone-secundarias"]}
+                key={index}
+                onClick={() => trocarImagemPrincipal(imagem.codigoImagem)}
+              >
+                <img
+                  src={imagem.codigoImagem}
+                  alt={imagem.nome}
+                  width="300"
+                />
+              </div>
+            ))
+          )
         ) : (
-          <p></p>
+          <p>Sem imagens disponíveis</p>
         )}
       </div>
     </div>
