@@ -13,9 +13,21 @@ export const categoriasModel = {
 			});
 		return resposta;
 	},
-	buscarCategoriasPorNome: (nome) => {
+	buscarCategoriasPorNomeContendo: (nome) => {
 		let resposta = api
-			.get(`/categorias/buscarPorNomeContendo?nome=${nome}`)
+			.get(`/categorias/buscar-por-nome-contendo?nome=${nome}`)
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
+	buscarCategoriaPorNome: (nome) => {
+		let resposta = api
+			.get(`/categorias/buscar-por-nome-categoria?nome=${nome}`)
 			.then((resultado) => {
 				return resultado.data;
 			})

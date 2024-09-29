@@ -5,7 +5,7 @@ export const imagemProdutosModel = {
 		let resposta = api
 			.post("/imagem-produtos", {
 				nome: nome,
-				hexId: codigoImagem,
+				codigoImagem: codigoImagem,
 				indiceVt: indiceVt,
 				idProduto: idProduto,
 			})

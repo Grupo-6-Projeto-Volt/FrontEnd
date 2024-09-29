@@ -15,7 +15,7 @@ export const tagsModel = {
 	},
 	buscarTagPorNome: (tag) => {
 		let resposta = api
-			.get("/tags")
+			.get(`/tags/buscar-tag-por-nome?tag=${tag}`)
 			.then((resultado) => {
 				return resultado.data;
 			})

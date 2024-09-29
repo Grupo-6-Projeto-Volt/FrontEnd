@@ -56,20 +56,11 @@ function CadastroProdutos() {
 	}
 
 	async function handleSubmit() {
-		console.log("Nome:", nome);
-		console.log("Categoria:", categoria);
-		console.log("Estado:", estado);
-		console.log("Preço:", preco);
-		console.log("Descrição:", descricao);
-		console.log("Desconto:", desconto);
-		console.log("Data Início Desconto:", dataInicioDesconto);
-		console.log("Data Fim Desconto:", dataFimDesconto);
-		console.log("Imagens:", imagens);
-		console.log("Tags:", tags);
-		console.log("Cores:", cores);
-		alert("Produto Cadastrado!");
+		await cadastrarProduto();
+	}
 
-		let categoriaEncontrada = await categoriasModel.buscarCategoriasPorNome(
+	async function cadastrarProduto() {
+		let categoriaEncontrada = await categoriasModel.buscarCategoriaPorNome(
 			categoria
 		);
 
@@ -85,37 +76,41 @@ function CadastroProdutos() {
 			categoriaEncontrada.id
 		);
 
+		await cadastrarTags(produtoCriado.id);
+		await cadastrarCores(produtoCriado.id);
+		await cadastrarImagens(produtoCriado.id);
+
+		console.log(await produtosModel.buscarProdutoPorId(produtoCriado.id));
+	}
+
+	async function cadastrarTags(idProduto) {
 		let tagsEncontradas = [];
 
 		tags.forEach(async (tag) => {
+			await tagsModel.inserirTag(tag);
 			let tagEncontrada = await tagsModel.buscarTagPorNome(tag);
-			if (!tagEncontrada) {
-				tagEncontrada = await tagsModel.inserirTag(tag);
-			}
 			tagsEncontradas.push(tagEncontrada);
+			getTags();
 		});
 
 		tagsEncontradas.forEach(async (tag) => {
-			await classificacaoProdutosModel.associarTagProduto(
-				produtoCriado.id,
-				tag.id
-			);
+			await classificacaoProdutosModel.associarTagProduto(idProduto, tag.id);
 		});
+	}
 
+	async function cadastrarCores(idProduto) {
 		cores.forEach(async (cor) => {
-			await corProdutosModel.associarCorProduto(
-				cor.nome,
-				cor.hexId,
-				produtoCriado.id
-			);
+			await corProdutosModel.associarCorProduto(cor.nome, cor.hexId, idProduto);
 		});
+	}
 
+	async function cadastrarImagens(idProduto) {
 		for (let i = 0; i < imagens.length; i++) {
 			await imagemProdutosModel.associarImagemProduto(
 				imagens[i].nome,
 				imagens[i].codigoImagem,
 				i,
-				produtoCriado.id
+				idProduto
 			);
 		}
 	}
@@ -154,8 +149,8 @@ function CadastroProdutos() {
 		let listaImagens = [];
 		for (let i = 0; i < produto.imagensProduto.length; i++) {
 			listaImagens.push({
-				name: produto.imagensProduto[i].nome,
-				url: produto.imagensProduto[i].codigoImagem,
+				nome: produto.imagensProduto[i].nome,
+				codigoImagem: produto.imagensProduto[i].codigoImagem,
 			});
 		}
 
@@ -182,7 +177,6 @@ function CadastroProdutos() {
 		response.arr.forEach((item) => {
 			listaTodasTags.push(item.tag);
 		});
-		console.log(listaTodasTags);
 		setAllTags(listaTodasTags);
 	}
 
@@ -281,8 +275,10 @@ function CadastroProdutos() {
 												setImagens((imagens) => [
 													...imagens,
 													{
-														name: selectedImages[i].name,
-														url: URL.createObjectURL(selectedImages[i]),
+														nome: selectedImages[i].name,
+														codigoImagem: URL.createObjectURL(
+															selectedImages[i]
+														),
 													},
 												]);
 											}
@@ -296,8 +292,8 @@ function CadastroProdutos() {
 											imagens.map((e, key) => (
 												<ImageListItem
 													key={key}
-													nomeImagem={e.name}
-													imagem={e.url}
+													nomeImagem={e.nome}
+													imagem={e.codigoImagem}
 													draggable={true}
 													onDragStart={() => (dragItem.current = key)}
 													onDragEnter={() => (draggedOverItem.current = key)}
@@ -375,12 +371,18 @@ function CadastroProdutos() {
 										onClick={() => {
 											let item = document.getElementById("color");
 											let valor = item.value;
-											setCores((cores) => [...cores, valor]);
+											setCores((cores) => [
+												...cores,
+												{ nome: valor, hexId: valor },
+											]);
 										}}
 										onChange={() => {
 											let item = document.getElementById("color");
 											let valor = item.value;
-											setCores((cores) => [...cores.slice(0, -1), valor]);
+											setCores((cores) => [
+												...cores.slice(0, -1),
+												{ nome: valor, hexId: valor },
+											]);
 										}}
 									/>
 									<div
@@ -391,7 +393,7 @@ function CadastroProdutos() {
 											cores.map((e, key) => (
 												<div
 													key={key}
-													style={{ backgroundColor: e }}
+													style={{ backgroundColor: e.hexId }}
 													className={styles["color-card"]}
 												>
 													<button
