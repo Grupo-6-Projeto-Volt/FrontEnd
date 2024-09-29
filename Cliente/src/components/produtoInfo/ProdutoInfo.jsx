@@ -9,23 +9,33 @@ const ProdutoInfo = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [produto, setProduto] = useState(null); // Inicialize com null em vez de []
-  const [favoritado, setFavoritado] = useState(false);
+  let [favoritado, setFavoritado] = useState(async () => {
+    let resposta;
+    try {
+      resposta = await favoritos.verificarFavorito(); 
+      setFavoritado(resposta)
+    }catch (e) {
+      console.log(e);
+      return <h1>Erro</h1>;
+    }
+  });
 
   const handleButtonClick = () => {
     navigate("/");
   };
 
   const toggleFavorito = () => {
-    setFavoritado(!favoritado);
-  if(sessionStorage.getItem('ID_USER') !== undefined){
-    if(!favoritado){
-      favoritos.favoritar();
+    if (sessionStorage.getItem('ID_USER') !== undefined) {
+      setFavoritado(favoritos.verificarFavorito())
+      if (!favoritado) {
+        favoritos.favoritar();
+      } else {
+        console.log(favoritos.desfavoritar(localStorage.idProduto));
+        setFavoritado(!favoritado)
+      }
     } else {
-
+      
     }
-  } else {
-    
-  }
   };
 
   useEffect(() => {
