@@ -84,17 +84,17 @@ function CadastroProdutos() {
 	}
 
 	async function cadastrarTags(idProduto) {
-		let tagsEncontradas = [];
-
 		tags.forEach(async (tag) => {
 			await tagsModel.inserirTag(tag);
-			let tagEncontrada = await tagsModel.buscarTagPorNome(tag);
-			tagsEncontradas.push(tagEncontrada);
-			getTags();
-		});
 
-		tagsEncontradas.forEach(async (tag) => {
-			await classificacaoProdutosModel.associarTagProduto(idProduto, tag.id);
+			let tagEncontrada = await tagsModel.buscarTagPorNome(tag);
+
+			await classificacaoProdutosModel.associarTagProduto(
+				idProduto,
+				tagEncontrada.id
+			);
+
+			getTags();
 		});
 	}
 
@@ -124,7 +124,7 @@ function CadastroProdutos() {
 		setCategoria(produto.categoria);
 		setEstado(produto.estadoGeral);
 		setDescricao(produto.descricao);
-		setAplicarDesconto(produto.desconto === 0 ? false : true);
+		setAplicarDesconto(produto.desconto > 0 ? true : false);
 		setDesconto(produto.desconto);
 		setDataInicioDesconto(produto.dataInicioDesconto);
 		setDataFimDesconto(produto.dataFimDesconto);
@@ -138,7 +138,7 @@ function CadastroProdutos() {
 		document.getElementById("ipt_desc").value = produto.descricao;
 
 		document.getElementById("ipt_check_discount").checked =
-			produto.desconto === 0 ? false : true;
+			produto.desconto > 0 ? true : false;
 
 		document.getElementById("ipt_vlr_desconto").value = `${produto.desconto}%`;
 		document.getElementById("ipt_data_inicio_desconto").value =
@@ -164,7 +164,7 @@ function CadastroProdutos() {
 			listaCores.push(item.hexId);
 		});
 
-		setAplicarDesconto(produto.desconto === 0 ? false : true);
+		setAplicarDesconto(produto.desconto > 0 ? true : false);
 		setTags(listaTagsProduto);
 		setImagens(listaImagens);
 		setCores(listaCores);
@@ -393,7 +393,7 @@ function CadastroProdutos() {
 											cores.map((e, key) => (
 												<div
 													key={key}
-													style={{ backgroundColor: e.hexId }}
+													style={{ backgroundColor: e }}
 													className={styles["color-card"]}
 												>
 													<button
