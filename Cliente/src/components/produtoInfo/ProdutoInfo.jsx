@@ -10,6 +10,7 @@ const ProdutoInfo = () => {
   const [favoritado, setFavoritado] = useState(false);
   const [imagemPrincipal, setImagemPrincipal] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [cores, setCores] = useState([]); 
 
   const handleButtonClick = () => {
     navigate("/");
@@ -50,18 +51,35 @@ const ProdutoInfo = () => {
       try {
         const response = await api.get(`/produtos/loja/${idProduto}`);
         setProduto(response.data);
-
+  
         if (response.data && response.data.imagensProduto && response.data.imagensProduto.length > 0) {
           setImagemPrincipal(response.data.imagensProduto[0].codigoImagem);
         }
+  
+        const corIds = response.data.corIds; 
+
+        if (corIds && corIds.length > 0) {
+          const coresPromises = corIds.map(async (corId) => {
+            const corResponse = await api.get(`/cores/${corId}`);
+            return corResponse.data.hex_id; 
+          });
+  
+          const coresResult = await Promise.all(coresPromises);
+          setCores(coresResult); 
+  
+        } else {
+          setCores([]); 
+        }
+        
       } catch (error) {
-        console.error("Erro ao buscar o produto:", error);
+        console.error("Erro ao buscar o produto ou as cores:", error);
       }
     };
-
+  
     fetchProduto();
   }, []);
-
+  
+  
   return (
     <div className={styles["conteiner"]}>
       <h1 className={styles["button-voltar"]} onClick={handleButtonClick}>
@@ -84,7 +102,7 @@ const ProdutoInfo = () => {
                 id="imagemPrincipal"
                 src={imagemPrincipal}
                 alt="Imagem Principal do Produto"
-                style={{ maxWidth: "80%" }}
+                style={{ maxWidth: "80%"}}
               />
             ) : (
               <p>Imagem não disponível</p>
@@ -94,15 +112,27 @@ const ProdutoInfo = () => {
         <div className={styles["info-produto"]}>
           <h1>{produto ? produto.nome : "Carregando..."}</h1>
           <p>{produto ? produto.descricao : ""}</p>
+
           <div className={styles["cores"]}>
             <p>Cores</p>
             <div className={styles["paletas"]}>
-              <div className={styles["cor-vermelha"]}></div>
-              <div className={styles["cor-azul"]}></div>
-              <div className={styles["cor-preta"]}></div>
+              {cores.length > 0 ? (
+                cores.map((cor, index) => (
+                  <div
+                    key={index}
+                    className={styles["cor"]}
+                    style={{ backgroundColor: cor, width: "40px", height: "40px", marginLeft: "2%", borderRadius: "100%" 
+                  }}
+                  ></div>
+                ))
+              ) : (
+                <p>Sem cores disponíveis</p>
+              )}
             </div>
           </div>
-          <h3>R$ {produto ? produto.preco : "0.00"}</h3>
+          <h3>
+            R$ {produto ? produto.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "0,00"}
+          </h3>
           <button className={styles["botao-comprar"]} onClick={handleCompra}>
             Comprar
           </button>
@@ -111,7 +141,7 @@ const ProdutoInfo = () => {
 
       <div className={styles["conteiner-fotos"]}>
         {produto && produto.imagensProduto && produto.imagensProduto.length > 0 ? (
-          produto.imagensProduto.length > 4 ? ( 
+          produto.imagensProduto.length > 4 ? (
             <>
               <div className={styles["carousel"]}>
                 <button 
@@ -144,7 +174,7 @@ const ProdutoInfo = () => {
               </div>
             </>
           ) : (
-            produto.imagensProduto.map((imagem, index) => ( 
+            produto.imagensProduto.map((imagem, index) => (
               <div
                 className={styles["img-iphone-secundarias"]}
                 key={index}

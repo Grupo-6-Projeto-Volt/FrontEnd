@@ -16,6 +16,10 @@
 
 .imagens-produto{
     width: 63%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 30px;
 }
 
 .info-produto{
@@ -25,7 +29,7 @@
 .conteiner-info{
     display: flex;
     flex-direction: row;
-    height: 330px;
+    height: 350px;
 }
 
 .img-iphonePrincipal{
@@ -60,30 +64,6 @@
     flex-direction: row;
 }
 
-.cor-vermelha{
-    background-color: #A93933;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    margin-left: 2%;
-}
-
-.cor-azul{
-    background-color: #394578;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    margin-left: 2%;
-}
-
-.cor-preta{
-    background-color: #323232;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    margin-left: 2%;
-}
-
 .botao-comprar{
     height: 50px;
     border-radius: 50px;
@@ -105,8 +85,10 @@
 }
 
 .imagem-principal{
-    width: 40%;
-    margin-left: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
 }
 
 .carousel {
@@ -125,6 +107,12 @@
     cursor: pointer;
   }
   
+  .img-iphone-secundarias:hover {
+    transition: box-shadow 0.3s ease-in-out;
+    border: #00000081 2px solid;
+    border-radius: 10px;
+  }
+
   .btn-prev {
     width: 30px;
     height: 30px;
