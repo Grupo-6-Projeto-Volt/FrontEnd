@@ -44,7 +44,7 @@ export const favoritos = {
                 }
             }
             ).then((resultado) => {
-                // console.log(resultado.data)
+                console.log(resultado.data)
                 return resultado.data;
             }
             )

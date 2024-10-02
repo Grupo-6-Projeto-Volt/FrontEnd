@@ -4,16 +4,23 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { RiHeart3Fill } from "react-icons/ri";
 import api from "../../api";
 import { favoritos } from "../../model/favoritosModel";
+import { AxiosError } from "axios";
 
 const ProdutoInfo = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [produto, setProduto] = useState(null); // Inicialize com null em vez de []
+  const [produtoFavorito, setProdutoFavorito] = useState(null);
   let [favoritado, setFavoritado] = useState(async () => {
     let resposta;
     try {
       resposta = await favoritos.verificarFavorito(); 
-      setFavoritado(resposta)
+      if(sessionStorage.getItem('ID_USER') !== undefined){
+        setFavoritado(!(resposta instanceof AxiosError));
+        setProdutoFavorito(resposta);
+      } else {
+        setFavoritado(false);
+      }
     }catch (e) {
       console.log(e);
       return <h1>Erro</h1>;
@@ -30,7 +37,7 @@ const ProdutoInfo = () => {
       if (!favoritado) {
         favoritos.favoritar();
       } else {
-        console.log(favoritos.desfavoritar(localStorage.idProduto));
+        favoritos.desfavoritar(produtoFavorito.id);
         setFavoritado(!favoritado)
       }
     } else {
@@ -52,7 +59,6 @@ const ProdutoInfo = () => {
     };
 
     fetchProduto();
-    console.log(location.pathname)
   }, [location.pathname]);
 
   return (
