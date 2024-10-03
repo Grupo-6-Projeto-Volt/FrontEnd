@@ -1,20 +1,48 @@
 import React, { useState, useEffect } from "react";
 import styles from "./ProdutoInfo.module.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { RiHeart3Fill } from "react-icons/ri";
 import api from "../../api";
+import { favoritos } from "../../model/favoritosModel";
+import { AxiosError } from "axios";
 
 const ProdutoInfo = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [produto, setProduto] = useState(null); // Inicialize com null em vez de []
-  const [favoritado, setFavoritado] = useState(false);
+  const [produtoFavorito, setProdutoFavorito] = useState(null);
+  let [favoritado, setFavoritado] = useState(async () => {
+    let resposta;
+    try {
+      resposta = await favoritos.verificarFavorito(); 
+      if(sessionStorage.getItem('ID_USER') !== undefined){
+        setFavoritado(!(resposta instanceof AxiosError));
+        setProdutoFavorito(resposta);
+      } else {
+        setFavoritado(false);
+      }
+    }catch (e) {
+      console.log(e);
+      return <h1>Erro</h1>;
+    }
+  });
 
   const handleButtonClick = () => {
     navigate("/");
   };
 
   const toggleFavorito = () => {
-    setFavoritado(!favoritado);
+    if (sessionStorage.getItem('ID_USER') !== undefined) {
+      setFavoritado(favoritos.verificarFavorito())
+      if (!favoritado) {
+        favoritos.favoritar();
+      } else {
+        favoritos.desfavoritar(produtoFavorito.id);
+        setFavoritado(!favoritado)
+      }
+    } else {
+      
+    }
   };
 
   useEffect(() => {
@@ -31,7 +59,7 @@ const ProdutoInfo = () => {
     };
 
     fetchProduto();
-  }, []);
+  }, [location.pathname]);
 
   return (
     <div className={styles["conteiner"]}>
