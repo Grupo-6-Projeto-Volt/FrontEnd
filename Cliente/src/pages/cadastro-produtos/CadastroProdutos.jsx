@@ -18,6 +18,7 @@ import { tagsModel } from "../../model/tagsModel";
 import { classificacaoProdutosModel } from "../../model/classificacaoProdutosModel";
 import { imagemProdutosModel } from "../../model/imagemProdutosModel";
 import { corProdutosModel } from "../../model/corProdutosModel copy";
+import { ToastContainer, toast } from "react-toastify";
 
 function CadastroProdutos() {
 	let [nome, setNome] = useState("");
@@ -55,32 +56,66 @@ function CadastroProdutos() {
 		setImagens(imagesClone);
 	}
 
+	function clear() {
+		setNome("");
+		setCategoria("");
+		setEstado("");
+		setPreco("");
+		setDescricao("");
+		setDesconto("");
+		setDataInicioDesconto("");
+		setDataFimDesconto("");
+		setImagens([]);
+		setTags([]);
+		setCores([]);
+		setAplicarDesconto(false);
+
+		document.getElementById("ipt_nome").value = "";
+		document.getElementById("ipt_preco").value = "";
+		document.getElementById("ipt_categoria").value = "";
+		document.getElementById("ipt_estado").value = "";
+		document.getElementById("ipt_desc").value = "";
+		document.getElementById("ipt_check_discount").checked = false;
+		document.getElementById("ipt_vlr_desconto").value = "";
+		document.getElementById("ipt_data_inicio_desconto").value = "";
+		document.getElementById("ipt_data_fim_desconto").value = "";
+	}
+
 	async function handleSubmit() {
-		await cadastrarProduto();
+		if (editModeOn) {
+			await atualizarProduto();
+		} else {
+			await cadastrarProduto();
+		}
 	}
 
 	async function cadastrarProduto() {
-		let categoriaEncontrada = await categoriasModel.buscarCategoriaPorNome(
-			categoria
-		);
+		try {
+			let categoriaEncontrada = await categoriasModel.buscarCategoriaPorNome(
+				categoria
+			);
 
-		let produtoCriado = await produtosModel.adicionarProduto(
-			nome,
-			descricao,
-			preco,
-			1,
-			estado,
-			desconto,
-			dataInicioDesconto,
-			dataFimDesconto,
-			categoriaEncontrada.id
-		);
+			let produtoCriado = await produtosModel.adicionarProduto(
+				nome,
+				descricao,
+				preco,
+				1,
+				estado,
+				desconto,
+				dataInicioDesconto,
+				dataFimDesconto,
+				categoriaEncontrada.id
+			);
 
-		await cadastrarTags(produtoCriado.id);
-		await cadastrarCores(produtoCriado.id);
-		await cadastrarImagens(produtoCriado.id);
+			await cadastrarTags(produtoCriado.id);
+			await cadastrarCores(produtoCriado.id);
+			await cadastrarImagens(produtoCriado.id);
+		} catch (error) {
+			toast.error("Ocorreu um erro ao cadastrar o produto: " + error.message);
+		}
 
-		console.log(await produtosModel.buscarProdutoPorId(produtoCriado.id));
+		toast.success("Produto cadastrado com sucesso!");
+		clear();
 	}
 
 	async function cadastrarTags(idProduto) {
@@ -115,9 +150,14 @@ function CadastroProdutos() {
 		}
 	}
 
+	async function atualizarProduto() {
+		await desassociarProduto(id);
+	}
+
+	async function desassociarProduto() {}
+
 	async function getProduto() {
 		let produto = await produtosModel.buscarProdutoPorId(id);
-		console.log(produto);
 
 		setNome(produto.nome);
 		setPreco(produto.preco);
@@ -194,7 +234,7 @@ function CadastroProdutos() {
 
 	async function handleDelete(id) {
 		await produtosModel.deletarProduto(id);
-		alert("Produto deletado com sucesso!");
+		toast.success("Produto deletado com sucesso!");
 		navigate("/listagem-produtos");
 	}
 
@@ -208,6 +248,7 @@ function CadastroProdutos() {
 
 	return (
 		<div className={styles["CadastroProdutos"]}>
+			<ToastContainer />
 			<Navbar />
 			<Sidebar />
 			<div className={styles["content"]}>
@@ -330,10 +371,12 @@ function CadastroProdutos() {
 												if (!tags.includes(valor)) {
 													setTags((tags) => [...tags, valor]);
 												} else {
-													alert("Tag já existente");
+													toast.error("Tag já existente");
 												}
 											} else {
-												alert("Tag inválida. Deve ter pelo menos 4 caracteres");
+												toast.error(
+													"Tag inválida. Deve ter pelo menos 4 caracteres"
+												);
 											}
 
 											item.value = "";
@@ -461,7 +504,7 @@ function CadastroProdutos() {
 												if (Number(value) >= 0 && Number(value) <= 100) {
 													setDesconto(value);
 												} else {
-													alert(
+													toast.error(
 														"Desconto inválido. Deve ser um número entre 0 e 100."
 													);
 													setDesconto("");
@@ -480,7 +523,7 @@ function CadastroProdutos() {
 													dataInicioDesconto <
 														new Date().toISOString().split("T")[0]
 												) {
-													alert(
+													toast.error(
 														"Data de Início do Desconto inválida. Deve ser posterior à data atual."
 													);
 													setDataInicioDesconto("");
@@ -500,7 +543,7 @@ function CadastroProdutos() {
 													dataFimDesconto &&
 													dataFimDesconto < dataInicioDesconto
 												) {
-													alert(
+													toast.error(
 														"Data de Fim do Desconto inválida. Deve ser posterior à Data de Início do Desconto."
 													);
 													setDataFimDesconto("");
