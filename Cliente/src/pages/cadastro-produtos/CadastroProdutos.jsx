@@ -161,7 +161,10 @@ function CadastroProdutos() {
 
 		let listaCores = [];
 		produto.coresProduto.forEach((item) => {
-			listaCores.push(item.hexId);
+			listaCores.push({
+				nome: item.nome,
+				hexId: item.hexId,
+			});
 		});
 
 		setAplicarDesconto(produto.desconto > 0 ? true : false);
@@ -393,7 +396,7 @@ function CadastroProdutos() {
 											cores.map((e, key) => (
 												<div
 													key={key}
-													style={{ backgroundColor: e }}
+													style={{ backgroundColor: e.hexId }}
 													className={styles["color-card"]}
 												>
 													<button
