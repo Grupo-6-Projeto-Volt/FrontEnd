@@ -10,7 +10,7 @@ const ProdutoInfo = () => {
   const [favoritado, setFavoritado] = useState(false);
   const [imagemPrincipal, setImagemPrincipal] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [cores, setCores] = useState([]); 
+  const [cores, setCores] = useState([]);
 
   const handleButtonClick = () => {
     navigate("/");
@@ -25,7 +25,7 @@ const ProdutoInfo = () => {
       const numeroWhatsApp = "5511994425521"; 
       const mensagem = `Olá, tenho interesse no produto: ${produto.nome} - R$ ${produto.preco}.`;
       const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
-      window.open(urlWhatsApp, "_blank"); 
+      window.open(urlWhatsApp, "_blank");
     }
   };
 
@@ -47,39 +47,33 @@ const ProdutoInfo = () => {
 
   useEffect(() => {
     const fetchProduto = async () => {
-      const idProduto = localStorage.idProduto;
+      const idProduto = localStorage.getItem("idProduto"); // Use getItem para pegar o valor
       try {
         const response = await api.get(`/produtos/loja/${idProduto}`);
         setProduto(response.data);
-  
-        if (response.data && response.data.imagensProduto && response.data.imagensProduto.length > 0) {
+
+        if (response.data?.imagensProduto?.length > 0) {
           setImagemPrincipal(response.data.imagensProduto[0].codigoImagem);
         }
-  
-        const corIds = response.data.corIds; 
 
-        if (corIds && corIds.length > 0) {
-          const coresPromises = corIds.map(async (corId) => {
-            const corResponse = await api.get(`/cores/${corId}`);
-            return corResponse.data.hex_id; 
+        if (response.data?.coresProduto?.length > 0) {
+          const coresPromises = response.data.coresProduto.map(async (cor) => {
+            return cor.hexId; // Assumindo que a cor tem o campo hexId
           });
-  
+
           const coresResult = await Promise.all(coresPromises);
-          setCores(coresResult); 
-  
+          setCores(coresResult);
         } else {
-          setCores([]); 
+          setCores([]);
         }
-        
       } catch (error) {
         console.error("Erro ao buscar o produto ou as cores:", error);
       }
     };
-  
+
     fetchProduto();
   }, []);
-  
-  
+
   return (
     <div className={styles["conteiner"]}>
       <h1 className={styles["button-voltar"]} onClick={handleButtonClick}>
@@ -102,7 +96,7 @@ const ProdutoInfo = () => {
                 id="imagemPrincipal"
                 src={imagemPrincipal}
                 alt="Imagem Principal do Produto"
-                style={{ maxWidth: "80%"}}
+                style={{ maxWidth: "80%" }}
               />
             ) : (
               <p>Imagem não disponível</p>
@@ -121,8 +115,13 @@ const ProdutoInfo = () => {
                   <div
                     key={index}
                     className={styles["cor"]}
-                    style={{ backgroundColor: cor, width: "40px", height: "40px", marginLeft: "2%", borderRadius: "100%" 
-                  }}
+                    style={{
+                      backgroundColor: cor,
+                      width: "40px",
+                      height: "40px",
+                      marginLeft: "2%",
+                      borderRadius: "100%",
+                    }}
                   ></div>
                 ))
               ) : (
@@ -131,7 +130,7 @@ const ProdutoInfo = () => {
             </div>
           </div>
           <h3>
-            R$ {produto ? produto.preco.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "0,00"}
+            R$ {produto ? produto.preco.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "0,00"}
           </h3>
           <button className={styles["botao-comprar"]} onClick={handleCompra}>
             Comprar
@@ -140,35 +139,37 @@ const ProdutoInfo = () => {
       </div>
 
       <div className={styles["conteiner-fotos"]}>
-        {produto && produto.imagensProduto && produto.imagensProduto.length > 0 ? (
+        {produto?.imagensProduto?.length > 0 ? (
           produto.imagensProduto.length > 4 ? (
             <>
               <div className={styles["carousel"]}>
-                <button 
-                  className={styles["btn-prev"]} 
-                  onClick={handlePrev} 
-                  disabled={currentIndex === 0} 
+                <button
+                  className={styles["btn-prev"]}
+                  onClick={handlePrev}
+                  disabled={currentIndex === 0}
                 >
                 </button>
                 <div className={styles["carousel-images"]}>
-                  {produto.imagensProduto.slice(currentIndex, currentIndex + 4).map((imagem, index) => (
-                    <div
-                      className={styles["img-iphone-secundarias"]}
-                      key={index}
-                      onClick={() => trocarImagemPrincipal(imagem.codigoImagem)}
-                    >
-                      <img
-                        src={imagem.codigoImagem}
-                        alt={imagem.nome}
-                        width="300"
-                      />
-                    </div>
-                  ))}
+                  {produto.imagensProduto
+                    .slice(currentIndex, currentIndex + 4)
+                    .map((imagem, index) => (
+                      <div
+                        className={styles["img-iphone-secundarias"]}
+                        key={index}
+                        onClick={() => trocarImagemPrincipal(imagem.codigoImagem)}
+                      >
+                        <img
+                          src={imagem.codigoImagem}
+                          alt={imagem.nome}
+                          width="300"
+                        />
+                      </div>
+                    ))}
                 </div>
-                <button 
-                  className={styles["btn-next"]} 
-                  onClick={handleNext} 
-                  disabled={currentIndex >= produto.imagensProduto.length - 4} 
+                <button
+                  className={styles["btn-next"]}
+                  onClick={handleNext}
+                  disabled={currentIndex >= produto.imagensProduto.length - 4}
                 >
                 </button>
               </div>
