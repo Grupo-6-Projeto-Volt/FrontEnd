@@ -13,7 +13,7 @@ export const tagsModel = {
 			});
 		return resposta;
 	},
-	inserirTag: (tag) => {
+	inserirTag: ({tag}) => {
 		let resposta = api
 			.post("/tags", { tag: tag })
 			.then((resultado) => {
@@ -49,4 +49,17 @@ export const tagsModel = {
 			});
 		return resposta;
 	},
+	exportarTag: ({id,tag})=>{
+		let resposta = api
+			.get("/tags/exportar",[{id:tag}])
+			.then((resultado) => {
+				console.log('Enviou')
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	}
 };
