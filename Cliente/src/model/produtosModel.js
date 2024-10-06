@@ -104,4 +104,37 @@ export const produtosModel = {
 			});
 		return resposta;
 	},
+	alterarProduto: (
+		id,
+		nome,
+		descricao,
+		preco,
+		qtdEstoque,
+		estadoGeral,
+		desconto,
+		dataInicioDesconto,
+		dataFimDesconto,
+		idCategoria
+	) => {
+		let resposta = api
+			.put(`/produtos/estoque/${id}`, {
+				nome: nome,
+				descricao: descricao,
+				preco: preco,
+				qtdEstoque: qtdEstoque,
+				estadoGeral: estadoGeral,
+				desconto: desconto,
+				dataInicioDesconto: dataInicioDesconto,
+				dataFimDesconto: dataFimDesconto,
+				idCategoria: idCategoria,
+			})
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
 };

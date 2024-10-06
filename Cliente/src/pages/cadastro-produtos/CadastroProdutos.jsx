@@ -70,43 +70,61 @@ function CadastroProdutos() {
 	}
 
 	async function handleSubmit() {
-		if (editModeOn) {
-			await atualizarProduto();
-		} else {
-			await cadastrarProduto();
-		}
+		await operacao();
 	}
 
-	async function cadastrarProduto() {
+	async function operacao() {
+		let modo = {
+			sucesso: editModeOn ? "editado" : "cadastrado",
+			erro: editModeOn ? "editar" : "cadastrar",
+		};
+
 		try {
+			let produtoCriado;
+
 			let categoriaEncontrada = await categoriasModel.buscarCategoriaPorNome(
 				categoria
 			);
 
-			let produtoCriado = await produtosModel.adicionarProduto(
-				nome,
-				descricao,
-				preco,
-				1,
-				estado,
-				desconto,
-				dataInicioDesconto,
-				dataFimDesconto,
-				categoriaEncontrada.id
-			);
+			if (editModeOn) {
+				await desassociarProduto(id);
+				produtoCriado = await produtosModel.alterarProduto(
+					id,
+					nome,
+					descricao,
+					preco,
+					1,
+					estado,
+					desconto,
+					dataInicioDesconto,
+					dataFimDesconto,
+					categoriaEncontrada.id
+				);
+			} else {
+				produtoCriado = await produtosModel.adicionarProduto(
+					nome,
+					descricao,
+					preco,
+					1,
+					estado,
+					desconto,
+					dataInicioDesconto,
+					dataFimDesconto,
+					categoriaEncontrada.id
+				);
+			}
 
 			await cadastrarTags(produtoCriado.id);
 			await cadastrarCores(produtoCriado.id);
 			await cadastrarImagens(produtoCriado.id);
 
-			toast.success("Produto cadastrado com sucesso!");
-			clear();
+			toast.success(`Produto ${modo.sucesso} com sucesso!`);
+
+			if (!editModeOn) clear();
 		} catch (error) {
-			let modo = "cadastrar";
-			if (editModeOn) {
-				modo = "editar";
-			}
-			toast.error(`Ocorreu um erro ao ${modo} o produto: ${error.message}`);
+			toast.error(
+				`Ocorreu um erro ao ${modo.erro} o produto: ${error.message}`
+			);
 		}
 	}
 
@@ -142,11 +160,11 @@ function CadastroProdutos() {
 		}
 	}
 
-	async function atualizarProduto() {
-		await desassociarProduto(id);
+	async function desassociarProduto(id) {
+		await imagemProdutosModel.desassociarImagemProduto(id);
+		await classificacaoProdutosModel.desassociarTagProduto(id);
+		await corProdutosModel.desassociarCorProduto(id);
 	}
-
-	async function desassociarProduto(id) {}
 
 	async function getProduto() {
 		const produto = await produtosModel.buscarProdutoPorId(id);
@@ -307,10 +325,7 @@ function CadastroProdutos() {
 											}
 										}}
 									/>
-									<div
-										className={styles["image-list"]}
-										style={{ height: imagens.length > 3 ? "10rem" : "auto" }}
-									>
+									<div className={styles["image-list"]}>
 										{imagens &&
 											imagens.map((e, key) => (
 												<ImageListItem
@@ -347,6 +362,7 @@ function CadastroProdutos() {
 											if (tag.trim() && tag.length > 3) {
 												if (!tags.includes(tag)) {
 													setTags((tags) => [...tags, tag]);
+													setTag("");
 												} else {
 													toast.error("Tag já existente");
 												}
@@ -441,6 +457,7 @@ function CadastroProdutos() {
 										<label className={styles["switch"]}>
 											<input
 												id="ipt_check_discount"
+												checked={aplicarDesconto}
 												type="checkbox"
 												onChange={(e) => {
 													setAplicarDesconto(e.target.checked);

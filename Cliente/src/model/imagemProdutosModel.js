@@ -18,4 +18,16 @@ export const imagemProdutosModel = {
 			});
 		return resposta;
 	},
+	desassociarImagemProduto: (idProduto) => {
+		let resposta = api
+			.delete(`/imagem-produtos/deletar-imagens-produto/${idProduto}`)
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
 };
