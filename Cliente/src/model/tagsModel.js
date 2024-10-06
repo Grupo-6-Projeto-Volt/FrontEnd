@@ -57,7 +57,8 @@ export const tagsModel = {
 				}
 			}
 		).then((resultado) => {
-				const blob = new Blob([resultado.data], { type: 'text/csv' });
+				const bom = '\ufeff';
+				const blob = new Blob([bom+resultado.data], { type: 'text/csv;charset=utf-8' });
 				const url = URL.createObjectURL(blob);
 				const file = document.createElement('a');
 				file.href = url;
