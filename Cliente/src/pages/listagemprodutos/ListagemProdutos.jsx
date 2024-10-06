@@ -182,9 +182,12 @@ function ListagemProdutos() {
 	async function getProdutosInfo(){
 		try{
 			let response = await produtosModel.listarProdutos();
-			response.forEach((produto)=>{
-				console.log(produto)
-			})
+			console.log(response)
+			if(produtos.length !== 0 || produtos !== undefined){
+				produtosModel.exportarProduto(response)
+			}else{
+				console.log("Não há produtos registrados")
+			}
 		}catch(error){
 			console.log(error)
 		}
