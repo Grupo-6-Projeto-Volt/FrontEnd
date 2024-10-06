@@ -10,11 +10,11 @@ import { produtosModel } from "../../model/produtosModel";
 import { useEffect, useState } from "react";
 
 function ListagemProdutos() {
-	let navigate = useNavigate();
-
-	let [produtos, setProdutos] = useState([]);
-
-	let headersProdutos = [
+	const navigate = useNavigate();
+	const [action, setAction] = useState("");
+	const [enabledAction, setEnabledAction] = useState(false);
+	const [produtos, setProdutos] = useState([]);
+	const headersProdutos = [
 		"",
 		"Id",
 		"Nome do Produto",
@@ -24,39 +24,15 @@ function ListagemProdutos() {
 		"",
 	];
 
-	function handleNewProductPress() {
-		navigate("/cadastro-produtos");
+	function handleSubmit(action) {
+		setAction(action);
 	}
 
-	function handleDelete(
-		editIconId,
-		deleteIconId,
-		confirmDeleteIconId,
-		cancelDeleteIconId
-	) {
-		let iptDeleteIcon = document.getElementById(deleteIconId);
-		let iptEditIcon = document.getElementById(editIconId);
-		let iptConfirmDeleteIcon = document.getElementById(confirmDeleteIconId);
-		let iptCancelDeleteIcon = document.getElementById(cancelDeleteIconId);
-
-		iptDeleteIcon.style.display = "none";
-		iptEditIcon.style.display = "none";
-		iptConfirmDeleteIcon.style.display = "inline-block";
-		iptCancelDeleteIcon.style.display = "inline-block";
+	function changeAction() {
+		setEnabledAction(!enabledAction);
 	}
 
-	async function handleConfirmDelete(
-		id,
-		confirmDeleteIconId,
-		cancelDeleteIconId,
-		editIconId,
-		deleteIconId
-	) {
-		let iptConfirmDeleteIcon = document.getElementById(confirmDeleteIconId);
-		let iptCancelDeleteIcon = document.getElementById(cancelDeleteIconId);
-		let iptEditIcon = document.getElementById(editIconId);
-		let iptDeleteIcon = document.getElementById(deleteIconId);
-
+	async function handleDelete(id) {
 		await produtosModel
 			.deletarProduto(id)
 			.then((response) => {
@@ -65,30 +41,7 @@ function ListagemProdutos() {
 			.catch((error) => {
 				console.log("Houve um erro ao deletar o produto:", error);
 			});
-
-		iptConfirmDeleteIcon.style.display = "none";
-		iptCancelDeleteIcon.style.display = "none";
-		iptEditIcon.style.display = "inline-block";
-		iptDeleteIcon.style.display = "inline-block";
-
 		getProductsList();
-	}
-
-	function handleCancelDelete(
-		confirmDeleteIconId,
-		cancelDeleteIconId,
-		editIconId,
-		deleteIconId
-	) {
-		let iptConfirmDeleteIcon = document.getElementById(confirmDeleteIconId);
-		let iptCancelDeleteIcon = document.getElementById(cancelDeleteIconId);
-		let iptEditIcon = document.getElementById(editIconId);
-		let iptDeleteIcon = document.getElementById(deleteIconId);
-
-		iptConfirmDeleteIcon.style.display = "none";
-		iptCancelDeleteIcon.style.display = "none";
-		iptEditIcon.style.display = "inline-block";
-		iptDeleteIcon.style.display = "inline-block";
 	}
 
 	useEffect(() => {
@@ -98,82 +51,63 @@ function ListagemProdutos() {
 	async function getProductsList() {
 		try {
 			let response = await produtosModel.listarProdutos();
-			let lista = [];
 			response.forEach((produto) => {
-				let confirmDeleteIconId = `ipt_confirm_delete_icon_${produto.id}`;
-				let cancelDeleteIconId = `ipt_cancel_delete_icon_${produto.id}`;
-
-				let editIconId = `ipt_edit_icon_${produto.id}`;
-				let deleteIconId = `ipt_delete_icon_${produto.id}`;
-
-				lista.push({
-					image: () => {
-						return (
-							<img
-								className={styles["list-image"]}
-								src={produto.imagensProduto[0].codigoImagem}
-								alt="Iphone"
-							/>
-						);
+				setProdutos((produtos) => [
+					...produtos,
+					{
+						image: () => {
+							return (
+								<img
+									className={styles["list-image"]}
+									src={produto.imagensProduto[0].codigoImagem}
+									alt="Iphone"
+								/>
+							);
+						},
+						id: produto.id,
+						nome: produto.nome,
+						categoria: produto.categoria,
+						estado: produto.estadoGeral,
+						preco: "R$" + Number(produto.preco).toFixed(2),
+						acoes: () => {
+							return (
+								<div className={styles["list-btn-area"]}>
+									<FaPencil
+										cursor={"pointer"}
+										onClick={() => {
+											handleSubmit("editar");
+											navigate(`/editar-produtos/${produto.id}`);
+										}}
+									/>
+									<FaTrash
+										cursor={"pointer"}
+										onClick={() => {
+											handleSubmit("deletar");
+											changeAction();
+										}}
+									/>
+									<FaCheck
+										cursor={"pointer"}
+										display={!enabledAction ? "none" : "block"}
+										onClick={() => {
+											if (action === "deletar") {
+												handleDelete(produto.id);
+												getProductsList();
+											}
+											changeAction();
+										}}
+									/>
+									<FaX
+										cursor={"pointer"}
+										display={!enabledAction ? "none" : "block"}
+										onClick={changeAction}
+									/>
+								</div>
+							);
+						},
 					},
-					id: produto.id,
-					nome: produto.nome,
-					categoria: produto.categoria,
-					estado: produto.estadoGeral,
-					preco: "R$" + Number(produto.preco).toFixed(2),
-					acoes: () => {
-						return (
-							<div className={styles["list-btn-area"]}>
-								<FaPencil
-									id={editIconId}
-									cursor={"pointer"}
-									onClick={() => navigate(`/editar-produtos/${produto.id}`)}
-								/>
-								<FaTrash
-									id={deleteIconId}
-									cursor={"pointer"}
-									onClick={() =>
-										handleDelete(
-											editIconId,
-											deleteIconId,
-											confirmDeleteIconId,
-											cancelDeleteIconId
-										)
-									}
-								/>
-								<FaCheck
-									id={confirmDeleteIconId}
-									cursor={"pointer"}
-									display={"none"}
-									onClick={() =>
-										handleConfirmDelete(
-											produto.id,
-											confirmDeleteIconId,
-											cancelDeleteIconId,
-											editIconId,
-											deleteIconId
-										)
-									}
-								/>
-								<FaX
-									id={cancelDeleteIconId}
-									cursor={"pointer"}
-									display={"none"}
-									onClick={() =>
-										handleCancelDelete(
-											confirmDeleteIconId,
-											cancelDeleteIconId,
-											editIconId,
-											deleteIconId
-										)
-									}
-								/>
-							</div>
-						);
-					},
-				});
+				]);
 			});
-			setProdutos(lista);
 		} catch (error) {
 			console.error("Erro:", error);
 		}
@@ -210,7 +144,10 @@ function ListagemProdutos() {
 						</div>
 						<DefaultButton
 							text={"Adicionar Produto"}
-							onClick={handleNewProductPress}
+							onClick={() => {
+								handleSubmit("criar");
+								navigate("/cadastro-produtos");
+							}}
 						/>
 					</div>
 					<div className={styles["table-area"]}>
