@@ -98,12 +98,16 @@ function CadastroProdutos() {
 			await cadastrarTags(produtoCriado.id);
 			await cadastrarCores(produtoCriado.id);
 			await cadastrarImagens(produtoCriado.id);
-		} catch (error) {
-			toast.error("Ocorreu um erro ao cadastrar o produto: " + error.message);
-		}
 
-		toast.success("Produto cadastrado com sucesso!");
-		clear();
+			toast.success("Produto cadastrado com sucesso!");
+			clear();
+		} catch (error) {
+			let modo = "cadastrar";
+			if (editModeOn) {
+				modo = "editar";
+			}
+			toast.error(`Ocorreu um erro ao ${modo} o produto: ${error.message}`);
+		}
 	}
 
 	async function cadastrarTags(idProduto) {
@@ -142,7 +146,7 @@ function CadastroProdutos() {
 		await desassociarProduto(id);
 	}
 
-	async function desassociarProduto() {}
+	async function desassociarProduto(id) {}
 
 	async function getProduto() {
 		const produto = await produtosModel.buscarProdutoPorId(id);
