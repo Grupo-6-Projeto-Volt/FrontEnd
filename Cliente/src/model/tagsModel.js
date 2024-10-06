@@ -49,12 +49,23 @@ export const tagsModel = {
 			});
 		return resposta;
 	},
-	exportarTag: ({id,tag})=>{
-		let resposta = api
-			.get("/tags/exportar",[{id:tag}])
-			.then((resultado) => {
-				console.log('Enviou')
-				return resultado.data;
+	exportarTag: (tags)=>{
+		console.log(tags)
+		let resposta = api.post(
+			"/tags/exportar",JSON.stringify(tags),{
+				headers: {
+					"Content-Type": "application/json"
+				}
+			}
+		).then((resultado) => {
+				console.log('Enviou '+ resultado.data)
+				const blob = new Blob([resultado.data], { type: 'text/csv' });
+				const url = URL.createObjectURL(blob);
+				const file = document.createElement('a');
+				file.href = url;
+				file.download = 'tags.csv'; 
+				file.click();
+				URL.revokeObjectURL(url);
 			})
 			.catch((erro) => {
 				console.log("Houve um erro:", erro);

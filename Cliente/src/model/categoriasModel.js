@@ -49,4 +49,5 @@ export const categoriasModel = {
 			});
 		return resposta;
 	},
+	
 };

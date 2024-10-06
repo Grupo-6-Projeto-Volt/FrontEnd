@@ -338,12 +338,14 @@ function CrudCategorias() {
 
 	async function getCategoriasNames(){	
 		try{
-			let response = await categoriasModel.listarCategorias();
-			response.forEach((categoria)=>{
-				console.log(categoria)
-			})
-		}catch(error){
-			console.log(error)
+			let response = await categoriasModel.listarTags();
+			if(response !== undefined || response !== ''){
+				categoriasModel.exportarTag(response.arr)
+			}else{
+				alert("Não há categorias registradas")
+			}
+		} catch (error) {
+			console.error("Erro:", error);
 		}
 	}
 

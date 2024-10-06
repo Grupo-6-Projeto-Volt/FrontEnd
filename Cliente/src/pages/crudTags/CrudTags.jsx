@@ -337,9 +337,11 @@ function CrudTags() {
 	async function getTagsNames(){
 		try{
 			let response = await tagsModel.listarTags();
-			response.arr.forEach((tag) => {
-				tagsModel.exportarTag(tag)
-			});
+			if(response !== undefined || response !== ''){
+				tagsModel.exportarTag(response.arr)
+			}else{
+				alert("Não há tags registradas")
+			}
 		} catch (error) {
 			console.error("Erro:", error);
 		}
