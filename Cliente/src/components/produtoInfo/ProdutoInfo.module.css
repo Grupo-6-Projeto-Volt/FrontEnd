@@ -15,7 +15,11 @@
 }
 
 .imagens-produto{
-    width: 70%;
+    width: 63%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 30px;
 }
 
 .info-produto{
@@ -25,6 +29,7 @@
 .conteiner-info{
     display: flex;
     flex-direction: row;
+    height: 350px;
 }
 
 .img-iphonePrincipal{
@@ -59,40 +64,18 @@
     flex-direction: row;
 }
 
-.cor-vermelha{
-    background-color: #A93933;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    margin-left: 2%;
-}
-
-.cor-azul{
-    background-color: #394578;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    margin-left: 2%;
-}
-
-.cor-preta{
-    background-color: #323232;
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    margin-left: 2%;
-}
-
 .botao-comprar{
     height: 50px;
     border-radius: 50px;
     margin-top: 1%;
     width: 95%;
+    cursor: pointer;
 }
 
 .img-iphone-secundarias img {
-    width: 200px; 
-    margin: 10px; 
+    width: 150px; 
+    margin: 10px;
+    cursor: pointer;
   }
 
 .conteiner-fotos{
@@ -102,6 +85,53 @@
 }
 
 .imagem-principal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 50%;
-    margin-left: 20%;
 }
+
+.carousel {
+    display: flex;
+    align-items: center;
+  }
+  
+.carousel-images {
+    display: flex;
+    overflow: hidden; 
+    width: 100%; 
+  }
+  
+  .img-iphone-secundarias {
+    margin: 0 5px; 
+    cursor: pointer;
+  }
+  
+  .img-iphone-secundarias:hover {
+    transition: box-shadow 0.3s ease-in-out;
+    border: #00000081 2px solid;
+    border-radius: 10px;
+  }
+
+  .btn-prev {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("https://img.icons8.com/ios/30/chevron-left.png");
+  }
+  
+  .btn-next {
+    width: 30px;
+    cursor: pointer;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url("https://img.icons8.com/ios/30/chevron-right.png");
+  }
+
+  .btn-prev:disabled,
+  .btn-next:disabled {
+    cursor: not-allowed; 
+    opacity: 0.5; 
+  }
+  
