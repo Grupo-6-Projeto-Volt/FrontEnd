@@ -7,6 +7,8 @@ import { FaCheck, FaPencil, FaTrash, FaX } from "react-icons/fa6";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 import { useEffect, useState } from "react";
 import { categoriasModel } from "../../model/categoriasModel";
+import ExportButton from "../../components/exportButton/ExportButton"
+
 
 function CrudCategorias() {
 	let [categorias, setCategorias] = useState([]);
@@ -334,6 +336,19 @@ function CrudCategorias() {
 		getCategoryList();
 	}
 
+	async function getCategoriasNames(){	
+		try{
+			let response = await categoriasModel.listarCategorias();
+			if(response !== undefined || response !== ''){
+				categoriasModel.exportarCategoria(response)
+			}else{
+				alert("Não há categorias registradas")
+			}
+		} catch (error) {
+			console.error("Erro:", error);
+		}
+	}
+
 	return (
 		<div className={styles["CrudCategorias"]}>
 			<Sidebar />
@@ -359,6 +374,11 @@ function CrudCategorias() {
 								<option value="1">Nome Desc</option>
 							</select>
 						</div>
+						<ExportButton
+						onClick={() => {
+							getCategoriasNames()
+						}}
+						></ExportButton>
 					</div>
 					<div className={styles["table-area"]}>
 						<Table headers={headersCategorias} values={categorias} limit={8} />

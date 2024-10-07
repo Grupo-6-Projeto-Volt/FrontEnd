@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 import { produtosModel } from "../../model/produtosModel";
 import { useEffect, useState } from "react";
+import ExportButton from "../../components/exportButton/ExportButton";
 
 function ListagemProdutos() {
 	let navigate = useNavigate();
@@ -184,6 +185,19 @@ function ListagemProdutos() {
 			console.error("Erro:", error);
 		}
 	}
+	async function getProdutosInfo(){
+		try{
+			let response = await produtosModel.listarProdutos();
+			console.log(response)
+			if(produtos.length !== 0 || produtos !== undefined){
+				produtosModel.exportarProduto(response)
+			}else{
+				console.log("Não há produtos registrados")
+			}
+		}catch(error){
+			console.log(error)
+		}
+	}
 
 	return (
 		<div className={styles["ListagemProdutos"]}>
@@ -218,6 +232,12 @@ function ListagemProdutos() {
 							text={"Adicionar Produto"}
 							onClick={handleNewProductPress}
 						/>
+						<ExportButton
+						onClick={()=>{
+							getProdutosInfo()
+						}
+						}
+						></ExportButton>
 					</div>
 					<div className={styles["table-area"]}>
 						<Table headers={headersProdutos} values={produtos} limit={5} />
