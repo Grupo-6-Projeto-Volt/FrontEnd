@@ -13,7 +13,19 @@ export const tagsModel = {
 			});
 		return resposta;
 	},
-	inserirTag: ({tag}) => {
+	buscarTagPorNome: (tag) => {
+		let resposta = api
+			.get(`/tags/buscar-tag-por-nome?tag=${tag}`)
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
+	inserirTag: (tag) => {
 		let resposta = api
 			.post("/tags", { tag: tag })
 			.then((resultado) => {

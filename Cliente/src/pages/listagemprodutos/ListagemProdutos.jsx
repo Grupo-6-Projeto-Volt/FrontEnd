@@ -112,13 +112,19 @@ function ListagemProdutos() {
 						return (
 							<img
 								className={styles["list-image"]}
-								src={produto.imagensProduto[0].codigoImagem}
+								src={
+									produto.imagensProduto[0] !== undefined
+										? produto.imagensProduto[0].codigoImagem
+										: "https://ircsan.com/wp-content/uploads/2024/03/placeholder-image.png"
+								}
 								alt="Iphone"
 							/>
 						);
 					},
 					id: produto.id,
-					nome: produto.nome,
+					nome: () => {
+						return <div className={styles["nome-prod"]}>{produto.nome}</div>;
+					},
 					categoria: produto.categoria,
 					estado: produto.estadoGeral,
 					preco: "R$" + Number(produto.preco).toFixed(2),
