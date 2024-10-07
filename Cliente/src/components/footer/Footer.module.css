@@ -8,6 +8,7 @@
 }
 
 .container-footer{
+    width: 97%;
     background-color: #BB2020;
     color: white;
     display: flex;

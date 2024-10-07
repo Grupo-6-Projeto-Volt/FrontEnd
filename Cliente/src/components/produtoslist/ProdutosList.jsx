@@ -4,7 +4,7 @@ import { produtos } from "../../model/ProdutosListModel";
 import { Produto } from "../productcard/ProductCard";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { clickProd } from "./ProdutosList.js";
 export const itemWidth = 130;
 export const padding = 16;
 export const prev = document.getElementById("prev-btn");
@@ -16,6 +16,7 @@ export function ProdutosData({ secao, nome }) {
   const navigateToProduct = (idProduto) => {
     navigate("/productpage");
     localStorage.idProduto = idProduto;
+    clickProd.adicionaClick();
   };
 
   function handleClick(btn) {
