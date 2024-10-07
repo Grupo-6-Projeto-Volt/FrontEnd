@@ -4,6 +4,9 @@ export const Produto = ({
     estado,
     imgUrl,
     preco = 0
+
+
+    
 }) => {
     return (
         <div className={styles["produto"]}>
