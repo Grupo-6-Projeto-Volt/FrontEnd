@@ -2,6 +2,7 @@ import styles from "./ProdutosList.module.css";
 import { produtos } from "../../model/ProdutosListModel";
 import { Produto } from "../productcard/ProductCard";
 import React, { useEffect, useState } from "react";
+import { clickProd } from "./ProdutosList.js";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export const itemWidth = 130;
@@ -24,6 +25,7 @@ export function ProdutosData({ secao, nome }) {
       navigate(`/productpage`);
       localStorage.setItem("idProduto", idProduto); 
     }
+    clickProd.adicionaClick();
   };
 
   function handleClick(btn) {

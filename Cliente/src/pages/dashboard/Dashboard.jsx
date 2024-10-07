@@ -104,7 +104,7 @@ export default function Dashboard() {
 							</div>
 						</div>
 						<div className={styles["Graphics"]}>
-							<div className={styles["Graphictittle"]}>
+							{/* <div className={styles["Graphictittle"]}>
 								<h3>Chamados de produto</h3>
 							</div>
 							<div className={styles["Columngraphic"]}>
@@ -112,7 +112,7 @@ export default function Dashboard() {
 									data={column_data}
 									options={column_options}
 								></ColumnData>
-							</div>
+							</div> */}
 							<div className={styles["Graphictittle"]}>
 								<h3>Acessos por categorias</h3>
 							</div>

@@ -12,7 +12,6 @@ export function ListFav(){
         console.log(favoritosDados);
         try {
             response = await favoritos.listarFavoritos();
-            // listaAux = 
             console.log(response)
             setFavoritosDados(response)
         } catch (e) {
@@ -24,22 +23,6 @@ export function ListFav(){
         }
     }
 
-    function formatarFavoritos(favoritos){
-        let favoritosFormatados = [];
-        if(favoritos){
-            console.log(favoritos)
-            favoritos.forEach((favorito) => {
-                console.log(favorito.produto)
-                favoritosFormatados.push({
-                    preco: favorito.produto.preco === undefined ? favorito.preco : favorito.produto.preco,
-                    nome: favorito.produto.nome ?? favorito.nome,
-                    imagemProduto: favorito.produto.imagensProduto.at(0).codigoImagem ?? favorito.imagemProduto,
-                    idFav: favorito.id ?? favorito.idFav
-                });
-            });
-        }
-        setFavoritosDados(favoritosFormatados)
-    } 
     
     useEffect(() => {
         if(favoritosDados){
