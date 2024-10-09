@@ -29,7 +29,7 @@ function ExportButton({onClick, bgColor, fgColor, border }) {
     setShowExportOptions(false);
   };
   
-  const handleClose = () => setOpen(false);
+  const buttonFecharModel = () => setOpen(false);
 
   const handleImportClick = () => {
     setShowImportOptions(true);
@@ -45,7 +45,7 @@ function ExportButton({onClick, bgColor, fgColor, border }) {
     inputFileRef.current.click();
   };
 
-  const handleFileUpload = (event) => {
+  const fileUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
       alert(`Arquivo selecionado: ${file.name}`);
@@ -61,7 +61,6 @@ function ExportButton({onClick, bgColor, fgColor, border }) {
       >
         Exportar / Importar
       </button>
-
       <Modal
         open={open}
         onClose={handleClose}
@@ -70,7 +69,7 @@ function ExportButton({onClick, bgColor, fgColor, border }) {
       >
         <Box sx={style}>
 		<Button 
-            onClick={handleClose}
+            onClick={buttonFecharModel}
             style={{
               position: 'absolute',
               top: '10px',
@@ -128,7 +127,7 @@ function ExportButton({onClick, bgColor, fgColor, border }) {
                 ref={inputFileRef}
                 style={{ display: "none" }}
                 accept=".txt" 
-                onChange={handleFileUpload}
+                onChange={fileUpload}
               />
             </div>
           )}
