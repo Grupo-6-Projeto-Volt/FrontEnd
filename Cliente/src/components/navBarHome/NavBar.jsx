@@ -38,7 +38,7 @@ export const NavBarPadrao = () => {
 					</h2></a>;
 			} else {
 				return <h2 className={styles['helloUser']}>Olá, {sessionStorage.getItem('NOME')}
-					</h2>
+				</h2>
 			}
 		}
 	}
@@ -82,16 +82,27 @@ export const NavBarPadrao = () => {
 				</div>
 			</div>
 			<div className={styles["navBarBaixo"]}>
-				<ul>
+				<input className={styles["menu-hamburguer"]} id="menu-hamburguer" type="checkbox" />
+				<label for="menu-hamburguer">
+					<div className={styles['menu']}>
+						<span className={styles['hamburguer']}></span>
+					</div>
+				</label>
+				<ul className={styles['menu-hamburguer-elements']}>
 					<li>Mais Comprados</li>
+					<div className={styles["separator"]}></div>
 					<li>Comprar Novamente</li>
+					<div className={styles["separator"]}></div>
 					<li>Ofertas</li>
+					<div className={styles["separator"]}></div>
 					<li onClick={() => navigate("/pagina-produtos/Celulares/Celular")}>
 						Celulares
 					</li>
+					<div className={styles["separator"]}></div>
 					<li onClick={() => navigate("/pagina-produtos/Notebooks/Computador")}>
 						Notebooks
 					</li>
+					<div className={styles["separator"]}></div>
 					<li onClick={() => navigate("/pagina-produtos/Acessórios/Acessório")}>
 						Acessórios
 					</li>
