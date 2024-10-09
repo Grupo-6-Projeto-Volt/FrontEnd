@@ -14,7 +14,7 @@ const Home = () => {
 	return (
 		<>
 		<div className={styles["temp"]}>
-			<NavBarPadrao />
+			<NavBarPadrao className={styles['nav']} />
 			<div className={styles["container"]}>
 				<Banner />
 				<Lancamentos
