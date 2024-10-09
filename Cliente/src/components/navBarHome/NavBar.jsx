@@ -69,7 +69,7 @@ export const NavBarPadrao = () => {
 							onClick={handleClickSearch}
 						/>
 					</div>
-					<h3>|</h3>
+					<h3 className={styles['pipe']}>|</h3>
 					<div className={styles["usuarioDiv"]}>
 						{validateAuthentication()}
 						<FaRegHeart
@@ -83,7 +83,7 @@ export const NavBarPadrao = () => {
 			</div>
 			<div className={styles["navBarBaixo"]}>
 				<input className={styles["menu-hamburguer"]} id="menu-hamburguer" type="checkbox" />
-				<label for="menu-hamburguer">
+				<label className={styles['label-menu']} for="menu-hamburguer">
 					<div className={styles['menu']}>
 						<span className={styles['hamburguer']}></span>
 					</div>
@@ -107,6 +107,20 @@ export const NavBarPadrao = () => {
 						Acessórios
 					</li>
 				</ul>
+				<div className={styles["pesquisa-responsive"]}>
+					<input
+						type="text"
+						id="busca-produto"
+						value={busca}
+						onChange={handleInputChange}
+						onKeyDown={handleKeyDown}
+						placeholder="Pesquisar..."
+					/>
+					<FaSearch
+						className={styles["search-responsive"]}
+						onClick={handleClickSearch}
+					/>
+				</div>
 			</div>
 		</nav>
 	);
