@@ -3,16 +3,15 @@ import Navbar from "../../components/navbar/dashboard/Navbar";
 import Searchbar from "../../components/searchbar/Searchbar";
 import Table from "../../components/list/Table";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { FaCheck, FaPencil, FaTrash, FaX } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 import { produtosModel } from "../../model/produtosModel";
 import { useEffect, useState } from "react";
+import ConfirmCancelActionButton from "../../components/confirmcancelactionbutton/ConfirmCancelActionButton";
 
 function ListagemProdutos() {
 	const navigate = useNavigate();
-	const [action, setAction] = useState("");
-	const [enabledAction, setEnabledAction] = useState(false);
+
 	const [produtos, setProdutos] = useState([]);
 	const headersProdutos = [
 		"",
@@ -24,24 +23,23 @@ function ListagemProdutos() {
 		"",
 	];
 
-	function handleSubmit(action) {
-		setAction(action);
+	function handleDelete(id) {
+		let response = async () => {
+			await produtosModel
+				.deletarProduto(id)
+				.then((response) => {
+					console.log(response);
+				})
+				.catch((error) => {
+					console.log("Houve um erro ao deletar o produto:", error);
+				});
+			getProductsList();
+		};
+		response();
 	}
 
-	function changeAction() {
-		setEnabledAction(!enabledAction);
-	}
-
-	async function handleDelete(id) {
-		await produtosModel
-			.deletarProduto(id)
-			.then((response) => {
-				console.log(response);
-			})
-			.catch((error) => {
-				console.log("Houve um erro ao deletar o produto:", error);
-			});
-		getProductsList();
+	function handleEdit(id) {
+		navigate(`/editar-produtos/${id}`);
 	}
 
 	useEffect(() => {
@@ -51,63 +49,35 @@ function ListagemProdutos() {
 	async function getProductsList() {
 		try {
 			let response = await produtosModel.listarProdutos();
+			let produtos = [];
+
 			response.forEach((produto) => {
-				setProdutos((produtos) => [
-					...produtos,
-					{
-						image: () => {
-							return (
-								<img
-									className={styles["list-image"]}
-									src={produto.imagensProduto[0].codigoImagem}
-									alt="Iphone"
-								/>
-							);
-						},
-						id: produto.id,
-						nome: produto.nome,
-						categoria: produto.categoria,
-						estado: produto.estadoGeral,
-						preco: "R$" + Number(produto.preco).toFixed(2),
-						acoes: () => {
-							return (
-								<div className={styles["list-btn-area"]}>
-									<FaPencil
-										cursor={"pointer"}
-										onClick={() => {
-											handleSubmit("editar");
-											navigate(`/editar-produtos/${produto.id}`);
-										}}
-									/>
-									<FaTrash
-										cursor={"pointer"}
-										onClick={() => {
-											handleSubmit("deletar");
-											changeAction();
-										}}
-									/>
-									<FaCheck
-										cursor={"pointer"}
-										display={!enabledAction ? "none" : "block"}
-										onClick={() => {
-											if (action === "deletar") {
-												handleDelete(produto.id);
-												getProductsList();
-											}
-											changeAction();
-										}}
-									/>
-									<FaX
-										cursor={"pointer"}
-										display={!enabledAction ? "none" : "block"}
-										onClick={changeAction}
-									/>
-								</div>
-							);
-						},
+				produtos.push({
+					image: () => {
+						return (
+							<img
+								className={styles["list-image"]}
+								src={produto.imagensProduto[0].codigoImagem}
+								alt="Iphone"
+							/>
+						);
 					},
-				]);
+					id: produto.id,
+					nome: produto.nome,
+					categoria: produto.categoria,
+					estado: produto.estadoGeral,
+					preco: "R$" + Number(produto.preco).toFixed(2),
+					acoes: () => {
+						return (
+							<ConfirmCancelActionButton
+								onEdit={() => handleEdit(produto.id)}
+								onDelete={() => handleDelete(produto.id)}
+							/>
+						);
+					},
+				});
 			});
+			setProdutos(produtos);
 		} catch (error) {
 			console.error("Erro:", error);
 		}
@@ -145,7 +115,6 @@ function ListagemProdutos() {
 						<DefaultButton
 							text={"Adicionar Produto"}
 							onClick={() => {
-								handleSubmit("criar");
 								navigate("/cadastro-produtos");
 							}}
 						/>
