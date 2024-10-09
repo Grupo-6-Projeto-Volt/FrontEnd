@@ -15,94 +15,175 @@ import { useNavigate, useParams } from "react-router-dom";
 import { produtosModel } from "../../model/produtosModel";
 import { categoriasModel } from "../../model/categoriasModel";
 import { tagsModel } from "../../model/tagsModel";
+import { classificacaoProdutosModel } from "../../model/classificacaoProdutosModel";
+import { imagemProdutosModel } from "../../model/imagemProdutosModel";
+import { corProdutosModel } from "../../model/corProdutosModel copy";
+import { ToastContainer, toast } from "react-toastify";
 
 function CadastroProdutos() {
-	let [nome, setNome] = useState("");
-	let [categoria, setCategoria] = useState("");
-	let [estado, setEstado] = useState("");
-	let [preco, setPreco] = useState("");
-	let [descricao, setDescricao] = useState("");
-	let [desconto, setDesconto] = useState("");
-
-	let [dataInicioDesconto, setDataInicioDesconto] = useState("");
-	let [dataFimDesconto, setDataFimDesconto] = useState("");
-
-	let [imagens, setImagens] = useState([]);
-	let [tags, setTags] = useState([]);
-	let [cores, setCores] = useState([]);
-
-	let [aplicarDesconto, setAplicarDesconto] = useState(false);
-
 	const { id } = useParams();
-	let navigate = useNavigate();
-
-	let [editModeOn, setEditModeOn] = useState(id !== undefined);
-	let [produto, setProduto] = useState(null);
-	let [categorias, setCategorias] = useState([]);
-	let [allTags, setAllTags] = useState([]);
-
+	const navigate = useNavigate();
 	const dragItem = useRef(0);
 	const draggedOverItem = useRef(0);
+	const [nome, setNome] = useState("");
+	const [preco, setPreco] = useState("");
+	const [categoria, setCategoria] = useState("");
+	const [estado, setEstado] = useState("");
+	const [descricao, setDescricao] = useState("");
+	const [desconto, setDesconto] = useState("");
+	const [dataInicioDesconto, setDataInicioDesconto] = useState("");
+	const [dataFimDesconto, setDataFimDesconto] = useState("");
+	const [imagens, setImagens] = useState([]);
+	const [tag, setTag] = useState("");
+	const [tags, setTags] = useState([]);
+	const [cor, setCor] = useState("");
+	const [cores, setCores] = useState([]);
+	const [aplicarDesconto, setAplicarDesconto] = useState(false);
+	const [editModeOn, setEditModeOn] = useState(id !== undefined);
+	const [categorias, setCategorias] = useState([]);
+	const [allTags, setAllTags] = useState([]);
 
 	function handleSort() {
-		const imagesClone = [...imagens];
-		const aux = imagesClone[dragItem.current];
+		let imagesClone = [...imagens];
+		let aux = imagesClone[dragItem.current];
 		imagesClone[dragItem.current] = imagesClone[draggedOverItem.current];
 		imagesClone[draggedOverItem.current] = aux;
 		setImagens(imagesClone);
 	}
 
-	function handleSubmit() {
-		console.log("Nome:", nome);
-		console.log("Categoria:", categoria);
-		console.log("Estado:", estado);
-		console.log("Preço:", preco);
-		console.log("Descrição:", descricao);
-		console.log("Desconto:", desconto);
-		console.log("Data Início Desconto:", dataInicioDesconto);
-		console.log("Data Fim Desconto:", dataFimDesconto);
-		console.log("Imagens:", imagens);
-		console.log("Tags:", tags);
-		console.log("Cores:", cores);
-		alert("Produto Cadastrado!");
+	function clear() {
+		setNome("");
+		setCategoria("");
+		setEstado("");
+		setPreco("");
+		setDescricao("");
+		setDesconto("");
+		setDataInicioDesconto("");
+		setDataFimDesconto("");
+		setTag("");
+		setCor("");
+		setCores("");
+		setImagens([]);
+		setTags([]);
+		setCores([]);
+		setAplicarDesconto(false);
+	}
+
+	async function handleSubmit() {
+		await operacao();
+	}
+
+	async function operacao() {
+		let modo = {
+			sucesso: editModeOn ? "editado" : "cadastrado",
+			erro: editModeOn ? "editar" : "cadastrar",
+		};
+
+		try {
+			let produtoCriado;
+
+			let categoriaEncontrada = await categoriasModel.buscarCategoriaPorNome(
+				categoria
+			);
+
+			if (editModeOn) {
+				await desassociarProduto(id);
+				produtoCriado = await produtosModel.alterarProduto(
+					id,
+					nome,
+					descricao,
+					preco,
+					1,
+					estado,
+					desconto,
+					dataInicioDesconto,
+					dataFimDesconto,
+					categoriaEncontrada.id
+				);
+			} else {
+				produtoCriado = await produtosModel.adicionarProduto(
+					nome,
+					descricao,
+					preco,
+					1,
+					estado,
+					desconto,
+					dataInicioDesconto,
+					dataFimDesconto,
+					categoriaEncontrada.id
+				);
+			}
+
+			await cadastrarTags(produtoCriado.id);
+			await cadastrarCores(produtoCriado.id);
+			await cadastrarImagens(produtoCriado.id);
+
+			toast.success(`Produto ${modo.sucesso} com sucesso!`);
+
+			if (!editModeOn) clear();
+		} catch (error) {
+			toast.error(
+				`Ocorreu um erro ao ${modo.erro} o produto: ${error.message}`
+			);
+		}
+	}
+
+	async function cadastrarTags(idProduto) {
+		tags.forEach(async (tag) => {
+			await tagsModel.inserirTag(tag);
+
+			const tagEncontrada = await tagsModel.buscarTagPorNome(tag);
+
+			await classificacaoProdutosModel.associarTagProduto(
+				idProduto,
+				tagEncontrada.id
+			);
+
+			getTags();
+		});
+	}
+
+	async function cadastrarCores(idProduto) {
+		cores.forEach(async (cor) => {
+			await corProdutosModel.associarCorProduto(cor.nome, cor.hexId, idProduto);
+		});
+	}
+
+	async function cadastrarImagens(idProduto) {
+		for (let i = 0; i < imagens.length; i++) {
+			await imagemProdutosModel.associarImagemProduto(
+				imagens[i].nome,
+				imagens[i].codigoImagem,
+				i,
+				idProduto
+			);
+		}
+	}
+
+	async function desassociarProduto(id) {
+		await imagemProdutosModel.desassociarImagemProduto(id);
+		await classificacaoProdutosModel.desassociarTagProduto(id);
+		await corProdutosModel.desassociarCorProduto(id);
 	}
 
 	async function getProduto() {
-		let produto = await produtosModel.buscarProdutoPorId(id);
-		console.log(produto);
+		const produto = await produtosModel.buscarProdutoPorId(id);
 
 		setNome(produto.nome);
 		setPreco(produto.preco);
 		setCategoria(produto.categoria);
 		setEstado(produto.estadoGeral);
 		setDescricao(produto.descricao);
-		setAplicarDesconto(produto.desconto === 0 ? false : true);
+		setAplicarDesconto(produto.desconto > 0 ? true : false);
 		setDesconto(produto.desconto);
 		setDataInicioDesconto(produto.dataInicioDesconto);
 		setDataFimDesconto(produto.dataFimDesconto);
 
-		document.getElementById("ipt_nome").value = produto.nome;
-		document.getElementById("ipt_preco").value = `R$${Number(
-			produto.preco
-		).toFixed(2)}`;
-		document.getElementById("ipt_categoria").value = produto.categoria;
-		document.getElementById("ipt_estado").value = produto.estadoGeral;
-		document.getElementById("ipt_desc").value = produto.descricao;
-
-		document.getElementById("ipt_check_discount").checked =
-			produto.desconto === 0 ? false : true;
-
-		document.getElementById("ipt_vlr_desconto").value = `${produto.desconto}%`;
-		document.getElementById("ipt_data_inicio_desconto").value =
-			produto.dataInicioDesconto;
-		document.getElementById("ipt_data_fim_desconto").value =
-			produto.dataFimDesconto;
-
 		let listaImagens = [];
 		for (let i = 0; i < produto.imagensProduto.length; i++) {
 			listaImagens.push({
-				name: produto.imagensProduto[i].nome,
-				url: produto.imagensProduto[i].codigoImagem,
+				nome: produto.imagensProduto[i].nome,
+				codigoImagem: produto.imagensProduto[i].codigoImagem,
 			});
 		}
 
@@ -113,14 +194,16 @@ function CadastroProdutos() {
 
 		let listaCores = [];
 		produto.coresProduto.forEach((item) => {
-			listaCores.push(item.hexId);
+			listaCores.push({
+				nome: item.nome,
+				hexId: item.hexId,
+			});
 		});
 
-		setAplicarDesconto(produto.desconto === 0 ? false : true);
+		setAplicarDesconto(produto.desconto > 0 ? true : false);
 		setTags(listaTagsProduto);
 		setImagens(listaImagens);
 		setCores(listaCores);
-		setProduto(produto);
 	}
 
 	async function getTags() {
@@ -129,7 +212,6 @@ function CadastroProdutos() {
 		response.arr.forEach((item) => {
 			listaTodasTags.push(item.tag);
 		});
-		console.log(listaTodasTags);
 		setAllTags(listaTodasTags);
 	}
 
@@ -144,7 +226,7 @@ function CadastroProdutos() {
 
 	async function handleDelete(id) {
 		await produtosModel.deletarProduto(id);
-		alert("Produto deletado com sucesso!");
+		toast.success("Produto deletado com sucesso!");
 		navigate("/listagem-produtos");
 	}
 
@@ -158,6 +240,7 @@ function CadastroProdutos() {
 
 	return (
 		<div className={styles["CadastroProdutos"]}>
+			<ToastContainer />
 			<Navbar />
 			<Sidebar />
 			<div className={styles["content"]}>
@@ -172,18 +255,21 @@ function CadastroProdutos() {
 									<InputText
 										id={"ipt_nome"}
 										tituloCampo={"Nome Produto"}
+										value={nome}
 										placeholder={"Ex: Iphone 13 Max"}
 										onChange={(e) => setNome(e.target.value)}
 									/>
 									<InputSelection
 										id={"ipt_categoria"}
 										tituloCampo={"Categoria"}
+										value={categoria}
 										items={categorias}
 										onChange={(e) => setCategoria(e.target.value)}
 									/>
 									<InputSelection
 										id={"ipt_estado"}
 										tituloCampo={"Estado do Produto"}
+										value={estado}
 										items={[
 											"NA",
 											"Novo",
@@ -197,12 +283,14 @@ function CadastroProdutos() {
 									<InputText
 										id={"ipt_preco"}
 										tituloCampo={"Preço do Produto"}
+										value={preco}
 										placeholder={"Ex: R$500,00"}
 										onChange={(e) => setPreco(e.target.value)}
 									/>
 									<InputBigText
 										id={"ipt_desc"}
 										tituloCampo={"Descrição do Produto"}
+										value={descricao}
 										placeholder={
 											"Ex: Descrição técnica e características do produto"
 										}
@@ -228,23 +316,22 @@ function CadastroProdutos() {
 												setImagens((imagens) => [
 													...imagens,
 													{
-														name: selectedImages[i].name,
-														url: URL.createObjectURL(selectedImages[i]),
+														nome: selectedImages[i].name,
+														codigoImagem: URL.createObjectURL(
+															selectedImages[i]
+														),
 													},
 												]);
 											}
 										}}
 									/>
-									<div
-										className={styles["image-list"]}
-										style={{ height: imagens.length > 3 ? "10rem" : "auto" }}
-									>
+									<div className={styles["image-list"]}>
 										{imagens &&
 											imagens.map((e, key) => (
 												<ImageListItem
 													key={key}
-													nomeImagem={e.name}
-													imagem={e.url}
+													nomeImagem={e.nome}
+													imagem={e.codigoImagem}
 													draggable={true}
 													onDragStart={() => (dragItem.current = key)}
 													onDragEnter={() => (draggedOverItem.current = key)}
@@ -269,23 +356,23 @@ function CadastroProdutos() {
 								<div className={styles["product-tags-form"]}>
 									<InputDatalist
 										tituloCampo={"Adicionar Tag"}
+										value={tag}
 										values={allTags}
 										onClick={() => {
-											let item = document.getElementById("inputList");
-											let valor = item.value;
-
-											if (valor.trim() && valor.length > 3) {
-												if (!tags.includes(valor)) {
-													setTags((tags) => [...tags, valor]);
+											if (tag.trim() && tag.length > 3) {
+												if (!tags.includes(tag)) {
+													setTags((tags) => [...tags, tag]);
+													setTag("");
 												} else {
-													alert("Tag já existente");
+													toast.error("Tag já existente");
 												}
 											} else {
-												alert("Tag inválida. Deve ter pelo menos 4 caracteres");
+												toast.error(
+													"Tag inválida. Deve ter pelo menos 4 caracteres"
+												);
 											}
-
-											item.value = "";
 										}}
+										onChange={(e) => setTag(e.target.value)}
 									/>
 									<div
 										className={styles["tag-list"]}
@@ -319,15 +406,19 @@ function CadastroProdutos() {
 										tituloCampo={
 											"Escolha as cores disponíveis para este produto"
 										}
-										onClick={() => {
-											let item = document.getElementById("color");
-											let valor = item.value;
-											setCores((cores) => [...cores, valor]);
+										onClick={(e) => {
+											setCor(e.target.value);
+											setCores((cores) => [
+												...cores,
+												{ nome: cor, hexId: cor },
+											]);
 										}}
-										onChange={() => {
-											let item = document.getElementById("color");
-											let valor = item.value;
-											setCores((cores) => [...cores.slice(0, -1), valor]);
+										onChange={(e) => {
+											setCor(e.target.value);
+											setCores((cores) => [
+												...cores.slice(0, -1),
+												{ nome: cor, hexId: cor },
+											]);
 										}}
 									/>
 									<div
@@ -338,7 +429,7 @@ function CadastroProdutos() {
 											cores.map((e, key) => (
 												<div
 													key={key}
-													style={{ backgroundColor: e }}
+													style={{ backgroundColor: e.hexId }}
 													className={styles["color-card"]}
 												>
 													<button
@@ -366,6 +457,7 @@ function CadastroProdutos() {
 										<label className={styles["switch"]}>
 											<input
 												id="ipt_check_discount"
+												checked={aplicarDesconto}
 												type="checkbox"
 												onChange={(e) => {
 													setAplicarDesconto(e.target.checked);
@@ -373,17 +465,6 @@ function CadastroProdutos() {
 														setDesconto("");
 														setDataInicioDesconto("");
 														setDataFimDesconto("");
-
-														document.getElementById("ipt_vlr_desconto").value =
-															"";
-
-														document.getElementById(
-															"ipt_data_inicio_desconto"
-														).value = "";
-
-														document.getElementById(
-															"ipt_data_fim_desconto"
-														).value = "";
 													}
 												}}
 											/>
@@ -397,17 +478,17 @@ function CadastroProdutos() {
 										<InputText
 											id={"ipt_vlr_desconto"}
 											tituloCampo={"Desconto do Produto"}
+											value={desconto}
 											placeholder={"%"}
 											onChange={(e) => {
 												let value = e.target.value.replace(",", ".");
 												if (Number(value) >= 0 && Number(value) <= 100) {
 													setDesconto(value);
 												} else {
-													alert(
+													toast.error(
 														"Desconto inválido. Deve ser um número entre 0 e 100."
 													);
 													setDesconto("");
-													e.target.value = "";
 													e.target.focus();
 												}
 											}}
@@ -415,6 +496,7 @@ function CadastroProdutos() {
 										<InputDate
 											id={"ipt_data_inicio_desconto"}
 											tituloCampo={"Data de Início do Desconto"}
+											value={dataInicioDesconto}
 											onChange={(e) => setDataInicioDesconto(e.target.value)}
 											onBlur={() => {
 												if (
@@ -422,33 +504,27 @@ function CadastroProdutos() {
 													dataInicioDesconto <
 														new Date().toISOString().split("T")[0]
 												) {
-													alert(
+													toast.error(
 														"Data de Início do Desconto inválida. Deve ser posterior à data atual."
 													);
 													setDataInicioDesconto("");
-
-													document.getElementById(
-														"ipt_data_inicio_desconto"
-													).value = "";
 												}
 											}}
 										/>
 										<InputDate
 											id={"ipt_data_fim_desconto"}
 											tituloCampo={"Data de Fim do Desconto"}
+											value={dataFimDesconto}
 											onChange={(e) => setDataFimDesconto(e.target.value)}
 											onBlur={() => {
 												if (
 													dataFimDesconto &&
 													dataFimDesconto < dataInicioDesconto
 												) {
-													alert(
+													toast.error(
 														"Data de Fim do Desconto inválida. Deve ser posterior à Data de Início do Desconto."
 													);
 													setDataFimDesconto("");
-													document.getElementById(
-														"ipt_data_fim_desconto"
-													).value = "";
 												}
 											}}
 										/>
@@ -485,7 +561,7 @@ function CadastroProdutos() {
 							<DefaultButton text={"Atualizar"} onClick={handleSubmit} />
 							<DefaultButton text={"Visualizar Layout"} />
 							<button
-								className={styles["delete-btn"]}
+								className={styles["Delete-btn"]}
 								onClick={() => {
 									handleDelete(id);
 								}}

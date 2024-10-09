@@ -1,6 +1,38 @@
 import api from "../api";
 
 export const produtosModel = {
+	adicionarProduto: (
+		nome,
+		descricao,
+		preco,
+		qtdEstoque,
+		estadoGeral,
+		desconto,
+		dataInicioDesconto,
+		dataFimDesconto,
+		idCategoria
+	) => {
+		let resposta = api
+			.post("/produtos/estoque", {
+				nome: nome,
+				descricao: descricao,
+				preco: preco,
+				qtdEstoque: qtdEstoque,
+				estadoGeral: estadoGeral,
+				desconto: desconto,
+				dataInicioDesconto: dataInicioDesconto,
+				dataFimDesconto: dataFimDesconto,
+				idCategoria: idCategoria,
+			})
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
 	listarProdutos: () => {
 		let resposta = api
 			.get("/produtos/loja")
@@ -72,4 +104,62 @@ export const produtosModel = {
 			});
 		return resposta;
 	},
+	exportarProduto: (produtos) => {
+		console.log(produtos)
+		let resposta = api.post(
+			"/produtos/exportar", JSON.stringify(produtos), {
+			headers: {
+				"Content-Type": "application/json"
+			}
+		}
+		).then((resultado) => {
+			console.log('Enviou ' + resultado.data)
+			const bom = '\ufeff';
+			const blob = new Blob([bom + resultado.data], { type: 'text/csv;charset=utf-8' });
+			const url = URL.createObjectURL(blob);
+			const file = document.createElement('a');
+			file.href = url;
+			file.download = 'produtos.csv';
+			file.click();
+			URL.revokeObjectURL(url);
+		})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
+	alterarProduto: (
+		id,
+		nome,
+		descricao,
+		preco,
+		qtdEstoque,
+		estadoGeral,
+		desconto,
+		dataInicioDesconto,
+		dataFimDesconto,
+		idCategoria
+	) => {
+		let resposta = api
+			.put(`/produtos/estoque/${id}`, {
+				nome: nome,
+				descricao: descricao,
+				preco: preco,
+				qtdEstoque: qtdEstoque,
+				estadoGeral: estadoGeral,
+				desconto: desconto,
+				dataInicioDesconto: dataInicioDesconto,
+				dataFimDesconto: dataFimDesconto,
+				idCategoria: idCategoria,
+			})
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	}
 };

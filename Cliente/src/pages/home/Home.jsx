@@ -13,6 +13,7 @@ import Categorias from "../../components/categorias/Categorias.jsx";
 const Home = () => {
 	return (
 		<>
+		<div className={styles["temp"]}>
 			<NavBarPadrao />
 			<div className={styles["container"]}>
 				<Banner />
@@ -29,6 +30,7 @@ const Home = () => {
 				<Avaliacoes />
 			</div>
 			<Footer />
+		</div>
 		</>
 	);
 };

@@ -7,6 +7,7 @@ import { FaCheck, FaPencil, FaTrash, FaX } from "react-icons/fa6";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 import { useEffect, useState } from "react";
 import { tagsModel } from "../../model/tagsModel";
+import ExportButton from "../../components/exportButton/ExportButton"
 
 function CrudTags() {
 	let [tags, setTags] = useState([]);
@@ -333,6 +334,19 @@ function CrudTags() {
 		getTagsList();
 	}
 
+	async function getTagsNames(){
+		try{
+			let response = await tagsModel.listarTags();
+			if(response !== undefined || response !== ''){
+				tagsModel.exportarTag(response.arr)
+			}else{
+				alert("Não há tags registradas")
+			}
+		} catch (error) {
+			console.error("Erro:", error);
+		}
+	}
+
 	return (
 		<div className={styles["CrudTags"]}>
 			<Sidebar />
@@ -358,6 +372,11 @@ function CrudTags() {
 								<option value="1">Nome Desc</option>
 							</select>
 						</div>
+						<ExportButton
+						onClick={() => {
+						getTagsNames()
+						}}
+						></ExportButton>
 					</div>
 					<div className={styles["table-area"]}>
 						<Table headers={headersTags} values={tags} limit={8} />

@@ -77,3 +77,10 @@
 	height: 100%;
 	border-radius: 0.5rem;
 }
+
+.nome-prod {
+	width: 15rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}

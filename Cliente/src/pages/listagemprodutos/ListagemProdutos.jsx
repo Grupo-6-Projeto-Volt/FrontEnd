@@ -1,13 +1,14 @@
-import styles from "./ListagemProdutos.module.css";
-import Navbar from "../../components/navbar/dashboard/Navbar";
-import Searchbar from "../../components/searchbar/Searchbar";
-import Table from "../../components/list/Table";
-import Sidebar from "../../components/sidebar/Sidebar";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
-import { produtosModel } from "../../model/produtosModel";
-import { useEffect, useState } from "react";
 import ConfirmCancelActionButton from "../../components/confirmcancelactionbutton/ConfirmCancelActionButton";
+import ExportButton from "../../components/exportButton/ExportButton";
+import Table from "../../components/list/Table";
+import Navbar from "../../components/navbar/dashboard/Navbar";
+import Searchbar from "../../components/searchbar/Searchbar";
+import Sidebar from "../../components/sidebar/Sidebar";
+import { produtosModel } from "../../model/produtosModel";
+import styles from "./ListagemProdutos.module.css";
 
 function ListagemProdutos() {
 	const navigate = useNavigate();
@@ -57,13 +58,19 @@ function ListagemProdutos() {
 						return (
 							<img
 								className={styles["list-image"]}
-								src={produto.imagensProduto[0].codigoImagem}
+								src={
+									produto.imagensProduto[0] !== undefined
+										? produto.imagensProduto[0].codigoImagem
+										: "https://ircsan.com/wp-content/uploads/2024/03/placeholder-image.png"
+								}
 								alt="Iphone"
 							/>
 						);
 					},
 					id: produto.id,
-					nome: produto.nome,
+					nome: () => {
+						return <div className={styles["nome-prod"]}>{produto.nome}</div>;
+					},
 					categoria: produto.categoria,
 					estado: produto.estadoGeral,
 					preco: "R$" + Number(produto.preco).toFixed(2),
@@ -80,6 +87,19 @@ function ListagemProdutos() {
 			setProdutos(produtos);
 		} catch (error) {
 			console.error("Erro:", error);
+		}
+	}
+	async function getProdutosInfo(){
+		try{
+			let response = await produtosModel.listarProdutos();
+			console.log(response)
+			if(produtos.length !== 0 || produtos !== undefined){
+				produtosModel.exportarProduto(response)
+			}else{
+				console.log("Não há produtos registrados")
+			}
+		}catch(error){
+			console.log(error)
 		}
 	}
 
@@ -118,6 +138,12 @@ function ListagemProdutos() {
 								navigate("/cadastro-produtos");
 							}}
 						/>
+						<ExportButton
+						onClick={()=>{
+							getProdutosInfo()
+						}
+						}
+						></ExportButton>
 					</div>
 					<div className={styles["table-area"]}>
 						<Table headers={headersProdutos} values={produtos} limit={5} />
