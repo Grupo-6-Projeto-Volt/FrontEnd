@@ -148,7 +148,7 @@ a {
 
 .menu-hamburguer:checked ~ .menu-hamburguer-elements {
   left: 0;
-  height: fit-content;
+  /* height: fit-content; */
 }
 .separator {
   display: none;
@@ -224,14 +224,13 @@ a {
 
   .menu-hamburguer-elements {
     width: 60%;
-    height: 50%;
     background-color: #000;
     position: absolute;
     margin-top: 0 !important;
     left: -60%;
     padding-bottom: 3vw;
     z-index: 10 !important;
-    top: 15vh;
+    top: 13vh;
 
     transition: left cubic-bezier(1, 0, 0, 1) 0.8s;
 
