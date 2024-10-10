@@ -2,7 +2,7 @@ import styles from "./ConfirmCancelActionButton.module.css";
 import { useState } from "react";
 import { FaCheck, FaPencil, FaTrash, FaX } from "react-icons/fa6";
 
-function ConfirmCancelActionButton({ onEdit, onDelete }) {
+function ConfirmCancelActionButton({ onEdit, onDelete, enableEdit }) {
 	const [action, setAction] = useState("");
 	const [enabledAction, setEnabledAction] = useState(false);
 
@@ -18,6 +18,7 @@ function ConfirmCancelActionButton({ onEdit, onDelete }) {
 				onClick={() => {
 					setAction("Editar");
 					handleActionChange();
+					enableEdit(true);
 				}}
 			/>
 			<FaTrash
@@ -36,6 +37,7 @@ function ConfirmCancelActionButton({ onEdit, onDelete }) {
 						onDelete();
 					} else if (action === "Editar") {
 						onEdit();
+						enableEdit(false);
 					}
 					setAction("");
 					handleActionChange();
@@ -47,6 +49,7 @@ function ConfirmCancelActionButton({ onEdit, onDelete }) {
 				onClick={() => {
 					setAction("");
 					handleActionChange();
+					enableEdit(false);
 				}}
 			/>
 		</div>

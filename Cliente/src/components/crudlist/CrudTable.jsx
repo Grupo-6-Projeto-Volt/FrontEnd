@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
 import styles from "./CrudTable.module.css";
 import DefaultButton from "../button/defaultbutton/DefaultButton";
+import ListInputLine from "../listinputline/ListInputLine";
 
-function CrudTable({ headers, values, limit, insertButtonText, onInsert }) {
+function CrudTable({
+	headers,
+	values,
+	limit,
+	insertButtonText,
+	onInsert,
+	onUpdate,
+	onDelete,
+}) {
 	const [firstIndex, setFirstIndex] = useState(0);
 	const [lastIndex, setLastIndex] = useState(
 		values.length < limit ? values.length : limit
@@ -47,45 +56,15 @@ function CrudTable({ headers, values, limit, insertButtonText, onInsert }) {
 	function deployTable() {
 		const table = [];
 
-		table.push(
-			<tr>
-				<td></td>
-				<td>
-					<input
-						id="ipt_new_category"
-						type="text"
-						value={insertInputValue}
-						onChange={(e) => setInsertInputValue(e.target.value)}
-						className={styles["ipt-category"]}
-						placeholder="Ex: Notebook"
-					/>
-				</td>
-				<td>
-					<div className={styles["list-btn-area"]}>
-						<DefaultButton
-							text={insertButtonText}
-							onClick={() => {
-								onInsert(insertInputValue);
-								setInsertInputValue("");
-							}}
-						/>
-					</div>
-				</td>
-			</tr>
-		);
-
 		for (let index = firstIndex; index < lastIndex; index++) {
 			if (values[index] !== undefined) {
 				table.push(
-					<tr>
-						{Object.keys(values[index]).map((key) => (
-							<td>
-								{typeof values[index][key] === "function"
-									? values[index][key]()
-									: values[index][key]}
-							</td>
-						))}
-					</tr>
+					<ListInputLine
+						id={values[index].id}
+						nome={values[index].nome}
+						handleEdit={(id, value) => values[index].onUpdate(id, value)}
+						handleDelete={(id) => values[index].onDelete(id)}
+					/>
 				);
 			}
 		}
@@ -144,7 +123,33 @@ function CrudTable({ headers, values, limit, insertButtonText, onInsert }) {
 				<thead>
 					<tr>{headers && headers.map((header) => <th>{header}</th>)}</tr>
 				</thead>
-				<tbody>{deployTable()}</tbody>
+				<tbody>
+					<tr>
+						<td></td>
+						<td>
+							<input
+								id="ipt_new_category"
+								type="text"
+								value={insertInputValue}
+								onChange={(e) => setInsertInputValue(e.target.value)}
+								className={styles["ipt-field"]}
+								placeholder="Ex: Notebook"
+							/>
+						</td>
+						<td>
+							<div className={styles["list-btn-area"]}>
+								<DefaultButton
+									text={insertButtonText}
+									onClick={() => {
+										onInsert(insertInputValue);
+										setInsertInputValue("");
+									}}
+								/>
+							</div>
+						</td>
+					</tr>
+					{deployTable()}
+				</tbody>
 			</table>
 			<div className={styles["table-slider"]}>{deployTableSlider()}</div>
 		</div>

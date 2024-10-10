@@ -14,10 +14,10 @@ function CrudCategorias() {
 	let [categorias, setCategorias] = useState([]);
 	let headersCategorias = ["Id", "Nome da Categoria", ""];
 
-	function handleEdit(id) {
+	function handleEdit(id, value) {
 		let response = async () => {
 			await categoriasModel
-				.atualizarCategoria(id)
+				.atualizarCategoria(id, value)
 				.then((response) => {
 					toast.success("Categoria alterada com sucesso!");
 				})
@@ -57,24 +57,9 @@ function CrudCategorias() {
 			response.forEach((category) => {
 				lista.push({
 					id: category.id,
-					nome: () => {
-						return (
-							<input
-								value={category.nome}
-								disabled={true}
-								type="text"
-								className={styles["ipt-editable-category"]}
-							/>
-						);
-					},
-					botao: () => {
-						return (
-							<ConfirmCancelActionButton
-								onEdit={() => handleEdit(category.id)}
-								onDelete={() => handleDelete(category.id)}
-							/>
-						);
-					},
+					nome: category.nome,
+					onUpdate: (id, value) => handleEdit(id, value),
+					onDelete: (id) => handleDelete(id),
 				});
 			});
 		} catch (error) {
