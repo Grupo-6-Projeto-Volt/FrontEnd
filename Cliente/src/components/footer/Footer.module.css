@@ -1,13 +1,13 @@
-*{
+* {
     font-family: "Inter", sans-serif;
 }
 
-.img-logo{
+.img-logo {
     width: 15vw;
-    height: 8vh
+    height: 8vh;
 }
 
-.container-footer{
+.container-footer {
     width: 97%;
     background-color: #BB2020;
     color: white;
@@ -20,11 +20,42 @@
     margin-top: auto;
 }
 
-p{
+p {
     margin: 5px;
 }
 
-.telefone{
+.telefone {
     margin-top: 1%;
 }
 
+@media (max-width: 768px) {
+    .img-logo {
+        width: 30vw; 
+        height: auto;
+    }
+
+    .container-footer {
+        flex-direction: column; 
+        padding: 5%;
+        text-align: center;
+    }
+
+    p {
+        margin: 10px 0; 
+    }
+
+    .telefone {
+        margin-top: 3%;
+    }
+}
+
+@media (max-width: 480px) {
+    .img-logo {
+        width: 40vw;
+        margin-top: 5%;
+    }
+
+    .container-footer {
+        padding: 10%;
+    }
+}

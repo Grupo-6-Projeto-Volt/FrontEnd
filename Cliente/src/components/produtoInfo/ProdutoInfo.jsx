@@ -12,7 +12,7 @@ const ProdutoInfo = () => {
   const [imagemPrincipal, setImagemPrincipal] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cores, setCores] = useState([]);
-  const [produto, setProduto] = useState(null); // Inicialize com null em vez de []
+  const [produto, setProduto] = useState(null); 
   const [produtoFavorito, setProdutoFavorito] = useState(null);
   let [favoritado, setFavoritado] = useState(async () => {
     let resposta;
@@ -75,7 +75,7 @@ const ProdutoInfo = () => {
 
   useEffect(() => {
     const fetchProduto = async () => {
-      const idProduto = localStorage.getItem("idProduto"); // Use getItem para pegar o valor
+      const idProduto = localStorage.getItem("idProduto"); 
       try {
         const response = await api.get(`/produtos/loja/${idProduto}`);
         setProduto(response.data);
@@ -86,7 +86,7 @@ const ProdutoInfo = () => {
 
         if (response.data?.coresProduto?.length > 0) {
           const coresPromises = response.data.coresProduto.map(async (cor) => {
-            return cor.hexId; // Assumindo que a cor tem o campo hexId
+            return cor.hexId; 
           });
 
           const coresResult = await Promise.all(coresPromises);
