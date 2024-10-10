@@ -7,6 +7,8 @@
 
 .item-list {
   height: fit-content;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
   max-width: fit-content;
   width: 90vw;
   display: flex;
@@ -61,4 +63,30 @@
   margin-left: 1vw;
   background-color: rgba(0, 0, 0, 0);
   background-image: url("https://img.icons8.com/ios/30/chevron-right.png");
+}
+
+@media screen and (max-width: 800px) {
+  .item{
+    width: 100%;
+  }
+  .container{
+    width: 100vw!important;
+    padding: 0!important;
+    /* margin: auto; */
+  }
+  .container-lista{
+    width: 94vw!important;
+    margin: auto;
+  }
+  .linha-horizontal{
+    width: 16vw;
+    height: 0.3vh;
+  }
+  .container h1{
+    font-size: 103%;
+  }
+  button{
+    display: none;
+  }
+  
 }

@@ -25,7 +25,7 @@ const Home = () => {
 				<Ofertas secao="Ofertas" nome="ofertas" />
 				<Oferta />
 				<Categorias />
-				<Sobre />
+				<Sobre className={styles['sobre']} />
 				<NossosServicos />
 				<Avaliacoes />
 			</div>

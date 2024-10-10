@@ -186,10 +186,12 @@ a {
   }
 
   .search-responsive {
-    background-color: #c0c0c0b5;
-    padding: 0.8vh;
-    height: 1.4vh;
-    border-radius: 30vw;
+    color: #fff;
+    padding-left: 1vh!important;
+    padding-top: 0!important;
+    padding-bottom: 0.35vh!important;
+    height: 1.3rem;
+    width: 1.3rem;
   }
   .pipe {
     display: none;
