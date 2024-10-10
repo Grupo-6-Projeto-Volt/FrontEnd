@@ -63,7 +63,7 @@ function ExportButton({onClick, bgColor, fgColor, border }) {
       </button>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={buttonFecharModel}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
