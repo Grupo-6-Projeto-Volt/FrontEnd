@@ -9,6 +9,7 @@ import Searchbar from "../../components/searchbar/Searchbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { produtosModel } from "../../model/produtosModel";
 import styles from "./ListagemProdutos.module.css";
+import { toast } from "react-toastify";
 
 function ListagemProdutos() {
 	const navigate = useNavigate();
@@ -29,10 +30,10 @@ function ListagemProdutos() {
 			await produtosModel
 				.deletarProduto(id)
 				.then((response) => {
-					console.log(response);
+					toast.success("Produto deletado!");
 				})
 				.catch((error) => {
-					console.log("Houve um erro ao deletar o produto:", error);
+					toast.error("Houve um erro ao deletar o produto:", error);
 				});
 			getProductsList();
 		};
@@ -89,17 +90,17 @@ function ListagemProdutos() {
 			console.error("Erro:", error);
 		}
 	}
-	async function getProdutosInfo(){
-		try{
+	async function getProdutosInfo() {
+		try {
 			let response = await produtosModel.listarProdutos();
-			console.log(response)
-			if(produtos.length !== 0 || produtos !== undefined){
-				produtosModel.exportarProduto(response)
-			}else{
-				console.log("Não há produtos registrados")
+			console.log(response);
+			if (produtos.length !== 0 || produtos !== undefined) {
+				produtosModel.exportarProduto(response);
+			} else {
+				console.log("Não há produtos registrados");
 			}
-		}catch(error){
-			console.log(error)
+		} catch (error) {
+			console.log(error);
 		}
 	}
 
@@ -139,10 +140,9 @@ function ListagemProdutos() {
 							}}
 						/>
 						<ExportButton
-						onClick={()=>{
-							getProdutosInfo()
-						}
-						}
+							onClick={() => {
+								getProdutosInfo();
+							}}
 						></ExportButton>
 					</div>
 					<div className={styles["table-area"]}>
