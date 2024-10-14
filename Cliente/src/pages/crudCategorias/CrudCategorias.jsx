@@ -2,11 +2,9 @@ import Navbar from "../../components/navbar/dashboard/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import styles from "./CrudCategorias.module.css";
 import Searchbar from "../../components/searchbar/Searchbar";
-import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 import { useEffect, useState } from "react";
 import { categoriasModel } from "../../model/categoriasModel";
 import ExportButton from "../../components/exportButton/ExportButton";
-import ConfirmCancelActionButton from "../../components/confirmcancelactionbutton/ConfirmCancelActionButton";
 import { toast } from "react-toastify";
 import CrudTable from "../../components/crudlist/CrudTable";
 

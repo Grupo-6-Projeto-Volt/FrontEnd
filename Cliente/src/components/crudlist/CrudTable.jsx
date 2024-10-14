@@ -3,15 +3,7 @@ import styles from "./CrudTable.module.css";
 import DefaultButton from "../button/defaultbutton/DefaultButton";
 import ListInputLine from "../listinputline/ListInputLine";
 
-function CrudTable({
-	headers,
-	values,
-	limit,
-	insertButtonText,
-	onInsert,
-	onUpdate,
-	onDelete,
-}) {
+function CrudTable({ headers, values, limit, insertButtonText, onInsert }) {
 	const [firstIndex, setFirstIndex] = useState(0);
 	const [lastIndex, setLastIndex] = useState(
 		values.length < limit ? values.length : limit
