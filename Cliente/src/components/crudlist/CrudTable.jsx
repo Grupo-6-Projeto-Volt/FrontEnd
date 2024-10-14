@@ -136,16 +136,14 @@ function CrudTable({
 								placeholder="Ex: Notebook"
 							/>
 						</td>
-						<td>
-							<div className={styles["list-btn-area"]}>
-								<DefaultButton
-									text={insertButtonText}
-									onClick={() => {
-										onInsert(insertInputValue);
-										setInsertInputValue("");
-									}}
-								/>
-							</div>
+						<td className={styles["btn-col"]}>
+							<DefaultButton
+								text={insertButtonText}
+								onClick={() => {
+									onInsert(insertInputValue);
+									setInsertInputValue("");
+								}}
+							/>
 						</td>
 					</tr>
 					{deployTable()}
