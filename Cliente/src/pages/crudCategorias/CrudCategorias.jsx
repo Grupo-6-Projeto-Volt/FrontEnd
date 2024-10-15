@@ -128,7 +128,7 @@ function CrudCategorias() {
 						<CrudTable
 							headers={headersCategorias}
 							values={categorias}
-							limit={8}
+							limit={7}
 							insertButtonText={"Adicionar Categoria"}
 							onInsert={(e) => handleNewCategory(e)}
 						/>

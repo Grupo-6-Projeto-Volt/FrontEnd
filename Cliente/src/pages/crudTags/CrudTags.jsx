@@ -9,8 +9,9 @@ import CrudTable from "../../components/crudlist/CrudTable";
 import { toast } from "react-toastify";
 
 function CrudTags() {
-	let [tags, setTags] = useState([]);
-	let headersTags = ["Id", "Nome da Tag", ""];
+	const [tags, setTags] = useState([]);
+	const [filter, setFilter] = useState(0);
+	const headersTags = ["Id", "Nome da Tag", ""];
 
 	function handleEdit(id, value) {
 		let response = async () => {
@@ -22,7 +23,7 @@ function CrudTags() {
 				.catch((error) => {
 					toast.error("Erro ao alterar a tag: " + error);
 				});
-			getTagsList();
+			filterTags();
 		};
 		response();
 	}
@@ -42,9 +43,33 @@ function CrudTags() {
 		response();
 	}
 
+	function filterTags() {
+		let list;
+
+		switch (filter) {
+			case 0:
+				getTagsList();
+				break;
+			case 1:
+				list = tags.sort((a, b) => a.nome.localeCompare(b.nome));
+				setTags(list);
+				break;
+			case 2:
+				list = tags.sort((a, b) => b.nome.localeCompare(a.nome));
+				setTags(list);
+				break;
+			default:
+				getTagsList();
+		}
+	}
+
 	useEffect(() => {
 		getTagsList();
 	}, []);
+
+	useEffect(() => {
+		filterTags();
+	}, [filter]);
 
 	async function getTagsList() {
 		let lista = [];
@@ -107,13 +132,10 @@ function CrudTags() {
 						/>
 						<div className={styles["filter-group"]}>
 							<span>Filtrar por: </span>
-							<select
-								onChange={(e) => {
-									console.log("teste");
-								}}
-							>
-								<option value="0">Nome Asc</option>
-								<option value="1">Nome Desc</option>
+							<select onChange={(e) => setFilter(Number(e.target.value))}>
+								<option value="0">Sem Filtros</option>
+								<option value="1">Nome Asc</option>
+								<option value="2">Nome Desc</option>
 							</select>
 						</div>
 						<ExportButton
@@ -126,7 +148,7 @@ function CrudTags() {
 						<CrudTable
 							headers={headersTags}
 							values={tags}
-							limit={8}
+							limit={7}
 							insertButtonText={"Adicionar Tag"}
 							onInsert={(e) => handleNewTag(e)}
 						/>
