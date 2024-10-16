@@ -4,14 +4,14 @@ import styles from "./ListInputLine.module.css";
 
 function ListInputLine({ id, nome, handleEdit, handleDelete }) {
 	const [disabled, setDisabled] = useState(true);
-	const [valor, setValor] = useState(nome);
+	const [valor, setValor] = useState();
 
 	return (
 		<tr className={styles["ListInputLine"]}>
 			<td className={styles["td-id"]}>{id}</td>
 			<td className={styles["td-name"]}>
 				<input
-					value={valor}
+					value={valor ? valor : nome}
 					disabled={disabled}
 					type="text"
 					className={styles[disabled ? "ipt-editable-field" : "ipt-field"]}
