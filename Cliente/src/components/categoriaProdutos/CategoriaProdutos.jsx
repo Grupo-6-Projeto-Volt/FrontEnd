@@ -19,7 +19,7 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 				<h1>{tituloPagina}</h1>
 				<div className={styles["filtro"]}></div>
 			</div>
-			{/* <div className={styles["produtos"]}>
+			<div className={styles["produtos"]}>
 				{
 				dadosProduto?.map((produto) => {
 						return (
@@ -49,7 +49,7 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 						<h2>Nenhum produto encontrado.</h2>
 					</div>
 				)}
-			</div> */}
+			</div>
 		</div>
 	);
 };
