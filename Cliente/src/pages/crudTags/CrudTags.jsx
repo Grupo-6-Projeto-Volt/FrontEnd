@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 function CrudTags() {
 	const [tags, setTags] = useState([]);
 	const [filter, setFilter] = useState(0);
+	const [search, setSearch] = useState("");
 	const headersTags = ["Id", "Nome da Tag", ""];
 
 	function handleEdit(id, value) {
@@ -126,8 +127,21 @@ function CrudTags() {
 						<h1 className={styles["title"]}>Listagem de Tags</h1>
 						<Searchbar
 							width={"20rem"}
-							onChange={() => {
-								console.log("teste");
+							onChange={(e) => setSearch(e)}
+							onClick={async () => {
+								await getTagsList();
+
+								if (
+									tags.filter((a) =>
+										a.nome.toLowerCase().includes(search.toLowerCase())
+									).length !== 0
+								) {
+									setTags((categorias) => [
+										...categorias.filter((a) =>
+											a.nome.toLowerCase().includes(search.toLowerCase())
+										),
+									]);
+								}
 							}}
 						/>
 						<div className={styles["filter-group"]}>
