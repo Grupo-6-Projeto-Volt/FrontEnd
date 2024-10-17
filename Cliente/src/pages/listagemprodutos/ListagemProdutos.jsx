@@ -15,6 +15,7 @@ function ListagemProdutos() {
 	const navigate = useNavigate();
 	const [produtos, setProdutos] = useState([]);
 	const [filter, setFilter] = useState(0);
+	const [search, setSearch] = useState("");
 	const headersProdutos = [
 		"",
 		"Id",
@@ -165,8 +166,21 @@ function ListagemProdutos() {
 						<h1 className={styles["title"]}>Listagem de Produtos</h1>
 						<Searchbar
 							width={"20rem"}
-							onChange={() => {
-								console.log("teste");
+							onChange={(e) => setSearch(e)}
+							onClick={async () => {
+								await getProductsList();
+
+								if (
+									produtos.filter((a) =>
+										a.nome.toLowerCase().includes(search.toLowerCase())
+									).length !== 0
+								) {
+									setProdutos((categorias) => [
+										...categorias.filter((a) =>
+											a.nome.toLowerCase().includes(search.toLowerCase())
+										),
+									]);
+								}
 							}}
 						/>
 						<div className={styles["filter-group"]}>
