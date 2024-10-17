@@ -51,12 +51,14 @@ function CrudTags() {
 				getTagsList();
 				break;
 			case 1:
-				list = tags.sort((a, b) => a.nome.localeCompare(b.nome));
-				setTags(list);
+				setTags((tags) => [
+					...tags.sort((a, b) => a.nome.localeCompare(b.nome)),
+				]);
 				break;
 			case 2:
-				list = tags.sort((a, b) => b.nome.localeCompare(a.nome));
-				setTags(list);
+				setTags((tags) => [
+					...tags.sort((a, b) => b.nome.localeCompare(a.nome)),
+				]);
 				break;
 			default:
 				getTagsList();
@@ -69,7 +71,7 @@ function CrudTags() {
 
 	useEffect(() => {
 		filterTags();
-	}, [filter]);
+	}, [filter, setFilter]);
 
 	async function getTagsList() {
 		let lista = [];
