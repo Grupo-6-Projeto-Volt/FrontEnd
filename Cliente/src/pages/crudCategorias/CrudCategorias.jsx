@@ -11,6 +11,7 @@ import CrudTable from "../../components/crudlist/CrudTable";
 function CrudCategorias() {
 	const [categorias, setCategorias] = useState([]);
 	const [filter, setFilter] = useState(0);
+	const [search, setSearch] = useState("");
 	const headersCategorias = ["Id", "Nome da Categoria", ""];
 
 	function handleEdit(id, value) {
@@ -128,8 +129,21 @@ function CrudCategorias() {
 						<h1 className={styles["title"]}>Listagem de Categorias</h1>
 						<Searchbar
 							width={"20rem"}
-							onChange={() => {
-								console.log("teste");
+							onChange={(e) => setSearch(e)}
+							onClick={async () => {
+								await getCategoryList();
+
+								if (
+									categorias.filter((a) =>
+										a.nome.toLowerCase().includes(search.toLowerCase())
+									).length !== 0
+								) {
+									setCategorias((categorias) => [
+										...categorias.filter((a) =>
+											a.nome.toLowerCase().includes(search.toLowerCase())
+										),
+									]);
+								}
 							}}
 						/>
 						<div className={styles["filter-group"]}>
