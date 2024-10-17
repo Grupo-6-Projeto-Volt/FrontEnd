@@ -13,8 +13,8 @@ import { toast } from "react-toastify";
 
 function ListagemProdutos() {
 	const navigate = useNavigate();
-
 	const [produtos, setProdutos] = useState([]);
+	const [filter, setFilter] = useState(0);
 	const headersProdutos = [
 		"",
 		"Id",
@@ -44,9 +44,62 @@ function ListagemProdutos() {
 		navigate(`/editar-produtos/${id}`);
 	}
 
+	function filterProducts() {
+		switch (filter) {
+			case 0:
+				getProductsList();
+				break;
+			case 1:
+				setProdutos((produtos) => [
+					...produtos.sort((a, b) => a.nome.localeCompare(b.nome)),
+				]);
+				break;
+			case 2:
+				setProdutos((produtos) => [
+					...produtos.sort((a, b) => b.nome.localeCompare(a.nome)),
+				]);
+				break;
+			case 3:
+				setProdutos((produtos) => [
+					...produtos.sort(
+						(a, b) =>
+							Number(a.preco.replace("R$", "")) -
+							Number(b.preco.replace("R$", ""))
+					),
+				]);
+				break;
+
+			case 4:
+				setProdutos((produtos) => [
+					...produtos.sort(
+						(a, b) =>
+							Number(b.preco.replace("R$", "")) -
+							Number(a.preco.replace("R$", ""))
+					),
+				]);
+				break;
+			case 5:
+				setProdutos((produtos) => [
+					...produtos.sort((a, b) => a.categoria.localeCompare(b.categoria)),
+				]);
+				break;
+			case 6:
+				setProdutos((produtos) => [
+					...produtos.sort((a, b) => a.estado.localeCompare(b.estado)),
+				]);
+				break;
+			default:
+				getProductsList();
+		}
+	}
+
 	useEffect(() => {
 		getProductsList();
 	}, []);
+
+	useEffect(() => {
+		filterProducts();
+	}, [filter, setFilter]);
 
 	async function getProductsList() {
 		try {
@@ -69,9 +122,7 @@ function ListagemProdutos() {
 						);
 					},
 					id: produto.id,
-					nome: () => {
-						return <div className={styles["nome-prod"]}>{produto.nome}</div>;
-					},
+					nome: produto.nome,
 					categoria: produto.categoria,
 					estado: produto.estadoGeral,
 					preco: "R$" + Number(produto.preco).toFixed(2),
@@ -120,17 +171,14 @@ function ListagemProdutos() {
 						/>
 						<div className={styles["filter-group"]}>
 							<span>Filtrar por: </span>
-							<select
-								onChange={(e) => {
-									console.log("teste");
-								}}
-							>
-								<option value="0">Nome Asc</option>
-								<option value="1">Nome Desc</option>
-								<option value="2">Preço Asc</option>
-								<option value="3">Preço Desc</option>
-								<option value="4">Categoria</option>
-								<option value="5">Estado</option>
+							<select onChange={(e) => setFilter(Number(e.target.value))}>
+								<option value="0">Sem Filtros</option>
+								<option value="1">Nome Asc</option>
+								<option value="2">Nome Desc</option>
+								<option value="3">Preço Asc</option>
+								<option value="4">Preço Desc</option>
+								<option value="5">Categoria</option>
+								<option value="6">Estado</option>
 							</select>
 						</div>
 						<DefaultButton

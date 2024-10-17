@@ -66,3 +66,14 @@ td {
 	font-family: "PoppinsBold";
 	cursor: pointer;
 }
+
+.field-name {
+	width: 15rem;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.field-image {
+	text-align: center;
+}

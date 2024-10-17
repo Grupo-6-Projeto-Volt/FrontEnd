@@ -51,9 +51,21 @@ function Table({ headers, values, limit }) {
 					<tr>
 						{Object.keys(values[index]).map((key) => (
 							<td>
-								{typeof values[index][key] === "function"
-									? values[index][key]()
-									: values[index][key]}
+								<div
+									className={
+										styles[
+											key === "nome"
+												? "field-name"
+												: key === "image"
+												? "field-image"
+												: ""
+										]
+									}
+								>
+									{typeof values[index][key] === "function"
+										? values[index][key]()
+										: values[index][key]}
+								</div>
 							</td>
 						))}
 					</tr>
