@@ -44,8 +44,6 @@ function CrudTags() {
 	}
 
 	function filterTags() {
-		let list;
-
 		switch (filter) {
 			case 0:
 				getTagsList();

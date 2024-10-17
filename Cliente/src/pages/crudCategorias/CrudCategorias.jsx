@@ -9,8 +9,9 @@ import { toast } from "react-toastify";
 import CrudTable from "../../components/crudlist/CrudTable";
 
 function CrudCategorias() {
-	let [categorias, setCategorias] = useState([]);
-	let headersCategorias = ["Id", "Nome da Categoria", ""];
+	const [categorias, setCategorias] = useState([]);
+	const [filter, setFilter] = useState(0);
+	const headersCategorias = ["Id", "Nome da Categoria", ""];
 
 	function handleEdit(id, value) {
 		let response = async () => {
@@ -22,7 +23,7 @@ function CrudCategorias() {
 				.catch((error) => {
 					toast.error("Erro ao alterar a categoria: " + error);
 				});
-			getCategoryList();
+			filterCategories();
 		};
 		response();
 	}
@@ -42,9 +43,33 @@ function CrudCategorias() {
 		response();
 	}
 
+	function filterCategories() {
+		switch (filter) {
+			case 0:
+				getCategoryList();
+				break;
+			case 1:
+				setCategorias((categorias) => [
+					...categorias.sort((a, b) => a.nome.localeCompare(b.nome)),
+				]);
+				break;
+			case 2:
+				setCategorias((categorias) => [
+					...categorias.sort((a, b) => b.nome.localeCompare(a.nome)),
+				]);
+				break;
+			default:
+				getCategoryList();
+		}
+	}
+
 	useEffect(() => {
 		getCategoryList();
 	}, []);
+
+	useEffect(() => {
+		filterCategories();
+	}, [filter, setFilter]);
 
 	async function getCategoryList() {
 		let lista = [];
@@ -109,13 +134,10 @@ function CrudCategorias() {
 						/>
 						<div className={styles["filter-group"]}>
 							<span>Filtrar por: </span>
-							<select
-								onChange={(e) => {
-									console.log("teste");
-								}}
-							>
-								<option value="0">Nome Asc</option>
-								<option value="1">Nome Desc</option>
+							<select onChange={(e) => setFilter(Number(e.target.value))}>
+								<option value="0">Sem Filtros</option>
+								<option value="1">Nome Asc</option>
+								<option value="2">Nome Desc</option>
 							</select>
 						</div>
 						<ExportButton
