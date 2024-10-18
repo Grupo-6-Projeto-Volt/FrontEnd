@@ -104,122 +104,119 @@ const ProdutoInfo = () => {
 
   return (
     <div className={styles["conteiner"]}>
-      <h1 className={styles["button-voltar"]} onClick={handleButtonClick}>
-        Voltar
-      </h1>
-      <div className={styles["titulo-bottao"]}>
-        <div className={styles["titulo"]}></div>
-        <div className={styles["bottao-favoritar"]}>
-          <RiHeart3Fill
-            className={`${styles.heart} ${favoritado ? styles.active : ""}`}
-            onClick={toggleFavorito}
-          />
-        </div>
+      <div className={styles["button-voltar"]}>
+        <h1 onClick={handleButtonClick}>
+          Voltar
+        </h1>
+        <RiHeart3Fill
+              className={`${styles.heart} ${favoritado ? styles.active : ""}`}
+              onClick={toggleFavorito}
+            />
       </div>
       <div className={styles["conteiner-info"]}>
-        <div className={styles["imagens-produto"]}>
-          <div className={styles["imagem-principal"]}>
-            {imagemPrincipal ? (
-              <img
-                id="imagemPrincipal"
-                src={imagemPrincipal}
-                alt="Imagem Principal do Produto"
-                style={{ maxWidth: "80%" }}
-              />
-            ) : (
-              <p>Imagem não disponível</p>
-            )}
-          </div>
-        </div>
-        <div className={styles["info-produto"]}>
-          <h1>{produto ? produto.nome : "Carregando..."}</h1>
-          <p>{produto ? produto.descricao : ""}</p>
-
-          <div className={styles["cores"]}>
-            <p>Cores</p>
-            <div className={styles["paletas"]}>
-              {cores.length > 0 ? (
-                cores.map((cor, index) => (
-                  <div
-                    key={index}
-                    className={styles["cor"]}
-                    style={{
-                      backgroundColor: cor,
-                      width: "40px",
-                      height: "40px",
-                      marginLeft: "2%",
-                      borderRadius: "100%",
-                    }}
-                  ></div>
-                ))
+        <div className={styles["conteiner-imagens"]}>
+          <div className={styles["imagens-produto"]}>
+            <div className={styles["imagem-principal"]}>
+              {imagemPrincipal ? (
+                <img
+                  id="imagemPrincipal"
+                  src={imagemPrincipal}
+                  alt="Imagem Principal do Produto"
+                  style={{ maxWidth: "80%" }}
+                />
               ) : (
-                <p>Sem cores disponíveis</p>
+                <p>Imagem não disponível</p>
               )}
             </div>
           </div>
-          <h3>
-            R$ {produto ? produto.preco.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "0,00"}
-          </h3>
-          <button className={styles["botao-comprar"]} onClick={handleCompra}>
-            Comprar
-          </button>
-        </div>
-      </div>
-
-      <div className={styles["conteiner-fotos"]}>
-        {produto?.imagensProduto?.length > 0 ? (
-          produto.imagensProduto.length > 4 ? (
-            <>
-              <div className={styles["carousel"]}>
-                <button
-                  className={styles["btn-prev"]}
-                  onClick={handlePrev}
-                  disabled={currentIndex === 0}
-                >
-                </button>
-                <div className={styles["carousel-images"]}>
-                  {produto.imagensProduto
-                    .slice(currentIndex, currentIndex + 4)
-                    .map((imagem, index) => (
-                      <div
-                        className={styles["img-iphone-secundarias"]}
-                        key={index}
-                        onClick={() => trocarImagemPrincipal(imagem.codigoImagem)}
-                      >
-                        <img
-                          src={imagem.codigoImagem}
-                          alt={imagem.nome}
-                          width="300"
-                        />
-                      </div>
-                    ))}
+          <div className={styles["conteiner-fotos"]}>
+          {produto?.imagensProduto?.length > 0 ? (
+            produto.imagensProduto.length > 4 ? (
+              <>
+                <div className={styles["carousel"]}>
+                  <button
+                    className={styles["btn-prev"]}
+                    onClick={handlePrev}
+                    disabled={currentIndex === 0}
+                  >
+                  </button>
+                  <div className={styles["carousel-images"]}>
+                    {produto.imagensProduto
+                      .slice(currentIndex, currentIndex + 4)
+                      .map((imagem, index) => (
+                        <div
+                          className={styles["img-iphone-secundarias"]}
+                          key={index}
+                          onClick={() => trocarImagemPrincipal(imagem.codigoImagem)}
+                        >
+                          <img
+                            src={imagem.codigoImagem}
+                            alt={imagem.nome}
+                            width="300"
+                          />
+                        </div>
+                      ))}
+                  </div>
+                  <button
+                    className={styles["btn-next"]}
+                    onClick={handleNext}
+                    disabled={currentIndex >= produto.imagensProduto.length - 4}
+                  >
+                  </button>
                 </div>
-                <button
-                  className={styles["btn-next"]}
-                  onClick={handleNext}
-                  disabled={currentIndex >= produto.imagensProduto.length - 4}
+              </>
+            ) : (
+              produto.imagensProduto.map((imagem, index) => (
+                <div
+                  className={styles["img-iphone-secundarias"]}
+                  key={index}
+                  onClick={() => trocarImagemPrincipal(imagem.codigoImagem)}
                 >
-                </button>
-              </div>
-            </>
+                  <img
+                    src={imagem.codigoImagem}
+                    alt={imagem.nome}
+                    width="300"
+                  />
+                </div>
+              ))
+            )
           ) : (
-            produto.imagensProduto.map((imagem, index) => (
-              <div
-                className={styles["img-iphone-secundarias"]}
-                key={index}
-                onClick={() => trocarImagemPrincipal(imagem.codigoImagem)}
-              >
-                <img
-                  src={imagem.codigoImagem}
-                  alt={imagem.nome}
-                  width="300"
-                />
+            <p>Sem imagens disponíveis</p>
+          )}
+          </div>
+        </div>
+        <div className={styles["info-produto"]}>
+            <h1 className={styles["nome-produto"]}>{produto ? produto.nome : "Carregando..."}</h1>
+            <p>{produto ? produto.descricao : ""}</p>
+            <h3>
+                R$ {produto ? produto.preco.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "0,00"}
+            </h3>
+            <div className={styles["cores"]}>
+              <p>Cores</p>
+              <div className={styles["paletas"]}>
+                {cores.length > 0 ? (
+                  cores.map((cor, index) => (
+                    <div
+                      key={index}
+                      className={styles["cor"]}
+                      style={{
+                        backgroundColor: cor,
+                        width: "40px",
+                        height: "40px",
+                        marginLeft: "2%",
+                        borderRadius: "100%",
+                      }}
+                    ></div>
+                  ))
+                ) : (
+                  <p>Sem cores disponíveis</p>
+                )}
               </div>
-            ))
-          )
-        ) : (
-          <p>Sem imagens disponíveis</p>
-        )}
+            </div>
+            <button className={styles["botao-comprar"]} onClick={handleCompra}>
+              Comprar
+            </button>
+        </div>
       </div>
     </div>
   );
