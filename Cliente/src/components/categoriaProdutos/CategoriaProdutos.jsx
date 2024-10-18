@@ -20,8 +20,8 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 				<div className={styles["filtro"]}></div>
 			</div>
 			<div className={styles["produtos"]}>
-				{dadosProduto &&
-					dadosProduto.map((produto) => {
+				{
+				dadosProduto?.map((produto) => {
 						return (
 							<div
 								className={styles["produto"]}
@@ -44,7 +44,7 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 							</div>
 						);
 					})}
-				{!dadosProduto.length && (
+				{!dadosProduto?.length && (
 					<div className={styles["no-content-div"]}>
 						<h2>Nenhum produto encontrado.</h2>
 					</div>

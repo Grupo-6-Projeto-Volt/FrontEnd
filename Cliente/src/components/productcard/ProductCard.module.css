@@ -1,3 +1,7 @@
+/* .cont{
+    width: 18rem;
+    height: 19rem;
+} */
 .produto{
     width: 18rem;
     height: 19rem;
@@ -26,4 +30,29 @@
 .heart{
     width: 2rem;
     height: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+    .produto{
+        width: 40%;
+        height: 21.327014218%;
+    }
+    .produto h4{
+        width: 35%;
+    }
+    .estado{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .nomeProd{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .produto img{
+        width: 125px;
+        height: 125px;
+        margin: auto;
+    }
 }

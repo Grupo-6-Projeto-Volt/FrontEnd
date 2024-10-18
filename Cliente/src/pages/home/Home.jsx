@@ -14,7 +14,7 @@ const Home = () => {
 	return (
 		<>
 		<div className={styles["temp"]}>
-			<NavBarPadrao />
+			<NavBarPadrao className={styles['nav']} />
 			<div className={styles["container"]}>
 				<Banner />
 				<Lancamentos
@@ -25,7 +25,7 @@ const Home = () => {
 				<Ofertas secao="Ofertas" nome="ofertas" />
 				<Oferta />
 				<Categorias />
-				<Sobre />
+				<Sobre className={styles['sobre']} />
 				<NossosServicos />
 				<Avaliacoes />
 			</div>
