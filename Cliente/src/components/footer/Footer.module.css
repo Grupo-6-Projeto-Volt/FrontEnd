@@ -5,15 +5,14 @@
 .img-logo {
     width: 15vw;
     height: 8vh;
-    margin-right: 100px;
 }
 
 .container-footer {
+    width: 99vw;
     background-color: #BB2020;
     color: white;
     display: flex;
     justify-content: space-around;
-    padding: 3%;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -37,7 +36,7 @@ p {
 
     .container-footer {
         flex-direction: column; 
-        padding: 5%;
+        /* padding: 5%; */
         text-align: center;
     }
 
@@ -55,4 +54,8 @@ p {
         width: 40vw;
         margin-top: 5%;
     }
+
+    /* .container-footer {
+        padding: 10%;
+    } */
 }
