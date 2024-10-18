@@ -52,16 +52,6 @@ h4 {
 	height: 75vh;
 }
 
-.list-btn-area {
-	width: 40%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 1.5rem;
-	margin-left: auto;
-}
-
 .filter-group {
 	width: 12rem;
 	height: 3rem;

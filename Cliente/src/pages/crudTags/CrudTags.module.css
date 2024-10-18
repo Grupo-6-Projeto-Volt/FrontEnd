@@ -63,11 +63,9 @@ h4 {
 }
 
 .filter-group {
-	width: 12rem;
 	height: 3rem;
 	display: flex;
-	padding-right: 10px;
-	padding-left: 10px;
+	padding: 0 1rem;
 	align-items: center;
 	justify-content: space-between;
 	background-color: #f9fbff;

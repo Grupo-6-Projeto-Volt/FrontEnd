@@ -18,7 +18,7 @@ import { tagsModel } from "../../model/tagsModel";
 import { classificacaoProdutosModel } from "../../model/classificacaoProdutosModel";
 import { imagemProdutosModel } from "../../model/imagemProdutosModel";
 import { corProdutosModel } from "../../model/corProdutosModel copy";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 function CadastroProdutos() {
 	const { id } = useParams();
@@ -240,7 +240,6 @@ function CadastroProdutos() {
 
 	return (
 		<div className={styles["CadastroProdutos"]}>
-			<ToastContainer />
 			<Navbar />
 			<Sidebar />
 			<div className={styles["content"]}>
