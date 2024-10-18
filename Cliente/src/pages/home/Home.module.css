@@ -1,7 +1,6 @@
 label {
     color: black;
 }
-
 .Home{
     width: 100%;
     height: 100vh;
@@ -39,4 +38,8 @@ label {
 .logo{
     width:30%;
     margin-top: 2%;
+}
+
+.sobre{
+    margin: auto;
 }
