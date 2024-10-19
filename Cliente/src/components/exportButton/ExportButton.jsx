@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import styles from "./ExportButton.module.css";
+import { produtosModel } from "../../model/produtosModel";
 
 function ExportButton({onClick, bgColor, fgColor, border }) {
   const [open, setOpen] = useState(false);
@@ -51,7 +52,7 @@ function ExportButton({onClick, bgColor, fgColor, border }) {
       alert(`Arquivo selecionado: ${file.name}`);
     }
   };
-  
+ 
   return (
     <>
       <button
@@ -107,6 +108,10 @@ function ExportButton({onClick, bgColor, fgColor, border }) {
                 CSV
               </Button>
               <Button onClick={onClick} className={styles["ExportButton"]} 
+			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
+                TXT
+              </Button>
+              <Button onClick={produtosModel.exportarProdutoTxt()} className={styles["ExportButton"]} 
 			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
                 XML
               </Button>

@@ -93,7 +93,6 @@ export function ProdutosData({ secao, nome }) {
               onClick={handleClick.bind(this, "next")}
               className={styles["btn-next"]}
             >
-              {" "}
             </button>
           </div>
         </div>

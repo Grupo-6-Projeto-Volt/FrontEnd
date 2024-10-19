@@ -54,6 +54,7 @@
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0);
   background-image: url("https://img.icons8.com/ios/30/chevron-left.png");
+  background-repeat: no-repeat;
 }
 
 .btn-next {
@@ -63,6 +64,7 @@
   margin-left: 1vw;
   background-color: rgba(0, 0, 0, 0);
   background-image: url("https://img.icons8.com/ios/30/chevron-right.png");
+  background-repeat: no-repeat;
 }
 
 @media screen and (max-width: 800px) {
