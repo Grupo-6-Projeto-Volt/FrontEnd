@@ -129,6 +129,24 @@ export const produtosModel = {
 			});
 		return resposta;
 	},
+	exportarProdutoTxt:() =>{
+		let resposta = api.get("/produtos/exportar-txt").then((resultado) => {
+			console.log('Enviou ' + resultado.data)
+			const bom = '\ufeff';
+			const blob = new Blob([bom + resultado.data], { type: 'text/txt;charset=utf-8' });
+			const url = URL.createObjectURL(blob);
+			const file = document.createElement('a');
+			file.href = url;
+			file.download = 'produtos.txt';
+			file.click();
+			URL.revokeObjectURL(url);
+		})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
 	alterarProduto: (
 		id,
 		nome,
