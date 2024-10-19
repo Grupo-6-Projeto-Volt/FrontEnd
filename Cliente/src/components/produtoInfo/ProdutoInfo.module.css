@@ -1,43 +1,54 @@
-.conteiner{
+.conteiner {
     padding: 3%;
 }
 
-.button-voltar{
+.button-voltar {
+    display: flex;
+    flex-direction: row;
     cursor: pointer;
     font-size: 18px;
-    width: 20px;
+    justify-content: space-between;
 }
 
-.titulo-bottao{
+.button-voltar h1 {
+    font-size: 24px;
+    margin-top: 2px;
+    margin-left: 1.5%;
+}
+
+.titulo-bottao {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
-.imagens-produto{
-    width: 63%;
+.imagens-produto {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 30px;
 }
 
-.info-produto{
-    width: 30%;
+.info-produto {
+    width: 40%;
 }
 
-.conteiner-info{
+.conteiner-info {
     display: flex;
     flex-direction: row;
-    height: 350px;
 }
 
-.img-iphonePrincipal{
+.conteiner-imagens {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+}
+
+.img-iphonePrincipal {
     width: 95%;
 }
 
-.info-produto p{
-    font-size: 20px;
+.info-produto p {
+    font-size: 19px;
 }
 
 .heart {
@@ -46,45 +57,45 @@
     cursor: pointer;
     transition: color 0.3s ease;
 }
-  
+
 .heart.active {
     color: #ff0000;
 }
 
-.info-produto h3{
-    font-size: 22px;
+.info-produto h3 {
+    font-size: 27px;
+    font-weight: normal;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-.cores{
-    margin-top: 5%;
-}
-
-.paletas{
+.paletas {
     display: flex;
     flex-direction: row;
 }
 
-.botao-comprar{
+.botao-comprar {
     height: 50px;
     border-radius: 50px;
-    margin-top: 1%;
+    margin-top: 8%;
     width: 95%;
     cursor: pointer;
+    font-size: 18px;
 }
 
 .img-iphone-secundarias img {
-    width: 150px; 
-    margin: 10px;
+    width: 150px;
     cursor: pointer;
-  }
-
-.conteiner-fotos{
-    display: flex;
-    flex-direction: row;
-    width: 900px;
+    border-radius: 5%;
 }
 
-.imagem-principal{
+.conteiner-fotos {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+}
+
+.imagem-principal {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -94,44 +105,155 @@
 .carousel {
     display: flex;
     align-items: center;
-  }
-  
+}
+
 .carousel-images {
     display: flex;
-    overflow: hidden; 
-    width: 100%; 
-  }
-  
-  .img-iphone-secundarias {
-    margin: 0 5px; 
+    overflow: hidden;
+    width: 100%;
+}
+
+.img-iphone-secundarias {
+    margin: 0 8px;
     cursor: pointer;
-  }
-  
-  .img-iphone-secundarias:hover {
+}
+
+.img-iphone-secundarias:hover {
     transition: box-shadow 0.3s ease-in-out;
     border: #00000081 2px solid;
     border-radius: 10px;
-  }
+}
 
-  .btn-prev {
+.btn-prev,
+.btn-next {
     width: 30px;
     height: 30px;
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0);
-    background-image: url("https://img.icons8.com/ios/30/chevron-left.png");
-  }
-  
-  .btn-next {
-    width: 30px;
-    cursor: pointer;
-    height: 30px;
-    background-color: rgba(0, 0, 0, 0);
-    background-image: url("https://img.icons8.com/ios/30/chevron-right.png");
-  }
+}
 
-  .btn-prev:disabled,
-  .btn-next:disabled {
-    cursor: not-allowed; 
-    opacity: 0.5; 
-  }
-  
+.btn-prev:disabled,
+.btn-next:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .conteiner-imagens {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    .imagens-produto, .info-produto {
+        width: 100%;
+    }
+
+    .conteiner-fotos {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .img-iphone-secundarias img {
+        width: 120px;
+    }
+
+    .botao-comprar {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .info-produto p {
+        font-size: 18px;
+    }
+
+    .info-produto h3 {
+        font-size: 20px;
+        font-weight: normal;
+    }
+
+    .heart {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nome-produto{
+        font-size: 20px;
+    }
+
+    .conteiner-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .conteiner-imagens,
+    .info-produto {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .botao-comprar {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .heart {
+        font-size: 40px;
+    }
+
+    .imagens-produto img {
+        max-width: 100%;
+    }
+
+    .img-iphone-secundarias img {
+        width: 120px;
+    }
+
+    .button-voltar h1 {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .conteiner-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .conteiner-imagens,
+    .info-produto {
+        width: 100%;
+    }
+
+    .img-iphonePrincipal {
+        width: 100%;
+    }
+
+    .img-iphone-secundarias img {
+        border-radius: 10px;
+    }
+
+    .info-produto p {
+        font-size: 14px;
+    }
+
+    .info-produto h3 {
+        font-size: 27px;
+        font-weight: normal;
+    }
+
+    .botao-comprar {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .heart {
+        font-size: 30px;
+    }
+    
+    .imagem-principal {
+        width: 100%;
+    }
+}
