@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import styles from "./Table.module.css";
+import styles from "./CrudTable.module.css";
+import DefaultButton from "../button/defaultbutton/DefaultButton";
+import ListInputLine from "../listinputline/ListInputLine";
 
-function Table({ headers, values, limit }) {
-	let [firstIndex, setFirstIndex] = useState(0);
-	let [lastIndex, setLastIndex] = useState(
+function CrudTable({ headers, values, limit, insertButtonText, onInsert }) {
+	const [firstIndex, setFirstIndex] = useState(0);
+	const [lastIndex, setLastIndex] = useState(
 		values.length < limit ? values.length : limit
 	);
-	let [selectedIndex, setSelectedIndex] = useState(0);
+	const [selectedIndex, setSelectedIndex] = useState(0);
+	const [insertInputValue, setInsertInputValue] = useState("");
 
 	useEffect(() => {
 		setLastIndex(values.length < limit ? values.length : limit);
@@ -48,27 +51,12 @@ function Table({ headers, values, limit }) {
 		for (let index = firstIndex; index < lastIndex; index++) {
 			if (values[index] !== undefined) {
 				table.push(
-					<tr>
-						{Object.keys(values[index]).map((key) => (
-							<td>
-								<div
-									className={
-										styles[
-											key === "nome"
-												? "field-name"
-												: key === "image"
-												? "field-image"
-												: ""
-										]
-									}
-								>
-									{typeof values[index][key] === "function"
-										? values[index][key]()
-										: values[index][key]}
-								</div>
-							</td>
-						))}
-					</tr>
+					<ListInputLine
+						id={values[index].id}
+						nome={values[index].nome}
+						handleEdit={(id, value) => values[index].onUpdate(id, value)}
+						handleDelete={(id) => values[index].onDelete(id)}
+					/>
 				);
 			}
 		}
@@ -127,11 +115,35 @@ function Table({ headers, values, limit }) {
 				<thead>
 					<tr>{headers && headers.map((header) => <th>{header}</th>)}</tr>
 				</thead>
-				<tbody>{deployTable()}</tbody>
+				<tbody>
+					<tr>
+						<td></td>
+						<td>
+							<input
+								id="ipt_new_category"
+								type="text"
+								value={insertInputValue}
+								onChange={(e) => setInsertInputValue(e.target.value)}
+								className={styles["ipt-field"]}
+								placeholder="Ex: Notebook"
+							/>
+						</td>
+						<td className={styles["btn-col"]}>
+							<DefaultButton
+								text={insertButtonText}
+								onClick={() => {
+									onInsert(insertInputValue);
+									setInsertInputValue("");
+								}}
+							/>
+						</td>
+					</tr>
+					{deployTable()}
+				</tbody>
 			</table>
 			<div className={styles["table-slider"]}>{deployTableSlider()}</div>
 		</div>
 	);
 }
 
-export default Table;
+export default CrudTable;

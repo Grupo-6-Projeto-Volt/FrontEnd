@@ -76,3 +76,31 @@ h1 {
     text-align: left;
     margin-left: 3%;
 }
+
+@media screen and (max-width: 800px) {
+    .servicos-grid{
+        width: 95%;
+        margin: auto;
+    }
+    .servicos-grid-1{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+    .servico{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .servico-info{
+        width: 75%;
+    }
+    .servico-2{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
