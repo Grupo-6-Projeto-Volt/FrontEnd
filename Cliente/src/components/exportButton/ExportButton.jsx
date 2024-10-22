@@ -6,11 +6,11 @@ import Modal from '@mui/material/Modal';
 import styles from "./ExportButton.module.css";
 import { produtosModel } from "../../model/produtosModel";
 
-function ExportButton({onClick, bgColor, fgColor, border }) {
+function ExportButton({ onClick, bgColor, fgColor, border }) {
   const [open, setOpen] = useState(false);
   const [showImportOptions, setShowImportOptions] = useState(false);
   const [showExportOptions, setShowExportOptions] = useState(false);
-  const inputFileRef = useRef(null); 
+  const inputFileRef = useRef(null);
 
   const style = {
     position: 'absolute',
@@ -29,7 +29,7 @@ function ExportButton({onClick, bgColor, fgColor, border }) {
     setShowImportOptions(false);
     setShowExportOptions(false);
   };
-  
+
   const buttonFecharModel = () => setOpen(false);
 
   const handleImportClick = () => {
@@ -52,7 +52,7 @@ function ExportButton({onClick, bgColor, fgColor, border }) {
       alert(`Arquivo selecionado: ${file.name}`);
     }
   };
- 
+
   return (
     <>
       <button
@@ -69,7 +69,7 @@ function ExportButton({onClick, bgColor, fgColor, border }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-		<Button 
+          <Button
             onClick={buttonFecharModel}
             style={{
               position: 'absolute',
@@ -88,10 +88,10 @@ function ExportButton({onClick, bgColor, fgColor, border }) {
           </Typography>
           <div className={styles["button-group"]}>
             <Button className={styles["buttonModel"]} variant="contained" onClick={handleImportClick} sx={{ mr: 2 }}>
-              	Exportar
+              Exportar
             </Button>
             <Button className={styles["buttonModel"]} variant="contained" onClick={handleExportClick}>
-				Importar
+              Importar
             </Button>
           </div>
 
@@ -101,22 +101,22 @@ function ExportButton({onClick, bgColor, fgColor, border }) {
                 Tipo de Importação
               </Typography>
               <Button className={styles["buttonModel"]} onClick={() => alert("PDF selecionado!")}>
-			  	JSON
+                JSON
               </Button>
-              <Button onClick={onClick} className={styles["ExportButton"]} 
-			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
+              <Button onClick={onClick} className={styles["ExportButton"]}
+                style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
                 CSV
               </Button>
-              <Button onClick={onClick} className={styles["ExportButton"]} 
-			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
+              <Button onClick={produtosModel.exportarProdutoTxt()} className={styles["ExportButton"]}
+                style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
                 TXT
               </Button>
-              <Button onClick={produtosModel.exportarProdutoTxt()} className={styles["ExportButton"]} 
-			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
+              <Button onClick={produtosModel.exportarProdutoTxt()} className={styles["ExportButton"]}
+                style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
                 XML
               </Button>
-              <Button onClick={onClick} className={styles["ExportButton"]} 
-			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
+              <Button onClick={onClick} className={styles["ExportButton"]}
+                style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
                 Parquet
               </Button>
             </div>
@@ -124,14 +124,14 @@ function ExportButton({onClick, bgColor, fgColor, border }) {
 
           {showExportOptions && (
             <div className={styles["export-options"]}>
-				<Button onClick={buttonUpload}>
-					Selecionar Arquivo TXT
-				</Button>
-			  <input
+              <Button onClick={buttonUpload}>
+                Selecionar Arquivo TXT
+              </Button>
+              <input
                 type="file"
                 ref={inputFileRef}
                 style={{ display: "none" }}
-                accept=".txt" 
+                accept=".txt"
                 onChange={fileUpload}
               />
             </div>

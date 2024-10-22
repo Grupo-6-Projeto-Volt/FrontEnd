@@ -12,7 +12,7 @@ function InputFile({ id, tituloCampo, textoBotao, multiple, onChange }) {
 				name={id || "file"}
 				id={id || "file"}
 				multiple={multiple | false}
-				accept=".png, .jpg, .jpeg"
+				accept="image/*"
 				onChange={onChange}
 			/>
 		</div>

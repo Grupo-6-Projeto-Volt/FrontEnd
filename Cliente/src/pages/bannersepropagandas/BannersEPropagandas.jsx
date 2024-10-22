@@ -1,20 +1,44 @@
-import Navbar from "../../components/navbar/dashboard/Navbar";
-import Sidebar from "../../components/sidebar/Sidebar";
-import styles from "./BannersEPropagandas.module.css";
-import InputFile from "../../components/input/inputfile/InputFile";
-import ImageListItem from "../../components/imagelistitem/ImageListItem";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Modal from '@mui/material/Modal';
 import { useRef, useState } from "react";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
+import ImageListItem from "../../components/imagelistitem/ImageListItem";
+import InputFile from "../../components/input/inputfile/InputFile";
+import Navbar from "../../components/navbar/dashboard/Navbar";
+import Sidebar from "../../components/sidebar/Sidebar";
+import { banner } from "../../model/bannerModel";
+import Home from '../home/Home';
+import styles from "./BannersEPropagandas.module.css";
+
+
 
 function BannersEPropagandas() {
 	let [banners, setBanners] = useState([]);
 	let [propagandas, setPropagandas] = useState([]);
+	let [open, setOpen] = useState(false);
 
 	const dragItemPropaganda = useRef(0);
 	const draggedOverItemPropaganda = useRef(0);
 
 	const dragItemBanner = useRef(0);
 	const draggedOverItemBanner = useRef(0);
+
+	const style = {
+		position: 'absolute',
+		top: '50%',
+		left: '50%',
+		overflow: 'auto',
+		transform: 'translate(-50%, -50%)',
+		width: '700px',
+		height: '600px',
+		bgcolor: 'background.paper',
+		border: '2px solid #000',
+		boxShadow: 24,
+		p: 4,
+	};
+
+	const buttonFecharModel = () => setOpen(false);
 
 	function handleSortBanner() {
 		const imagesClone = [...banners];
@@ -35,8 +59,7 @@ function BannersEPropagandas() {
 	}
 
 	function handleSubmit() {
-		console.log(banners);
-		console.log(propagandas);
+		banner.postBanner(banners[0], banners[0].type);
 	}
 
 	return (
@@ -48,26 +71,19 @@ function BannersEPropagandas() {
 					<div className={styles["col"]}>
 						<div className={styles["form-section"]}>
 							<span className={styles["section-title"]}>
-								Adicionar Imagens do Banner
+								Adicionar Imagem do Banner
 							</span>
 							<div className={styles["section-content"]}>
 								<div className={styles["insert-image-form"]}>
 									<InputFile
 										id={"file_banner"}
-										tituloCampo={"Adicione as imagens do banner"}
+										tituloCampo={"Adicione a imagem do banner"}
 										textoBotao={"Fazer Upload"}
-										multiple={true}
+										multiple={false}
 										onChange={(e) => {
 											let selectedImages = e.target.files;
-
 											for (let i = 0; i < selectedImages.length; i++) {
-												setBanners((banners) => [
-													...banners,
-													{
-														name: selectedImages[i].name,
-														url: URL.createObjectURL(selectedImages[i]),
-													},
-												]);
+												banners.push(selectedImages[i]);
 											}
 										}}
 									/>
@@ -150,11 +166,39 @@ function BannersEPropagandas() {
 						</div>
 						<div className={styles["form-submit-area"]}>
 							<DefaultButton text={"Postar"} onClick={handleSubmit} />
-							<DefaultButton text={"Visualizar Layout"} />
+							<DefaultButton text={"Visualizar Layout"} onClick={() => {
+								setOpen(true)
+							}} />
 						</div>
 					</div>
 				</div>
 			</div>
+			<Modal
+				open={open}
+				onClose={buttonFecharModel}
+				aria-labelledby="modal-modal-title"
+				aria-describedby="modal-modal-description"
+			>
+				<Box sx={style}>
+					<Button
+						onClick={buttonFecharModel}
+						style={{
+							position: 'absolute',
+							top: '10px',
+							right: '10px',
+							background: 'none',
+							border: 'none',
+							fontSize: '18px',
+							cursor: 'pointer',
+						}}
+					>
+						&times;
+					</Button>
+					<div className={styles["home"]}>
+						<Home />
+					</div>
+				</Box>
+			</Modal>
 		</div>
 	);
 }
