@@ -151,9 +151,11 @@ function CadastroProdutos() {
 
 	async function cadastrarImagens(idProduto) {
 		for (let i = 0; i < imagens.length; i++) {
+			console.log(imagens[i]);
 			await imagemProdutosModel.associarImagemProduto(
-				imagens[i].nome,
-				imagens[i].codigoImagem,
+				imagens[i].name,
+				"default",
+				imagens[i],
 				i,
 				idProduto
 			);
@@ -310,18 +312,7 @@ function CadastroProdutos() {
 										multiple={true}
 										onChange={(e) => {
 											let selectedImages = e.target.files;
-
-											for (let i = 0; i < selectedImages.length; i++) {
-												setImagens((imagens) => [
-													...imagens,
-													{
-														nome: selectedImages[i].name,
-														codigoImagem: URL.createObjectURL(
-															selectedImages[i]
-														),
-													},
-												]);
-											}
+											setImagens((imagens) => [...imagens, selectedImages]);
 										}}
 									/>
 									<div className={styles["image-list"]}>
@@ -329,8 +320,8 @@ function CadastroProdutos() {
 											imagens.map((e, key) => (
 												<ImageListItem
 													key={key}
-													nomeImagem={e.nome}
-													imagem={e.codigoImagem}
+													nomeImagem={e[0].name}
+													imagem={URL.createObjectURL(e[0])}
 													draggable={true}
 													onDragStart={() => (dragItem.current = key)}
 													onDragEnter={() => (draggedOverItem.current = key)}

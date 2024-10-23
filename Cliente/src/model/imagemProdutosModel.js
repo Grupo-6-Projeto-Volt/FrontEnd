@@ -1,11 +1,12 @@
 import api from "../api";
 
 export const imagemProdutosModel = {
-	associarImagemProduto: (nome, codigoImagem, indiceVt, idProduto) => {
+	associarImagemProduto: (nome, codigoImagem, imagem, indiceVt, idProduto) => {
 		let resposta = api
 			.post("/imagem-produtos", {
 				nome: nome,
 				codigoImagem: codigoImagem,
+				imagem: imagem,
 				indiceVt: indiceVt,
 				idProduto: idProduto,
 			})
