@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import { useRef, useState } from "react";
+import { useRef, useState, useReducer, useEffect } from "react";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 import ImageListItem from "../../components/imagelistitem/ImageListItem";
 import InputFile from "../../components/input/inputfile/InputFile";
@@ -23,6 +23,9 @@ function BannersEPropagandas() {
 
 	const dragItemBanner = useRef(0);
 	const draggedOverItemBanner = useRef(0);
+
+	const render = () => { setBanners() }
+	const [favAtualizar, forceRender] = useReducer(render, []);
 
 	const style = {
 		position: 'absolute',
@@ -62,6 +65,10 @@ function BannersEPropagandas() {
 		banner.postBanner(banners[0], banners[0].type);
 	}
 
+	useEffect(() => {
+
+	}, []);
+
 	return (
 		<div className={styles["BannersEPropagandas"]}>
 			<Navbar />
@@ -82,8 +89,11 @@ function BannersEPropagandas() {
 										multiple={false}
 										onChange={(e) => {
 											let selectedImages = e.target.files;
+											const imgs = [];
 											for (let i = 0; i < selectedImages.length; i++) {
-												banners.push(selectedImages[i]);
+												selectedImages[i].url = URL.createObjectURL(selectedImages[i])
+												imgs.push(selectedImages[i]);
+												setBanners(imgs)
 											}
 										}}
 									/>
@@ -116,7 +126,7 @@ function BannersEPropagandas() {
 					<div className={styles["col"]}>
 						<div className={styles["form-section"]}>
 							<span className={styles["section-title"]}>
-								Adicionar Imagens de Promoção
+								Adicionar Imagem de Promoção
 							</span>
 							<div className={styles["section-content"]}>
 								<div className={styles["insert-image-form"]}>
