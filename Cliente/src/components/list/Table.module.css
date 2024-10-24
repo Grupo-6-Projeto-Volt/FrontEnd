@@ -37,16 +37,17 @@ td {
 .table-slider {
 	display: flex;
 	justify-content: space-evenly;
-	width: 20%;
+	width: 40% ;
 	height: 2rem;
 	position: relative;
 	align-items: center;
 	align-self: flex-end;
 	z-index: 0;
+	margin-bottom: 4rem;
 }
 
 .btn-slider {
-	width: 30px;
+	width: 25%;
 	height: 30px;
 	background-color: #f9fbff;
 	color: #404b52;
@@ -57,7 +58,7 @@ td {
 }
 
 .btn-slider-pressed {
-	width: 30px;
+	width: 25%;
 	height: 30px;
 	background-color: #5932ea;
 	color: #f9fbff;
