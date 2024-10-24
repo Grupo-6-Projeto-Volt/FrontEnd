@@ -1,11 +1,11 @@
 import api from "../api";
 
-export const banner = {
-    getBanner: () => {
+export const propaganda =  {
+    getPropaganda: () => {
         let resposta = api
             .get("/configuracoes", {
                 params: {
-					nameImg: 'banner',
+					nameImg: 'propaganda',
 				},
                 responseType: 'arraybuffer'
             })
@@ -28,11 +28,11 @@ export const banner = {
             });
         return resposta;
     },
-    postBanner: (image, type) => {
+    postPropaganda: (image, type) => {
         let resposta = api
             .post("/configuracoes", image, {
                 params: {
-					nameImg: 'banner',
+					nameImg: 'propaganda',
 				},
                 headers: {
                     'Content-Type': type

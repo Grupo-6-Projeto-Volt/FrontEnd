@@ -1,39 +1,45 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import styles from "./Banner.module.css";
-// import FotoBanner from "../../utils/assets/img/banner2.png"
+import FotoBanner from "../../utils/assets/img/banner2.png"
 import { banner } from "../../model/bannerModel";
 const Banner = () => {
-    let [teste, setTeste] = useState([]);
-    const reader = new FileReader();
-    
+    let [bannerImg, setBannerImg] = useState([]);
 
-   
-async function getFavoritos() {
-    let response;
-    response = [];
-    // console.log(teste);
-    try {
-        response = await banner.getBanner();
-        
-        console.log(response)
-        setTeste(response)
-    } catch (e) {
+
+    async function getBannerImg() {
+        let response;
         response = [];
-        console.log(e);
-        return <h1>
-            Erro
-        </h1>
-    }
-}
+        try {
+            response = await banner.getBanner();
 
-useEffect(() => {
-    getFavoritos()
-}, [])
-return (
-    <div className={styles["container-banner"]}>
-        <img src={teste} alt="banner" className={styles["img-banner"]} />
-    </div>
-);
+            console.log(response)
+            setBannerImg(response)
+        } catch (e) {
+            response = [];
+            console.log(e);
+            return <h1>
+                Erro
+            </h1>
+        }
+    }
+
+    useEffect(() => {
+        getBannerImg()
+    }, []);
+
+    if(bannerImg.length > 0){
+        return (
+            <div className={styles["container-banner"]}>
+                <img src={bannerImg} alt="banner" className={styles["img-banner"]} />
+            </div>
+        );
+    } else {
+        return (
+            <div className={styles["container-banner"]}>
+                <img src={FotoBanner} alt="banner" className={styles["img-banner"]} />
+            </div>
+        );
+    }
 };
 
 export default Banner;

@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import { useRef, useState, useReducer, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 import ImageListItem from "../../components/imagelistitem/ImageListItem";
 import InputFile from "../../components/input/inputfile/InputFile";
@@ -10,7 +10,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import { banner } from "../../model/bannerModel";
 import Home from '../home/Home';
 import styles from "./BannersEPropagandas.module.css";
-
+import { propaganda } from '../../model/propagandaModel';
 
 
 function BannersEPropagandas() {
@@ -24,8 +24,6 @@ function BannersEPropagandas() {
 	const dragItemBanner = useRef(0);
 	const draggedOverItemBanner = useRef(0);
 
-	const render = () => { setBanners() }
-	const [favAtualizar, forceRender] = useReducer(render, []);
 
 	const style = {
 		position: 'absolute',
@@ -62,12 +60,17 @@ function BannersEPropagandas() {
 	}
 
 	function handleSubmit() {
-		banner.postBanner(banners[0], banners[0].type);
+		console.log(propagandas)
+		if(banners.length > 0){
+			banner.postBanner(banners[0], banners[0].type);
+		} 
+		if(propagandas.length > 0){
+			propaganda.postPropaganda(propagandas[0], propagandas[0].type)
+		}
+	
 	}
 
-	useEffect(() => {
-
-	}, []);
+	useEffect(() => {}, []);
 
 	return (
 		<div className={styles["BannersEPropagandas"]}>
@@ -132,20 +135,16 @@ function BannersEPropagandas() {
 								<div className={styles["insert-image-form"]}>
 									<InputFile
 										id={"file_propaganda"}
-										tituloCampo={"Adicione as imagens das propagandas"}
+										tituloCampo={"Adicione a imagem da propaganda"}
 										textoBotao={"Fazer Upload"}
-										multiple={true}
+										multiple={false}
 										onChange={(e) => {
 											let selectedImages = e.target.files;
-
+											const imgs = [];
 											for (let i = 0; i < selectedImages.length; i++) {
-												setPropagandas((propagandas) => [
-													...propagandas,
-													{
-														name: selectedImages[i].name,
-														url: URL.createObjectURL(selectedImages[i]),
-													},
-												]);
+												selectedImages[i].url = URL.createObjectURL(selectedImages[i])
+												imgs.push(selectedImages[i]);
+												setPropagandas(imgs)
 											}
 										}}
 									/>
