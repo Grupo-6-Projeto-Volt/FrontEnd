@@ -149,13 +149,21 @@ function CadastroProdutos() {
 		});
 	}
 
+	function fileToBase64(file) {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = reject;
+		});
+	}
+
 	async function cadastrarImagens(idProduto) {
 		for (let i = 0; i < imagens.length; i++) {
-			console.log(imagens[i]);
+			let base64 = await fileToBase64(imagens[i].codigoImagem);
 			await imagemProdutosModel.associarImagemProduto(
-				imagens[i].name,
-				"default",
-				imagens[i],
+				`Produtos/Produto${idProduto}/${imagens[i].nome}`,
+				base64,
 				i,
 				idProduto
 			);
@@ -312,7 +320,15 @@ function CadastroProdutos() {
 										multiple={true}
 										onChange={(e) => {
 											let selectedImages = e.target.files;
-											setImagens((imagens) => [...imagens, selectedImages]);
+											for (let i = 0; i < selectedImages.length; i++) {
+												setImagens((imagens) => [
+													...imagens,
+													{
+														nome: selectedImages[i].name,
+														codigoImagem: selectedImages[i],
+													},
+												]);
+											}
 										}}
 									/>
 									<div className={styles["image-list"]}>
@@ -320,8 +336,8 @@ function CadastroProdutos() {
 											imagens.map((e, key) => (
 												<ImageListItem
 													key={key}
-													nomeImagem={e[0].name}
-													imagem={URL.createObjectURL(e[0])}
+													nomeImagem={e.nme}
+													imagem={URL.createObjectURL(e.codigoImagem)}
 													draggable={true}
 													onDragStart={() => (dragItem.current = key)}
 													onDragEnter={() => (draggedOverItem.current = key)}
