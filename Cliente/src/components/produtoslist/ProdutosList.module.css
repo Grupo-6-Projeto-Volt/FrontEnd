@@ -1,11 +1,14 @@
 .container {
   display: flex;
   flex-direction: column;
-  padding: 2%;
+  width: 97% !important;
+  padding: 1%;
 }
 
 .item-list {
   height: fit-content;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
   max-width: fit-content;
   width: 90vw;
   display: flex;
@@ -23,7 +26,7 @@
 .carousel-view {
   display: flex;
   height: fit-content;
-  margin: auto !important;
+  margin-top: 2%;
   justify-content: center;
   align-items: center;
 }
@@ -51,6 +54,7 @@
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0);
   background-image: url("https://img.icons8.com/ios/30/chevron-left.png");
+  background-repeat: no-repeat;
 }
 
 .btn-next {
@@ -60,4 +64,31 @@
   margin-left: 1vw;
   background-color: rgba(0, 0, 0, 0);
   background-image: url("https://img.icons8.com/ios/30/chevron-right.png");
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 800px) {
+  .item{
+    width: 100%;
+  }
+  .container{
+    width: 100vw!important;
+    padding: 0!important;
+    /* margin: auto; */
+  }
+  .container-lista{
+    width: 94vw!important;
+    margin: auto;
+  }
+  .linha-horizontal{
+    width: 16vw;
+    height: 0.3vh;
+  }
+  .container h1{
+    font-size: 103%;
+  }
+  button{
+    display: none;
+  }
+  
 }

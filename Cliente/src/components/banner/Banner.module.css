@@ -1,8 +1,9 @@
 .img-banner{
     height: 50%;
-    width: 100%;
+    width: 101%;
 }
 
 .container-banner{
     padding: 0px;
+    width: 100% !important;
 }

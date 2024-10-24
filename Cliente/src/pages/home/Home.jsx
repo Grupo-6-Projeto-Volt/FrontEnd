@@ -13,7 +13,8 @@ import Categorias from "../../components/categorias/Categorias.jsx";
 const Home = () => {
 	return (
 		<>
-			<NavBarPadrao />
+		<div className={styles["temp"]}>
+			<NavBarPadrao className={styles['nav']} />
 			<div className={styles["container"]}>
 				<Banner />
 				<Lancamentos
@@ -24,11 +25,12 @@ const Home = () => {
 				<Ofertas secao="Ofertas" nome="ofertas" />
 				<Oferta />
 				<Categorias />
-				<Sobre />
+				<Sobre className={styles['sobre']} />
 				<NossosServicos />
 				<Avaliacoes />
 			</div>
 			<Footer />
+		</div>
 		</>
 	);
 };

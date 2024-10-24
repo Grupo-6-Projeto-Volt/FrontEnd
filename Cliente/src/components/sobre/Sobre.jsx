@@ -7,9 +7,8 @@ export const Sobre = () => {
         <div className={styles["container"]}>
             <div className={styles["texto"]}>
                 <h1>Sobre Nós</h1>
-                <p>Bem-vindo à nossa loja de eletrônicos! Com anos de experiência no mercado, <br>
-                </br>oferecemos produtos de qualidade e atendimento especializado para ajudá-lo<br>
-                </br> a fazer a melhor escolha. Conte conosco para uma compra segura e eficiente !!!
+                <div className={styles["linha-horizontal"]}></div>
+                <p>Bem-vindo à nossa loja de eletrônicos! Com anos de experiência no mercado,oferecemos produtos de qualidade e atendimento especializado para ajudá-lo a fazer a melhor escolha. Conte conosco para uma compra segura e eficiente !!!
                     <br />Liberdade</p>
                 <div className={styles['contato-div']}>
                     <button className={styles['contato-btn']}>Entre em contato conosco</button><img className={styles['img-whats']} alt="Imagem Whatsapp" src={imgWhats} />

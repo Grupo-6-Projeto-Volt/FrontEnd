@@ -13,19 +13,24 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 	return (
 		<div className={styles["container"]}>
 			<div className={styles["titulo-produtos"]}>
-				<h1 className={styles["button-voltar"]} onClick={handleButtonClick}>
+				<h5 className={styles["button-voltar"]} onClick={handleButtonClick}>
 					Voltar
-				</h1>
-				<h1>{tituloPagina}</h1>
+				</h5>
+				<h2>{tituloPagina}</h2>
 				<div className={styles["filtro"]}></div>
 			</div>
 			<div className={styles["produtos"]}>
-				{dadosProduto &&
-					dadosProduto.map((produto) => {
+				{
+				dadosProduto?.map((produto) => {
 						return (
 							<div
 								className={styles["produto"]}
-								onClick={() => navigate("/productpage")}
+								onClick={
+									() => {
+										navigate("/productpage")
+										localStorage.idProduto = produto.id
+									}
+								}
 							>
 								<h4>Estado: {produto.estadoGeral}</h4>
 								<img
@@ -39,7 +44,7 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 							</div>
 						);
 					})}
-				{!dadosProduto.length && (
+				{!dadosProduto?.length && (
 					<div className={styles["no-content-div"]}>
 						<h2>Nenhum produto encontrado.</h2>
 					</div>

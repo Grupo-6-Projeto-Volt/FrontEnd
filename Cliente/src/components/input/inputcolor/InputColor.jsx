@@ -11,8 +11,8 @@ function InputColor({ tituloCampo, onChange, onClick }) {
 				type="color"
 				name="color"
 				id="color"
-				onChange={onChange}
-				onClick={onClick}
+				onChange={(e) => onChange(e)}
+				onClick={(e) => onClick(e)}
 			/>
 		</div>
 	);
