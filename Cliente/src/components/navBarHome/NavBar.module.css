@@ -200,6 +200,10 @@ a {
     padding: 3vw;
     /* text-decoration: underline; */
   }
+  .logout{
+    width: 2rem;
+    height: 2rem;
+  }
 
   .separator {
     display: block;

@@ -68,14 +68,14 @@ export function ProdutosData({ secao, nome }) {
           <h1>{secao}</h1>
           <div className={styles["linha-horizontal"]}></div>
           <div className={styles["carousel-view"]}>
-            <button
+            {dadosProduto.length > 0 ? <button
               id={`prev-btn-${nome}`}
               onClick={handleClick.bind(this, "prev")}
               className={styles["btn-prev"]}
             >
-            </button>
+            </button> : null}
             <div id={`item-list-${nome}`} className={styles["item-list"]}>
-              {dadosProduto?.map((produto) => (
+              {dadosProduto.length > 0 ? dadosProduto?.map((produto) => (
                 // <div onClick={() => {navigateToProduct(produto.id)}}>
                 <Produto
                   className={styles["item"]}
@@ -86,14 +86,15 @@ export function ProdutosData({ secao, nome }) {
                   preco={produto.preco}
                 />
                 //  </div>
-              ))}
+              )) : <h3 className={styles['mensagemErro']}>Não foi possível encontrar produtos.<br /> Tente Novamente mais tarde.</h3>
+              }
             </div>
-            <button
+            {dadosProduto.length > 0 ? <button
               id={`next-btn-${nome}`}
               onClick={handleClick.bind(this, "next")}
               className={styles["btn-next"]}
             >
-            </button>
+            </button> : null}
           </div>
         </div>
       </div>
