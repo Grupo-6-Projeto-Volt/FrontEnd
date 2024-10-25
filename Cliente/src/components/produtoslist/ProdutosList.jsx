@@ -86,7 +86,7 @@ export function ProdutosData({ secao, nome }) {
                   preco={produto.preco}
                 />
                 //  </div>
-              )) : <h3 className={styles['mensagemErro']}>Não foi possível encontrar produtos.<br /> Tente Novamente mais tarde.</h3>
+              )) : <div className={styles['mensagemErro']}><h3>Não foi possível encontrar produtos.<br /> Tente Novamente mais tarde.</h3></div>
               }
             </div>
             {dadosProduto.length > 0 ? <button

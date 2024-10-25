@@ -40,10 +40,6 @@
     width: 100%;
     display: flex
 }
-h3{
-    width: 90vw;
-    text-align: center;
-}
 @media screen and (max-width: 1010px) {
     .produto{
         width: 14rem;
