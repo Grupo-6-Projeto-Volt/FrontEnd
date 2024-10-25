@@ -27,7 +27,7 @@ const Ofertas = () => {
         getPropagandaImg()
     }, []);
     
-    if(propagandaImg){
+    if(propagandaImg.length > 0){
         return (
             <div className={styles["container-oferta"]}>
                 <h1>Ofertas Especiais</h1>
