@@ -10,7 +10,7 @@ function ExportButton({bgColor, fgColor, border }) {
   const [open, setOpen] = useState(false);
   const [showImportOptions, setShowImportOptions] = useState(false);
   const [showExportOptions, setShowExportOptions] = useState(false);
-  const inputFileRef = useRef(null); 
+  const inputFileRef = useRef(null);
 
   const style = {
     position: 'absolute',
@@ -29,7 +29,7 @@ function ExportButton({bgColor, fgColor, border }) {
     setShowImportOptions(false);
     setShowExportOptions(false);
   };
-  
+
   const buttonFecharModel = () => setOpen(false);
 
   const handleImportClick = () => {
@@ -52,7 +52,7 @@ function ExportButton({bgColor, fgColor, border }) {
       alert(`Arquivo selecionado: ${file.name}`);
     }
   };
- 
+
   return (
     <>
       <button
@@ -69,7 +69,7 @@ function ExportButton({bgColor, fgColor, border }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-		<Button 
+          <Button
             onClick={buttonFecharModel}
             style={{
               position: 'absolute',
@@ -124,14 +124,14 @@ function ExportButton({bgColor, fgColor, border }) {
 
           {showExportOptions && (
             <div className={styles["export-options"]}>
-				<Button onClick={buttonUpload}>
-					Selecionar Arquivo TXT
-				</Button>
-			  <input
+              <Button onClick={buttonUpload}>
+                Selecionar Arquivo TXT
+              </Button>
+              <input
                 type="file"
                 ref={inputFileRef}
                 style={{ display: "none" }}
-                accept=".txt" 
+                accept=".txt"
                 onChange={fileUpload}
               />
             </div>
