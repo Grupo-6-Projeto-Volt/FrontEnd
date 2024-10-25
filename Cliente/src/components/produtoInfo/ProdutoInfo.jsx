@@ -105,9 +105,9 @@ const ProdutoInfo = () => {
   return (
     <div className={styles["conteiner"]}>
       <div className={styles["button-voltar"]}>
-        <h1 onClick={handleButtonClick}>
+        <h3 onClick={handleButtonClick}>
           Voltar
-        </h1>
+        </h3>
         <RiHeart3Fill
               className={`${styles.heart} ${favoritado ? styles.active : ""}`}
               onClick={toggleFavorito}

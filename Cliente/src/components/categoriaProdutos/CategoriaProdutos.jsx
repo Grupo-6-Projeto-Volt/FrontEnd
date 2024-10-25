@@ -13,15 +13,15 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 	return (
 		<div className={styles["container"]}>
 			<div className={styles["titulo-produtos"]}>
-				<h1 className={styles["button-voltar"]} onClick={handleButtonClick}>
+				<h5 className={styles["button-voltar"]} onClick={handleButtonClick}>
 					Voltar
-				</h1>
-				<h1>{tituloPagina}</h1>
+				</h5>
+				<h2>{tituloPagina}</h2>
 				<div className={styles["filtro"]}></div>
 			</div>
 			<div className={styles["produtos"]}>
 				{
-				dadosProduto?.map((produto) => {
+					dadosProduto ? dadosProduto?.map((produto) => {
 						return (
 							<div
 								className={styles["produto"]}
@@ -43,12 +43,10 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 								</h4>
 							</div>
 						);
-					})}
-				{!dadosProduto?.length && (
-					<div className={styles["no-content-div"]}>
+					}) : (<div className={styles["no-content-div"]}>
 						<h2>Nenhum produto encontrado.</h2>
-					</div>
-				)}
+					</div>)
+				}
 			</div>
 		</div>
 	);

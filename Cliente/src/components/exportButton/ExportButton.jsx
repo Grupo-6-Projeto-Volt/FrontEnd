@@ -6,7 +6,7 @@ import Modal from '@mui/material/Modal';
 import styles from "./ExportButton.module.css";
 import { produtosModel } from "../../model/produtosModel";
 
-function ExportButton({ onClick, bgColor, fgColor, border }) {
+function ExportButton({bgColor, fgColor, border }) {
   const [open, setOpen] = useState(false);
   const [showImportOptions, setShowImportOptions] = useState(false);
   const [showExportOptions, setShowExportOptions] = useState(false);
@@ -33,13 +33,13 @@ function ExportButton({ onClick, bgColor, fgColor, border }) {
   const buttonFecharModel = () => setOpen(false);
 
   const handleImportClick = () => {
-    setShowImportOptions(true);
-    setShowExportOptions(false);
+    setShowExportOptions(true);
+    setShowImportOptions(false);
   };
 
   const handleExportClick = () => {
-    setShowExportOptions(true);
-    setShowImportOptions(false);
+    setShowImportOptions(true);
+    setShowExportOptions(false);
   };
 
   const buttonUpload = () => {
@@ -87,11 +87,11 @@ function ExportButton({ onClick, bgColor, fgColor, border }) {
             Escolha uma opção
           </Typography>
           <div className={styles["button-group"]}>
-            <Button className={styles["buttonModel"]} variant="contained" onClick={handleImportClick} sx={{ mr: 2 }}>
-              Exportar
+            <Button className={styles["buttonModel"]} variant="contained" onClick={handleExportClick} sx={{ mr: 2 }}>
+              	Exportar
             </Button>
-            <Button className={styles["buttonModel"]} variant="contained" onClick={handleExportClick}>
-              Importar
+            <Button className={styles["buttonModel"]} variant="contained" onClick={handleImportClick}>
+				Importar
             </Button>
           </div>
 
@@ -100,23 +100,23 @@ function ExportButton({ onClick, bgColor, fgColor, border }) {
               <Typography variant="body1" sx={{ mt: 2 }}>
                 Tipo de Importação
               </Typography>
-              <Button className={styles["buttonModel"]} onClick={() => alert("PDF selecionado!")}>
-                JSON
+              <Button className={styles["buttonModel"]} onClick={() => alert("JSON")}>
+			  	JSON
               </Button>
-              <Button onClick={onClick} className={styles["ExportButton"]}
-                style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
+              <Button onClick={()=>{alert("CSV")}} className={styles["ExportButton"]} 
+			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
                 CSV
               </Button>
-              <Button onClick={produtosModel.exportarProdutoTxt()} className={styles["ExportButton"]}
-                style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
+              <Button onClick={()=>{produtosModel.exportarProdutoTxt()}} className={styles["ExportButton"]} 
+			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
                 TXT
               </Button>
-              <Button onClick={produtosModel.exportarProdutoTxt()} className={styles["ExportButton"]}
-                style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
+              <Button onClick={()=>{alert("XML")}} className={styles["ExportButton"]} 
+			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
                 XML
               </Button>
-              <Button onClick={onClick} className={styles["ExportButton"]}
-                style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
+              <Button onClick={()=>{alert("Parquet")}} className={styles["ExportButton"]} 
+			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
                 Parquet
               </Button>
             </div>
