@@ -149,7 +149,7 @@ function ListagemProdutos() {
 			<Sidebar />
 			<div className={styles["content"]}>
 				<div className={styles["container"]}>
-				<h1 className={styles["title"]}>Listagem de Produtos</h1>
+					<h1 className={styles["title"]}>Listagem de Produtos</h1>
 					<div className={styles["page-header"]}>
 						<Searchbar
 							width={"20rem"}

@@ -167,6 +167,7 @@ function CrudCategorias() {
 							limit={7}
 							insertButtonText={"Adicionar Categoria"}
 							onInsert={(e) => handleNewCategory(e)}
+							placeholder={"Notebook"}
 						/>
 					</div>
 				</div>

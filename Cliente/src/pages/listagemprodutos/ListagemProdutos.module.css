@@ -1,15 +1,13 @@
 .ListagemProdutos {
 	display: flex;
-	width: 100%;
-	height: 100%;
+	width: 100vw;
+	height: 100vh;
 	justify-content: center;
 	align-items: center;
 	background-color: #ffffff;
 }
 
 .content {
-	margin-left: 15vw;
-	margin-top: 8vw;
 	height: 92vh;
 	width: 85vw;
 	display: flex;
@@ -25,7 +23,7 @@
 	height: 90%;
 	display: flex;
 	flex-direction: column;
-	gap: 1.5rem;
+	justify-content: space-between;
 	align-items: center;
 }
 
@@ -34,14 +32,15 @@
 	height: 5vh;
 	display: flex;
 	align-items: center;
-	gap: 1.5rem;
+	justify-content: space-between;
+	margin-bottom: 1.5vh;
 }
 
 .title {
-	font-size: 25px;
-	height: 100%;
+	font-size: 24px;
 	font-family: "PoppinsBold";
-	margin-right: 820px;
+	width: 100%;
+	margin-bottom: 1.4vh;
 }
 
 .table-area {

@@ -41,6 +41,7 @@ td {
 }
 
 .btn-slider {
+	padding: 0;
 	width: 30px;
 	height: 30px;
 	background-color: #f9fbff;
@@ -52,6 +53,7 @@ td {
 }
 
 .btn-slider-pressed {
+	padding: 0;
 	width: 30px;
 	height: 30px;
 	background-color: #5932ea;

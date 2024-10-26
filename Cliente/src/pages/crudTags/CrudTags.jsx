@@ -165,6 +165,7 @@ function CrudTags() {
 							limit={7}
 							insertButtonText={"Adicionar Tag"}
 							onInsert={(e) => handleNewTag(e)}
+							placeholder={"Novidade"}
 						/>
 					</div>
 				</div>
