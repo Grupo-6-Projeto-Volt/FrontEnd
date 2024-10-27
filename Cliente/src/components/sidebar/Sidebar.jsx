@@ -1,19 +1,16 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.css";
-import {
-	FaCartShopping,
-	FaFileLines,
-	FaChartColumn,
-	FaGear,
-	FaUser,
-	FaTags,
-	FaList,
-	FaImage,
-} from "react-icons/fa6";
+import { FaChartColumn, FaTags, FaList, FaImage } from "react-icons/fa6";
+import { BiLogOut } from "react-icons/bi";
 
 function Sidebar() {
 	let navigate = useNavigate();
 	const location = useLocation();
+
+	function handleLogout() {
+		sessionStorage.clear();
+		navigate("/login");
+	}
 
 	return (
 		<div className={styles["Sidebar"]}>
@@ -96,6 +93,16 @@ function Sidebar() {
 							<div className={styles["content-block"]}>
 								<FaImage />
 								<span>Banners e Propagandas</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className={styles["sidebar-logout"]}>
+					<div className={styles["content-body"]}>
+						<div className={styles["content-item"]} onClick={handleLogout}>
+							<div className={styles["content-block"]}>
+								<BiLogOut size={20} />
+								<span>Sair</span>
 							</div>
 						</div>
 					</div>

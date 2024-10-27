@@ -7,12 +7,21 @@ import { tagsModel } from "../../model/tagsModel";
 import ExportButton from "../../components/exportButton/ExportButton";
 import CrudTable from "../../components/crudlist/CrudTable";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { validateAuth } from "../../utils/global";
 
 function CrudTags() {
+	const navigate = useNavigate();
 	const [tags, setTags] = useState([]);
 	const [filter, setFilter] = useState(0);
 	const [search, setSearch] = useState("");
 	const headersTags = ["Id", "Nome da Tag", ""];
+
+	function validateAuthentication() {
+		if (!validateAuth() || sessionStorage.CATEGORIA !== "1") {
+			navigate("/login");
+		}
+	}
 
 	function handleEdit(id, value) {
 		let response = async () => {
@@ -65,6 +74,7 @@ function CrudTags() {
 	}
 
 	useEffect(() => {
+		validateAuthentication();
 		getTagsList();
 	}, []);
 
