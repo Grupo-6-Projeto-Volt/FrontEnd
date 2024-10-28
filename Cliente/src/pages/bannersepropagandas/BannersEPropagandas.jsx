@@ -61,16 +61,16 @@ function BannersEPropagandas() {
 
 	function handleSubmit() {
 		console.log(propagandas)
-		if(banners.length > 0){
+		if (banners.length > 0) {
 			banner.postBanner(banners[0], banners[0].type);
-		} 
-		if(propagandas.length > 0){
+		}
+		if (propagandas.length > 0) {
 			propaganda.postPropaganda(propagandas[0], propagandas[0].type)
 		}
-	
+
 	}
 
-	useEffect(() => {}, []);
+	useEffect(() => { }, []);
 
 	return (
 		<div className={styles["BannersEPropagandas"]}>
@@ -176,7 +176,9 @@ function BannersEPropagandas() {
 						<div className={styles["form-submit-area"]}>
 							<DefaultButton text={"Postar"} onClick={handleSubmit} />
 							<DefaultButton text={"Visualizar Layout"} onClick={() => {
-								setOpen(true)
+								setOpen(true);
+								console.log(banners)
+								console.log(propagandas)
 							}} />
 						</div>
 					</div>
@@ -204,7 +206,8 @@ function BannersEPropagandas() {
 						&times;
 					</Button>
 					<div className={styles["home"]}>
-						<Home />
+						<Home imgBanner={banners.at(0)} 
+						imgPropaganda={propagandas.at(0)} />
 					</div>
 				</Box>
 			</Modal>

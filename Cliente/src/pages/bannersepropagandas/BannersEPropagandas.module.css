@@ -112,4 +112,5 @@ label {
 .home{
 	width: 686px!important;
 	height: 590px;
+	pointer-events: none;
 }

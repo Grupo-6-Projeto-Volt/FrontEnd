@@ -1,33 +1,43 @@
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from "./Oferta.module.css";
 import Oferta from "../../utils/assets/img/ofertaEspecial.png"
 import { propaganda } from "../../model/propagandaModel";
-const Ofertas = () => {
+const Ofertas = (img) => {
     let [propagandaImg, setPropagandaImg] = useState([]);
 
 
     async function getPropagandaImg() {
-        let response;
-        response = [];
-        try {
-            response = await propaganda.getPropaganda();
-
-            console.log(response)
-            setPropagandaImg(response)
-        } catch (e) {
+        if (img.img === undefined) {
+            let response;
             response = [];
-            console.log(e);
-            return <h1>
-                Erro
-            </h1>
+            try {
+                response = await propaganda.getPropaganda();
+
+                console.log(response)
+                setPropagandaImg(response)
+            } catch (e) {
+                response = [];
+                console.log(e);
+                return <h1>
+                    Erro
+                </h1>
+            }
         }
     }
 
     useEffect(() => {
         getPropagandaImg()
     }, []);
-    
-    if(propagandaImg.length > 0){
+
+    if (img !== undefined && img.img !== undefined) {
+        return (
+            <div className={styles["container-oferta"]}>
+                <h1>Ofertas Especiais</h1>
+                <div className={styles["linha-horizontal"]}></div>
+                <img src={img.img} alt="oferta" className={styles["img-oferta"]} />
+            </div>
+        );
+    } else if (propagandaImg.length > 0) {
         return (
             <div className={styles["container-oferta"]}>
                 <h1>Ofertas Especiais</h1>
