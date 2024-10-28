@@ -217,7 +217,8 @@ function BannersEPropagandas() {
 						&times;
 					</Button>
 					<div className={styles["home"]}>
-						<Home />
+						<Home imgBanner={banners.at(0)} 
+						imgPropaganda={propagandas.at(0)} />
 					</div>
 				</Box>
 			</Modal>
