@@ -152,11 +152,7 @@ function CrudTags() {
 								<option value="2">Nome Desc</option>
 							</select>
 						</div>
-						<ExportButton
-							onClick={() => {
-								getTagsNames();
-							}}
-						></ExportButton>
+						<ExportButton page={"tags"}></ExportButton>
 					</div>
 					<div className={styles["table-area"]}>
 						<CrudTable
