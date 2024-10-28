@@ -147,6 +147,24 @@ export const produtosModel = {
 			});
 		return resposta;
 	},
+
+	exportarJson: () => {
+		api.get("/produtos/exportar-json", { responseType: 'blob' })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'produtos.json';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch((erro) => {
+            console.log("Não foi possível baixar um arquivo JSON:", erro);
+        });
+	},
+	
 	alterarProduto: (
 		id,
 		nome,

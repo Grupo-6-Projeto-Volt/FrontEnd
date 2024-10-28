@@ -98,7 +98,7 @@ function Login() {
 					</div>
 					<div className={styles["box-cadastar"]}>
 						<div>
-							<p>Não possui conta ainda?   </p>
+							<p className={styles["cadastrar"]}>Não possui conta ainda?   </p>
 						</div>
 						<div>
 							<a

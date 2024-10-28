@@ -1,6 +1,6 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
 import { useRef, useState, useEffect } from "react";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
 import ImageListItem from "../../components/imagelistitem/ImageListItem";
@@ -8,38 +8,43 @@ import InputFile from "../../components/input/inputfile/InputFile";
 import Navbar from "../../components/navbar/dashboard/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import { banner } from "../../model/bannerModel";
-import Home from '../home/Home';
+import Home from "../home/Home";
 import styles from "./BannersEPropagandas.module.css";
-import { propaganda } from '../../model/propagandaModel';
-
+import { propaganda } from "../../model/propagandaModel";
+import { validateAuth } from "../../utils/global";
+import { useNavigate } from "react-router-dom";
 
 function BannersEPropagandas() {
-	let [banners, setBanners] = useState([]);
-	let [propagandas, setPropagandas] = useState([]);
-	let [open, setOpen] = useState(false);
-
+	const navigate = useNavigate();
+	const [banners, setBanners] = useState([]);
+	const [propagandas, setPropagandas] = useState([]);
+	const [open, setOpen] = useState(false);
 	const dragItemPropaganda = useRef(0);
 	const draggedOverItemPropaganda = useRef(0);
-
 	const dragItemBanner = useRef(0);
 	const draggedOverItemBanner = useRef(0);
 
-
 	const style = {
-		position: 'absolute',
-		top: '50%',
-		left: '50%',
-		overflow: 'auto',
-		transform: 'translate(-50%, -50%)',
-		width: '700px',
-		height: '600px',
-		bgcolor: 'background.paper',
-		border: '2px solid #000',
+		position: "absolute",
+		top: "50%",
+		left: "50%",
+		overflow: "auto",
+		transform: "translate(-50%, -50%)",
+		width: "700px",
+		height: "600px",
+		bgcolor: "background.paper",
+		border: "2px solid #000",
 		boxShadow: 24,
 		p: 4,
 	};
 
 	const buttonFecharModel = () => setOpen(false);
+
+	function validateAuthentication() {
+		if (!validateAuth() || sessionStorage.CATEGORIA !== "1") {
+			navigate("/login");
+		}
+	}
 
 	function handleSortBanner() {
 		const imagesClone = [...banners];
@@ -60,17 +65,18 @@ function BannersEPropagandas() {
 	}
 
 	function handleSubmit() {
-		console.log(propagandas)
+		console.log(propagandas);
 		if (banners.length > 0) {
 			banner.postBanner(banners[0], banners[0].type);
 		}
 		if (propagandas.length > 0) {
-			propaganda.postPropaganda(propagandas[0], propagandas[0].type)
+			propaganda.postPropaganda(propagandas[0], propagandas[0].type);
 		}
-
 	}
 
-	useEffect(() => { }, []);
+	useEffect(() => {
+		validateAuthentication();
+	}, []);
 
 	return (
 		<div className={styles["BannersEPropagandas"]}>
@@ -94,9 +100,11 @@ function BannersEPropagandas() {
 											let selectedImages = e.target.files;
 											const imgs = [];
 											for (let i = 0; i < selectedImages.length; i++) {
-												selectedImages[i].url = URL.createObjectURL(selectedImages[i])
+												selectedImages[i].url = URL.createObjectURL(
+													selectedImages[i]
+												);
 												imgs.push(selectedImages[i]);
-												setBanners(imgs)
+												setBanners(imgs);
 											}
 										}}
 									/>
@@ -142,9 +150,11 @@ function BannersEPropagandas() {
 											let selectedImages = e.target.files;
 											const imgs = [];
 											for (let i = 0; i < selectedImages.length; i++) {
-												selectedImages[i].url = URL.createObjectURL(selectedImages[i])
+												selectedImages[i].url = URL.createObjectURL(
+													selectedImages[i]
+												);
 												imgs.push(selectedImages[i]);
-												setPropagandas(imgs)
+												setPropagandas(imgs);
 											}
 										}}
 									/>
@@ -175,11 +185,12 @@ function BannersEPropagandas() {
 						</div>
 						<div className={styles["form-submit-area"]}>
 							<DefaultButton text={"Postar"} onClick={handleSubmit} />
-							<DefaultButton text={"Visualizar Layout"} onClick={() => {
-								setOpen(true);
-								console.log(banners)
-								console.log(propagandas)
-							}} />
+							<DefaultButton
+								text={"Visualizar Layout"}
+								onClick={() => {
+									setOpen(true);
+								}}
+							/>
 						</div>
 					</div>
 				</div>
@@ -194,13 +205,13 @@ function BannersEPropagandas() {
 					<Button
 						onClick={buttonFecharModel}
 						style={{
-							position: 'absolute',
-							top: '10px',
-							right: '10px',
-							background: 'none',
-							border: 'none',
-							fontSize: '18px',
-							cursor: 'pointer',
+							position: "absolute",
+							top: "10px",
+							right: "10px",
+							background: "none",
+							border: "none",
+							fontSize: "18px",
+							cursor: "pointer",
 						}}
 					>
 						&times;

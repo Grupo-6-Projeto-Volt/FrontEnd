@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 import styles from "./ExportButton.module.css";
 import { produtosModel } from "../../model/produtosModel";
 
@@ -53,6 +53,12 @@ function ExportButton({bgColor, fgColor, border }) {
     }
   };
 
+  function exportarArquivo(tipo){
+    if (tipo === "json") {
+      produtosModel.exportarJson();      
+    }
+  };
+
   return (
     <>
       <button
@@ -100,8 +106,11 @@ function ExportButton({bgColor, fgColor, border }) {
               <Typography variant="body1" sx={{ mt: 2 }}>
                 Tipo de Importação
               </Typography>
-              <Button className={styles["buttonModel"]} onClick={() => alert("JSON")}>
-			  	JSON
+              <Button
+                onClick={() => {exportarArquivo("json")}}
+                className={styles["buttonModel"]}
+              >
+                JSON
               </Button>
               <Button onClick={()=>{alert("CSV")}} className={styles["ExportButton"]} 
 			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
