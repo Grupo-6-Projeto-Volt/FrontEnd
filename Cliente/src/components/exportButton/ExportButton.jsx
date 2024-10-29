@@ -65,10 +65,10 @@ function ExportButton({page,bgColor, fgColor, border }) {
           feature: 'JSON', onClick:() =>{produtosModel.exportarJson();}
         },
         {
-          feature: 'XML', onClick:() =>{alert("XML")}
+          feature: 'XML', onClick:() =>{produtosModel.exportarXml()}
         },
         {
-          feature: 'Parquet', onclick:() =>{alert("Parquet")}
+          feature: 'Parquet', onClick:() =>{produtosModel.exportarParquet()}
         }
       ],
       categorias:[
@@ -76,13 +76,13 @@ function ExportButton({page,bgColor, fgColor, border }) {
           feature: 'CSV',onClick:() => {categoriasModel.exportarCategoria()}
         },
         {
-          feature: 'JSON', onClick:() =>{alert("JSON")}
+          feature: 'JSON', onClick:() =>{categoriasModel.exportarJson()}
         },
         {
-          feature: 'XML', onClick:() =>{alert("XML")}
+          feature: 'XML', onClick:() =>{categoriasModel.exportarXml()}
         },
         {
-          feature: 'Parquet', onclick:() =>{alert('Parquet')}
+          feature: 'Parquet', onClick:() =>{categoriasModel.exportarParquet()}
         }
       ],
       tags:[
@@ -90,13 +90,13 @@ function ExportButton({page,bgColor, fgColor, border }) {
           feature: 'CSV', onClick:() =>{tagsModel.exportarTag()}
         },
         {
-          feature: 'JSON', onClick:() =>{alert("JSON")}
+          feature: 'JSON', onClick:() =>{tagsModel.exportarJson()}
         },
         {
-          feature: 'XML', onClick:() =>{alert("XML")}
+          feature: 'XML', onClick:() =>{tagsModel.exportarXml()}
         },
         {
-          feature: 'Parquet', onclick:() =>{alert('Parquet')}
+          feature: 'Parquet', onClick:() =>{tagsModel.exportarParquet()}
         }
       ]
     }
