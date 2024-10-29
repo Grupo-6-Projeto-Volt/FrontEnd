@@ -5,8 +5,10 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import styles from "./ExportButton.module.css";
 import { produtosModel } from "../../model/produtosModel";
+import {categoriasModel} from "../../model/categoriasModel"
+import {tagsModel} from "../../model/tagsModel"
 
-function ExportButton({bgColor, fgColor, border }) {
+function ExportButton({page,bgColor, fgColor, border }) {
   const [open, setOpen] = useState(false);
   const [showImportOptions, setShowImportOptions] = useState(false);
   const [showExportOptions, setShowExportOptions] = useState(false);
@@ -26,15 +28,20 @@ function ExportButton({bgColor, fgColor, border }) {
 
   const handleOpen = () => {
     setOpen(true);
-    setShowImportOptions(false);
-    setShowExportOptions(false);
+    if(page === "produtos"){
+      setShowImportOptions(false);
+      setShowExportOptions(false);
+    }else{
+      setShowImportOptions(true);
+      setShowExportOptions(false);
+    }
   };
 
   const buttonFecharModel = () => setOpen(false);
 
   const handleImportClick = () => {
-    setShowExportOptions(true);
-    setShowImportOptions(false);
+      setShowExportOptions(true);
+      setShowImportOptions(false);
   };
 
   const handleExportClick = () => {
@@ -45,6 +52,55 @@ function ExportButton({bgColor, fgColor, border }) {
   const buttonUpload = () => {
     inputFileRef.current.click();
   };
+
+    const options = {
+      produtos:[
+        {
+          feature: 'TXT', onClick: () => {produtosModel.exportarProdutoTxt()}
+        },
+        {
+          feature: 'CSV', onClick: () =>{produtosModel.exportarProduto()}
+        },
+        {
+          feature: 'JSON', onClick:() =>{produtosModel.exportarJson();}
+        },
+        {
+          feature: 'XML', onClick:() =>{alert("XML")}
+        },
+        {
+          feature: 'Parquet', onclick:() =>{alert("Parquet")}
+        }
+      ],
+      categorias:[
+        {
+          feature: 'CSV',onClick:() => {categoriasModel.exportarCategoria()}
+        },
+        {
+          feature: 'JSON', onClick:() =>{alert("JSON")}
+        },
+        {
+          feature: 'XML', onClick:() =>{alert("XML")}
+        },
+        {
+          feature: 'Parquet', onclick:() =>{alert('Parquet')}
+        }
+      ],
+      tags:[
+        {
+          feature: 'CSV', onClick:() =>{tagsModel.exportarTag()}
+        },
+        {
+          feature: 'JSON', onClick:() =>{alert("JSON")}
+        },
+        {
+          feature: 'XML', onClick:() =>{alert("XML")}
+        },
+        {
+          feature: 'Parquet', onclick:() =>{alert('Parquet')}
+        }
+      ]
+    }
+  
 
   const fileUpload = (event) => {
     const file = event.target.files[0];
@@ -92,45 +148,34 @@ function ExportButton({bgColor, fgColor, border }) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Escolha uma opção
           </Typography>
-          <div className={styles["button-group"]}>
-            <Button className={styles["buttonModel"]} variant="contained" onClick={handleExportClick} sx={{ mr: 2 }}>
-              	Exportar
-            </Button>
-            <Button className={styles["buttonModel"]} variant="contained" onClick={handleImportClick}>
-				Importar
-            </Button>
-          </div>
+
+          {page === 'produtos' ? (
+             <div className={styles["button-group"]}>
+             <Button className={styles["buttonModel"]} variant="contained" onClick={handleExportClick} sx={{ mr: 2 }}>
+                 Exportar
+             </Button>
+             <Button className={styles["buttonModel"]} variant="contained" onClick={handleImportClick}>
+         Importar
+             </Button>
+           </div>
+          ): null}
+         
 
           {showImportOptions && (
             <div className={styles["import-options"]}>
               <Typography variant="body1" sx={{ mt: 2 }}>
-                Tipo de Importação
+                Tipo de Exportação
               </Typography>
-              <Button
-                onClick={() => {exportarArquivo("json")}}
-                className={styles["buttonModel"]}
-              >
-                JSON
-              </Button>
-              <Button onClick={()=>{alert("CSV")}} className={styles["ExportButton"]} 
-			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
-                CSV
-              </Button>
-              <Button onClick={()=>{produtosModel.exportarProdutoTxt()}} className={styles["ExportButton"]} 
-			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
-                TXT
-              </Button>
-              <Button onClick={()=>{alert("XML")}} className={styles["ExportButton"]} 
-			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
-                XML
-              </Button>
-              <Button onClick={()=>{alert("Parquet")}} className={styles["ExportButton"]} 
-			  style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
-                Parquet
-              </Button>
+              {options[page].map((option) => (
+                <Button onClick={option.onClick} className={styles["ExportButton"]} 
+                style={{ backgroundColor: bgColor, color: fgColor, border: border }}>
+                        {option.feature}
+                </Button>
+              ))}
             </div>
           )}
 
+          
           {showExportOptions && (
             <div className={styles["export-options"]}>
               <Button onClick={buttonUpload}>
@@ -152,3 +197,4 @@ function ExportButton({bgColor, fgColor, border }) {
 }
 
 export default ExportButton;
+
