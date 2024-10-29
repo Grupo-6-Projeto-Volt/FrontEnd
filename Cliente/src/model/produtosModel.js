@@ -104,15 +104,8 @@ export const produtosModel = {
 			});
 		return resposta;
 	},
-	exportarProduto: (produtos) => {
-		console.log(produtos)
-		let resposta = api.post(
-			"/produtos/exportar", JSON.stringify(produtos), {
-			headers: {
-				"Content-Type": "application/json"
-			}
-		}
-		).then((resultado) => {
+	exportarProduto: () => {
+		let resposta = api.get("/produtos/exportar").then((resultado) => {
 			console.log('Enviou ' + resultado.data)
 			const bom = '\ufeff';
 			const blob = new Blob([bom + resultado.data], { type: 'text/csv;charset=utf-8' });
