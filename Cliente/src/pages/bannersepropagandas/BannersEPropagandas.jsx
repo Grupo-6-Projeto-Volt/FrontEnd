@@ -42,7 +42,7 @@ function BannersEPropagandas() {
 
 	function validateAuthentication() {
 		if (!validateAuth() || sessionStorage.CATEGORIA !== "1") {
-			navigate("/login");
+			navigate("/");
 		}
 	}
 
@@ -100,9 +100,9 @@ function BannersEPropagandas() {
 											let selectedImages = e.target.files;
 											const imgs = [];
 											for (let i = 0; i < selectedImages.length; i++) {
-												selectedImages[i].url = URL.createObjectURL(
-													selectedImages[i]
-												);
+												// selectedImages[i].url = URL.createObjectURL(
+												// 	selectedImages[i]
+												// );
 												imgs.push(selectedImages[i]);
 												setBanners(imgs);
 											}
@@ -150,9 +150,9 @@ function BannersEPropagandas() {
 											let selectedImages = e.target.files;
 											const imgs = [];
 											for (let i = 0; i < selectedImages.length; i++) {
-												selectedImages[i].url = URL.createObjectURL(
-													selectedImages[i]
-												);
+												// selectedImages[i].url = URL.createObjectURL(
+												// 	selectedImages[i]
+												// );
 												imgs.push(selectedImages[i]);
 												setPropagandas(imgs);
 											}

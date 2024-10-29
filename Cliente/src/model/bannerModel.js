@@ -17,10 +17,7 @@ export const banner = {
                 const blob = new Blob([uint8Array], { type: 'image/png' });
                 const url = URL.createObjectURL(blob);
 
-                const img = document.createElement('img');
-                img.src = url;
-                document.body.appendChild(img);
-                return img.src;
+                return url;
             })
             .catch((erro) => {
                 console.log("Houve um erro:", erro);

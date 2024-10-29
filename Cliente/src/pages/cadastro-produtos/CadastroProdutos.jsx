@@ -169,7 +169,7 @@ function CadastroProdutos() {
 		for (let i = 0; i < imagens.length; i++) {
 			let base64 = await fileToBase64(imagens[i].codigoImagem);
 			await imagemProdutosModel.associarImagemProduto(
-				`Produtos/Produto${idProduto}/${imagens[i].nome}`,
+				`images/produtos/produto${idProduto}/${imagens[i].nome}`,
 				base64,
 				i,
 				idProduto
@@ -226,7 +226,7 @@ function CadastroProdutos() {
 	async function getTags() {
 		let response = await tagsModel.listarTags();
 		let listaTodasTags = [];
-		response.arr.forEach((item) => {
+		response.forEach((item) => {
 			listaTodasTags.push(item.tag);
 		});
 		setAllTags(listaTodasTags);
