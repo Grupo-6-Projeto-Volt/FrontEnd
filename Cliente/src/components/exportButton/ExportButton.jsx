@@ -27,7 +27,6 @@ function ExportButton({page,bgColor, fgColor, border }) {
   };
 
   const handleOpen = () => {
-    alert(page)
     setOpen(true);
     if(page === "produtos"){
       setShowImportOptions(false);
@@ -144,7 +143,7 @@ function ExportButton({page,bgColor, fgColor, border }) {
             Escolha uma opção
           </Typography>
 
-          {!showImportOptions &&(
+          {page === 'produtos' ? (
              <div className={styles["button-group"]}>
              <Button className={styles["buttonModel"]} variant="contained" onClick={handleExportClick} sx={{ mr: 2 }}>
                  Exportar
@@ -153,7 +152,7 @@ function ExportButton({page,bgColor, fgColor, border }) {
          Importar
              </Button>
            </div>
-          )}
+          ): null}
          
 
           {showImportOptions && (
