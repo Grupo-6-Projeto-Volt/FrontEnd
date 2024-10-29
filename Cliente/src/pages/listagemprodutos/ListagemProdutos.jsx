@@ -196,7 +196,7 @@ function ListagemProdutos() {
 								navigate("/cadastro-produtos");
 							}}
 						/>
-						<ExportButton></ExportButton>
+						<ExportButton page={"produtos"}></ExportButton>
 					</div>
 					<div className={styles["table-area"]}>
 						<Table headers={headersProdutos} values={produtos} limit={5} />

@@ -31,7 +31,7 @@ export const listarAcessosNosUltimosSeteDias = () => {
     return resposta;
 }
 
-export const obterFaturamento = () => {
+export const  obterFaturamento = () => {
     let resposta = api
         .get("/produtochamados/capturar-dados/faturamento", {
         })

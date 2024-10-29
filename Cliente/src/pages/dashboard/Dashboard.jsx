@@ -52,7 +52,7 @@ export default function Dashboard() {
 
 	const revenue = {
 		title: "Faturamento",
-		paragraph: "R$ " + revenueVar + ",00",
+		paragraph: "R$ " + (revenueVar ?? 0)  + ",00",
 	};
 
 	ObterDadosCategoriaGrafico();
