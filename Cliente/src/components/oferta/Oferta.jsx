@@ -1,33 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import styles from "./Oferta.module.css";
-import Oferta from "../../utils/assets/img/ofertaEspecial.png"
+import React, { useCallback, useEffect, useState } from 'react';
 import { propaganda } from "../../model/propagandaModel";
+import Oferta from "../../utils/assets/img/ofertaEspecial.png";
+import styles from "./Oferta.module.css";
 const Ofertas = (img) => {
     let [propagandaImg, setPropagandaImg] = useState([]);
 
 
-    async function getPropagandaImg() {
+    const getPropagandaImg = useCallback(async () => {
         if (img.img === undefined) {
+            console.log("teste")
             let response;
             response = [];
             try {
                 response = await propaganda.getPropaganda();
 
-                console.log(response)
                 setPropagandaImg(response)
             } catch (e) {
                 response = [];
                 console.log(e);
-                return <h1>
-                    Erro
-                </h1>
             }
         }
-    }
+    }, [img.img])
+
 
     useEffect(() => {
-        getPropagandaImg()
-    }, []);
+        getPropagandaImg();
+    }, [getPropagandaImg]);
 
     if (img !== undefined && img.img !== undefined) {
         return (

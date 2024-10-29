@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useReducer } from 'react';
-import styles from "./Banner.module.css";
-import FotoBanner from "../../utils/assets/img/banner2.png"
+import React, { useEffect, useState } from 'react';
 import { banner } from "../../model/bannerModel";
+import FotoBanner from "../../utils/assets/img/banner2.png";
+import styles from "./Banner.module.css";
 const Banner = (img) => {
     let [bannerImg, setBannerImg] = useState([]);
 
@@ -25,7 +25,7 @@ const Banner = (img) => {
     }
 
     useEffect(() => {
-        getBannerImg()
+        getBannerImg();
     }, []);
 
     if (img !== undefined && img.img !== undefined) {
