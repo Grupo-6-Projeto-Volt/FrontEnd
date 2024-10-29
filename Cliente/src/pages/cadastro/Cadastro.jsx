@@ -120,7 +120,7 @@ const Cadastro = () => {
             </button>
           </div>
           <div className="box-logar">
-            <div>
+            <div className="logar">
               <p>Já possui conta?</p>
             </div>
             <div>

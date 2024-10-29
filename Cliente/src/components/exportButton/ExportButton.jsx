@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 import styles from "./ExportButton.module.css";
 import { produtosModel } from "../../model/produtosModel";
 import {categoriasModel} from "../../model/categoriasModel"
@@ -62,7 +62,7 @@ function ExportButton({page,bgColor, fgColor, border }) {
           feature: 'CSV', onClick: () =>{produtosModel.exportarProduto()}
         },
         {
-          feature: 'JSON', onClick:() =>{alert("JSON")}
+          feature: 'JSON', onClick:() =>{produtosModel.exportarJson();}
         },
         {
           feature: 'XML', onClick:() =>{alert("XML")}
@@ -106,6 +106,12 @@ function ExportButton({page,bgColor, fgColor, border }) {
     const file = event.target.files[0];
     if (file) {
       alert(`Arquivo selecionado: ${file.name}`);
+    }
+  };
+
+  function exportarArquivo(tipo){
+    if (tipo === "json") {
+      produtosModel.exportarJson();      
     }
   };
 

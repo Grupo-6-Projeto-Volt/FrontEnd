@@ -10,20 +10,20 @@ import Banner from "../../components/banner/Banner.jsx";
 import Oferta from "../../components/oferta/Oferta.jsx";
 import Categorias from "../../components/categorias/Categorias.jsx";
 
-const Home = () => {
+const Home = (img) => {
 	return (
 		<>
 		<div className={styles["temp"]}>
 			<NavBarPadrao className={styles['nav']} />
 			<div className={styles["container"]}>
-				<Banner />
+				<Banner img={img.imgBanner?.url ?? undefined} />
 				<Lancamentos
 					className="lancamentos"
 					secao="Lançamentos"
 					nome="lancamentos"
 				/>
 				<Ofertas secao="Ofertas" nome="ofertas" />
-				<Oferta />
+				<Oferta img={img?.imgPropaganda?.url ?? undefined} />
 				<Categorias />
 				<Sobre className={styles['sobre']} />
 				<NossosServicos />

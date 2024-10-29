@@ -19,6 +19,7 @@ import { classificacaoProdutosModel } from "../../model/classificacaoProdutosMod
 import { imagemProdutosModel } from "../../model/imagemProdutosModel";
 import { corProdutosModel } from "../../model/corProdutosModel copy";
 import { toast } from "react-toastify";
+import { validateAuth } from "../../utils/global";
 
 function CadastroProdutos() {
 	const { id } = useParams();
@@ -42,6 +43,12 @@ function CadastroProdutos() {
 	const [editModeOn, setEditModeOn] = useState(id !== undefined);
 	const [categorias, setCategorias] = useState([]);
 	const [allTags, setAllTags] = useState([]);
+
+	function validateAuthentication() {
+		if (!validateAuth() || sessionStorage.CATEGORIA !== "1") {
+			navigate("/login");
+		}
+	}
 
 	function handleSort() {
 		let imagesClone = [...imagens];
@@ -241,6 +248,7 @@ function CadastroProdutos() {
 	}
 
 	useEffect(() => {
+		validateAuthentication();
 		if (editModeOn) {
 			getProduto();
 		}
