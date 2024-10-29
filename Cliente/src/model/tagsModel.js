@@ -61,14 +61,8 @@ export const tagsModel = {
 			});
 		return resposta;
 	},
-	exportarTag: (tags)=>{
-		let resposta = api.post(
-			"/tags/exportar",JSON.stringify(tags),{
-				headers: {
-					"Content-Type": "application/json"
-				}
-			}
-		).then((resultado) => {
+	exportarTag:()=>{
+		let resposta = api.get("/tags/exportar").then((resultado) => {
 				const bom = '\ufeff';
 				const blob = new Blob([bom+resultado.data], { type: 'text/csv;charset=utf-8' });
 				const url = URL.createObjectURL(blob);

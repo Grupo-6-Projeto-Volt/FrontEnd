@@ -1,15 +1,15 @@
 .container{
     display: flex;
-    width: 95%;
+    width: 100%;
     margin: auto;
-    padding: 2vh;
+    /* padding: 2vh; */
     flex-wrap: wrap;
     height: 100%
 }
 
 .produto{
-    width: 18rem;
-    height: 19rem;
+    width: 20%;
+    height: 16rem;
     border-radius: 10px;
     box-shadow: #0000004d 0px 4px 4px;
     padding: 2%;
@@ -33,10 +33,29 @@
     font-weight: 500;
 }
 .heart{
-    width: 2rem;
-    height: 2rem;
+    width: 2rem!important;
+    height: 2rem!important;
 }
 .noContent{
     width: 100%;
     display: flex
+}
+@media screen and (max-width: 1010px) {
+    .produto{
+        width: 14rem;
+        height: 16rem;
+        margin-bottom: 2vh;
+    }
+    .container{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: auto;
+        flex-wrap: wrap;
+    }
+    .produto img{
+        width: 7rem;
+        height: 7rem;
+        margin: auto;
+    }
 }

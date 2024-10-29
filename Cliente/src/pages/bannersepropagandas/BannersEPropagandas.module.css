@@ -109,3 +109,8 @@ label {
 	gap: 0.5rem;
 	padding-bottom: 2rem;
 }
+.home{
+	width: 686px!important;
+	height: 590px;
+	pointer-events: none;
+}

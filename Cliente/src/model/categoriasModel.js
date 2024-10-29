@@ -73,14 +73,8 @@ export const categoriasModel = {
 			});
 		return resposta;
 	},
-	exportarCategoria: (categorias)=>{
-		let resposta = api.post(
-			"/categorias/exportar",JSON.stringify(categorias),{
-				headers: {
-					"Content-Type": "application/json"
-				}
-			}
-		).then((resultado) => {
+	exportarCategoria: ()=>{
+		let resposta = api.get("/categorias/exportar").then((resultado) => {
 				const bom = '\ufeff';
 				const blob = new Blob([bom+resultado.data], { type: 'text/csv;charset=utf-8' });
 				const url = URL.createObjectURL(blob);

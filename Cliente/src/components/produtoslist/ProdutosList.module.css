@@ -67,6 +67,11 @@
   background-repeat: no-repeat;
 }
 
+.mensagemErro{
+  width: 90vw;
+  text-align: center;
+}
+
 @media screen and (max-width: 800px) {
   .item{
     width: 100%;
@@ -74,8 +79,8 @@
   .container{
     width: 100vw!important;
     padding: 0!important;
-    /* margin: auto; */
   }
+
   .container-lista{
     width: 94vw!important;
     margin: auto;

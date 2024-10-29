@@ -127,7 +127,7 @@ const Cadastro = () => {
               <a
                 className="link"
                 onClick={() => {
-                  navigate("/");
+                  navigate("/login");
                 }}
               >
                 Logar-se agora

@@ -1,6 +1,7 @@
 import styles from "./NavBar.module.css";
 import logo from "../../utils/assets/img/logo-ichiban.png";
 import { FaSearch, FaUserCircle } from "react-icons/fa";
+import { CiLogout } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +10,7 @@ import { validateAuth } from "../../utils/global";
 export const NavBarPadrao = () => {
 	let navigate = useNavigate();
 	const [busca, setBusca] = useState("");
+	const [logado, setLogado] = useState(false);
 	const handleInputChange = (event) => {
 		setBusca(event.target.value);
 	};
@@ -32,7 +34,7 @@ export const NavBarPadrao = () => {
 				/>
 			);
 		} else {
-			if (sessionStorage.getItem('CATEGORIA') === '0') {
+			if (sessionStorage.getItem('CATEGORIA') === '1') {
 				return <a href="/dashboard">
 					<h2 className={styles['helloUser']}>Olá, {sessionStorage.getItem('NOME')}
 					</h2></a>;
@@ -41,6 +43,11 @@ export const NavBarPadrao = () => {
 				</h2>
 			}
 		}
+	}
+	function logout() {
+		sessionStorage.clear();
+		validateAuthentication();
+		window.location.reload();
 	}
 
 	return (
@@ -102,6 +109,13 @@ export const NavBarPadrao = () => {
 					<li onClick={() => navigate("/pagina-produtos/Acessórios/Acessório")}>
 						Acessórios
 					</li>
+					{sessionStorage.TOKEN ?
+						<>
+							<div className={styles['separator']}></div>
+							<li onClick={logout.bind()}><CiLogout className={styles['logout']} /></li>
+						</>
+						: null
+					}
 				</ul>
 				<div className={styles["pesquisa-responsive"]}>
 					<input

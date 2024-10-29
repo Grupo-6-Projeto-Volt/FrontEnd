@@ -12,7 +12,7 @@ const ProductPage = () => {
 					className="lancamentos"
 					secao="Lançamentos"
 					nome="lancamentos"
-				/>\
+				/>
 			<Footer></Footer>
 		</>
 	)

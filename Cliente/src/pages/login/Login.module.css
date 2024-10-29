@@ -91,7 +91,6 @@
 .box-logo {
     display: flex;
     align-items: flex-start;
-    margin-right: 0;
 }
 
 .box-cadastrar {

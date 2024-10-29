@@ -19,6 +19,7 @@ import { classificacaoProdutosModel } from "../../model/classificacaoProdutosMod
 import { imagemProdutosModel } from "../../model/imagemProdutosModel";
 import { corProdutosModel } from "../../model/corProdutosModel copy";
 import { toast } from "react-toastify";
+import { validateAuth } from "../../utils/global";
 
 function CadastroProdutos() {
 	const { id } = useParams();
@@ -42,6 +43,12 @@ function CadastroProdutos() {
 	const [editModeOn, setEditModeOn] = useState(id !== undefined);
 	const [categorias, setCategorias] = useState([]);
 	const [allTags, setAllTags] = useState([]);
+
+	function validateAuthentication() {
+		if (!validateAuth() || sessionStorage.CATEGORIA !== "1") {
+			navigate("/login");
+		}
+	}
 
 	function handleSort() {
 		let imagesClone = [...imagens];
@@ -149,11 +156,21 @@ function CadastroProdutos() {
 		});
 	}
 
+	function fileToBase64(file) {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = reject;
+		});
+	}
+
 	async function cadastrarImagens(idProduto) {
 		for (let i = 0; i < imagens.length; i++) {
+			let base64 = await fileToBase64(imagens[i].codigoImagem);
 			await imagemProdutosModel.associarImagemProduto(
-				imagens[i].nome,
-				imagens[i].codigoImagem,
+				`Produtos/Produto${idProduto}/${imagens[i].nome}`,
+				base64,
 				i,
 				idProduto
 			);
@@ -231,6 +248,7 @@ function CadastroProdutos() {
 	}
 
 	useEffect(() => {
+		validateAuthentication();
 		if (editModeOn) {
 			getProduto();
 		}
@@ -310,15 +328,12 @@ function CadastroProdutos() {
 										multiple={true}
 										onChange={(e) => {
 											let selectedImages = e.target.files;
-
 											for (let i = 0; i < selectedImages.length; i++) {
 												setImagens((imagens) => [
 													...imagens,
 													{
 														nome: selectedImages[i].name,
-														codigoImagem: URL.createObjectURL(
-															selectedImages[i]
-														),
+														codigoImagem: selectedImages[i],
 													},
 												]);
 											}
@@ -329,8 +344,8 @@ function CadastroProdutos() {
 											imagens.map((e, key) => (
 												<ImageListItem
 													key={key}
-													nomeImagem={e.nome}
-													imagem={e.codigoImagem}
+													nomeImagem={e.nme}
+													imagem={URL.createObjectURL(e.codigoImagem)}
 													draggable={true}
 													onDragStart={() => (dragItem.current = key)}
 													onDragEnter={() => (draggedOverItem.current = key)}
