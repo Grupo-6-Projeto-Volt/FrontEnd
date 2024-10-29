@@ -19,8 +19,10 @@ import { classificacaoProdutosModel } from "../../model/classificacaoProdutosMod
 import { imagemProdutosModel } from "../../model/imagemProdutosModel";
 import { corProdutosModel } from "../../model/corProdutosModel copy";
 import { toast } from "react-toastify";
+import LoadingBar from "../../components/loadingbar/LoadingBar";
 
 function CadastroProdutos() {
+	const loadBarRef = useRef();
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const dragItem = useRef(0);
@@ -42,6 +44,24 @@ function CadastroProdutos() {
 	const [editModeOn, setEditModeOn] = useState(id !== undefined);
 	const [categorias, setCategorias] = useState([]);
 	const [allTags, setAllTags] = useState([]);
+
+	function increaseProgressBar(value) {
+		if (loadBarRef.current) {
+			loadBarRef.current.addProgress(value);
+		}
+	}
+
+	function showProgressBar() {
+		if (loadBarRef.current) {
+			loadBarRef.current.show();
+		}
+	}
+
+	function hideProgressBar() {
+		if (loadBarRef.current) {
+			loadBarRef.current.hide();
+		}
+	}
 
 	function handleSort() {
 		let imagesClone = [...imagens];
@@ -80,6 +100,8 @@ function CadastroProdutos() {
 		};
 
 		try {
+			showProgressBar();
+
 			let produtoCriado;
 
 			let categoriaEncontrada = await categoriasModel.buscarCategoriaPorNome(
@@ -101,30 +123,42 @@ function CadastroProdutos() {
 					categoriaEncontrada.id
 				);
 			} else {
-				produtoCriado = await produtosModel.adicionarProduto(
-					nome,
-					descricao,
-					preco,
-					1,
-					estado,
-					desconto,
-					dataInicioDesconto,
-					dataFimDesconto,
-					categoriaEncontrada.id
-				);
+				produtoCriado = await produtosModel
+					.adicionarProduto(
+						nome,
+						descricao,
+						preco,
+						1,
+						estado,
+						desconto,
+						dataInicioDesconto,
+						dataFimDesconto,
+						categoriaEncontrada.id
+					)
+					.then((result) => {
+						return result;
+					})
+					.catch((error) => {
+						console.error(error);
+						return null;
+					});
 			}
 
 			await cadastrarTags(produtoCriado.id);
 			await cadastrarCores(produtoCriado.id);
 			await cadastrarImagens(produtoCriado.id);
 
+			hideProgressBar();
+
 			toast.success(`Produto ${modo.sucesso} com sucesso!`);
 
 			if (!editModeOn) clear();
 		} catch (error) {
+			hideProgressBar();
 			toast.error(
 				`Ocorreu um erro ao ${modo.erro} o produto: ${error.message}`
 			);
+			console.error(error);
 		}
 	}
 
@@ -134,10 +168,16 @@ function CadastroProdutos() {
 
 			const tagEncontrada = await tagsModel.buscarTagPorNome(tag);
 
-			await classificacaoProdutosModel.associarTagProduto(
-				idProduto,
-				tagEncontrada.id
-			);
+			await classificacaoProdutosModel
+				.associarTagProduto(idProduto, tagEncontrada.id)
+				.then((result) => {
+					return result;
+				})
+				.catch((error) => {
+					console.error(error);
+					toast.error(`Erro ao cadastrar tags: ${error}`);
+					return null;
+				});
 
 			getTags();
 		});
@@ -145,7 +185,16 @@ function CadastroProdutos() {
 
 	async function cadastrarCores(idProduto) {
 		cores.forEach(async (cor) => {
-			await corProdutosModel.associarCorProduto(cor.nome, cor.hexId, idProduto);
+			await corProdutosModel
+				.associarCorProduto(cor.nome, cor.hexId, idProduto)
+				.then((result) => {
+					return result;
+				})
+				.catch((error) => {
+					console.error(error);
+					toast.error(`Erro ao cadastrar cores: ${error}`);
+					return null;
+				});
 		});
 	}
 
@@ -161,12 +210,21 @@ function CadastroProdutos() {
 	async function cadastrarImagens(idProduto) {
 		for (let i = 0; i < imagens.length; i++) {
 			let base64 = await fileToBase64(imagens[i].codigoImagem);
-			await imagemProdutosModel.associarImagemProduto(
-				`Produtos/Produto${idProduto}/${imagens[i].nome}`,
-				base64,
-				i,
-				idProduto
-			);
+			await imagemProdutosModel
+				.associarImagemProduto(
+					`images/Produtos/Produto${idProduto}/${imagens[i].nome}`,
+					base64,
+					i,
+					idProduto
+				)
+				.then((result) => {
+					return result;
+				})
+				.catch((error) => {
+					console.error(error);
+					toast.error(`Erro ao cadastrar imagens: ${error}`);
+					return null;
+				});
 		}
 	}
 
@@ -252,6 +310,7 @@ function CadastroProdutos() {
 		<div className={styles["CadastroProdutos"]}>
 			<Navbar />
 			<Sidebar />
+			<LoadingBar ref={loadBarRef} showPercentage={false} />
 			<div className={styles["content"]}>
 				<div className={styles["container"]}>
 					<div className={styles["col"]}>
