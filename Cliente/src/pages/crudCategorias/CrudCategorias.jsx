@@ -164,11 +164,7 @@ function CrudCategorias() {
 								<option value="2">Nome Desc</option>
 							</select>
 						</div>
-						<ExportButton
-							onClick={() => {
-								getCategoriasNames();
-							}}
-						></ExportButton>
+						<ExportButton page={"categorias"}></ExportButton>
 					</div>
 					<div className={styles["table-area"]}>
 						<CrudTable
