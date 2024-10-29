@@ -20,6 +20,8 @@ import { imagemProdutosModel } from "../../model/imagemProdutosModel";
 import { corProdutosModel } from "../../model/corProdutosModel copy";
 import { toast } from "react-toastify";
 import LoadingBar from "../../components/loadingbar/LoadingBar";
+import { Box, Button, Modal } from "@mui/material";
+import ProductPage from "../productpage/ProductPage";
 
 function CadastroProdutos() {
 	const loadBarRef = useRef();
@@ -44,6 +46,24 @@ function CadastroProdutos() {
 	const [editModeOn, setEditModeOn] = useState(id !== undefined);
 	const [categorias, setCategorias] = useState([]);
 	const [allTags, setAllTags] = useState([]);
+	const [open, setOpen] = useState(false);
+	const [produto, setProduto] = useState({});
+
+	const style = {
+		position: "absolute",
+		top: "50%",
+		left: "50%",
+		overflow: "auto",
+		transform: "translate(-50%, -50%)",
+		width: "95vw",
+		height: "95vh",
+		bgcolor: "background.paper",
+		border: "2px solid #000",
+		boxShadow: 24,
+		p: 4,
+	};
+
+	const buttonFecharModel = () => setOpen(false);
 
 	function increaseProgressBar(value) {
 		if (loadBarRef.current) {
@@ -277,7 +297,7 @@ function CadastroProdutos() {
 	async function getTags() {
 		let response = await tagsModel.listarTags();
 		let listaTodasTags = [];
-		response.arr.forEach((item) => {
+		response.forEach((item) => {
 			listaTodasTags.push(item.tag);
 		});
 		setAllTags(listaTodasTags);
@@ -617,14 +637,35 @@ function CadastroProdutos() {
 							style={{ display: editModeOn ? "none" : "flex" }}
 						>
 							<DefaultButton text={"Postar"} onClick={handleSubmit} />
-							<DefaultButton text={"Visualizar Layout"} />
+							<DefaultButton
+								text={"Visualizar Layout"}
+								onClick={() => {
+									setProduto({
+										nome: nome,
+										descricao: descricao,
+										preco: Number(preco.replace("R$", "")),
+										categoria: categoria,
+										estadoGeral: estado,
+										desconto: desconto,
+										dataInicioDesconto: dataInicioDesconto,
+										dataFimDesconto: dataFimDesconto,
+										cores: cores,
+										tags: tags,
+										imagensProduto: imagens,
+									});
+									setOpen(true);
+								}}
+							/>
 						</div>
 						<div
 							className={styles["form-submit-area"]}
 							style={{ display: editModeOn ? "flex" : "none" }}
 						>
 							<DefaultButton text={"Atualizar"} onClick={handleSubmit} />
-							<DefaultButton text={"Visualizar Layout"} />
+							<DefaultButton
+								text={"Visualizar Layout"}
+								onClick={() => setOpen(true)}
+							/>
 							<button
 								className={styles["Delete-btn"]}
 								onClick={() => {
@@ -637,6 +678,32 @@ function CadastroProdutos() {
 					</div>
 				</div>
 			</div>
+			<Modal
+				open={open}
+				onClose={buttonFecharModel}
+				aria-labelledby="modal-modal-title"
+				aria-describedby="modal-modal-description"
+			>
+				<Box sx={style}>
+					<Button
+						onClick={buttonFecharModel}
+						style={{
+							position: "absolute",
+							top: "10px",
+							right: "10px",
+							background: "none",
+							border: "none",
+							fontSize: "50px",
+							cursor: "pointer",
+						}}
+					>
+						&times;
+					</Button>
+					<div className={styles["product"]}>
+						<ProductPage produtoExemplo={produto} />
+					</div>
+				</Box>
+			</Modal>
 		</div>
 	);
 }

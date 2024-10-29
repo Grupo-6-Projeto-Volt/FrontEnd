@@ -284,3 +284,9 @@ input:checked + .slider:before {
 	font-size: 16px;
 	font-family: "PoppinsBold";
 }
+
+.product {
+	width: 100% !important;
+	height: 100%;
+	pointer-events: none;
+}
