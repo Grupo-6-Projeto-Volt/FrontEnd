@@ -33,9 +33,15 @@ export const produtosModel = {
 			});
 		return resposta;
 	},
-	listarProdutos: () => {
+	listarProdutos: (limite) => {
 		let resposta = api
-			.get("/produtos/loja")
+			.get("/produtos/loja",
+				{
+					params: {
+						limite: limite,
+					},
+				}
+			)
 			.then((resultado) => {
 				return resultado.data;
 			})

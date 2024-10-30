@@ -345,7 +345,7 @@ function CadastroProdutos() {
 												<ImageListItem
 													key={key}
 													nomeImagem={e.nme}
-													imagem={URL.createObjectURL(e.codigoImagem)}
+													imagem={typeof e.codigoImagem == File ? URL.createObjectURL(e.codigoImagem) : e.codigoImagem}
 													draggable={true}
 													onDragStart={() => (dragItem.current = key)}
 													onDragEnter={() => (draggedOverItem.current = key)}

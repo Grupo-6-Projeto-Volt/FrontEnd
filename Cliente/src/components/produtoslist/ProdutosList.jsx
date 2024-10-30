@@ -4,6 +4,7 @@ import { Produto } from "../productcard/ProductCard";
 import React, { useEffect, useState } from "react";
 import { clickProd } from "./ProdutosList.js";
 import { useNavigate, useLocation } from "react-router-dom";
+import Padrao from '../../utils/assets/img/img-padrao.png'
 
 export const itemWidth = 130;
 export const padding = 16;
@@ -82,7 +83,7 @@ export function ProdutosData({ secao, nome }) {
                   id={produto.id}
                   nome={produto.nome}
                   estado={produto.estadoGeral}
-                  imgUrl={produto.imagensProduto.at(0).codigoImagem}
+                  imgUrl={produto.imagensProduto.at(0) !== undefined ? produto.imagensProduto.at(0).codigoImagem : Padrao}
                   preco={produto.preco}
                 />
                 //  </div>
