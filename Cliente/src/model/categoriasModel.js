@@ -89,5 +89,54 @@ export const categoriasModel = {
 				return erro;
 			});
 		return resposta;
+	},
+	exportarJson: () => {
+		api.get("/categorias/exportar-json", { responseType: 'blob' })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'categorias.json';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch((erro) => {
+            console.log("Não foi possível baixar um arquivo JSON:", erro);
+        });
+	},
+	exportarXml: () => {
+		api.get("/categorias/exportar-xml", { responseType: 'blob' })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'c.xml';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch((erro) => {
+            console.log("Não foi possível baixar um arquivo XML:", erro);
+        });
+	},
+	exportarParquet: () => {
+		api.get("/categorias/exportar-parquet", { responseType: 'blob' })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'c.xml';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch((erro) => {
+            console.log("Não foi possível baixar um arquivo Parquet:", erro);
+        });
 	}
+
 };

@@ -86,7 +86,7 @@ function CrudTags() {
 		let lista = [];
 		try {
 			let response = await tagsModel.listarTags();
-			response.arr.forEach((tag) => {
+			response.forEach((tag) => {
 				lista.push({
 					id: tag.id,
 					nome: tag.tag,
