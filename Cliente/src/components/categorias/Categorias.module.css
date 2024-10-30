@@ -13,18 +13,24 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	align-items: center;
+	justify-content: center;
+}
+
+.categoria h4{
+	font-size: 20px;
+	margin-top: 2%;
 }
 
 .img-categorias {
-	width: 60%;
-	margin-left: 20%;
+	width: 70%;
 }
 
 .button-categorias {
 	background-color: rgb(255, 255, 255) !important;
 	border: 1px solid black;
 	color: black;
-	width: 62%;
+	width: 60%;
 	font-size: 15px;
 	padding: 2%;
 	border-radius: 5px;
@@ -35,19 +41,18 @@
 @media screen and (max-width: 800px) {
 	.container-categorias{
 		display: flex;
-		flex-direction: column;
-		flex-wrap: wrap;
 		align-content: center;
 	}
 	.categoria {
-		width: 80%;
-		box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-		padding: 3%;
-		height:fit-content;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		margin-bottom: 7%;
+        width: 5rem;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        padding: 3%;
+        height: -moz-fit-content;
+        height: 5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-bottom: 7%;
 	}
 	.categoria h4{
 		font-size: 1.0rem!important;

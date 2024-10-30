@@ -9,16 +9,16 @@
 }
 
 .container-footer {
-    background-color: #BB2020;
-    color: white;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto;
-    width: 100%;
-    padding: 4%;
+        background-color: #BB2020;
+        color: white;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        width: 100vw;
+        padding: 2%;
 }
 
 p {
@@ -59,6 +59,7 @@ p {
 
     .container-footer {
         margin-top: 10%;
+        padding: 0%;
     }
 
     p{
