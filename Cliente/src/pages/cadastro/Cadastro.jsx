@@ -8,6 +8,8 @@ import logo from "../../utils/assets/logo-ichiban.png";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { formatPhoneNumber } from "../../utils/global";
+import { NavBarPadrao } from "../../components/navBarHome/NavBar";
+import Footer from "../../components/footer/Footer.jsx";
 
 const Cadastro = () => {
   const [nomeText, setNomeText] = useState("");
@@ -58,9 +60,7 @@ const Cadastro = () => {
 
   return (
     <div className="Cadastro">
-      <div className="box-logo">
-        <img src={logo} className="logo" alt="Logo" />
-      </div>
+      <NavBarPadrao />
       <Formik
         initialValues={{
           nome: "",
@@ -136,6 +136,7 @@ const Cadastro = () => {
           </div>
         </Form>
       </Formik>
+      <Footer />
     </div>
   );
 };

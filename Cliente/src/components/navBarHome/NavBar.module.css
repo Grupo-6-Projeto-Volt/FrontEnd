@@ -14,7 +14,7 @@
 }
 .navBarBaixo {
   background-color: #000000;
-  width: 100%;
+  width: 100vw;
   padding: 0.1vh;
   cursor: pointer;
 }
@@ -160,7 +160,7 @@ a {
   }
   .navBarBaixo {
     display: flex;
-    /* padding-bottom: 3vw; */
+    width: 100vw;
   }
   .pesquisa {
     display: none;
@@ -253,5 +253,9 @@ a {
     display: flex;
     height: 60px;
     width: 60px;
+  }
+
+  .containerPesquisaUser {
+    width: 19%;
   }
 }

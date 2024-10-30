@@ -1,8 +1,6 @@
 .Cadastro{
-    width: 100%;
-    height: 100vh;
+    width: 100vw;
     display: flex;
-    justify-content: center;
     align-items: center;
     color: black;
     flex-direction: column;
@@ -18,11 +16,13 @@
     justify-content: space-evenly;
     align-items: center;
     padding: 1%;
+    margin: 50px 0px 20px 0px;
+
 }
 
 .btn{
     height: 4rem;
-    width: 90%;
+    width: 95%;
     border: none;
     cursor: pointer;
     font-size: 20px;
@@ -81,17 +81,6 @@
     text-decoration: underline;
 }
 
-.logo{
-    width: 9rem;
-}
-
-.box-logo{
-    margin-top: 1%;
-    display: flex;
-    align-items: flex-start;
-    margin-right: 74rem;
-}
-
 .box-cadastrar{
     display: flex;
     align-items: self-start;
@@ -113,15 +102,6 @@
     font-size: 20px;
     height: 0.1%;
     cursor: pointer;
-}
-
-.logo{
-    width: 12rem;
-}
-
-.box-logo{
-    display: flex;
-    align-items: flex-start;
 }
 
 .link{
@@ -179,14 +159,6 @@ a{
         justify-content: normal;
         gap: 5px;
         border-radius: 1.5rem;
-    }
-
-    .box-logo {
-        margin-right: 0;
-    }
-
-    .box-logo img {
-        width: 6rem;
     }
 
     .titulo {
