@@ -120,7 +120,7 @@ function CadastroProdutos() {
 					categoriaEncontrada.id
 				);
 			}
-
+			console.log(id)
 			await cadastrarTags(produtoCriado.id);
 			await cadastrarCores(produtoCriado.id);
 			await cadastrarImagens(produtoCriado.id);
@@ -135,14 +135,14 @@ function CadastroProdutos() {
 		}
 	}
 
-	async function cadastrarTags(idProduto) {
+	async function cadastrarTags() {
 		tags.forEach(async (tag) => {
 			await tagsModel.inserirTag(tag);
 
 			const tagEncontrada = await tagsModel.buscarTagPorNome(tag);
-
+			console.log(tagEncontrada)
 			await classificacaoProdutosModel.associarTagProduto(
-				idProduto,
+				id,
 				tagEncontrada.id
 			);
 

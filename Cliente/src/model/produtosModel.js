@@ -205,7 +205,8 @@ export const produtosModel = {
 		desconto,
 		dataInicioDesconto,
 		dataFimDesconto,
-		idCategoria
+		idCategoria,
+		tags,
 	) => {
 		let resposta = api
 			.put(`/produtos/estoque/${id}`, {
@@ -218,6 +219,7 @@ export const produtosModel = {
 				dataInicioDesconto: dataInicioDesconto,
 				dataFimDesconto: dataFimDesconto,
 				idCategoria: idCategoria,
+				tags: tags
 			})
 			.then((resultado) => {
 				return resultado.data;
