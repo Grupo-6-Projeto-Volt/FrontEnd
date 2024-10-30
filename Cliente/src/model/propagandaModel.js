@@ -13,7 +13,6 @@ export const propaganda =  {
                 const arrayBuffer = resultado.data;  
                 const uint8Array = new Uint8Array(arrayBuffer);  
 
-
                 const blob = new Blob([uint8Array], { type: 'image/png' });
                 const url = URL.createObjectURL(blob);
 
