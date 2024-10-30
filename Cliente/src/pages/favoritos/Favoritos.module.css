@@ -30,3 +30,18 @@
 .footer{
     bottom: 0;
 }
+
+@media (max-width: 1024px) {
+    h2{
+        font-size: 17px !important;
+    }
+
+    h3{
+        font-size: 18px !important;
+    }
+
+    .favoritos-deslogado{
+        width: 90%;
+        margin-top: 3%;
+    }
+}

@@ -58,15 +58,6 @@ function Login() {
 			<ToastContainer />
 			<div className={styles["Login"]}>
 				<div className={styles["form"]}>
-					<div className={styles["voltar"]}>
-						<p
-							onClick={() => {
-								navigate("/");
-							}}
-						>
-							Voltar
-						</p>
-					</div>
 					<h1 className={styles["titulo"]}>
 						<b>Entrar</b>
 					</h1>

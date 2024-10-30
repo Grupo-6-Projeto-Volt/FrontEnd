@@ -73,15 +73,6 @@ const Cadastro = () => {
         validationSchema={validationsRegister}
       >
         <Form className="form">
-          <div className="voltar">
-            <p
-              onClick={() => {
-                navigate("/ ");
-              }}
-            >
-              Voltar
-            </p>
-          </div>
           <h1 className="titulo">Cadastrar</h1>
           <div className="input-group">
             <div className="input-group-2">              
