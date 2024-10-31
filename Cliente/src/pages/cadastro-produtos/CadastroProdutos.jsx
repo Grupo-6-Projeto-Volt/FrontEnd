@@ -65,12 +65,6 @@ function CadastroProdutos() {
 
 	const buttonFecharModel = () => setOpen(false);
 
-	function increaseProgressBar(value) {
-		if (loadBarRef.current) {
-			loadBarRef.current.addProgress(value);
-		}
-	}
-
 	function showProgressBar() {
 		if (loadBarRef.current) {
 			loadBarRef.current.show();
@@ -269,8 +263,21 @@ function CadastroProdutos() {
 
 		let listaImagens = [];
 		for (let i = 0; i < produto.imagensProduto.length; i++) {
+			const file = new File(
+				[
+					await fetch(produto.imagensProduto[i].codigoImagem).then((res) =>
+						res.blob()
+					),
+				],
+				produto.imagensProduto[i].nome
+			);
+			produto.imagensProduto[i].codigoImagem = file;
+
 			listaImagens.push({
-				nome: produto.imagensProduto[i].nome,
+				nome: String(produto.imagensProduto[i].nome).replace(
+					`images/Produtos/Produto${id}/`,
+					""
+				),
 				codigoImagem: produto.imagensProduto[i].codigoImagem,
 			});
 		}
@@ -415,8 +422,12 @@ function CadastroProdutos() {
 											imagens.map((e, key) => (
 												<ImageListItem
 													key={key}
-													nomeImagem={e.nme}
-													imagem={URL.createObjectURL(e.codigoImagem)}
+													nomeImagem={e.nome}
+													imagem={
+														typeof e.codigoImagem === "string"
+															? e.codigoImagem
+															: URL.createObjectURL(e.codigoImagem)
+													}
 													draggable={true}
 													onDragStart={() => (dragItem.current = key)}
 													onDragEnter={() => (draggedOverItem.current = key)}
@@ -664,7 +675,22 @@ function CadastroProdutos() {
 							<DefaultButton text={"Atualizar"} onClick={handleSubmit} />
 							<DefaultButton
 								text={"Visualizar Layout"}
-								onClick={() => setOpen(true)}
+								onClick={() => {
+									setProduto({
+										nome: nome,
+										descricao: descricao,
+										preco: Number(String(preco).replace("R$", "")),
+										categoria: categoria,
+										estadoGeral: estado,
+										desconto: desconto,
+										dataInicioDesconto: dataInicioDesconto,
+										dataFimDesconto: dataFimDesconto,
+										cores: cores,
+										tags: tags,
+										imagensProduto: imagens,
+									});
+									setOpen(true);
+								}}
 							/>
 							<button
 								className={styles["Delete-btn"]}
