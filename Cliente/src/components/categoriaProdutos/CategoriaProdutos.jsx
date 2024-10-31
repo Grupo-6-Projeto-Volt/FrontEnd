@@ -35,7 +35,10 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 							>
 								<h4>Estado: {produto.estadoGeral}</h4>
 								<img
-									src={produto.imagensProduto[0] ? produto.imagensProduto[0].codigoImagem : Padrao}
+									src={produto.imagensProduto[0] ? typeof produto.imagensProduto.at(0).codigoImagem !== 'string' ? URL.createObjectURL(
+										produto.imagensProduto.at(0).codigoImagem
+								  ) : produto.imagensProduto.at(0).codigoImagem
+								: Padrao}
 									alt={produto.nome}
 								/>
 								<h4 className={styles["nomeProd"]}>{produto.nome}</h4>
