@@ -229,5 +229,23 @@ export const produtosModel = {
 				return erro;
 			});
 		return resposta;
+	},
+	listarRecomendados: (limite) => {
+		console.log(sessionStorage.ID_USER)
+		let resposta = api
+			.get("/produtos/recomendado", {
+				params: {
+					idUser: sessionStorage.getItem('ID_USER'),
+					limite: limite
+				}
+			})
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
 	}
 };

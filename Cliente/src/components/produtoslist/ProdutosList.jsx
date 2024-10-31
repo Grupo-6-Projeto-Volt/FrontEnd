@@ -1,5 +1,6 @@
 import styles from "./ProdutosList.module.css";
 import { produtos } from "../../model/ProdutosListModel";
+import { produtosModel } from "../../model/produtosModel.js";
 import { Produto } from "../productcard/ProductCard";
 import React, { useEffect, useState } from "react";
 import { clickProd } from "./ProdutosList.js";
@@ -45,6 +46,9 @@ export function ProdutosData({ secao, nome }) {
       switch (secao) {
         case "Ofertas":
           response = await produtos.listarOfertas();
+          break;
+        case "Recomendados":
+          response = await produtosModel.listarRecomendados(undefined);
           break;
         default:
           response = await produtos.listarProdutos();
