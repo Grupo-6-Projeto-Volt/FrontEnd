@@ -10,53 +10,38 @@ const Categorias = () => {
 
 	return (
 		<div className={styles["container-categorias"]}>
-			<div className={styles["categoria"]}>
-				<h4 className={styles["titulo-categorias"]}>Celulares</h4>
+			<div className={styles["categoria"]} 					
+				onClick={() => {
+						navigate("/pagina-produtos/Celulares/Celular");
+					}}>
 				<img
 					src={celularesCategoria}
 					alt="celulares"
 					className={styles["img-categorias"]}
 				/>
-				<button
-					className={styles["button-categorias"]}
-					onClick={() => {
-						navigate("/pagina-produtos/Celulares/Celular");
-					}}
-				>
-					Ver mais em Celulares
-				</button>
+				<h4 className={styles["titulo-categorias"]}>Celulares</h4>
 			</div>
-			<div className={styles["categoria"]}>
-				<h4 className={styles["titulo-categorias"]}>Notebooks</h4>
+			<div className={styles["categoria"]} 					
+				onClick={() => {
+						navigate("/pagina-produtos/Notebooks/Computador");
+					}}>
 				<img
 					src={notebookCategoria}
 					alt="notebookCategoria"
 					className={styles["img-categorias"]}
 				/>
-				<button
-					className={styles["button-categorias"]}
-					onClick={() => {
-						navigate("/pagina-produtos/Notebooks/Computador");
-					}}
-				>
-					Ver mais em Notebooks
-				</button>
+				<h4 className={styles["titulo-categorias"]}>Notebooks</h4>
 			</div>
-			<div className={styles["categoria"]}>
-				<h4 className={styles["titulo-categorias"]}>Acessórios</h4>
+			<div className={styles["categoria"]} 					
+				onClick={() => {
+						navigate("/pagina-produtos/Acessórios/Acessório");
+					}}>
 				<img
 					src={acessoriosCategoria}
 					alt="acessorios"
 					className={styles["img-categorias"]}
 				/>
-				<button
-					className={styles["button-categorias"]}
-					onClick={() => {
-						navigate("/pagina-produtos/Acessórios/Acessório");
-					}}
-				>
-					Ver mais em Acessórios
-				</button>
+				<h4 className={styles["titulo-categorias"]}>Acessórios</h4>
 			</div>
 		</div>
 	);

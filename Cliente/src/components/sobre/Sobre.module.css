@@ -58,6 +58,8 @@ p{
     .texto p{
         text-align: start;
         line-height: 1.9;
+        font-size: 18px !important;
+        align-items: center;
     }
     .linha-horizontal {
         width: 25%;
@@ -76,7 +78,7 @@ p{
     }
     .contato-btn{
         display: block;
-        width: 90%;
+        width: 16rem;
         height: 3rem;
         padding-left: 5%;
         padding-right: 5%;
