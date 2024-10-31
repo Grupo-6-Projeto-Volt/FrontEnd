@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./CategoriaProdutos.module.css";
+import Padrao from '../../utils/assets/img/img-padrao.png'
 
 import { useNavigate } from "react-router-dom";
 
@@ -34,7 +35,7 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 							>
 								<h4>Estado: {produto.estadoGeral}</h4>
 								<img
-									src={produto.imagensProduto[0].codigoImagem}
+									src={produto.imagensProduto[0] ? produto.imagensProduto[0].codigoImagem : Padrao}
 									alt={produto.nome}
 								/>
 								<h4 className={styles["nomeProd"]}>{produto.nome}</h4>

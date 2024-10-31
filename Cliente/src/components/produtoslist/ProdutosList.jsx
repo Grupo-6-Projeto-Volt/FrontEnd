@@ -1,9 +1,11 @@
 import styles from "./ProdutosList.module.css";
 import { produtos } from "../../model/ProdutosListModel";
+import { produtosModel } from "../../model/produtosModel.js";
 import { Produto } from "../productcard/ProductCard";
 import React, { useEffect, useState } from "react";
 import { clickProd } from "./ProdutosList.js";
 import { useNavigate, useLocation } from "react-router-dom";
+import Padrao from "../../utils/assets/img/img-padrao.png";
 
 export const itemWidth = 130;
 export const padding = 16;
@@ -45,11 +47,13 @@ export function ProdutosData({ secao, nome, produtoExemplo }) {
 					case "Ofertas":
 						response = await produtos.listarOfertas();
 						break;
+					case "Recomendados":
+						response = await produtosModel.listarRecomendados(undefined);
+						break;
 					default:
 						response = await produtos.listarProdutos();
 						break;
 				}
-
 				setDadosProduto(response);
 			} catch (e) {
 				console.log(e);
@@ -92,7 +96,7 @@ export function ProdutosData({ secao, nome, produtoExemplo }) {
 												? URL.createObjectURL(
 														produto.imagensProduto.at(0).codigoImagem
 												  )
-												: "https://ircsan.com/wp-content/uploads/2024/03/placeholder-image.png"
+												: Padrao
 										}
 										preco={produto.preco}
 									/>

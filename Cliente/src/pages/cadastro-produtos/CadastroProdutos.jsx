@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import LoadingBar from "../../components/loadingbar/LoadingBar";
 import { Box, Button, Modal } from "@mui/material";
 import ProductPage from "../productpage/ProductPage";
+import { validateAuth } from "../../utils/global";
 
 function CadastroProdutos() {
 	const loadBarRef = useRef();
@@ -74,6 +75,12 @@ function CadastroProdutos() {
 	function hideProgressBar() {
 		if (loadBarRef.current) {
 			loadBarRef.current.hide();
+		}
+	}
+
+	function validateAuthentication() {
+		if (!validateAuth() || sessionStorage.CATEGORIA !== "1") {
+			navigate("/login");
 		}
 	}
 
@@ -157,7 +164,7 @@ function CadastroProdutos() {
 						return null;
 					});
 			}
-
+			console.log(id);
 			await cadastrarTags(produtoCriado.id);
 			await cadastrarCores(produtoCriado.id);
 			await cadastrarImagens(produtoCriado.id);
@@ -326,6 +333,7 @@ function CadastroProdutos() {
 	}
 
 	useEffect(() => {
+		validateAuthentication();
 		if (editModeOn) {
 			getProduto();
 		}

@@ -7,12 +7,21 @@ import { categoriasModel } from "../../model/categoriasModel";
 import ExportButton from "../../components/exportButton/ExportButton";
 import { toast } from "react-toastify";
 import CrudTable from "../../components/crudlist/CrudTable";
+import { validateAuth } from "../../utils/global";
+import { useNavigate } from "react-router-dom";
 
 function CrudCategorias() {
+	const navigate = useNavigate();
 	const [categorias, setCategorias] = useState([]);
 	const [filter, setFilter] = useState(0);
 	const [search, setSearch] = useState("");
 	const headersCategorias = ["Id", "Nome da Categoria", ""];
+
+	function validateAuthentication() {
+		if (!validateAuth() || sessionStorage.CATEGORIA !== "1") {
+			navigate("/login");
+		}
+	}
 
 	function handleEdit(id, value) {
 		let response = async () => {
@@ -65,6 +74,7 @@ function CrudCategorias() {
 	}
 
 	useEffect(() => {
+		validateAuthentication();
 		getCategoryList();
 	}, []);
 
@@ -154,11 +164,7 @@ function CrudCategorias() {
 								<option value="2">Nome Desc</option>
 							</select>
 						</div>
-						<ExportButton
-							onClick={() => {
-								getCategoriasNames();
-							}}
-						></ExportButton>
+						<ExportButton page={"categorias"}></ExportButton>
 					</div>
 					<div className={styles["table-area"]}>
 						<CrudTable
@@ -167,6 +173,7 @@ function CrudCategorias() {
 							limit={7}
 							insertButtonText={"Adicionar Categoria"}
 							onInsert={(e) => handleNewCategory(e)}
+							placeholder={"Notebook"}
 						/>
 					</div>
 				</div>

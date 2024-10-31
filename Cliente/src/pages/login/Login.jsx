@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../utils/assets/logo-ichiban.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { NavBarPadrao } from "../../components/navBarHome/NavBar";
+import Footer from "../../components/footer/Footer.jsx";
 
 function Login() {
 	let [emailText, setEmailText] = useState("");
@@ -52,21 +54,10 @@ function Login() {
 
 	return (
 		<>
+			<NavBarPadrao />
 			<ToastContainer />
 			<div className={styles["Login"]}>
-				<div className={styles["box-logo"]}>
-					<img src={logo} className={styles["logo"]}></img>
-				</div>
 				<div className={styles["form"]}>
-					<div className={styles["voltar"]}>
-						<p
-							onClick={() => {
-								navigate("/");
-							}}
-						>
-							Voltar
-						</p>
-					</div>
 					<h1 className={styles["titulo"]}>
 						<b>Entrar</b>
 					</h1>
@@ -98,7 +89,7 @@ function Login() {
 					</div>
 					<div className={styles["box-cadastar"]}>
 						<div>
-							<p>Não possui conta ainda?   </p>
+							<p className={styles["cadastrar"]}>Não possui conta ainda?   </p>
 						</div>
 						<div>
 							<a
@@ -114,6 +105,7 @@ function Login() {
 				</div>
 				<div></div>
 			</div>
+			<Footer />
 		</>
 	);
 }

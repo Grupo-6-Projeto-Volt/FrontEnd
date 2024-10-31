@@ -33,9 +33,15 @@ export const produtosModel = {
 			});
 		return resposta;
 	},
-	listarProdutos: () => {
+	listarProdutos: (limite) => {
 		let resposta = api
-			.get("/produtos/loja")
+			.get("/produtos/loja",
+				{
+					params: {
+						limite: limite,
+					},
+				}
+			)
 			.then((resultado) => {
 				return resultado.data;
 			})
@@ -104,15 +110,8 @@ export const produtosModel = {
 			});
 		return resposta;
 	},
-	exportarProduto: (produtos) => {
-		console.log(produtos)
-		let resposta = api.post(
-			"/produtos/exportar", JSON.stringify(produtos), {
-			headers: {
-				"Content-Type": "application/json"
-			}
-		}
-		).then((resultado) => {
+	exportarProduto: () => {
+		let resposta = api.get("/produtos/exportar").then((resultado) => {
 			console.log('Enviou ' + resultado.data)
 			const bom = '\ufeff';
 			const blob = new Blob([bom + resultado.data], { type: 'text/csv;charset=utf-8' });
@@ -147,6 +146,55 @@ export const produtosModel = {
 			});
 		return resposta;
 	},
+	exportarJson: () => {
+		api.get("/produtos/exportar-json", { responseType: 'blob' })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'produtos.json';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch((erro) => {
+            console.log("Não foi possível baixar um arquivo JSON:", erro);
+        });
+	},
+	exportarXml: () => {
+		api.get("/produtos/exportar-xml", { responseType: 'blob' })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'produtos.xml';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch((erro) => {
+            console.log("Não foi possível baixar um arquivo XML:", erro);
+        });
+	},
+	exportarParquet: () => {
+		api.get("/produtos/exportar-parquet", { responseType: 'blob' })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'produtos.parquet';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch((erro) => {
+            console.log("Não foi possível baixar um arquivo PARQUET:", erro);
+        });
+	},
+	
 	alterarProduto: (
 		id,
 		nome,
@@ -157,7 +205,8 @@ export const produtosModel = {
 		desconto,
 		dataInicioDesconto,
 		dataFimDesconto,
-		idCategoria
+		idCategoria,
+		tags,
 	) => {
 		let resposta = api
 			.put(`/produtos/estoque/${id}`, {
@@ -170,6 +219,25 @@ export const produtosModel = {
 				dataInicioDesconto: dataInicioDesconto,
 				dataFimDesconto: dataFimDesconto,
 				idCategoria: idCategoria,
+				tags: tags
+			})
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
+	listarRecomendados: (limite) => {
+		console.log(sessionStorage.ID_USER)
+		let resposta = api
+			.get("/produtos/recomendado", {
+				params: {
+					idUser: sessionStorage.getItem('ID_USER'),
+					limite: limite
+				}
 			})
 			.then((resultado) => {
 				return resultado.data;

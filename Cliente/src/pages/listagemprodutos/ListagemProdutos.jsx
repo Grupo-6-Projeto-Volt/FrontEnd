@@ -10,6 +10,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import { produtosModel } from "../../model/produtosModel";
 import styles from "./ListagemProdutos.module.css";
 import { toast } from "react-toastify";
+import { validateAuth } from "../../utils/global";
 
 function ListagemProdutos() {
 	const navigate = useNavigate();
@@ -25,6 +26,12 @@ function ListagemProdutos() {
 		"Preço",
 		"",
 	];
+
+	function validateAuthentication() {
+		if (!validateAuth() || sessionStorage.CATEGORIA !== "1") {
+			navigate("/login");
+		}
+	}
 
 	function handleDelete(id) {
 		let response = async () => {
@@ -95,6 +102,7 @@ function ListagemProdutos() {
 	}
 
 	useEffect(() => {
+		validateAuthentication();
 		getProductsList();
 	}, []);
 
@@ -104,7 +112,7 @@ function ListagemProdutos() {
 
 	async function getProductsList() {
 		try {
-			let response = await produtosModel.listarProdutos();
+			let response = await produtosModel.listarProdutos(1000);
 			let produtos = [];
 
 			response.forEach((produto) => {
@@ -132,6 +140,7 @@ function ListagemProdutos() {
 							<ConfirmCancelActionButton
 								onEdit={() => handleEdit(produto.id)}
 								onDelete={() => handleDelete(produto.id)}
+								enableEdit={()=>{}}
 							/>
 						);
 					},
@@ -149,7 +158,7 @@ function ListagemProdutos() {
 			<Sidebar />
 			<div className={styles["content"]}>
 				<div className={styles["container"]}>
-				<h1 className={styles["title"]}>Listagem de Produtos</h1>
+					<h1 className={styles["title"]}>Listagem de Produtos</h1>
 					<div className={styles["page-header"]}>
 						<Searchbar
 							width={"20rem"}
@@ -188,7 +197,7 @@ function ListagemProdutos() {
 								navigate("/cadastro-produtos");
 							}}
 						/>
-						<ExportButton></ExportButton>
+						<ExportButton page={"produtos"}></ExportButton>
 					</div>
 					<div className={styles["table-area"]}>
 						<Table headers={headersProdutos} values={produtos} limit={5} />

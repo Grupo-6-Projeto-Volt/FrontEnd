@@ -3,7 +3,14 @@ import styles from "./CrudTable.module.css";
 import DefaultButton from "../button/defaultbutton/DefaultButton";
 import ListInputLine from "../listinputline/ListInputLine";
 
-function CrudTable({ headers, values, limit, insertButtonText, onInsert }) {
+function CrudTable({
+	headers,
+	values,
+	limit,
+	insertButtonText,
+	onInsert,
+	placeholder,
+}) {
 	const [firstIndex, setFirstIndex] = useState(0);
 	const [lastIndex, setLastIndex] = useState(
 		values.length < limit ? values.length : limit
@@ -120,12 +127,11 @@ function CrudTable({ headers, values, limit, insertButtonText, onInsert }) {
 						<td></td>
 						<td>
 							<input
-								id="ipt_new_category"
 								type="text"
 								value={insertInputValue}
 								onChange={(e) => setInsertInputValue(e.target.value)}
 								className={styles["ipt-field"]}
-								placeholder="Ex: Notebook"
+								placeholder={"Ex: " + placeholder}
 							/>
 						</td>
 						<td className={styles["btn-col"]}>

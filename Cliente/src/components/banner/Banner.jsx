@@ -1,33 +1,40 @@
-import React, { useEffect, useState, useReducer } from 'react';
-import styles from "./Banner.module.css";
-import FotoBanner from "../../utils/assets/img/banner2.png"
+import React, { useEffect, useState } from 'react';
 import { banner } from "../../model/bannerModel";
-const Banner = () => {
+import FotoBanner from "../../utils/assets/img/banner2.png";
+import styles from "./Banner.module.css";
+const Banner = (img) => {
     let [bannerImg, setBannerImg] = useState([]);
 
-
     async function getBannerImg() {
-        let response;
-        response = [];
-        try {
-            response = await banner.getBanner();
-
-            console.log(response)
-            setBannerImg(response)
-        } catch (e) {
+        if (img.img === undefined) {
+            let response;
             response = [];
-            console.log(e);
-            return <h1>
-                Erro
-            </h1>
+            try {
+                response = await banner.getBanner();
+
+                console.log(response)
+                setBannerImg(response)
+            } catch (e) {
+                response = [];
+                console.log(e);
+                return <h1>
+                    Erro
+                </h1>
+            }
         }
     }
 
     useEffect(() => {
-        getBannerImg()
+        getBannerImg();
     }, []);
 
-    if(bannerImg.length > 0){
+    if (img !== undefined && img.img !== undefined) {
+        return (
+            <div className={styles["container-banner"]}>
+                <img src={img.img} alt="banner" className={styles["img-banner"]} />
+            </div>
+        );
+    } else if (bannerImg.length > 0) {
         return (
             <div className={styles["container-banner"]}>
                 <img src={bannerImg} alt="banner" className={styles["img-banner"]} />
