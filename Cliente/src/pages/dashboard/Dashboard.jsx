@@ -29,17 +29,27 @@ export default function Dashboard() {
 
 	async function taxaDeRetorno() {
 		let { taxaRetorno } = await capturarTaxaDeRetorno();
-		setTaxaRetorno(taxaRetorno.toFixed(2));
+		setTaxaRetorno(taxaRetorno.toFixed(2))
 	}
 
 	async function faturamento() {
 		let { faturamento } = await obterFaturamento();
-		setRevenue(faturamento);
+		if(faturamento === null || faturamento === ""){
+			setRevenue(0);
+		}else{
+			setRevenue(faturamento);
+		}
 	}
 
 	async function totalOrdersKpi() {
 		let resultado = await listarAcessosNosUltimosSeteDias();
-		setTotalOrders(resultado);
+		if(resultado === null || resultado === ""){
+			setTotalOrders(resultado);
+		}else{
+			Object.values(resultado).map((value) => {
+				setTotalOrders(value)
+			})
+		}
 	}
 
 	const return_tax = {
