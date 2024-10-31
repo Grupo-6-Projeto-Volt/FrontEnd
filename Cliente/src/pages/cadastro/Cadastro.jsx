@@ -8,6 +8,8 @@ import logo from "../../utils/assets/logo-ichiban.png";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { formatPhoneNumber } from "../../utils/global";
+import { NavBarPadrao } from "../../components/navBarHome/NavBar";
+import Footer from "../../components/footer/Footer.jsx";
 
 const Cadastro = () => {
   const [nomeText, setNomeText] = useState("");
@@ -58,9 +60,7 @@ const Cadastro = () => {
 
   return (
     <div className="Cadastro">
-      <div className="box-logo">
-        <img src={logo} className="logo" alt="Logo" />
-      </div>
+      <NavBarPadrao />
       <Formik
         initialValues={{
           nome: "",
@@ -73,15 +73,6 @@ const Cadastro = () => {
         validationSchema={validationsRegister}
       >
         <Form className="form">
-          <div className="voltar">
-            <p
-              onClick={() => {
-                navigate("/ ");
-              }}
-            >
-              Voltar
-            </p>
-          </div>
           <h1 className="titulo">Cadastrar</h1>
           <div className="input-group">
             <div className="input-group-2">              
@@ -127,7 +118,7 @@ const Cadastro = () => {
               <a
                 className="link"
                 onClick={() => {
-                  navigate("/");
+                  navigate("/login");
                 }}
               >
                 Logar-se agora
@@ -136,6 +127,7 @@ const Cadastro = () => {
           </div>
         </Form>
       </Formik>
+      <Footer />
     </div>
   );
 };
