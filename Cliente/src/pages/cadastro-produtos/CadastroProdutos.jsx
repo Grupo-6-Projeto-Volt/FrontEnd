@@ -19,9 +19,13 @@ import { classificacaoProdutosModel } from "../../model/classificacaoProdutosMod
 import { imagemProdutosModel } from "../../model/imagemProdutosModel";
 import { corProdutosModel } from "../../model/corProdutosModel copy";
 import { toast } from "react-toastify";
+import LoadingBar from "../../components/loadingbar/LoadingBar";
+import { Box, Button, Modal } from "@mui/material";
+import ProductPage from "../productpage/ProductPage";
 import { validateAuth } from "../../utils/global";
 
 function CadastroProdutos() {
+	const loadBarRef = useRef();
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const dragItem = useRef(0);
@@ -43,6 +47,36 @@ function CadastroProdutos() {
 	const [editModeOn, setEditModeOn] = useState(id !== undefined);
 	const [categorias, setCategorias] = useState([]);
 	const [allTags, setAllTags] = useState([]);
+	const [open, setOpen] = useState(false);
+	const [produto, setProduto] = useState({});
+
+	const style = {
+		position: "absolute",
+		top: "50%",
+		left: "50%",
+		overflow: "auto",
+		transform: "translate(-50%, -50%)",
+		width: "95vw",
+		height: "95vh",
+		bgcolor: "background.paper",
+		border: "2px solid #000",
+		boxShadow: 24,
+		p: 4,
+	};
+
+	const buttonFecharModel = () => setOpen(false);
+
+	function showProgressBar() {
+		if (loadBarRef.current) {
+			loadBarRef.current.show();
+		}
+	}
+
+	function hideProgressBar() {
+		if (loadBarRef.current) {
+			loadBarRef.current.hide();
+		}
+	}
 
 	function validateAuthentication() {
 		if (!validateAuth() || sessionStorage.CATEGORIA !== "1") {
@@ -87,6 +121,8 @@ function CadastroProdutos() {
 		};
 
 		try {
+			showProgressBar();
+
 			let produtoCriado;
 
 			let categoriaEncontrada = await categoriasModel.buscarCategoriaPorNome(
@@ -108,43 +144,61 @@ function CadastroProdutos() {
 					categoriaEncontrada.id
 				);
 			} else {
-				produtoCriado = await produtosModel.adicionarProduto(
-					nome,
-					descricao,
-					preco,
-					1,
-					estado,
-					desconto,
-					dataInicioDesconto,
-					dataFimDesconto,
-					categoriaEncontrada.id
-				);
+				produtoCriado = await produtosModel
+					.adicionarProduto(
+						nome,
+						descricao,
+						preco,
+						1,
+						estado,
+						desconto,
+						dataInicioDesconto,
+						dataFimDesconto,
+						categoriaEncontrada.id
+					)
+					.then((result) => {
+						return result;
+					})
+					.catch((error) => {
+						console.error(error);
+						return null;
+					});
 			}
-			console.log(id)
+			console.log(id);
 			await cadastrarTags(produtoCriado.id);
 			await cadastrarCores(produtoCriado.id);
 			await cadastrarImagens(produtoCriado.id);
+
+			hideProgressBar();
 
 			toast.success(`Produto ${modo.sucesso} com sucesso!`);
 
 			if (!editModeOn) clear();
 		} catch (error) {
+			hideProgressBar();
 			toast.error(
 				`Ocorreu um erro ao ${modo.erro} o produto: ${error.message}`
 			);
+			console.error(error);
 		}
 	}
 
-	async function cadastrarTags() {
+	async function cadastrarTags(idProduto) {
 		tags.forEach(async (tag) => {
 			await tagsModel.inserirTag(tag);
 
 			const tagEncontrada = await tagsModel.buscarTagPorNome(tag);
-			console.log(tagEncontrada)
-			await classificacaoProdutosModel.associarTagProduto(
-				id,
-				tagEncontrada.id
-			);
+
+			await classificacaoProdutosModel
+				.associarTagProduto(idProduto, tagEncontrada.id)
+				.then((result) => {
+					return result;
+				})
+				.catch((error) => {
+					console.error(error);
+					toast.error(`Erro ao cadastrar tags: ${error}`);
+					return null;
+				});
 
 			getTags();
 		});
@@ -152,7 +206,16 @@ function CadastroProdutos() {
 
 	async function cadastrarCores(idProduto) {
 		cores.forEach(async (cor) => {
-			await corProdutosModel.associarCorProduto(cor.nome, cor.hexId, idProduto);
+			await corProdutosModel
+				.associarCorProduto(cor.nome, cor.hexId, idProduto)
+				.then((result) => {
+					return result;
+				})
+				.catch((error) => {
+					console.error(error);
+					toast.error(`Erro ao cadastrar cores: ${error}`);
+					return null;
+				});
 		});
 	}
 
@@ -168,12 +231,21 @@ function CadastroProdutos() {
 	async function cadastrarImagens(idProduto) {
 		for (let i = 0; i < imagens.length; i++) {
 			let base64 = await fileToBase64(imagens[i].codigoImagem);
-			await imagemProdutosModel.associarImagemProduto(
-				`images/produtos/produto${idProduto}/${imagens[i].nome}`,
-				base64,
-				i,
-				idProduto
-			);
+			await imagemProdutosModel
+				.associarImagemProduto(
+					`images/Produtos/Produto${idProduto}/${imagens[i].nome}`,
+					base64,
+					i,
+					idProduto
+				)
+				.then((result) => {
+					return result;
+				})
+				.catch((error) => {
+					console.error(error);
+					toast.error(`Erro ao cadastrar imagens: ${error}`);
+					return null;
+				});
 		}
 	}
 
@@ -198,8 +270,21 @@ function CadastroProdutos() {
 
 		let listaImagens = [];
 		for (let i = 0; i < produto.imagensProduto.length; i++) {
+			const file = new File(
+				[
+					await fetch(produto.imagensProduto[i].codigoImagem).then((res) =>
+						res.blob()
+					),
+				],
+				produto.imagensProduto[i].nome
+			);
+			produto.imagensProduto[i].codigoImagem = file;
+
 			listaImagens.push({
-				nome: produto.imagensProduto[i].nome,
+				nome: String(produto.imagensProduto[i].nome).replace(
+					`images/Produtos/Produto${id}/`,
+					""
+				),
 				codigoImagem: produto.imagensProduto[i].codigoImagem,
 			});
 		}
@@ -260,6 +345,7 @@ function CadastroProdutos() {
 		<div className={styles["CadastroProdutos"]}>
 			<Navbar />
 			<Sidebar />
+			<LoadingBar ref={loadBarRef} showPercentage={false} />
 			<div className={styles["content"]}>
 				<div className={styles["container"]}>
 					<div className={styles["col"]}>
@@ -344,8 +430,12 @@ function CadastroProdutos() {
 											imagens.map((e, key) => (
 												<ImageListItem
 													key={key}
-													nomeImagem={e.nme}
-													imagem={typeof e.codigoImagem == File ? URL.createObjectURL(e.codigoImagem) : e.codigoImagem}
+													nomeImagem={e.nome}
+													imagem={
+														typeof e.codigoImagem === "string"
+															? e.codigoImagem
+															: URL.createObjectURL(e.codigoImagem)
+													}
 													draggable={true}
 													onDragStart={() => (dragItem.current = key)}
 													onDragEnter={() => (draggedOverItem.current = key)}
@@ -566,14 +656,50 @@ function CadastroProdutos() {
 							style={{ display: editModeOn ? "none" : "flex" }}
 						>
 							<DefaultButton text={"Postar"} onClick={handleSubmit} />
-							<DefaultButton text={"Visualizar Layout"} />
+							<DefaultButton
+								text={"Visualizar Layout"}
+								onClick={() => {
+									setProduto({
+										nome: nome,
+										descricao: descricao,
+										preco: Number(preco.replace("R$", "")),
+										categoria: categoria,
+										estadoGeral: estado,
+										desconto: desconto,
+										dataInicioDesconto: dataInicioDesconto,
+										dataFimDesconto: dataFimDesconto,
+										cores: cores,
+										tags: tags,
+										imagensProduto: imagens,
+									});
+									setOpen(true);
+								}}
+							/>
 						</div>
 						<div
 							className={styles["form-submit-area"]}
 							style={{ display: editModeOn ? "flex" : "none" }}
 						>
 							<DefaultButton text={"Atualizar"} onClick={handleSubmit} />
-							<DefaultButton text={"Visualizar Layout"} />
+							<DefaultButton
+								text={"Visualizar Layout"}
+								onClick={() => {
+									setProduto({
+										nome: nome,
+										descricao: descricao,
+										preco: Number(String(preco).replace("R$", "")),
+										categoria: categoria,
+										estadoGeral: estado,
+										desconto: desconto,
+										dataInicioDesconto: dataInicioDesconto,
+										dataFimDesconto: dataFimDesconto,
+										cores: cores,
+										tags: tags,
+										imagensProduto: imagens,
+									});
+									setOpen(true);
+								}}
+							/>
 							<button
 								className={styles["Delete-btn"]}
 								onClick={() => {
@@ -586,6 +712,32 @@ function CadastroProdutos() {
 					</div>
 				</div>
 			</div>
+			<Modal
+				open={open}
+				onClose={buttonFecharModel}
+				aria-labelledby="modal-modal-title"
+				aria-describedby="modal-modal-description"
+			>
+				<Box sx={style}>
+					<Button
+						onClick={buttonFecharModel}
+						style={{
+							position: "absolute",
+							top: "10px",
+							right: "10px",
+							background: "none",
+							border: "none",
+							fontSize: "50px",
+							cursor: "pointer",
+						}}
+					>
+						&times;
+					</Button>
+					<div className={styles["product"]}>
+						<ProductPage produtoExemplo={produto} />
+					</div>
+				</Box>
+			</Modal>
 		</div>
 	);
 }
