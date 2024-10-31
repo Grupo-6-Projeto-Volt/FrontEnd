@@ -257,7 +257,7 @@ a {
     left: -60%;
     padding-bottom: 3vw;
     z-index: 10 !important;
-    top: 7vh;
+    top: 65px;
     transition: left cubic-bezier(1, 0, 0, 1) 0.8s;
     display: flex !important;
     align-items: center;
