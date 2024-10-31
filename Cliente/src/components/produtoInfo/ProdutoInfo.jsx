@@ -5,6 +5,7 @@ import { RiHeart3Fill } from "react-icons/ri";
 import api from "../../api";
 import { favoritos } from "../../model/favoritosModel";
 import { AxiosError } from "axios";
+import Padrao from '../../utils/assets/img/img-padrao.png'
 
 const ProdutoInfo = () => {
   const location = useLocation();
@@ -173,7 +174,7 @@ const ProdutoInfo = () => {
                   onClick={() => trocarImagemPrincipal(imagem.codigoImagem)}
                 >
                   <img
-                    src={imagem.codigoImagem}
+                    src={imagem.codigoImagem !== undefined ? imagem.codigoImagem : Padrao}
                     alt={imagem.nome}
                     width="300"
                   />

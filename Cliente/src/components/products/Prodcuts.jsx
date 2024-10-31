@@ -33,7 +33,7 @@ export function ProductsData() {
 						<span className={styles["productQuantity"]}>
 							Quantidade: {product.quantidade}
 						</span>
-						<span className={styles["productId"]}>#{product.id}</span>
+						<span className={styles["productId"]}>#{index+1}</span>
 					</div>
 				</li>
 			))}

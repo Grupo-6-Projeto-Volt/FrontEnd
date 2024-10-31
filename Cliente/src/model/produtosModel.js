@@ -33,9 +33,15 @@ export const produtosModel = {
 			});
 		return resposta;
 	},
-	listarProdutos: () => {
+	listarProdutos: (limite) => {
 		let resposta = api
-			.get("/produtos/loja")
+			.get("/produtos/loja",
+				{
+					params: {
+						limite: limite,
+					},
+				}
+			)
 			.then((resultado) => {
 				return resultado.data;
 			})
@@ -199,7 +205,8 @@ export const produtosModel = {
 		desconto,
 		dataInicioDesconto,
 		dataFimDesconto,
-		idCategoria
+		idCategoria,
+		tags,
 	) => {
 		let resposta = api
 			.put(`/produtos/estoque/${id}`, {
@@ -212,6 +219,7 @@ export const produtosModel = {
 				dataInicioDesconto: dataInicioDesconto,
 				dataFimDesconto: dataFimDesconto,
 				idCategoria: idCategoria,
+				tags: tags
 			})
 			.then((resultado) => {
 				return resultado.data;

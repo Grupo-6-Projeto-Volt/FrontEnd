@@ -5,7 +5,7 @@ import { Kpi } from "../../components/kpi/Kpi.jsx";
 import Navbar from "../../components/navbar/dashboard/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar.jsx";
 import { ProductsData } from "../../components/products/Prodcuts.jsx";
-import { ObterDadosCategoriaGrafico } from "../../components/barchart/Bardata.js";
+import { useObterDadosCategoriaGrafico, gerarBarData } from "../../components/barchart/Bardata.js";
 import { capturarTaxaDeRetorno } from "../../model/DashDadosKpi.js";
 import { listarAcessosNosUltimosSeteDias } from "../../model/DashDadosKpi.js";
 import { obterFaturamento } from "../../model/DashDadosKpi.js";
@@ -17,6 +17,8 @@ export default function Dashboard() {
 	const [taxaRetorno, setTaxaRetorno] = useState();
 	const [totalOrders, setTotalOrders] = useState();
 	const [revenueVar, setRevenue] = useState();
+	const [isDataLoaded, setIsDataLoaded] = useState(false);
+
 	const navigate = useNavigate();
 
 	function validateAuthentication() {
@@ -52,11 +54,19 @@ export default function Dashboard() {
 
 	const revenue = {
 		title: "Faturamento",
-		paragraph: "R$ " + (revenueVar ?? 0)  + ",00",
+		paragraph: "R$ " + (revenueVar ?? 0) + ",00",
 	};
 
-	ObterDadosCategoriaGrafico();
+	// async function dadosCategoria() {
+	// 	let resultado = await ObterDadosCategoriaGrafico();
+	// 	bar_data.datasets[0].data = resultado;
+	// 	setIsDataLoaded(true);
+	// }
+	const { dadosCategorias, labels } = useObterDadosCategoriaGrafico(); // Use o Hook personalizado
 
+    // Crie os dados do gráfico usando os dados retornados
+    const bar_data = gerarBarData(dadosCategorias, labels);
+	console.log("Dados do gráfico:", bar_data); 
 	useEffect(() => {
 		validateAuthentication();
 		taxaDeRetorno();
@@ -112,7 +122,11 @@ export default function Dashboard() {
 								<h3>Acessos por categorias</h3>
 							</div>
 							<div className={styles["Bargraphic"]}>
-								<BarData data={bar_data} options={bar_options}></BarData>
+								{
+									bar_data !== undefined ? (<BarData data={bar_data} options={bar_options}></BarData>) : (
+										<p>Carregando dados...</p>
+									)
+								}
 							</div>
 						</div>
 					</div>

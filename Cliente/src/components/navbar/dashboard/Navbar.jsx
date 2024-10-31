@@ -12,8 +12,9 @@ function Navbar() {
 					style={{
 						width: "13%",
 						height: "auto",
+						cursor: "pointer"
 					}}
-					onClick={() => navigate("/dashboard")}
+					onClick={() => navigate("/")}
 				/>
 				<div className={styles["navbar-items"]}>
 					<span className={styles["username"]}>{sessionStorage.EMAIL}</span>

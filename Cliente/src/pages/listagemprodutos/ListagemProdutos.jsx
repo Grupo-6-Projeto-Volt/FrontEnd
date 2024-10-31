@@ -112,7 +112,7 @@ function ListagemProdutos() {
 
 	async function getProductsList() {
 		try {
-			let response = await produtosModel.listarProdutos();
+			let response = await produtosModel.listarProdutos(1000);
 			let produtos = [];
 
 			response.forEach((produto) => {
@@ -140,6 +140,7 @@ function ListagemProdutos() {
 							<ConfirmCancelActionButton
 								onEdit={() => handleEdit(produto.id)}
 								onDelete={() => handleDelete(produto.id)}
+								enableEdit={()=>{}}
 							/>
 						);
 					},
