@@ -140,7 +140,7 @@ function ListagemProdutos() {
 							<ConfirmCancelActionButton
 								onEdit={() => handleEdit(produto.id)}
 								onDelete={() => handleDelete(produto.id)}
-								enableEdit={()=>{}}
+								enableEdit={() => {}}
 							/>
 						);
 					},
