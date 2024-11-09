@@ -66,7 +66,7 @@ export default function Dashboard() {
 
 	const revenue = {
 		title: "Faturamento",
-		paragraph: "R$ " + (revenueVar ?? 0) + ",00",
+		paragraph: "R$ " + Number(revenueVar).toLocaleString() ?? 0,
 	};
 
 	const { dadosCategorias, labels } = useObterDadosCategoriaGrafico();

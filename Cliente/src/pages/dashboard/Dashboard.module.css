@@ -86,15 +86,10 @@
 }
 
 .Bargraphic {
-	height: 45vh;
+	height: 100%;
 	width: 35vw;
 	margin-left: 25px;
 	justify-content: center;
-}
-
-canvas {
-	height: 100px;
-	width: 200px;
 }
 
 .List {
