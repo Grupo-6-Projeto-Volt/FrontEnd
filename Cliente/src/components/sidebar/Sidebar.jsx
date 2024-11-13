@@ -1,6 +1,12 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./Sidebar.module.css";
-import { FaChartColumn, FaTags, FaList, FaImage } from "react-icons/fa6";
+import {
+	FaChartColumn,
+	FaTags,
+	FaList,
+	FaImage,
+	FaStore,
+} from "react-icons/fa6";
 import { BiLogOut } from "react-icons/bi";
 
 function Sidebar() {
@@ -46,7 +52,7 @@ function Sidebar() {
 							onClick={() => navigate("/listagem-produtos")}
 						>
 							<div className={styles["content-block"]}>
-								<FaTags />
+								<FaStore />
 								<span>Produtos</span>
 							</div>
 						</div>
