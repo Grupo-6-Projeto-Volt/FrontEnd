@@ -43,7 +43,7 @@
 .linha-horizontal {
   width: 140px;
   height: 5px;
-  background-color: #D41F1F;
+  background-color: #d41f1f;
   border-radius: 50px;
 }
 
@@ -67,34 +67,37 @@
   background-repeat: no-repeat;
 }
 
-.mensagemErro{
+.mensagemErro {
   width: 90vw;
   text-align: center;
 }
 
 @media screen and (max-width: 800px) {
-  .item{
+  .item {
     width: 100%;
   }
-  .container{
-    width: 100vw!important;
-    padding: 0!important;
+  .container {
+    width: 100vw !important;
+    padding: 0 !important;
     margin-top: 7%;
   }
 
-  .container-lista{
-    width: 94vw!important;
+  .container-lista {
+    width: 94vw !important;
     margin: auto;
   }
-  .linha-horizontal{
+  .linha-horizontal {
     width: 16vw;
     height: 0.3vh;
   }
-  .container h1{
+  .container h1 {
     font-size: 103%;
   }
-  button{
+  .btn-prev {
     display: none;
   }
-  
+
+  .btn-next {
+    display: none;
+  }
 }
