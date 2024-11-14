@@ -164,7 +164,6 @@ function CadastroProdutos() {
 						return null;
 					});
 			}
-			console.log(id);
 			await cadastrarTags(produtoCriado.id);
 			await cadastrarCores(produtoCriado.id);
 			await cadastrarImagens(produtoCriado.id);
