@@ -9,7 +9,7 @@ button {
 	font-family: "PoppinsBold";
 }
 
-.button-group{
+.button-group {
 	display: flex;
 	flex-direction: row;
 	padding: 8px 0px 8px 0px;

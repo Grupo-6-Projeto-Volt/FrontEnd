@@ -3,7 +3,7 @@ import styles from "./Products.module.css";
 import { listarProdutosMaisAcessados } from "../../model/DashDadosgraficos";
 
 export function ProductsData() {
-	let [dados, setDados] = useState([]);
+	const [dados, setDados] = useState([]);
 
 	async function obterProdutosAcessadas() {
 		try {
@@ -20,23 +20,34 @@ export function ProductsData() {
 	}, []);
 
 	return (
-		<ul>
+		<table className={styles["Products"]}>
 			{dados.map((product, index) => (
-				<li key={index} className={styles["productItem"]}>
-					<img
-						src={product.url}
-						alt={product.nome}
-						className={styles["productImage"]}
-					/>
-					<div className={styles["productDetails"]}>
-						<span className={styles["productName"]}>{product.nome}</span>
-						<span className={styles["productQuantity"]}>
-							Quantidade: {product.quantidade}
-						</span>
-						<span className={styles["productId"]}>#{index+1}</span>
-					</div>
-				</li>
+				<tr key={index} className={styles["product-item"]}>
+					<td className={styles["image-area"]}>
+						<img
+							src={product.url}
+							alt={product.nome}
+							className={styles["product-image"]}
+						/>
+					</td>
+					<td className={styles["title-area"]}>
+						<span className={styles["product-name"]}>{product.nome}</span>
+					</td>
+					<td className={styles["quantity-area"]}>
+						<div className={styles["product-quantity-div"]}>
+							<span className={styles["product-quantity-title"]}>
+								Quantidade
+							</span>
+							<span className={styles["product-quantity-value"]}>
+								{product.quantidade}
+							</span>
+						</div>
+					</td>
+					<td className={styles["id-area"]}>
+						<span className={styles["product-id"]}>#{index + 1}</span>
+					</td>
+				</tr>
 			))}
-		</ul>
+		</table>
 	);
 }

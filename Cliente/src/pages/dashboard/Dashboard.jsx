@@ -1,11 +1,14 @@
 import BarData from "../../components/barchart/Barchart.jsx";
-import { bar_data, bar_options } from "../../components/barchart/Bardata.js";
+import { bar_options } from "../../components/barchart/Bardata.js";
 import styles from "./Dashboard.module.css";
 import { Kpi } from "../../components/kpi/Kpi.jsx";
 import Navbar from "../../components/navbar/dashboard/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar.jsx";
 import { ProductsData } from "../../components/products/Prodcuts.jsx";
-import { useObterDadosCategoriaGrafico, gerarBarData } from "../../components/barchart/Bardata.js";
+import {
+	useObterDadosCategoriaGrafico,
+	gerarBarData,
+} from "../../components/barchart/Bardata.js";
 import { capturarTaxaDeRetorno } from "../../model/DashDadosKpi.js";
 import { listarAcessosNosUltimosSeteDias } from "../../model/DashDadosKpi.js";
 import { obterFaturamento } from "../../model/DashDadosKpi.js";
@@ -17,7 +20,6 @@ export default function Dashboard() {
 	const [taxaRetorno, setTaxaRetorno] = useState();
 	const [totalOrders, setTotalOrders] = useState();
 	const [revenueVar, setRevenue] = useState();
-	const [isDataLoaded, setIsDataLoaded] = useState(false);
 
 	const navigate = useNavigate();
 
@@ -29,26 +31,26 @@ export default function Dashboard() {
 
 	async function taxaDeRetorno() {
 		let { taxaRetorno } = await capturarTaxaDeRetorno();
-		setTaxaRetorno(taxaRetorno.toFixed(2))
+		setTaxaRetorno(taxaRetorno.toFixed(2));
 	}
 
 	async function faturamento() {
 		let { faturamento } = await obterFaturamento();
-		if(faturamento === null || faturamento === ""){
+		if (faturamento === null || faturamento === "") {
 			setRevenue(0);
-		}else{
+		} else {
 			setRevenue(faturamento);
 		}
 	}
 
 	async function totalOrdersKpi() {
 		let resultado = await listarAcessosNosUltimosSeteDias();
-		if(resultado === null || resultado === ""){
+		if (resultado === null || resultado === "") {
 			setTotalOrders(resultado);
-		}else{
+		} else {
 			Object.values(resultado).map((value) => {
-				setTotalOrders(value)
-			})
+				setTotalOrders(value);
+			});
 		}
 	}
 
@@ -64,19 +66,13 @@ export default function Dashboard() {
 
 	const revenue = {
 		title: "Faturamento",
-		paragraph: "R$ " + (revenueVar ?? 0) + ",00",
+		paragraph: "R$ " + Number(revenueVar).toLocaleString() ?? 0,
 	};
 
-	// async function dadosCategoria() {
-	// 	let resultado = await ObterDadosCategoriaGrafico();
-	// 	bar_data.datasets[0].data = resultado;
-	// 	setIsDataLoaded(true);
-	// }
-	const { dadosCategorias, labels } = useObterDadosCategoriaGrafico(); // Use o Hook personalizado
+	const { dadosCategorias, labels } = useObterDadosCategoriaGrafico();
 
-    // Crie os dados do gráfico usando os dados retornados
-    const bar_data = gerarBarData(dadosCategorias, labels);
-	console.log("Dados do gráfico:", bar_data); 
+	const bar_data = gerarBarData(dadosCategorias, labels);
+	console.log("Dados do gráfico:", bar_data);
 	useEffect(() => {
 		validateAuthentication();
 		taxaDeRetorno();
@@ -86,18 +82,12 @@ export default function Dashboard() {
 
 	return (
 		<div className={styles["Dashboard"]}>
-			<div className={styles["Navbar"]}>
-				<Navbar />
-			</div>
+			<Navbar />
+			<Sidebar />
 			<div className={styles["Content"]}>
-				<div className={styles["Sidebar"]}>
-					<Sidebar />
-				</div>
-				<div className={styles["Dataviz"]}>
+				<div className={styles["Container"]}>
 					<div className={styles["Head"]}>
-						<div className={styles["Tittle"]}>
-							<h1>Dashboard Geral</h1>
-						</div>
+						<h1 className={styles["Title"]}>Dashboard Geral</h1>
 						<div className={styles["Kpispace"]}>
 							<Kpi text={return_tax}></Kpi>
 							<Kpi text={total_orders}></Kpi>
@@ -108,35 +98,26 @@ export default function Dashboard() {
 						<div className={styles["List"]}>
 							<div className={styles["Products"]}>
 								<div className={styles["Listname"]}>
-									<h3>Produtos mais acessados</h3>
+									<h3 className={styles["Section-Title"]}>
+										Produtos mais acessados
+									</h3>
 								</div>
-								<div className={styles["container"]}>
-									<ul className={styles["productList"]}>
-										<ProductsData />
-									</ul>
-								</div>
-								{/* <ProdutosMaisAcessados products={ProductsData}></ProdutosMaisAcessados> */}
+								<ProductsData />
 							</div>
 						</div>
+						<div className={styles["divisor"]}></div>
 						<div className={styles["Graphics"]}>
-							{/* <div className={styles["Graphictittle"]}>
-								<h3>Chamados de produto</h3>
-							</div>
-							<div className={styles["Columngraphic"]}>
-								<ColumnData
-									data={column_data}
-									options={column_options}
-								></ColumnData>
-							</div> */}
 							<div className={styles["Graphictittle"]}>
-								<h3>Acessos por categorias</h3>
+								<h3 className={styles["Section-Title"]}>
+									Acessos por categorias
+								</h3>
 							</div>
 							<div className={styles["Bargraphic"]}>
-								{
-									bar_data !== undefined ? (<BarData data={bar_data} options={bar_options}></BarData>) : (
-										<p>Carregando dados...</p>
-									)
-								}
+								{bar_data !== undefined ? (
+									<BarData data={bar_data} options={bar_options}></BarData>
+								) : (
+									<p>Carregando dados...</p>
+								)}
 							</div>
 						</div>
 					</div>
