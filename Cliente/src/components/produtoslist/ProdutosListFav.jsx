@@ -10,7 +10,6 @@ export function ListFav(){
         response = [];
         try {
             response = await favoritos.listarFavoritos();
-            console.log(response)
             setFavoritosDados(response)
         } catch (e) {
             response = [];

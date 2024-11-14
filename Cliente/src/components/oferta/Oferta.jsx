@@ -10,7 +10,6 @@ const Ofertas = (img) => {
 
     const getPropagandaImg = useCallback(async () => {
         if (img.img === undefined) {
-            console.log("teste")
             let response;
             response = [];
             try {

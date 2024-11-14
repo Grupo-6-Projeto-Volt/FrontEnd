@@ -130,7 +130,6 @@ export const produtosModel = {
 	},
 	exportarProdutoTxt:() =>{
 		let resposta = api.get("/produtos/exportar-txt").then((resultado) => {
-			console.log('Enviou ' + resultado.data)
 			const bom = '\ufeff';
 			const blob = new Blob([bom + resultado.data], { type: 'text/txt;charset=utf-8' });
 			const url = URL.createObjectURL(blob);

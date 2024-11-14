@@ -38,13 +38,11 @@ function Login() {
 					progress: undefined,
 					theme: "light",
 				});
-				// console.log(sessionStorage.getItem('ID_USER'))
 				if(categoria === 1){
 					navigate("/dashboard-chamados");
 				}else{
 					navigate("/");
 				}
-				// console.log(Data)
 			})
 			.catch((erro) => {
 				console.error("Houve um erro: " + erro);
