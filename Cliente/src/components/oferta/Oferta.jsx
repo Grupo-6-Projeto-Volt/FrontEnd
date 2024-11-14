@@ -16,7 +16,7 @@ const Ofertas = (img) => {
             try {
                 response = await propaganda.getPropaganda();
                 setPropagandaImg(response);
-                setIsLoading(false);
+                // setIsLoading(false);
             } catch (e) {
                 response = [];
                 console.log(e);
@@ -27,7 +27,12 @@ const Ofertas = (img) => {
 
     useEffect(() => {
         getPropagandaImg();
-    }, [getPropagandaImg]);
+        if(propagandaImg.length > 0 && isLoading){
+            setIsLoading(false);
+        } else {
+            setTimeout(() => setIsLoading(false), 7000);
+        }
+    }, []);
 
     if (isLoading) {
         return (

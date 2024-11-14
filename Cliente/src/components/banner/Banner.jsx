@@ -15,7 +15,7 @@ const Banner = (img) => {
                 response = await banner.getBanner();
 
                 setBannerImg(response);
-                setIsLoading(false);
+                // setIsLoading(false);
             } catch (e) {
                 response = [];
                 console.log(e);
@@ -29,6 +29,11 @@ const Banner = (img) => {
 
     useEffect(() => {
         getBannerImg();
+        if(bannerImg.length > 0 && isLoading){
+            setIsLoading(false);
+        } else {
+            setTimeout(() => setIsLoading(false), 7000);
+        }
     }, []);
 
     if (isLoading) {
