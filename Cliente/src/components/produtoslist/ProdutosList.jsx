@@ -96,7 +96,7 @@ export function ProdutosData({ secao, nome, produtoExemplo }) {
                         ? typeof produto.imagensProduto.at(0).codigoImagem !== 'string' ? URL.createObjectURL(
                           produto.imagensProduto.at(0).codigoImagem
                         ) : produto.imagensProduto.at(0).codigoImagem
-                        : Padrao
+                        : undefined
                     }
                     preco={produto.preco}
                   />

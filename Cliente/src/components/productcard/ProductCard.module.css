@@ -19,6 +19,14 @@
     height: 10rem;
     margin: auto;
 }
+.carregamento {
+    width: 10rem;
+    height: 10rem;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .produto .nomeProd{
     font-weight: 500;
 }

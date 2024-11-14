@@ -5,7 +5,7 @@ import { RiHeart3Fill } from "react-icons/ri";
 import api from "../../api";
 import { favoritos } from "../../model/favoritosModel";
 import { AxiosError } from "axios";
-import Padrao from "../../utils/assets/img/img-padrao.png";
+// import Padrao from "../../utils/assets/img/img-padrao.png";
 
 const ProdutoInfo = ({ produtoExemplo }) => {
 	const location = useLocation();

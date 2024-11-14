@@ -7,3 +7,11 @@
     padding: 0px;
     width: 100% !important;
 }
+
+.container-carregamento{
+    width: 99vw;
+    display: flex;
+    height: 20vh;
+    justify-content: center;
+    align-items: center;
+}
