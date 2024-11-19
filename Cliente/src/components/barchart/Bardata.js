@@ -1,14 +1,14 @@
 import { listarCategoriasMaisAcessadas } from "../../model/DashDadosgraficos";
 import { useState, useEffect } from "react";
 
-export function useObterDadosCategoriaGrafico() {
+export function useObterDadosCategoriaGrafico(data) {
 	const [dadosCategorias, setDadosCategorias] = useState([]);
 	const [labels, setLabels] = useState([]);
 
 	useEffect(() => {
 		async function obterCategoriasAcessadas() {
 			try {
-				let resposta = await listarCategoriasMaisAcessadas();
+				let resposta = await listarCategoriasMaisAcessadas(data);
 				adicionarDadosGrafico(resposta);
 			} catch (e) {
 				console.log(e);

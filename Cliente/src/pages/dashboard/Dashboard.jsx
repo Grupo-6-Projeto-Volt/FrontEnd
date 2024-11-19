@@ -20,6 +20,7 @@ export default function Dashboard() {
 	const [taxaRetorno, setTaxaRetorno] = useState();
 	const [totalOrders, setTotalOrders] = useState();
 	const [revenueVar, setRevenue] = useState();
+	const [dataSelecionada, setDataSelecionada] = useState("2024-04-02");
 
 	const navigate = useNavigate();
 
@@ -30,12 +31,12 @@ export default function Dashboard() {
 	}
 
 	async function taxaDeRetorno() {
-		let { taxaRetorno } = await capturarTaxaDeRetorno();
+		let { taxaRetorno } = await capturarTaxaDeRetorno(dataSelecionada);
 		setTaxaRetorno(taxaRetorno.toFixed(2));
 	}
 
 	async function faturamento() {
-		let { faturamento } = await obterFaturamento();
+		let { faturamento } = await obterFaturamento(dataSelecionada);
 		if (faturamento === null || faturamento === "") {
 			setRevenue(0);
 		} else {
@@ -44,7 +45,7 @@ export default function Dashboard() {
 	}
 
 	async function totalOrdersKpi() {
-		let resultado = await listarAcessosNosUltimosSeteDias();
+		let resultado = await listarAcessosNosUltimosSeteDias(dataSelecionada);
 		if (resultado === null || resultado === "") {
 			setTotalOrders(resultado);
 		} else {
@@ -69,7 +70,8 @@ export default function Dashboard() {
 		paragraph: "R$ " + Number(revenueVar).toLocaleString() ?? 0,
 	};
 
-	const { dadosCategorias, labels } = useObterDadosCategoriaGrafico();
+	const { dadosCategorias, labels } =
+		useObterDadosCategoriaGrafico(dataSelecionada);
 
 	const bar_data = gerarBarData(dadosCategorias, labels);
 	console.log("Dados do gráfico:", bar_data);
@@ -102,7 +104,7 @@ export default function Dashboard() {
 										Produtos mais acessados
 									</h3>
 								</div>
-								<ProductsData />
+								<ProductsData data={dataSelecionada} />
 							</div>
 						</div>
 						<div className={styles["divisor"]}></div>

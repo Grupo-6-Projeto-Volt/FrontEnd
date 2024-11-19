@@ -13,9 +13,13 @@ export const listarChamadosCanceladosConcluido = () => {
 	return resposta;
 };
 
-export const listarCategoriasMaisAcessadas = () => {
+export const listarCategoriasMaisAcessadas = (data) => {
 	let resposta = api
-		.get("/clicks-produtos/capturar-dados/categorias", {})
+		.get("/clicks-produtos/capturar-dados/categorias", {
+			params: {
+				data: data,
+			},
+		})
 		.then((resultado) => {
 			return resultado.data;
 		})
@@ -26,9 +30,13 @@ export const listarCategoriasMaisAcessadas = () => {
 	return resposta;
 };
 
-export const listarProdutosMaisAcessados = () => {
+export const listarProdutosMaisAcessados = (data) => {
 	let resposta = api
-		.get("/clicks-produtos/capturar-dados/produtos-mais-acessados", {})
+		.get("/clicks-produtos/capturar-dados/produtos-mais-acessados", {
+			params: {
+				data: data,
+			},
+		})
 		.then((resultado) => {
 			return resultado.data;
 		})

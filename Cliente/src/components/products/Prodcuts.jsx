@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import styles from "./Products.module.css";
 import { listarProdutosMaisAcessados } from "../../model/DashDadosgraficos";
 
-export function ProductsData() {
+export function ProductsData({ data }) {
 	const [dados, setDados] = useState([]);
 
 	async function obterProdutosAcessadas() {
 		try {
-			var resposta = await listarProdutosMaisAcessados();
+			var resposta = await listarProdutosMaisAcessados(data);
 			setDados(resposta);
 		} catch (e) {
 			console.log(e);
