@@ -22,19 +22,10 @@
     justify-content: space-between;
 }
 
-<<<<<<< HEAD
-.imagens-produto{
-    width: 63%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 30px;
-=======
 .imagens-produto {
     display: flex;
     flex-direction: column;
     align-items: center;
->>>>>>> 6792e210445cc1d47f33f63374e3c44db7fbd13d
 }
 
 .info-produto {
@@ -84,33 +75,12 @@
     flex-direction: row;
 }
 
-<<<<<<< HEAD
-.botao-comprar{
-=======
 .botao-comprar {
->>>>>>> 6792e210445cc1d47f33f63374e3c44db7fbd13d
     height: 50px;
     border-radius: 50px;
     margin-top: 8%;
     width: 95%;
     cursor: pointer;
-<<<<<<< HEAD
-}
-
-.img-iphone-secundarias img {
-    width: 150px; 
-    margin: 10px;
-    cursor: pointer;
-  }
-
-.conteiner-fotos{
-    display: flex;
-    flex-direction: row;
-    width: 900px;
-}
-
-.imagem-principal{
-=======
     font-size: 18px;
 }
 
@@ -127,7 +97,6 @@
 }
 
 .imagem-principal {
->>>>>>> 6792e210445cc1d47f33f63374e3c44db7fbd13d
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -137,28 +106,6 @@
 .carousel {
     display: flex;
     align-items: center;
-<<<<<<< HEAD
-  }
-  
-.carousel-images {
-    display: flex;
-    overflow: hidden; 
-    width: 100%; 
-  }
-  
-  .img-iphone-secundarias {
-    margin: 0 5px; 
-    cursor: pointer;
-  }
-  
-  .img-iphone-secundarias:hover {
-    transition: box-shadow 0.3s ease-in-out;
-    border: #00000081 2px solid;
-    border-radius: 10px;
-  }
-
-  .btn-prev {
-=======
 }
 
 .carousel-images {
@@ -180,30 +127,10 @@
 
 .btn-prev,
 .btn-next {
->>>>>>> 6792e210445cc1d47f33f63374e3c44db7fbd13d
     width: 30px;
     height: 30px;
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0);
-<<<<<<< HEAD
-    background-image: url("https://img.icons8.com/ios/30/chevron-left.png");
-  }
-  
-  .btn-next {
-    width: 30px;
-    cursor: pointer;
-    height: 30px;
-    background-color: rgba(0, 0, 0, 0);
-    background-image: url("https://img.icons8.com/ios/30/chevron-right.png");
-  }
-
-  .btn-prev:disabled,
-  .btn-next:disabled {
-    cursor: not-allowed; 
-    opacity: 0.5; 
-  }
-  
-=======
 }
 
 .btn-prev:disabled,
@@ -331,4 +258,3 @@
         width: 100%;
     }
 }
->>>>>>> 6792e210445cc1d47f33f63374e3c44db7fbd13d
