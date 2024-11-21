@@ -13,16 +13,45 @@ import { capturarTaxaDeRetorno } from "../../model/DashDadosKpi.js";
 import { listarAcessosNosUltimosSeteDias } from "../../model/DashDadosKpi.js";
 import { obterFaturamento } from "../../model/DashDadosKpi.js";
 import { useEffect, useState } from "react";
-import { validateAuth } from "../../utils/global";
+import {
+	formatDate,
+	formatDateToLocaleString,
+	validateAuth,
+} from "../../utils/global";
 import { useNavigate } from "react-router-dom";
+import {
+	listarCategoriasMaisAcessadas,
+	listarProdutosMaisAcessados,
+} from "../../model/DashDadosgraficos.js";
 
 export default function Dashboard() {
 	const [taxaRetorno, setTaxaRetorno] = useState();
 	const [totalOrders, setTotalOrders] = useState();
 	const [revenueVar, setRevenue] = useState();
-	const [dataSelecionada, setDataSelecionada] = useState("2024-04-02");
-
+	const [produtosMaisAcessados, setProdutosMaisAcessados] = useState([]);
+	const [categoriasMaisAcessadas, setCategoriasMaisAcessados] = useState([]);
+	const [barData, setBarData] = useState({});
+	const [dataSelecionada, setDataSelecionada] = useState(
+		formatDate(new Date().toLocaleDateString())
+	);
+	const { dadosCategorias, labels } = useObterDadosCategoriaGrafico(
+		categoriasMaisAcessadas
+	);
 	const navigate = useNavigate();
+	const return_tax = {
+		title: "Taxa de retorno dos usúarios do dia",
+		paragraph: taxaRetorno + "%",
+	};
+
+	const total_orders = {
+		title: "Total de visitantes nos últimos 7 dias",
+		paragraph: totalOrders,
+	};
+
+	const revenue = {
+		title: "Faturamento estimado dos últimos 7 dias (R$)",
+		paragraph: "R$ " + Number(revenueVar).toLocaleString() ?? 0,
+	};
 
 	function validateAuthentication() {
 		if (!validateAuth() || sessionStorage.CATEGORIA !== "1") {
@@ -32,12 +61,16 @@ export default function Dashboard() {
 
 	async function taxaDeRetorno() {
 		let { taxaRetorno } = await capturarTaxaDeRetorno(dataSelecionada);
-		setTaxaRetorno(taxaRetorno.toFixed(2));
+		if (!taxaRetorno) {
+			setTaxaRetorno(0);
+		} else {
+			setTaxaRetorno(taxaRetorno.toFixed(2));
+		}
 	}
 
 	async function faturamento() {
 		let { faturamento } = await obterFaturamento(dataSelecionada);
-		if (faturamento === null || faturamento === "") {
+		if (!faturamento) {
 			setRevenue(0);
 		} else {
 			setRevenue(faturamento);
@@ -46,41 +79,47 @@ export default function Dashboard() {
 
 	async function totalOrdersKpi() {
 		let resultado = await listarAcessosNosUltimosSeteDias(dataSelecionada);
-		if (resultado === null || resultado === "") {
-			setTotalOrders(resultado);
+		if (!resultado) {
+			setTotalOrders(0);
 		} else {
-			Object.values(resultado).map((value) => {
+			Object.values(resultado).forEach((value) => {
 				setTotalOrders(value);
 			});
 		}
 	}
 
-	const return_tax = {
-		title: "Taxa de retorno dos usúarios",
-		paragraph: taxaRetorno + "%",
-	};
+	async function obterProdutosAcessadas() {
+		try {
+			var resposta = await listarProdutosMaisAcessados(dataSelecionada);
+			setProdutosMaisAcessados(resposta);
+		} catch (e) {
+			console.log(e);
+			return <h1>Erro</h1>;
+		}
+	}
 
-	const total_orders = {
-		title: "Total de visitantes nos últimos 7 dias",
-		paragraph: totalOrders != [] ? totalOrders : 0,
-	};
+	async function obterCategoriasAcessadas() {
+		try {
+			let resposta = await listarCategoriasMaisAcessadas(dataSelecionada);
+			setCategoriasMaisAcessados(resposta);
+		} catch (e) {
+			console.log(e);
+		}
+	}
 
-	const revenue = {
-		title: "Faturamento",
-		paragraph: "R$ " + Number(revenueVar).toLocaleString() ?? 0,
-	};
+	function gerarDadosGrafico() {
+		setBarData(gerarBarData(dadosCategorias, labels));
+	}
 
-	const { dadosCategorias, labels } =
-		useObterDadosCategoriaGrafico(dataSelecionada);
-
-	const bar_data = gerarBarData(dadosCategorias, labels);
-	console.log("Dados do gráfico:", bar_data);
 	useEffect(() => {
 		validateAuthentication();
 		taxaDeRetorno();
 		faturamento();
 		totalOrdersKpi();
-	}, []);
+		obterProdutosAcessadas();
+		obterCategoriasAcessadas();
+		gerarDadosGrafico();
+	}, [dataSelecionada, setDataSelecionada]);
 
 	return (
 		<div className={styles["Dashboard"]}>
@@ -89,8 +128,21 @@ export default function Dashboard() {
 			<div className={styles["Content"]}>
 				<div className={styles["Container"]}>
 					<div className={styles["Head"]}>
-						<h1 className={styles["Title"]}>Dashboard Geral</h1>
-						<div className={styles["Kpispace"]}>
+						<div className={styles["Title-Space"]}>
+							<h1 className={styles["Title"]}>Dashboard Geral</h1>
+							<h1 className={styles["Data-Selecionada"]}>
+								{formatDateToLocaleString(dataSelecionada)}
+							</h1>
+							<input
+								className={styles["Date-Picker"]}
+								type="date"
+								value={dataSelecionada}
+								onChange={(e) => {
+									setDataSelecionada(e.target.value);
+								}}
+							/>
+						</div>
+						<div className={styles["Kpi-Space"]}>
 							<Kpi text={return_tax}></Kpi>
 							<Kpi text={total_orders}></Kpi>
 							<Kpi text={revenue}></Kpi>
@@ -104,7 +156,13 @@ export default function Dashboard() {
 										Produtos mais acessados
 									</h3>
 								</div>
-								<ProductsData data={dataSelecionada} />
+								{produtosMaisAcessados && produtosMaisAcessados.length > 0 ? (
+									<ProductsData dados={produtosMaisAcessados} />
+								) : (
+									<span>
+										Nenhum registro encontrado para o período selecionado...
+									</span>
+								)}
 							</div>
 						</div>
 						<div className={styles["divisor"]}></div>
@@ -115,10 +173,13 @@ export default function Dashboard() {
 								</h3>
 							</div>
 							<div className={styles["Bargraphic"]}>
-								{bar_data !== undefined ? (
-									<BarData data={bar_data} options={bar_options}></BarData>
+								{categoriasMaisAcessadas &&
+								categoriasMaisAcessadas.length > 0 ? (
+									<BarData dados={categoriasMaisAcessadas}></BarData>
 								) : (
-									<p>Carregando dados...</p>
+									<span>
+										Nenhum registro encontrado para o período selecionado...
+									</span>
 								)}
 							</div>
 						</div>

@@ -1,24 +1,6 @@
-import React, { useEffect, useState } from "react";
 import styles from "./Products.module.css";
-import { listarProdutosMaisAcessados } from "../../model/DashDadosgraficos";
 
-export function ProductsData({ data }) {
-	const [dados, setDados] = useState([]);
-
-	async function obterProdutosAcessadas() {
-		try {
-			var resposta = await listarProdutosMaisAcessados(data);
-			setDados(resposta);
-		} catch (e) {
-			console.log(e);
-			return <h1>Erro</h1>;
-		}
-	}
-
-	useEffect(() => {
-		obterProdutosAcessadas();
-	}, []);
-
+export function ProductsData({ dados }) {
 	return (
 		<table className={styles["Products"]}>
 			{dados.map((product, index) => (

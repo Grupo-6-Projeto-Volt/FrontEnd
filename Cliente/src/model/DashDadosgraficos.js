@@ -8,7 +8,7 @@ export const listarChamadosCanceladosConcluido = () => {
 		})
 		.catch((erro) => {
 			console.error("Houve um erro: " + erro);
-			return erro;
+			return null;
 		});
 	return resposta;
 };
@@ -25,7 +25,7 @@ export const listarCategoriasMaisAcessadas = (data) => {
 		})
 		.catch((erro) => {
 			console.error("Houve um erro: " + erro);
-			return erro;
+			return null;
 		});
 	return resposta;
 };
@@ -42,8 +42,7 @@ export const listarProdutosMaisAcessados = (data) => {
 		})
 		.catch((erro) => {
 			console.error("Houve um erro: " + erro);
-			console.error(erro);
-			return erro;
+			return null;
 		});
 	return resposta;
 };

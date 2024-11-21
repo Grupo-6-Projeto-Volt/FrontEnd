@@ -1,21 +1,11 @@
-import { listarCategoriasMaisAcessadas } from "../../model/DashDadosgraficos";
 import { useState, useEffect } from "react";
 
-export function useObterDadosCategoriaGrafico(data) {
+export function useObterDadosCategoriaGrafico(dados) {
 	const [dadosCategorias, setDadosCategorias] = useState([]);
 	const [labels, setLabels] = useState([]);
 
 	useEffect(() => {
-		async function obterCategoriasAcessadas() {
-			try {
-				let resposta = await listarCategoriasMaisAcessadas(data);
-				adicionarDadosGrafico(resposta);
-			} catch (e) {
-				console.log(e);
-			}
-		}
-
-		obterCategoriasAcessadas();
+		adicionarDadosGrafico(dados);
 	}, []);
 
 	function adicionarDadosGrafico(resposta) {
@@ -24,10 +14,10 @@ export function useObterDadosCategoriaGrafico(data) {
 			const novosLabels = [];
 
 			for (let i = 0; i < resposta.length; i++) {
-				if (novosDados.length < 3) {
+				if (novosDados.length < 7) {
 					novosDados.push(resposta[i].acessos);
 				}
-				if (novosLabels.length < 3) {
+				if (novosLabels.length < 7) {
 					novosLabels.push(resposta[i].categoria);
 				}
 			}

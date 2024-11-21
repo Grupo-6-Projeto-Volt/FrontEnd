@@ -31,11 +31,27 @@
 	height: 30vh;
 }
 
+.Title-Space {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 0.5rem;
+}
+
 .Title {
 	font-size: 32px;
 	font-family: "PoppinsBold";
-	width: 100%;
 	margin-bottom: 1.4vh;
+}
+
+.Data-Selecionada {
+	font-size: 28px;
+	font-family: "PoppinsMedium";
+}
+
+.Date-Picker {
+	width: 30% !important;
 }
 
 .Section-Title {
@@ -45,12 +61,12 @@
 	margin-bottom: 1.4vh;
 }
 
-.Kpispace {
+.Kpi-Space {
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: space-between;
 }
 
 .Main {
@@ -60,6 +76,11 @@
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.Products {
+	width: 100%;
+	height: 100%;
 }
 
 .divisor {
@@ -100,7 +121,7 @@
 }
 
 @media (min-width: 800px) and (max-width: 1000px) {
-	.Kpispace {
+	.Kpi-Space {
 		width: 100% !important;
 		align-items: center !important;
 		display: flex !important;
