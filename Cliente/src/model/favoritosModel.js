@@ -43,7 +43,6 @@ export const favoritos = {
                 }
             }
             ).then((resultado) => {
-                console.log(resultado.data)
                 return resultado.data;
             }
             )
