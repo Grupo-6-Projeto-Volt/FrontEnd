@@ -11,7 +11,7 @@ export const NavBarPadrao = () => {
     const [busca, setBusca] = useState("");
     const [logado, setLogado] = useState(false);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
-    const [showSearchInput, setShowSearchInput] = useState(false); // Estado para controlar a visibilidade do campo de busca
+    const [showSearchInput, setShowSearchInput] = useState(false); 
 
     useEffect(() => {
         const handleResize = () => {
@@ -22,6 +22,10 @@ export const NavBarPadrao = () => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
+	useEffect(() => {
+		setLogado(!!sessionStorage.getItem("TOKEN")); 
+	  }, []);	  
+
     const handleInputChange = (event) => {
         setBusca(event.target.value);
     };
@@ -30,7 +34,7 @@ export const NavBarPadrao = () => {
         if (showSearchInput && busca) {
             navigate(`/pagina-produtos/Busca/${busca}`);
         } else {
-            setShowSearchInput(!showSearchInput); // Exibe o campo de busca ao clicar no ícone
+            setShowSearchInput(!showSearchInput); 
         }
     };
 
@@ -141,7 +145,7 @@ export const NavBarPadrao = () => {
                         className={styles["search-responsive"]}
                         onClick={handleClickSearch}
                     />
-                    {showSearchInput && ( // Renderiza o campo de busca em uma lista, similar ao menu
+                    {showSearchInput && ( 
                         <ul className={styles['menu-hamburguer-elements']}>
                             <li className={styles["search-input-container"]}>
                                 <input
@@ -164,7 +168,9 @@ export const NavBarPadrao = () => {
                             navigate("/");
                         }}
                     />
-                    <div className={styles["usuarioDiv"]}>
+                    <div   className={`${styles["usuarioDiv"]} ${
+							logado ? styles["usuarioLogado"] : styles["usuarioDeslogado"]
+						}`}>
                         {validateAuthentication()}
                         <FaRegHeart
                             className={styles["favoritos"]}
