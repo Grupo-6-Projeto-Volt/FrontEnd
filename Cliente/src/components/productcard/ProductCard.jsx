@@ -35,7 +35,7 @@ export const Produto = ({
             }
             <h4 className={styles["nomeProd"]}>{nome}</h4>
             <h5 className={styles['precoSemDesconto']}>R$ {preco.toFixed(2).replace('.', ',')}</h5>
-            <h4 className={styles["precoProd"]} style={{ color: '#d41f1f' }}>R$ {(((100 - desconto) / 100) * preco).toFixed(2).replace('.', ',')}    </h4>
+            <h4 className={styles["precoProd"]} style={{ color: '#d41f1f' }}>R$ {(((100 - desconto) / 100) * preco).toFixed(2).replace('.', ',')}</h4>
         </div>);
     } else {
         return (
