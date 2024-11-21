@@ -23,6 +23,7 @@ import {
 	listarCategoriasMaisAcessadas,
 	listarProdutosMaisAcessados,
 } from "../../model/DashDadosgraficos.js";
+import Calendar from "../../components/calendar/Calendar.jsx";
 
 export default function Dashboard() {
 	const [taxaRetorno, setTaxaRetorno] = useState();
@@ -130,9 +131,6 @@ export default function Dashboard() {
 					<div className={styles["Head"]}>
 						<div className={styles["Title-Space"]}>
 							<h1 className={styles["Title"]}>Dashboard Geral</h1>
-							<h1 className={styles["Data-Selecionada"]}>
-								{formatDateToLocaleString(dataSelecionada)}
-							</h1>
 							<input
 								className={styles["Date-Picker"]}
 								type="date"
@@ -184,6 +182,7 @@ export default function Dashboard() {
 							</div>
 						</div>
 					</div>
+					<Calendar />
 				</div>
 			</div>
 		</div>

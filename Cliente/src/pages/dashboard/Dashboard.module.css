@@ -51,7 +51,8 @@
 }
 
 .Date-Picker {
-	width: 30% !important;
+	width: 15% !important;
+	padding-right: 10px;
 }
 
 .Section-Title {
