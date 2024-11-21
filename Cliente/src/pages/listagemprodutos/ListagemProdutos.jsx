@@ -1,20 +1,23 @@
-import styles from "./ListagemProdutos.module.css";
-import Navbar from "../../components/navbar/dashboard/Navbar";
-import Searchbar from "../../components/searchbar/Searchbar";
-import Table from "../../components/list/Table";
-import Sidebar from "../../components/sidebar/Sidebar";
-import { FaCheck, FaPencil, FaTrash, FaX } from "react-icons/fa6";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DefaultButton from "../../components/button/defaultbutton/DefaultButton";
+import ConfirmCancelActionButton from "../../components/confirmcancelactionbutton/ConfirmCancelActionButton";
+import ExportButton from "../../components/exportButton/ExportButton";
+import Table from "../../components/list/Table";
+import Navbar from "../../components/navbar/dashboard/Navbar";
+import Searchbar from "../../components/searchbar/Searchbar";
+import Sidebar from "../../components/sidebar/Sidebar";
 import { produtosModel } from "../../model/produtosModel";
-import { useEffect, useState } from "react";
+import styles from "./ListagemProdutos.module.css";
+import { toast } from "react-toastify";
+import { validateAuth } from "../../utils/global";
 
 function ListagemProdutos() {
-	let navigate = useNavigate();
-
-	let [produtos, setProdutos] = useState([]);
-
-	let headersProdutos = [
+	const navigate = useNavigate();
+	const [produtos, setProdutos] = useState([]);
+	const [filter, setFilter] = useState(0);
+	const [search, setSearch] = useState("");
+	const headersProdutos = [
 		"",
 		"Id",
 		"Nome do Produto",
@@ -24,94 +27,105 @@ function ListagemProdutos() {
 		"",
 	];
 
-	function handleNewProductPress() {
-		navigate("/cadastro-produtos");
+	function validateAuthentication() {
+		if (!validateAuth() || sessionStorage.CATEGORIA !== "1") {
+			navigate("/login");
+		}
 	}
 
-	function handleDelete(
-		editIconId,
-		deleteIconId,
-		confirmDeleteIconId,
-		cancelDeleteIconId
-	) {
-		let iptDeleteIcon = document.getElementById(deleteIconId);
-		let iptEditIcon = document.getElementById(editIconId);
-		let iptConfirmDeleteIcon = document.getElementById(confirmDeleteIconId);
-		let iptCancelDeleteIcon = document.getElementById(cancelDeleteIconId);
-
-		iptDeleteIcon.style.display = "none";
-		iptEditIcon.style.display = "none";
-		iptConfirmDeleteIcon.style.display = "inline-block";
-		iptCancelDeleteIcon.style.display = "inline-block";
+	function handleDelete(id) {
+		let response = async () => {
+			await produtosModel
+				.deletarProduto(id)
+				.then((response) => {
+					toast.success("Produto deletado!");
+				})
+				.catch((error) => {
+					toast.error("Houve um erro ao deletar o produto:", error);
+				});
+			getProductsList();
+		};
+		response();
 	}
 
-	async function handleConfirmDelete(
-		id,
-		confirmDeleteIconId,
-		cancelDeleteIconId,
-		editIconId,
-		deleteIconId
-	) {
-		let iptConfirmDeleteIcon = document.getElementById(confirmDeleteIconId);
-		let iptCancelDeleteIcon = document.getElementById(cancelDeleteIconId);
-		let iptEditIcon = document.getElementById(editIconId);
-		let iptDeleteIcon = document.getElementById(deleteIconId);
-
-		await produtosModel
-			.deletarProduto(id)
-			.then((response) => {
-				console.log(response);
-			})
-			.catch((error) => {
-				console.log("Houve um erro ao deletar o produto:", error);
-			});
-
-		iptConfirmDeleteIcon.style.display = "none";
-		iptCancelDeleteIcon.style.display = "none";
-		iptEditIcon.style.display = "inline-block";
-		iptDeleteIcon.style.display = "inline-block";
-
-		getProductsList();
+	function handleEdit(id) {
+		navigate(`/editar-produtos/${id}`);
 	}
 
-	function handleCancelDelete(
-		confirmDeleteIconId,
-		cancelDeleteIconId,
-		editIconId,
-		deleteIconId
-	) {
-		let iptConfirmDeleteIcon = document.getElementById(confirmDeleteIconId);
-		let iptCancelDeleteIcon = document.getElementById(cancelDeleteIconId);
-		let iptEditIcon = document.getElementById(editIconId);
-		let iptDeleteIcon = document.getElementById(deleteIconId);
+	function filterProducts() {
+		switch (filter) {
+			case 0:
+				getProductsList();
+				break;
+			case 1:
+				setProdutos((produtos) => [
+					...produtos.sort((a, b) => a.nome.localeCompare(b.nome)),
+				]);
+				break;
+			case 2:
+				setProdutos((produtos) => [
+					...produtos.sort((a, b) => b.nome.localeCompare(a.nome)),
+				]);
+				break;
+			case 3:
+				setProdutos((produtos) => [
+					...produtos.sort(
+						(a, b) =>
+							Number(a.preco.replace("R$", "")) -
+							Number(b.preco.replace("R$", ""))
+					),
+				]);
+				break;
 
-		iptConfirmDeleteIcon.style.display = "none";
-		iptCancelDeleteIcon.style.display = "none";
-		iptEditIcon.style.display = "inline-block";
-		iptDeleteIcon.style.display = "inline-block";
+			case 4:
+				setProdutos((produtos) => [
+					...produtos.sort(
+						(a, b) =>
+							Number(b.preco.replace("R$", "")) -
+							Number(a.preco.replace("R$", ""))
+					),
+				]);
+				break;
+			case 5:
+				setProdutos((produtos) => [
+					...produtos.sort((a, b) => a.categoria.localeCompare(b.categoria)),
+				]);
+				break;
+			case 6:
+				setProdutos((produtos) => [
+					...produtos.sort((a, b) => a.estado.localeCompare(b.estado)),
+				]);
+				break;
+			default:
+				getProductsList();
+		}
 	}
 
 	useEffect(() => {
+		validateAuthentication();
 		getProductsList();
 	}, []);
 
+	useEffect(() => {
+		filterProducts();
+	}, [filter, setFilter]);
+
 	async function getProductsList() {
 		try {
-			let response = await produtosModel.listarProdutos();
-			let lista = [];
+			let response = await produtosModel.listarProdutos(1000);
+			let produtos = [];
+
 			response.forEach((produto) => {
-				let confirmDeleteIconId = `ipt_confirm_delete_icon_${produto.id}`;
-				let cancelDeleteIconId = `ipt_cancel_delete_icon_${produto.id}`;
-
-				let editIconId = `ipt_edit_icon_${produto.id}`;
-				let deleteIconId = `ipt_delete_icon_${produto.id}`;
-
-				lista.push({
+				produtos.push({
 					image: () => {
 						return (
 							<img
 								className={styles["list-image"]}
-								src={produto.imagensProduto[0].codigoImagem}
+								src={
+									produto.imagensProduto[0] !== undefined
+										? produto.imagensProduto[0].codigoImagem
+										: "https://ircsan.com/wp-content/uploads/2024/03/placeholder-image.png"
+								}
 								alt="Iphone"
 							/>
 						);
@@ -123,57 +137,16 @@ function ListagemProdutos() {
 					preco: "R$" + Number(produto.preco).toFixed(2),
 					acoes: () => {
 						return (
-							<div className={styles["list-btn-area"]}>
-								<FaPencil
-									id={editIconId}
-									cursor={"pointer"}
-									onClick={() => navigate(`/editar-produtos/${produto.id}`)}
-								/>
-								<FaTrash
-									id={deleteIconId}
-									cursor={"pointer"}
-									onClick={() =>
-										handleDelete(
-											editIconId,
-											deleteIconId,
-											confirmDeleteIconId,
-											cancelDeleteIconId
-										)
-									}
-								/>
-								<FaCheck
-									id={confirmDeleteIconId}
-									cursor={"pointer"}
-									display={"none"}
-									onClick={() =>
-										handleConfirmDelete(
-											produto.id,
-											confirmDeleteIconId,
-											cancelDeleteIconId,
-											editIconId,
-											deleteIconId
-										)
-									}
-								/>
-								<FaX
-									id={cancelDeleteIconId}
-									cursor={"pointer"}
-									display={"none"}
-									onClick={() =>
-										handleCancelDelete(
-											confirmDeleteIconId,
-											cancelDeleteIconId,
-											editIconId,
-											deleteIconId
-										)
-									}
-								/>
-							</div>
+							<ConfirmCancelActionButton
+								onEdit={() => handleEdit(produto.id)}
+								onDelete={() => handleDelete(produto.id)}
+								enableEdit={() => {}}
+							/>
 						);
 					},
 				});
 			});
-			setProdutos(lista);
+			setProdutos(produtos);
 		} catch (error) {
 			console.error("Erro:", error);
 		}
@@ -185,33 +158,46 @@ function ListagemProdutos() {
 			<Sidebar />
 			<div className={styles["content"]}>
 				<div className={styles["container"]}>
+					<h1 className={styles["title"]}>Listagem de Produtos</h1>
 					<div className={styles["page-header"]}>
-						<h1 className={styles["title"]}>Listagem de Produtos</h1>
 						<Searchbar
 							width={"20rem"}
-							onChange={() => {
-								console.log("teste");
+							onChange={(e) => setSearch(e)}
+							onClick={async () => {
+								await getProductsList();
+
+								if (
+									produtos.filter((a) =>
+										a.nome.toLowerCase().includes(search.toLowerCase())
+									).length !== 0
+								) {
+									setProdutos((categorias) => [
+										...categorias.filter((a) =>
+											a.nome.toLowerCase().includes(search.toLowerCase())
+										),
+									]);
+								}
 							}}
 						/>
 						<div className={styles["filter-group"]}>
 							<span>Filtrar por: </span>
-							<select
-								onChange={(e) => {
-									console.log("teste");
-								}}
-							>
-								<option value="0">Nome Asc</option>
-								<option value="1">Nome Desc</option>
-								<option value="2">Preço Asc</option>
-								<option value="3">Preço Desc</option>
-								<option value="4">Categoria</option>
-								<option value="5">Estado</option>
+							<select onChange={(e) => setFilter(Number(e.target.value))}>
+								<option value="0">Sem Filtros</option>
+								<option value="1">Nome Asc</option>
+								<option value="2">Nome Desc</option>
+								<option value="3">Preço Asc</option>
+								<option value="4">Preço Desc</option>
+								<option value="5">Categoria</option>
+								<option value="6">Estado</option>
 							</select>
 						</div>
 						<DefaultButton
 							text={"Adicionar Produto"}
-							onClick={handleNewProductPress}
+							onClick={() => {
+								navigate("/cadastro-produtos");
+							}}
 						/>
+						<ExportButton page={"produtos"}></ExportButton>
 					</div>
 					<div className={styles["table-area"]}>
 						<Table headers={headersProdutos} values={produtos} limit={5} />

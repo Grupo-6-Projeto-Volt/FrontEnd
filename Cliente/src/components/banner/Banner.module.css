@@ -1,8 +1,17 @@
 .img-banner{
     height: 50%;
-    width: 100%;
+    width: 100vw;
 }
 
 .container-banner{
     padding: 0px;
+    width: 100% !important;
+}
+
+.container-carregamento{
+    width: 99vw;
+    display: flex;
+    height: 20vh;
+    justify-content: center;
+    align-items: center;
 }
