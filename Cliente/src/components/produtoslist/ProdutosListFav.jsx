@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useState } from 'react';
 import { FaHeart } from "react-icons/fa";
 import { favoritos } from "../../model/favoritosModel.js";
 import styles from "./ProdutosListFav.module.css";
+import { FORMATTER } from '../../utils/global.js';
 
 export function ListFav() {
     let [favoritosDados, setFavoritosDados] = useState([]);
@@ -47,14 +48,14 @@ export function ListFav() {
                                     </div>
                                     <img src={favorito.produto.imagensProduto.at(0).codigoImagem} alt={favorito.produto.nome} />
                                     <h4 className={styles["nomeProd"]}>{favorito.produto.nome}</h4>
-                                    <h5 className={styles['precoSemDesconto']}>R$ {favorito.produto.preco.toFixed(2).replace('.', ',')}</h5>
-                                    <h4 className={styles["precoProd"]} style={{ color: '#d41f1f' }}>R$ {(((100 - favorito.produto.desconto) / 100) * favorito.produto.preco).toFixed(2).replace('.', ',')}</h4>
+                                    <h5 className={styles['precoSemDesconto']}>R$ {FORMATTER.format(favorito.produto.preco)}</h5>
+                                    <h4 className={styles["precoProd"]} style={{ color: '#d41f1f' }}>R$ {FORMATTER.format(((100 - favorito.produto.desconto) / 100) * favorito.produto.preco)}</h4>
                                 </div> :
                                 <div className={styles["produto"]}>
                                     <FaHeart onClick={() => { favoritos.desfavoritar(favorito.id); getFavoritos(); favoritosDados.splice(favoritosDados.findIndex(fav => fav.id === favorito.id), 1); forceRender(favoritosDados) }} className={styles["heart"]} />
                                     <img src={favorito.produto.imagensProduto.at(0).codigoImagem} alt={favorito.produto.imagensProduto.at(0).nome} />
                                     <h4 className={styles["nomeProd"]}>{favorito.produto.nome}</h4>
-                                    <h4 className={styles["precoProd"]}>R$ {favorito.produto.preco.toFixed(2).replace('.', ',')}</h4>
+                                    <h4 className={styles["precoProd"]}>R$ {FORMATTER.format(favorito.produto.preco)}</h4>
                                 </div>
                             }
                         </>

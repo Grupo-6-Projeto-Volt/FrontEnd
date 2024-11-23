@@ -2,6 +2,7 @@ import styles from "./ProductCard.module.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import { clickProd } from "../produtoslist/ProdutosList";
 import SpinningCircles from "react-loading-icons/dist/esm/components/spinning-circles";
+import { FORMATTER } from "../../utils/global";
 export const Produto = ({
     id,
     nome,
@@ -12,7 +13,7 @@ export const Produto = ({
 }) => {
     const navigate = useNavigate();
     const location = useLocation();
-
+   
     const navigateToProduct = (idProduto) => {
         if (location.pathname === `/productpage`) {
             navigate(`/productpage`);
@@ -34,8 +35,8 @@ export const Produto = ({
             </div>
             }
             <h4 className={styles["nomeProd"]}>{nome}</h4>
-            <h5 className={styles['precoSemDesconto']}>R$ {preco.toFixed(2).replace('.', ',')}</h5>
-            <h4 className={styles["precoProd"]} style={{ color: '#d41f1f' }}>R$ {(((100 - desconto) / 100) * preco).toFixed(2).replace('.', ',')}</h4>
+            <h5 className={styles['precoSemDesconto']}>R$ { FORMATTER.format(preco)}</h5>
+            <h4 className={styles["precoProd"]} style={{ color: '#d41f1f' }}>R$ {FORMATTER.format((((100 - desconto) / 100) * preco))}</h4>
         </div>);
     } else {
         return (
@@ -45,7 +46,7 @@ export const Produto = ({
                 </div>
                 }
                 <h4 className={styles["nomeProd"]}>{nome}</h4>
-                <h4 className={styles["precoProd"]}>R$ {preco.toFixed(2).replace('.', ',')}</h4>
+                <h4 className={styles["precoProd"]}>R$ {FORMATTER.format(preco)}</h4>
             </div>
         );
     }
