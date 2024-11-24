@@ -22,59 +22,70 @@ function Calendar() {
 	const [currentMonth, setCurrentMonth] = useState(currentDate.getMonth());
 	const [currentYear, setCurrentYear] = useState(currentDate.getFullYear());
 
+	const [selectedDay, setSelectedDay] = useState(currentDate.getDate());
+	const [selectedMonth, setSelectedMonth] = useState(currentMonth);
+	const [selectedYear, setSelectedYear] = useState(currentYear);
+
 	const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
 	const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
-	const lastDayOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-	const calendarDays = [];
+
+	function prevMonth() {
+		setCurrentMonth((prevMonth) => (prevMonth === 0 ? 11 : prevMonth - 1));
+		setCurrentYear((prevYear) =>
+			currentMonth === 0 ? prevYear - 1 : prevYear
+		);
+	}
+
+	function nextMonth() {
+		setCurrentMonth((nextMonth) => (nextMonth === 11 ? 0 : nextMonth + 1));
+		setCurrentYear((nextYear) =>
+			currentMonth === 11 ? nextYear + 1 : nextYear
+		);
+	}
 
 	return (
 		<div className={styles["Calendar"]}>
 			<div className={styles["navigate-date"]}>
-				<h2 className={styles["month"]}>Novembro</h2>
-				<h2 className={styles["year"]}>2024</h2>
+				<h2 className={styles["month"]}>{monthsOfYear[currentMonth]},</h2>
+				<h2 className={styles["year"]}>{currentYear}</h2>
 				<div className={styles["buttons"]}>
-					<BiLeftArrow />
-					<BiRightArrow />
+					<BiLeftArrow onClick={prevMonth} cursor={"pointer"} />
+					<BiRightArrow onClick={nextMonth} cursor={"pointer"} />
 				</div>
 			</div>
 			<div className={styles["weekdays"]}>
-				{daysOfWeek.map((day, index) => (
-					<span key={index}>{day}</span>
+				{daysOfWeek.map((day) => (
+					<span key={day}>{day}</span>
 				))}
 			</div>
 			<div className={styles["days"]}>
-				<span>1</span>
-				<span>2</span>
-				<span>3</span>
-				<span>4</span>
-				<span>5</span>
-				<span>6</span>
-				<span>7</span>
-				<span>8</span>
-				<span>9</span>
-				<span>10</span>
-				<span>11</span>
-				<span>12</span>
-				<span>13</span>
-				<span className={styles["current-day"]}>14</span>
-				<span>15</span>
-				<span>16</span>
-				<span>17</span>
-				<span>18</span>
-				<span>19</span>
-				<span>20</span>
-				<span>21</span>
-				<span>22</span>
-				<span>23</span>
-				<span>24</span>
-				<span>25</span>
-				<span>26</span>
-				<span>27</span>
-				<span>28</span>
-				<span>29</span>
-				<span>30</span>
-				<span>31</span>
+				{[...Array(firstDayOfMonth).keys()].reverse().map((day, index) => (
+					<span className={styles["deactivated-day"]} key={`empty-${index}`}>
+						{daysInMonth - day}
+					</span>
+				))}
+				{[...Array(daysInMonth).keys()].map((day) => (
+					<span
+						className={
+							styles[
+								day + 1 === selectedDay &&
+								currentMonth === selectedMonth &&
+								currentYear === selectedYear
+									? "selected-day"
+									: ""
+							]
+						}
+						key={day + 1}
+						onClick={() => {
+							setSelectedDay(day + 1);
+							setSelectedMonth(currentMonth);
+							setSelectedYear(currentYear);
+						}}
+					>
+						{day + 1}
+					</span>
+				))}
 			</div>
 		</div>
 	);
