@@ -24,7 +24,7 @@ function CrudTable({
 		setSelectedIndex(0);
 		setFirstIndex(0);
 	}, [headers, values, limit]);
-
+//teste
 	function handleBack() {
 		if (selectedIndex > 0) {
 			setFirstIndex((selectedIndex - 1) * limit);
