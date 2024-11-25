@@ -1,7 +1,7 @@
 on:
-  push:
-    branches:
-      - feature/melhoria-descontos
+  pull_request:
+    types:
+      - opened
 
 jobs:
   build:
