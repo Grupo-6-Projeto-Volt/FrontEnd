@@ -16,7 +16,7 @@ jobs:
 
     - name: Instalar dependências
       run: |
-          cd subpasta-do-projeto
+          cd Cliente
           npm install
       
     - name: Build do projeto
