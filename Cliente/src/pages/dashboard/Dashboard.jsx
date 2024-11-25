@@ -69,7 +69,6 @@ export default function Dashboard() {
 		"Últimos 7 dias",
 		"Últimos 15 dias",
 		"Últimos 30 dias",
-		"Personalizado",
 	];
 
 	function validateAuthentication() {
@@ -130,6 +129,26 @@ export default function Dashboard() {
 		setBarData(gerarBarData(dadosCategorias, labels));
 	}
 
+	function checkDateInterval() {
+		switch (selectedDateOption) {
+			case 0:
+				initialDateRef.current.decreaseDays(1);
+				break;
+			case 1:
+				initialDateRef.current.decreaseDays(7);
+				break;
+			case 2:
+				initialDateRef.current.decreaseDays(15);
+				break;
+			case 3:
+				initialDateRef.current.decreaseDays(30);
+				break;
+			default:
+				initialDateRef.current.decreaseDays(1);
+				break;
+		}
+	}
+
 	useEffect(() => {
 		validateAuthentication();
 		taxaDeRetorno();
@@ -139,6 +158,10 @@ export default function Dashboard() {
 		obterCategoriasAcessadas();
 		gerarDadosGrafico();
 	}, [dataSelecionada, setDataSelecionada]);
+
+	useEffect(() => {
+		checkDateInterval();
+	}, [selectedDateOption]);
 
 	return (
 		<div className={styles["Dashboard"]}>

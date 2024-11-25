@@ -54,8 +54,28 @@ const Calendar = forwardRef((props, ref) => {
 		setSelectedYear(currentYear);
 	}
 
+	function decreaseDays(days) {
+		setSelectedDay((day) =>
+			day < days ? day - (daysInMonth - days) : selectedDay - days
+		);
+
+		if (selectedDay - days < 1) {
+			if (selectedMonth === 0) {
+				setCurrentMonth(11);
+				setCurrentYear(currentYear - 1);
+			} else {
+				setCurrentMonth(selectedMonth - 1);
+				setCurrentYear(currentYear);
+			}
+		} else {
+			setCurrentMonth(selectedMonth);
+			setCurrentYear(currentYear);
+		}
+	}
+
 	useImperativeHandle(ref, () => ({
 		getSelectedDate,
+		decreaseDays,
 	}));
 
 	useEffect(() => {
