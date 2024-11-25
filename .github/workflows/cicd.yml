@@ -26,7 +26,12 @@ jobs:
       run: |
         cd Cliente
         CI=false npm run build
-      
+
+    - name: Gerar artefato Github com os arquivos de build
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-react-app
+        path: build/**/*
 
   deploy:
     needs: build
