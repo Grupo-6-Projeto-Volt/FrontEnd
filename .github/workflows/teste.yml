@@ -1,0 +1,61 @@
+on:
+  push:
+    branches:
+      - feature/melhoria-descontos
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Atualização do código
+      uses: actions/checkout@v2
+
+    - name: Atualizar Node Js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Instalar dependências
+      run: npm install
+      
+    - name: Build do projeto
+      run: npm run build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Compactar artefato
+      run: tar -czf Cliente.tar.gz build
+
+    - name: Deploy para EC2
+      uses: appleboy/scp-action@v0.2.4
+      with:
+        host: ${{ secrets.EC2_PUBLIC_IP }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        source: Cliente.tar.gz
+        target: /var/www/Cliente/
+
+    - name: Criar arquivo .pem a partir da variável DEPLOY_KEY e fazer o chmod 400 nele
+      id: geracao-arquivo-pem # o id é opcional, mas é bom para fins de log
+      run: |
+        echo "${{ secrets.DEPLOY_KEY }}" >> $HOME/${{ secrets.NOME_ARQUIVO_PEM }}
+        chmod 400 $HOME/${{ secrets.NOME_ARQUIVO_PEM }}
+      
+
+    # Step 8: Conectar na EC2 e reiniciar o servidor
+    - name: Reiniciar aplicação
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: ${{ secrets.EC2_PUBLIC_IP }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        script: |
+          cd /var/www/Cliente/
+          tar -xzf Cliente.tar.gz
+          rm -rf Cliente.tar.gz
+          # Comando para reiniciar seu servidor, por exemplo:
+          pm2 restart all
