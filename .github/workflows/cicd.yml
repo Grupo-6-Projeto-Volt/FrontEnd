@@ -15,9 +15,9 @@ jobs:
         node-version: '20'
 
     - name: Instalar dependências
-      run: npm install
-      working-directory: /Cliente
-
+      run: |
+          cd subpasta-do-projeto
+          npm install
       
     - name: Build do projeto
       run: npm run build
