@@ -38,18 +38,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Recuperar jars
+    - name: Recuperar artefato do build
       uses: actions/download-artifact@v4  # essa action promove o download de um ou mais arquivos de uma pasta temporária do github actions
       with:
         name: build-react-app # nome do arquivo ou conjunto de arquivos que queremos recuperar
         path: ./ # diretório da VM de execução do workflow onde os arquivos recuperados ficarão
         
-    - name: Verificar estrutura de diretórios
-      run: ls -la
+    - name: Verificar diretorio
+      run: pwd
       
     - name: Compactar artefato
       run: |
-        cd Cliente
         tar -czf Cliente.tar.gz build   
 
     - name: Deploy para EC2
