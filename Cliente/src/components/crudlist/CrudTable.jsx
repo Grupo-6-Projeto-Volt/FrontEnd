@@ -32,7 +32,7 @@ function CrudTable({
 			setSelectedIndex(--selectedIndex);
 		}
 	}
-	//teste meu deus
+	//teste
 	function handleNext() {
 		if ((selectedIndex + 1) * limit < values.length) {
 			setSelectedIndex(++selectedIndex);
