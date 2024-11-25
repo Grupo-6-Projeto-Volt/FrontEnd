@@ -50,6 +50,12 @@ jobs:
     - name: Compactar artefato
       run: |
         tar -czf Cliente.tar.gz build   
+        
+    - name: Criar arquivo .pem a partir da variável DEPLOY_KEY e fazer o chmod 400 nele
+      id: geracao-arquivo-pem # o id é opcional, mas é bom para fins de log
+      run: |
+        echo "${{ secrets.DEPLOY_KEY }}" >> $HOME/${{ secrets.NOME_ARQUIVO_PEM }}
+        chmod 400 $HOME/${{ secrets.NOME_ARQUIVO_PEM }}
 
     - name: Deploy para EC2
       uses: appleboy/scp-action@v0.1.7
@@ -58,14 +64,7 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         source: Cliente.tar.gz
-        target: /var/www/Cliente/
-
-    - name: Criar arquivo .pem a partir da variável DEPLOY_KEY e fazer o chmod 400 nele
-      id: geracao-arquivo-pem # o id é opcional, mas é bom para fins de log
-      run: |
-        echo "${{ secrets.DEPLOY_KEY }}" >> $HOME/${{ secrets.NOME_ARQUIVO_PEM }}
-        chmod 400 $HOME/${{ secrets.NOME_ARQUIVO_PEM }}
-      
+        target: /var/www/Cliente/      
 
     # Step 8: Conectar na EC2 e reiniciar o servidor
     - name: Reiniciar aplicação
