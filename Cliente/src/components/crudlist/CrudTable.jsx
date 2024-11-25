@@ -1,3 +1,4 @@
+/* eslint-disable no-const-assign */
 import { useEffect, useState } from "react";
 import styles from "./CrudTable.module.css";
 import DefaultButton from "../button/defaultbutton/DefaultButton";

@@ -147,11 +147,11 @@ function ExportButton({ page, bgColor, fgColor, border }) {
 		}
 	};
 
-	function exportarArquivo(tipo) {
-		if (tipo === "json") {
-			produtosModel.exportarJson();
-		}
-	}
+	// function exportarArquivo(tipo) {
+	// 	if (tipo === "json") {
+	// 		produtosModel.exportarJson();
+	// 	}
+	// }
 
 	return (
 		<>

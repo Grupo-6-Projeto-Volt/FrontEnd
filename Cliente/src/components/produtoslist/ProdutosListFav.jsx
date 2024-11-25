@@ -25,6 +25,7 @@ export function ListFav(){
         if(favoritosDados){
             getFavoritos();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
 

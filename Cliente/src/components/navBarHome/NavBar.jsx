@@ -9,7 +9,6 @@ import { validateAuth } from "../../utils/global";
 export const NavBarPadrao = () => {
     let navigate = useNavigate();
     const [busca, setBusca] = useState("");
-    const [logado, setLogado] = useState(false);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
     const [showSearchInput, setShowSearchInput] = useState(false); // Estado para controlar a visibilidade do campo de busca
 

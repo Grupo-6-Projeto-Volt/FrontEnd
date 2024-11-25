@@ -34,6 +34,7 @@ const Banner = (img) => {
         } else {
             setTimeout(() => setIsLoading(false), 7000);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (isLoading) {

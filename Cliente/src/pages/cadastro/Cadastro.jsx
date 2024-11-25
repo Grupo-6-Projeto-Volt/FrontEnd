@@ -1,22 +1,21 @@
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
-import "./Cadastro.css";
-import * as yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import api from "../../api";
 import { useNavigate } from "react-router-dom";
-import logo from "../../utils/assets/logo-ichiban.png";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { formatPhoneNumber } from "../../utils/global";
-import { NavBarPadrao } from "../../components/navBarHome/NavBar";
+import * as yup from "yup";
+import api from "../../api";
 import Footer from "../../components/footer/Footer.jsx";
+import { NavBarPadrao } from "../../components/navBarHome/NavBar";
+import { formatPhoneNumber } from "../../utils/global";
+import "./Cadastro.css";
 
 const Cadastro = () => {
-  const [nomeText, setNomeText] = useState("");
-  const [emailText, setEmailText] = useState("");
-  const [telefoneText, setTelefoneText] = useState("");
-  const [passwordText, setPasswordText] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  // const [nomeText, setNomeText] = useState("");
+  // const [emailText, setEmailText] = useState("");
+  // const [telefoneText, setTelefoneText] = useState("");
+  // const [passwordText, setPasswordText] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = (values) => {
