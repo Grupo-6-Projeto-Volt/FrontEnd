@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - desenvolvimento
+      - main
 
 jobs:
   build:
