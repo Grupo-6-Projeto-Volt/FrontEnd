@@ -16,7 +16,7 @@ jobs:
 
     - name: Instalar dependências
       run: npm install
-      working-directory: Cliente
+      working-directory: /Cliente
 
       
     - name: Build do projeto
