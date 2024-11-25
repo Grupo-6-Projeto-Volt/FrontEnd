@@ -14,7 +14,7 @@ jobs:
     - name: Atualizar Node Js
       uses: actions/setup-node@v3
       with:
-        node-version: 20
+        node-version: '20'
 
     - name: Instalar dependências
       run: npm install
@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Compactar artefato
+    - name: Compactar artefato
       run: tar -czf Cliente.tar.gz build
 
     - name: Deploy para EC2
