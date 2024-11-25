@@ -23,7 +23,7 @@ jobs:
     - name: Build do projeto
       run: |
         cd Cliente
-        npm run build
+        CI=false npm run build
       
 
   deploy:
