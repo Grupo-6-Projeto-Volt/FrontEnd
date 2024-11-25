@@ -15,10 +15,12 @@ jobs:
         node-version: '20'
 
     - name: Instalar dependências
-      run: |
-          cd Cliente
-          npm install
-          npm install --save-dev @babel/plugin-proposal-private-property-in-object
+      run: npm install
+      working-directory: Cliente
+
+    - name: Instalar outras dependências
+      run:  npm install --save-dev @babel/plugin-proposal-private-property-in-object
+      working-directory: Cliente
       
     - name: Build do projeto
       run: |
