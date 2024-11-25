@@ -15,13 +15,18 @@ jobs:
         node-version: '20'
 
     - name: Instalar dependências
-      run: |
-          cd subpasta-do-projeto
-          npm install
+      run: npm install
+      working-directory: Cliente
+
+    - name: Instalar outras dependências
+      run:  npm install --save-dev @babel/plugin-proposal-private-property-in-object
+      working-directory: Cliente
       
     - name: Build do projeto
-      run: npm run build
-      working-directory: Cliente
+      run: |
+        cd Cliente
+        CI=false npm run build
+      
 
   deploy:
     needs: build
@@ -50,7 +55,7 @@ jobs:
 
     # Step 8: Conectar na EC2 e reiniciar o servidor
     - name: Reiniciar aplicação
-      uses: appleboy/ssh-action@v0.1.8
+      uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ secrets.EC2_PUBLIC_IP }}
         username: ${{ secrets.EC2_USERNAME }}
