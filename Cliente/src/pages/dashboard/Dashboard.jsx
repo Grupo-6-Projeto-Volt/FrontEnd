@@ -1,89 +1,93 @@
 import BarData from "../../components/barchart/Barchart.jsx";
-import ColumnData from "../../components/columnchart/Columnchart.jsx";
-import {
-	column_data,
-	column_options,
-} from "../../components/columnchart/Columndata.js";
-import { bar_data, bar_options } from "../../components/barchart/Bardata.js";
+import { bar_options } from "../../components/barchart/Bardata.js";
 import styles from "./Dashboard.module.css";
 import { Kpi } from "../../components/kpi/Kpi.jsx";
 import Navbar from "../../components/navbar/dashboard/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar.jsx";
 import { ProductsData } from "../../components/products/Prodcuts.jsx";
-import { ObterDadosChamadosGrafico } from "../../components/columnchart/Columndata.js";
-import { ObterDadosCategoriaGrafico } from "../../components/barchart/Bardata.js";
+import {
+	useObterDadosCategoriaGrafico,
+	gerarBarData,
+} from "../../components/barchart/Bardata.js";
 import { capturarTaxaDeRetorno } from "../../model/DashDadosKpi.js";
 import { listarAcessosNosUltimosSeteDias } from "../../model/DashDadosKpi.js";
 import { obterFaturamento } from "../../model/DashDadosKpi.js";
 import { useEffect, useState } from "react";
+import { validateAuth } from "../../utils/global";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
-	let [taxaRetorno, setTaxaRetorno] = useState();
-	let [totalOrders, setTotalOrders] = useState();
-	let [revenueVar, setRevenue] = useState();
+	const [taxaRetorno, setTaxaRetorno] = useState();
+	const [totalOrders, setTotalOrders] = useState();
+	const [revenueVar, setRevenue] = useState();
+
+	const navigate = useNavigate();
+
+	function validateAuthentication() {
+		if (!validateAuth() || sessionStorage.CATEGORIA !== "1") {
+			navigate("/login");
+		}
+	}
+
 	async function taxaDeRetorno() {
 		let { taxaRetorno } = await capturarTaxaDeRetorno();
 		setTaxaRetorno(taxaRetorno.toFixed(2));
 	}
+
 	async function faturamento() {
 		let { faturamento } = await obterFaturamento();
-		setRevenue(faturamento);
-	}
-	async function totalOrdersKpi() {
-		let resultado = await listarAcessosNosUltimosSeteDias();
-		setTotalOrders(resultado);
+		if (faturamento === null || faturamento === "") {
+			setRevenue(0);
+		} else {
+			setRevenue(faturamento);
+		}
 	}
 
-	// const seven_days_acess = { title: 'Total de visitantes nos últimos 7 dias', paragraph: totalOrders };
+	async function totalOrdersKpi() {
+		let resultado = await listarAcessosNosUltimosSeteDias();
+		if (resultado === null || resultado === "") {
+			setTotalOrders(resultado);
+		} else {
+			Object.values(resultado).map((value) => {
+				setTotalOrders(value);
+			});
+		}
+	}
+
 	const return_tax = {
 		title: "Taxa de retorno dos usúarios",
 		paragraph: taxaRetorno + "%",
 	};
+
 	const total_orders = {
 		title: "Total de visitantes nos últimos 7 dias",
 		paragraph: totalOrders != [] ? totalOrders : 0,
 	};
+
 	const revenue = {
 		title: "Faturamento",
-		paragraph: "R$ " + revenueVar + ",00",
+		paragraph: "R$ " + Number(revenueVar).toLocaleString() ?? 0,
 	};
 
-	ObterDadosChamadosGrafico();
-	ObterDadosCategoriaGrafico();
+	const { dadosCategorias, labels } = useObterDadosCategoriaGrafico();
 
-	// const products = [
-	//     { image: 'https://imgs.casasbahia.com.br/1562258295/1xg.jpg', name: 'Iphone 13 Pro Max', quantity: 183, id: '13802382' },
-	//     { image: 'https://i5.walmartimages.com/seo/Straight-Talk-Apple-iPhone-13-Pro-Max-128GB-Gold-Prepaid-Smartphone-Locked-to-Straight-Talk_38276f17-7d6c-46dd-baa2-09aa8a5bd12d.94b4bfdbd75aa8f2478a6e531349cac8.jpeg', name: 'Iphone 13 Pro', quantity: 171, id: '13802382' },
-	//     { image: 'https://imgs.casasbahia.com.br/55064660/1g.jpg', name: 'Iphone 13 Pro', quantity: 149, id: '13802382' },
-	//     { image: 'https://imgs.casasbahia.com.br/1562258295/1xg.jpg', name: 'Iphone 13 Pro Max', quantity: 100, id: '13802382' },
-	//     { image: 'https://i5.walmartimages.com/seo/Straight-Talk-Apple-iPhone-13-Pro-Max-128GB-Gold-Prepaid-Smartphone-Locked-to-Straight-Talk_38276f17-7d6c-46dd-baa2-09aa8a5bd12d.94b4bfdbd75aa8f2478a6e531349cac8.jpeg', name: 'Iphone 13 Pro', quantity: 72, id: '13802382' },
-	//     { image: 'https://imgs.casasbahia.com.br/55064660/1g.jpg', name: 'Iphone 13 Pro', quantity: 41, id: '13802382' },
-	// ];
+	const bar_data = gerarBarData(dadosCategorias, labels);
 	useEffect(() => {
+		validateAuthentication();
 		taxaDeRetorno();
-	}, []);
-	useEffect(() => {
 		faturamento();
-	}, []);
-	useEffect(() => {
 		totalOrdersKpi();
 	}, []);
+
 	return (
 		<div className={styles["Dashboard"]}>
-			<div className={styles["Navbar"]}>
-				<Navbar></Navbar>
-			</div>
+			<Navbar />
+			<Sidebar />
 			<div className={styles["Content"]}>
-				<div className={styles["Sidebar"]}>
-					<Sidebar></Sidebar>
-				</div>
-				<div className={styles["Dataviz"]}>
+				<div className={styles["Container"]}>
 					<div className={styles["Head"]}>
-						<div className={styles["Tittle"]}>
-							<h1>Dashboard Geral</h1>
-						</div>
+						<h1 className={styles["Title"]}>Dashboard Geral</h1>
 						<div className={styles["Kpispace"]}>
-							{/* <Kpi text={seven_days_acess}></Kpi> */}
 							<Kpi text={return_tax}></Kpi>
 							<Kpi text={total_orders}></Kpi>
 							<Kpi text={revenue}></Kpi>
@@ -93,31 +97,26 @@ export default function Dashboard() {
 						<div className={styles["List"]}>
 							<div className={styles["Products"]}>
 								<div className={styles["Listname"]}>
-									<h3>Produtos mais acessados</h3>
+									<h3 className={styles["Section-Title"]}>
+										Produtos mais acessados
+									</h3>
 								</div>
-								<div className={styles["container"]}>
-									<ul className={styles["productList"]}>
-										<ProductsData />
-									</ul>
-								</div>
-								{/* <ProdutosMaisAcessados products={ProductsData}></ProdutosMaisAcessados> */}
+								<ProductsData />
 							</div>
 						</div>
+						<div className={styles["divisor"]}></div>
 						<div className={styles["Graphics"]}>
 							<div className={styles["Graphictittle"]}>
-								<h3>Chamados de produto</h3>
-							</div>
-							<div className={styles["Columngraphic"]}>
-								<ColumnData
-									data={column_data}
-									options={column_options}
-								></ColumnData>
-							</div>
-							<div className={styles["Graphictittle"]}>
-								<h3>Acessos por categorias</h3>
+								<h3 className={styles["Section-Title"]}>
+									Acessos por categorias
+								</h3>
 							</div>
 							<div className={styles["Bargraphic"]}>
-								<BarData data={bar_data} options={bar_options}></BarData>
+								{bar_data !== undefined ? (
+									<BarData data={bar_data} options={bar_options}></BarData>
+								) : (
+									<p>Carregando dados...</p>
+								)}
 							</div>
 						</div>
 					</div>

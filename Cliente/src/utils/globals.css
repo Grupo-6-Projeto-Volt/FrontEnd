@@ -28,8 +28,10 @@ body {
 	margin: 0;
 	padding: 0;
 	font-size: 1rem;
+	width: 100vw !important;
 	color: #1f384c;
 	font-family: "PoppinsRegular", sans-serif;
+	overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
@@ -55,4 +57,13 @@ button{
 	border-radius: 40px;
 	color: #fff;
 	font-size: large;
+}
+
+@media screen and (max-width: 800px) {
+	p{
+		font-size: 1.2rem!important;
+	}
+	h1{
+		font-size: 1.5rem!important;
+	}
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./CategoriaProdutos.module.css";
+import Padrao from '../../utils/assets/img/img-padrao.png'
 
 import { useNavigate } from "react-router-dom";
 
@@ -13,23 +14,31 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 	return (
 		<div className={styles["container"]}>
 			<div className={styles["titulo-produtos"]}>
-				<h1 className={styles["button-voltar"]} onClick={handleButtonClick}>
+				<h5 className={styles["button-voltar"]} onClick={handleButtonClick}>
 					Voltar
-				</h1>
-				<h1>{tituloPagina}</h1>
+				</h5>
+				<h2>{tituloPagina}</h2>
 				<div className={styles["filtro"]}></div>
 			</div>
 			<div className={styles["produtos"]}>
-				{dadosProduto &&
-					dadosProduto.map((produto) => {
+				{
+					dadosProduto ? dadosProduto?.map((produto) => {
 						return (
 							<div
 								className={styles["produto"]}
-								onClick={() => navigate("/productpage")}
+								onClick={
+									() => {
+										navigate("/productpage")
+										localStorage.idProduto = produto.id
+									}
+								}
 							>
 								<h4>Estado: {produto.estadoGeral}</h4>
 								<img
-									src={produto.imagensProduto[0].codigoImagem}
+									src={produto.imagensProduto[0] ? typeof produto.imagensProduto.at(0).codigoImagem !== 'string' ? URL.createObjectURL(
+										produto.imagensProduto.at(0).codigoImagem
+								  ) : produto.imagensProduto.at(0).codigoImagem
+								: Padrao}
 									alt={produto.nome}
 								/>
 								<h4 className={styles["nomeProd"]}>{produto.nome}</h4>
@@ -38,12 +47,10 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 								</h4>
 							</div>
 						);
-					})}
-				{!dadosProduto.length && (
-					<div className={styles["no-content-div"]}>
+					}) : (<div className={styles["no-content-div"]}>
 						<h2>Nenhum produto encontrado.</h2>
-					</div>
-				)}
+					</div>)
+				}
 			</div>
 		</div>
 	);

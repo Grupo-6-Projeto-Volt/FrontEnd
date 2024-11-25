@@ -19,7 +19,47 @@
     height: 10rem;
     margin: auto;
 }
+.carregamento {
+    width: 10rem;
+    height: 10rem;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .produto .nomeProd{
-    width: 100%;
     font-weight: 500;
+}
+.heart{
+    width: 2rem;
+    height: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+    .produto{
+        width: 37%;
+        height: 21.327014218%;
+        padding: 1rem;
+    }
+    .produto h4{
+        margin-top: 0.5rem;
+    }
+    .estado{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .nomeProd{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .produto img{
+        width: 125px;
+        height: 125px;
+        margin: auto;
+    }
+    .produto .nomeProd{
+        font-size: 15px;
+    }
 }

@@ -1,9 +1,47 @@
 import api from "../api";
 
 export const produtosModel = {
-	listarProdutos: () => {
+	adicionarProduto: (
+		nome,
+		descricao,
+		preco,
+		qtdEstoque,
+		estadoGeral,
+		desconto,
+		dataInicioDesconto,
+		dataFimDesconto,
+		idCategoria
+	) => {
 		let resposta = api
-			.get("/produtos/loja")
+			.post("/produtos/estoque", {
+				nome: nome,
+				descricao: descricao,
+				preco: preco,
+				qtdEstoque: qtdEstoque,
+				estadoGeral: estadoGeral,
+				desconto: desconto,
+				dataInicioDesconto: dataInicioDesconto,
+				dataFimDesconto: dataFimDesconto,
+				idCategoria: idCategoria,
+			})
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
+	listarProdutos: (limite) => {
+		let resposta = api
+			.get("/produtos/loja",
+				{
+					params: {
+						limite: limite,
+					},
+				}
+			)
 			.then((resultado) => {
 				return resultado.data;
 			})
@@ -72,4 +110,139 @@ export const produtosModel = {
 			});
 		return resposta;
 	},
+	exportarProduto: () => {
+		let resposta = api.get("/produtos/exportar").then((resultado) => {
+			const bom = '\ufeff';
+			const blob = new Blob([bom + resultado.data], { type: 'text/csv;charset=utf-8' });
+			const url = URL.createObjectURL(blob);
+			const file = document.createElement('a');
+			file.href = url;
+			file.download = 'produtos.csv';
+			file.click();
+			URL.revokeObjectURL(url);
+		})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
+	exportarProdutoTxt:() =>{
+		let resposta = api.get("/produtos/exportar-txt").then((resultado) => {
+			const bom = '\ufeff';
+			const blob = new Blob([bom + resultado.data], { type: 'text/txt;charset=utf-8' });
+			const url = URL.createObjectURL(blob);
+			const file = document.createElement('a');
+			file.href = url;
+			file.download = 'produtos.txt';
+			file.click();
+			URL.revokeObjectURL(url);
+		})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
+	exportarJson: () => {
+		api.get("/produtos/exportar-json", { responseType: 'blob' })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'produtos.json';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch((erro) => {
+            console.log("Não foi possível baixar um arquivo JSON:", erro);
+        });
+	},
+	exportarXml: () => {
+		api.get("/produtos/exportar-xml", { responseType: 'blob' })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'produtos.xml';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch((erro) => {
+            console.log("Não foi possível baixar um arquivo XML:", erro);
+        });
+	},
+	exportarParquet: () => {
+		api.get("/produtos/exportar-parquet", { responseType: 'blob' })
+        .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'produtos.parquet';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch((erro) => {
+            console.log("Não foi possível baixar um arquivo PARQUET:", erro);
+        });
+	},
+	
+	alterarProduto: (
+		id,
+		nome,
+		descricao,
+		preco,
+		qtdEstoque,
+		estadoGeral,
+		desconto,
+		dataInicioDesconto,
+		dataFimDesconto,
+		idCategoria,
+		tags,
+	) => {
+		let resposta = api
+			.put(`/produtos/estoque/${id}`, {
+				nome: nome,
+				descricao: descricao,
+				preco: preco,
+				qtdEstoque: qtdEstoque,
+				estadoGeral: estadoGeral,
+				desconto: desconto,
+				dataInicioDesconto: dataInicioDesconto,
+				dataFimDesconto: dataFimDesconto,
+				idCategoria: idCategoria,
+				tags: tags
+			})
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	},
+	listarRecomendados: (limite) => {
+		let resposta = api
+			.get("/produtos/recomendado", {
+				params: {
+					idUser: sessionStorage.getItem('ID_USER'),
+					limite: limite
+				}
+			})
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro:", erro);
+				return erro;
+			});
+		return resposta;
+	}
 };

@@ -5,7 +5,6 @@ export async function capturarTaxaDeRetorno(){
 			.get("/clicks-produtos/capturar-dados/taxa-de-retorno", {
 			})
 			.then((resultado) => {
-				console.log(resultado.data)
 				return resultado.data;
 			})
 			.catch((erro) => {
@@ -21,7 +20,6 @@ export const listarAcessosNosUltimosSeteDias = () => {
         .get("/produtochamados/capturar-dados/acessos-ultimos-dias", {
         })
         .then((resultado) => {
-            console.log(resultado.data)
             return resultado.data;
         })
         .catch((erro) => {
@@ -31,12 +29,11 @@ export const listarAcessosNosUltimosSeteDias = () => {
     return resposta;
 }
 
-export const obterFaturamento = () => {
+export const  obterFaturamento = () => {
     let resposta = api
         .get("/produtochamados/capturar-dados/faturamento", {
         })
         .then((resultado) => {
-            console.log(resultado.data)
             return resultado.data;
         })
         .catch((erro) => {

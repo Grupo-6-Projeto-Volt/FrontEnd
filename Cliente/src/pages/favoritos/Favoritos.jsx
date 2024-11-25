@@ -28,7 +28,7 @@ const Favoritos = (idUser) => {
                     <h1>Favoritos</h1>
                     <ListFav className={styles['listFav']} />
                 </div>
-                <Footer />
+                <Footer className={styles['footer']} />
             </>
         )
     } else {

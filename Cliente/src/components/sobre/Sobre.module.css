@@ -8,10 +8,6 @@
 p{
     line-height: 1.7;
 }
-.texto h1{
-    text-decoration: underline;
-    text-decoration-color: #BD2626;
-}
 .texto p{
     margin-top: 3%;
 }
@@ -34,6 +30,13 @@ p{
     background: linear-gradient(to right, #D06464, #BB2121);
     margin-top: 3%;
 }
+.linha-horizontal {
+    width: 140px;
+    height: 5px;
+    background-color: #D41F1F;
+    border-radius: 50px;
+    margin-bottom: 2%;
+}
 .img-whats{
     margin-left: 2rem;
     width: 51px;
@@ -42,4 +45,49 @@ p{
 .contato-div{
     display: flex;
     align-items: center;
+}
+
+@media screen and (max-width: 800px) {
+    .container{
+        display: flex;
+        flex-direction: column;
+    }
+    .texto{
+        width: 100%;
+    }
+    .texto p{
+        text-align: start;
+        line-height: 1.9;
+        font-size: 18px !important;
+        align-items: center;
+    }
+    .linha-horizontal {
+        width: 25%;
+        height: 5px;
+        background-color: #D41F1F;
+        border-radius: 50px;
+        margin-bottom: 2%;
+    }
+    .mapa{
+        width: 90%;
+        margin: auto;
+    }
+    .contato-div{
+        width: fit-content;
+        margin: auto;
+    }
+    .contato-btn{
+        display: block;
+        width: 16rem;
+        height: 3rem;
+        padding-left: 5%;
+        padding-right: 5%;
+        color: white;
+        border-radius: 2rem;
+        border: none;
+        font-size: 16px;
+        margin-bottom: 6%;
+        background: linear-gradient(to right, #D06464, #BB2121);
+        margin-top: 3%;
+    }
 }

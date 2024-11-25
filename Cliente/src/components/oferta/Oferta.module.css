@@ -19,3 +19,25 @@ h1 {
     height: 50%;
     width: 100%;
 }
+
+.container-carregamento{
+    width: 99vw;
+    display: flex;
+    height: 20vh;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 800px) {
+    h1 {
+        font-size: 0.6rem;
+        margin-bottom: 0.1px;
+    }
+    .linha-horizontal {
+        width: 30%;
+        height: 5px;
+        background-color: #D41F1F;
+        border-radius: 50px;
+        margin-bottom: 2%;
+    }
+}
