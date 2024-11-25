@@ -24,7 +24,7 @@ function CrudTable({
 		setSelectedIndex(0);
 		setFirstIndex(0);
 	}, [headers, values, limit]);
-//teste
+
 	function handleBack() {
 		if (selectedIndex > 0) {
 			setFirstIndex((selectedIndex - 1) * limit);
@@ -82,8 +82,8 @@ function CrudTable({
 					style={{
 						display:
 							(index > selectedIndex - 2 && index < selectedIndex + 2) ||
-							index === 0 ||
-							index === Math.floor(lastIndex)
+								index === 0 ||
+								index === Math.floor(lastIndex)
 								? "block"
 								: "none",
 					}}
