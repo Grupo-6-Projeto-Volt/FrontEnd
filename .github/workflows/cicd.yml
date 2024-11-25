@@ -44,8 +44,8 @@ jobs:
         name: build-react-app # nome do arquivo ou conjunto de arquivos que queremos recuperar
         path: ./ # diretório da VM de execução do workflow onde os arquivos recuperados ficarão
         
-    - name: Verificar diretorio
-      run: pwd
+    - name: Verificar arquivos baixados
+      run: ls -la
       
     - name: Compactar artefato
       run: |
