@@ -9,7 +9,7 @@
 
 .produto{
     width: 20%;
-    height: 16rem;
+    height: 20rem;
     border-radius: 10px;
     box-shadow: #0000004d 0px 4px 4px;
     padding: 2%;
@@ -31,7 +31,17 @@
 .produto .nomeProd{
     width: 100%;
     font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+.precoSemDesconto{
+    text-decoration: line-through;
+    opacity: 50;
+    line-height: 0;
+    color: #37363689;
+    background-color: #d41f1f75;
+}
+
 .heart{
     width: 2rem!important;
     height: 2rem!important;
