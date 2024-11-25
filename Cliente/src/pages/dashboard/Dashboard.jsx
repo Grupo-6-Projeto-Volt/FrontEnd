@@ -12,7 +12,7 @@ import {
 import { capturarTaxaDeRetorno } from "../../model/DashDadosKpi.js";
 import { listarAcessosNosUltimosSeteDias } from "../../model/DashDadosKpi.js";
 import { obterFaturamento } from "../../model/DashDadosKpi.js";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
 	formatDate,
 	formatDateToLocaleString,
@@ -24,8 +24,18 @@ import {
 	listarProdutosMaisAcessados,
 } from "../../model/DashDadosgraficos.js";
 import Calendar from "../../components/calendar/Calendar.jsx";
+import { FaX } from "react-icons/fa6";
 
 export default function Dashboard() {
+	const initialDateRef = useRef();
+	const finalDateRef = useRef();
+	const [dataInicial, setDataInicial] = useState(
+		formatDate(new Date().toLocaleDateString())
+	);
+	const [dataFinal, setDataFinal] = useState(
+		formatDate(new Date().toLocaleDateString())
+	);
+	const [selectedDateOption, setSelectedDateOption] = useState(0);
 	const [taxaRetorno, setTaxaRetorno] = useState();
 	const [totalOrders, setTotalOrders] = useState();
 	const [revenueVar, setRevenue] = useState();
@@ -53,6 +63,14 @@ export default function Dashboard() {
 		title: "Faturamento estimado dos últimos 7 dias (R$)",
 		paragraph: "R$ " + Number(revenueVar).toLocaleString() ?? 0,
 	};
+
+	const datePickerOptions = [
+		"Ontem",
+		"Últimos 7 dias",
+		"Últimos 15 dias",
+		"Últimos 30 dias",
+		"Personalizado",
+	];
 
 	function validateAuthentication() {
 		if (!validateAuth() || sessionStorage.CATEGORIA !== "1") {
@@ -182,7 +200,48 @@ export default function Dashboard() {
 							</div>
 						</div>
 					</div>
-					<Calendar />
+				</div>
+				<div className={styles["DatePickerModal"]}>
+					<div className={styles["options-menu"]}>
+						{datePickerOptions.map((option, index) => (
+							<button
+								className={
+									styles[
+										index === selectedDateOption
+											? "selected-date-option"
+											: "button"
+									]
+								}
+								onClick={() => {
+									setSelectedDateOption(index);
+								}}
+								key={option}
+							>
+								{option}
+							</button>
+						))}
+					</div>
+					<div className={styles["date-picker-area"]}>
+						<div className={styles["Container"]}>
+							<div className={styles["date-picker-header"]}>
+								<FaX size={25} cursor={"pointer"} />
+							</div>
+							<div className={styles["calendar-area"]}>
+								<Calendar
+									ref={initialDateRef}
+									onClick={() => {
+										setDataInicial(initialDateRef.current.getSelectedDate());
+									}}
+								/>
+								<Calendar
+									ref={finalDateRef}
+									onClick={() => {
+										setDataFinal(finalDateRef.current.getSelectedDate());
+									}}
+								/>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

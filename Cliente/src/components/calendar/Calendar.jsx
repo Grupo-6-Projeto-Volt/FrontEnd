@@ -1,8 +1,8 @@
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import styles from "./Calendar.module.css";
-import { useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 
-function Calendar() {
+const Calendar = forwardRef((props, ref) => {
 	const daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 	const monthsOfYear = [
 		"Janeiro",
@@ -30,6 +30,10 @@ function Calendar() {
 
 	const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
 
+	function getSelectedDate() {
+		return `${selectedYear}-${selectedMonth + 1}-${selectedDay}`;
+	}
+
 	function prevMonth() {
 		setCurrentMonth((prevMonth) => (prevMonth === 0 ? 11 : prevMonth - 1));
 		setCurrentYear((prevYear) =>
@@ -43,6 +47,20 @@ function Calendar() {
 			currentMonth === 11 ? nextYear + 1 : nextYear
 		);
 	}
+
+	function changeSelectedDate(day) {
+		setSelectedDay(day + 1);
+		setSelectedMonth(currentMonth);
+		setSelectedYear(currentYear);
+	}
+
+	useImperativeHandle(ref, () => ({
+		getSelectedDate,
+	}));
+
+	useEffect(() => {
+		props.onClick();
+	}, [changeSelectedDate]);
 
 	return (
 		<div className={styles["Calendar"]}>
@@ -78,9 +96,7 @@ function Calendar() {
 						}
 						key={day + 1}
 						onClick={() => {
-							setSelectedDay(day + 1);
-							setSelectedMonth(currentMonth);
-							setSelectedYear(currentYear);
+							changeSelectedDate(day);
 						}}
 					>
 						{day + 1}
@@ -89,6 +105,6 @@ function Calendar() {
 			</div>
 		</div>
 	);
-}
+});
 
 export default Calendar;

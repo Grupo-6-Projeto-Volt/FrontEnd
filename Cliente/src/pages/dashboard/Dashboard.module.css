@@ -121,6 +121,70 @@
 	justify-content: center;
 }
 
+.DatePickerModal {
+	position: absolute;
+	display: flex;
+	border: 1px solid black;
+	background-color: white;
+	width: 70%;
+	height: 70vh;
+}
+
+.options-menu {
+	width: 30%;
+	background-color: #bd1616;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.options-menu .button {
+	width: 100%;
+	height: 4.5rem;
+	border-radius: 0;
+	text-align: left;
+	transition: 0.5s ease;
+}
+
+.options-menu .button:hover {
+	background-color: #83171796;
+	transition: 0.5s ease;
+}
+
+.selected-date-option {
+	width: 100%;
+	height: 4.5rem;
+	border-radius: 0;
+	background-color: #831717;
+	text-align: left;
+	transition: 0.5s ease;
+}
+
+.date-picker-area {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.date-picker-header {
+	height: 10%;
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.calendar-area {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
 @media (min-width: 800px) and (max-width: 1000px) {
 	.Kpi-Space {
 		width: 100% !important;
