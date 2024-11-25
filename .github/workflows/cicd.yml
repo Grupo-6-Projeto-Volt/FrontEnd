@@ -38,7 +38,7 @@ jobs:
       working-directory: Cliente
 
     - name: Deploy para EC2
-      uses: appleboy/scp-action@v0.2.4
+      uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ secrets.EC2_PUBLIC_IP }}
         username: ${{ secrets.EC2_USERNAME }}
