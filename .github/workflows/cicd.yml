@@ -34,8 +34,9 @@ jobs:
 
     steps:
     - name: Compactar artefato
-      run: tar -czf Cliente.tar.gz build
-      working-directory: Cliente
+      run: |
+        cd Cliente
+        tar -czf Cliente.tar.gz build
 
     - name: Deploy para EC2
       uses: appleboy/scp-action@v0.1.7
