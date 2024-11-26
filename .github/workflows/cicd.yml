@@ -63,7 +63,8 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.DEPLOY_KEY }}
         script: |
-          mkdir -p /var/www/Cliente/
+          sudo chown -R ubuntu:ubuntu /var/www
+          sudo mkdir -p /var/www/Cliente/
 
     - name: Deploy para EC2
       uses: appleboy/scp-action@v0.1.7
