@@ -1,6 +1,7 @@
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import styles from "./Calendar.module.css";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import { formatDateToLocaleString } from "../../utils/global";
 
 const Calendar = forwardRef((props, ref) => {
 	const daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
@@ -31,7 +32,9 @@ const Calendar = forwardRef((props, ref) => {
 	const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
 
 	function getSelectedDate() {
-		return `${selectedYear}-${selectedMonth + 1}-${selectedDay}`;
+		return `${selectedYear}-${
+			selectedMonth + 1 < 10 ? `0${selectedMonth + 1}` : selectedMonth + 1
+		}-${selectedDay < 10 ? `0${selectedDay}` : selectedDay}`;
 	}
 
 	function prevMonth() {
@@ -48,29 +51,22 @@ const Calendar = forwardRef((props, ref) => {
 		);
 	}
 
-	function changeSelectedDate(day) {
+	function changeSelectedDate(day, month, year) {
 		setSelectedDay(day + 1);
-		setSelectedMonth(currentMonth);
-		setSelectedYear(currentYear);
+		setSelectedMonth(month ?? currentMonth);
+		setSelectedYear(year ?? currentYear);
 	}
 
 	function decreaseDays(days) {
-		setSelectedDay((day) =>
-			day < days ? day - (daysInMonth - days) : selectedDay - days
-		);
+		let data = new Date();
+		data.setDate(data.getDate() - days);
 
-		if (selectedDay - days < 1) {
-			if (selectedMonth === 0) {
-				setCurrentMonth(11);
-				setCurrentYear(currentYear - 1);
-			} else {
-				setCurrentMonth(selectedMonth - 1);
-				setCurrentYear(currentYear);
-			}
-		} else {
-			setCurrentMonth(selectedMonth);
-			setCurrentYear(currentYear);
-		}
+		let list = data.toLocaleString().split(",")[0].split("/").reverse();
+
+		changeSelectedDate(list[2] - 1, list[1] - 1, Number(list[0]));
+
+		setCurrentMonth(list[1] - 1);
+		setCurrentYear(Number(list[0]));
 	}
 
 	useImperativeHandle(ref, () => ({
@@ -84,6 +80,9 @@ const Calendar = forwardRef((props, ref) => {
 
 	return (
 		<div className={styles["Calendar"]}>
+			<span className={styles["label"]}>
+				<b>{props.label}:</b> {formatDateToLocaleString(getSelectedDate())}
+			</span>
 			<div className={styles["navigate-date"]}>
 				<h2 className={styles["month"]}>{monthsOfYear[currentMonth]},</h2>
 				<h2 className={styles["year"]}>{currentYear}</h2>
@@ -100,7 +99,9 @@ const Calendar = forwardRef((props, ref) => {
 			<div className={styles["days"]}>
 				{[...Array(firstDayOfMonth).keys()].reverse().map((day, index) => (
 					<span className={styles["deactivated-day"]} key={`empty-${index}`}>
-						{daysInMonth - day}
+						{daysInMonth % 2 === 0
+							? daysInMonth + 1 - day
+							: daysInMonth - 1 - day}
 					</span>
 				))}
 				{[...Array(daysInMonth).keys()].map((day) => (

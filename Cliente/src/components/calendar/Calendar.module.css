@@ -11,6 +11,10 @@
 	perspective: 100rem;
 }
 
+.label {
+	font-size: 24px;
+}
+
 .navigate-date {
 	display: flex;
 	align-items: center;

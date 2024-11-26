@@ -29,6 +29,7 @@ import { FaX } from "react-icons/fa6";
 export default function Dashboard() {
 	const initialDateRef = useRef();
 	const finalDateRef = useRef();
+	const [modalIsVisible, setModalIsVisible] = useState(false);
 	const [dataInicial, setDataInicial] = useState(
 		formatDate(new Date().toLocaleDateString())
 	);
@@ -172,14 +173,20 @@ export default function Dashboard() {
 					<div className={styles["Head"]}>
 						<div className={styles["Title-Space"]}>
 							<h1 className={styles["Title"]}>Dashboard Geral</h1>
-							<input
-								className={styles["Date-Picker"]}
-								type="date"
-								value={dataSelecionada}
-								onChange={(e) => {
-									setDataSelecionada(e.target.value);
-								}}
-							/>
+							<div className={styles["input-date-area"]}>
+								<span
+									className={styles["Date-Picker"]}
+									onClick={() => setModalIsVisible(true)}
+								>
+									<b>De</b>: {formatDateToLocaleString(dataInicial)}
+								</span>
+								<span
+									className={styles["Date-Picker"]}
+									onClick={() => setModalIsVisible(true)}
+								>
+									<b>Até:</b> {formatDateToLocaleString(dataFinal)}
+								</span>
+							</div>
 						</div>
 						<div className={styles["Kpi-Space"]}>
 							<Kpi text={return_tax}></Kpi>
@@ -224,7 +231,10 @@ export default function Dashboard() {
 						</div>
 					</div>
 				</div>
-				<div className={styles["DatePickerModal"]}>
+				<div
+					style={{ display: modalIsVisible ? "flex" : "none" }}
+					className={styles["DatePickerModal"]}
+				>
 					<div className={styles["options-menu"]}>
 						{datePickerOptions.map((option, index) => (
 							<button
@@ -237,6 +247,8 @@ export default function Dashboard() {
 								}
 								onClick={() => {
 									setSelectedDateOption(index);
+									setDataInicial(initialDateRef.current.getSelectedDate());
+									setDataFinal(finalDateRef.current.getSelectedDate());
 								}}
 								key={option}
 							>
@@ -247,17 +259,23 @@ export default function Dashboard() {
 					<div className={styles["date-picker-area"]}>
 						<div className={styles["Container"]}>
 							<div className={styles["date-picker-header"]}>
-								<FaX size={25} cursor={"pointer"} />
+								<FaX
+									size={25}
+									cursor={"pointer"}
+									onClick={() => setModalIsVisible(false)}
+								/>
 							</div>
 							<div className={styles["calendar-area"]}>
 								<Calendar
 									ref={initialDateRef}
+									label={"De"}
 									onClick={() => {
 										setDataInicial(initialDateRef.current.getSelectedDate());
 									}}
 								/>
 								<Calendar
 									ref={finalDateRef}
+									label={"Até"}
 									onClick={() => {
 										setDataFinal(finalDateRef.current.getSelectedDate());
 									}}
