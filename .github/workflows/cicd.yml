@@ -71,7 +71,7 @@ jobs:
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         source: Cliente.tar.gz
         target: /var/www/Cliente/
-        args: "-o ConnectTimeout=60"
+        timeout : "60"
 
     # Step 8: Conectar na EC2 e reiniciar o servidor
     - name: Reiniciar aplicação
