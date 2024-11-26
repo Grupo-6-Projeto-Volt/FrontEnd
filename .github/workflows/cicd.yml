@@ -61,6 +61,7 @@ jobs:
       run: |
         echo "Tentando conexão SSH"
         ssh -o StrictHostKeyChecking=no -i $HOME/${{ secrets.NOME_ARQUIVO_PEM }} ubuntu@ec2-52-90-125-146.compute-1.amazonaws.com
+        sudo ufw allow 22
     
     - name: Deploy para EC2
       uses: appleboy/scp-action@v0.1.7
@@ -69,7 +70,8 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         source: Cliente.tar.gz
-        target: /var/www/Cliente/      
+        target: /var/www/Cliente/
+        args: "-o ConnectTimeout=60"
 
     # Step 8: Conectar na EC2 e reiniciar o servidor
     - name: Reiniciar aplicação
