@@ -66,6 +66,7 @@ jobs:
         source: Cliente.tar.gz
         target: /var/www/Cliente/
         timeout : "60s"
+        command: "mkdir -p /var/www/Cliente/"
 
     # Step 8: Conectar na EC2 e reiniciar o servidor
     - name: Reiniciar aplicação
