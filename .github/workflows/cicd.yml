@@ -60,7 +60,7 @@ jobs:
     - name: Testar conexão SSH
       run: |
         echo "Tentando conexão SSH"
-        ssh -T -i $HOME/${{ secrets.NOME_ARQUIVO_PEM }} ubuntu@ec2-52-90-125-146.compute-1.amazonaws.com
+        ssh -o StrictHostKeyChecking=no -i $HOME/${{ secrets.NOME_ARQUIVO_PEM }} ubuntu@ec2-52-90-125-146.compute-1.amazonaws.com
     
     - name: Deploy para EC2
       uses: appleboy/scp-action@v0.1.7
