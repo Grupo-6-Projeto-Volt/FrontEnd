@@ -56,12 +56,6 @@ jobs:
       run: |
         echo "${{ secrets.DEPLOY_KEY }}" >> $HOME/${{ secrets.NOME_ARQUIVO_PEM }}
         chmod 400 $HOME/${{ secrets.NOME_ARQUIVO_PEM }}
-
-    - name: Testar conexão SSH
-      run: |
-        echo "Tentando conexão SSH"
-        ssh -o StrictHostKeyChecking=no -i $HOME/${{ secrets.NOME_ARQUIVO_PEM }} ubuntu@ec2-52-90-125-146.compute-1.amazonaws.com
-        sudo ufw allow 22
     
     - name: Deploy para EC2
       uses: appleboy/scp-action@v0.1.7
