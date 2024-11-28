@@ -6,6 +6,12 @@ export const validateAuth = () => {
 	return true;
 };
 
+export  const FORMATTER = new Intl.NumberFormat('pt-BR', {
+	style: 'decimal',
+	minimumFractionDigits: 2,
+	maximumFractionDigits: 2
+});
+
 export const formatPhoneNumber = (value) => {
 	let regex = /(\d{2})(\d{1})(\d{4})(\d)/;
 	return value.replace(regex, "($1) $2 $3-$4");

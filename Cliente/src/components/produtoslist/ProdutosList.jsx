@@ -99,6 +99,7 @@ export function ProdutosData({ secao, nome, produtoExemplo }) {
                         : undefined
                     }
                     preco={produto.preco}
+                    desconto={produto.desconto}
                   />
                   //  </div>
                 ))

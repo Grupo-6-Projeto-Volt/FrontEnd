@@ -19,6 +19,13 @@
     height: 10rem;
     margin: auto;
 }
+.precoSemDesconto{
+    text-decoration: line-through;
+    opacity: 50;
+    line-height: 0;
+    color: #37363689;
+    background-color: #d41f1f75;
+}
 .carregamento {
     width: 10rem;
     height: 10rem;
@@ -29,6 +36,9 @@
 }
 .produto .nomeProd{
     font-weight: 500;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .heart{
     width: 2rem;
