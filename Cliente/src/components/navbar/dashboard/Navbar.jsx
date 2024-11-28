@@ -17,10 +17,7 @@ function Navbar() {
 					onClick={() => navigate("/")}
 				/>
 				<div className={styles["navbar-items"]}>
-					<span className={styles["username"]}>{sessionStorage.EMAIL}</span>
-					<div className={styles["user-image-area"]}>
-						<img src="" alt="" />
-					</div>
+					<h3 className={styles["username"]}>{sessionStorage.EMAIL}</h3>
 				</div>
 			</div>
 		</div>
