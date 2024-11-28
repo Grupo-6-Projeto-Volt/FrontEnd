@@ -72,7 +72,6 @@ export default function Dashboard() {
 	const { dadosCategorias, labels } = useObterDadosCategoriaGrafico();
 
 	const bar_data = gerarBarData(dadosCategorias, labels);
-	console.log("Dados do gráfico:", bar_data);
 	useEffect(() => {
 		validateAuthentication();
 		taxaDeRetorno();

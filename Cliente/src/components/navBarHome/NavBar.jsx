@@ -48,15 +48,15 @@ export const NavBarPadrao = () => {
                     onClick={() => {
                         navigate("/login");
                     }}
-                />
+                    />
             );
         } else {
             if (sessionStorage.getItem('CATEGORIA') === '1') {
                 return <a href="/dashboard">
-                    <h2 className={styles['helloUser']}>Olá, {sessionStorage.getItem('NOME')}</h2>
+                    <h2 className={styles['helloUser']}>Olá, {sessionStorage.getItem('NOME').split(' ').at(0)}</h2>
                 </a>;
             } else {
-                return <h2 className={styles['helloUser']}>Olá, {sessionStorage.getItem('NOME')}</h2>;
+                return <h2 className={styles['helloUser']}>Olá, {sessionStorage.getItem('NOME').split(' ').at(0)}</h2>;
             }
         }
     }
