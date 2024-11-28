@@ -12,6 +12,7 @@ export const NavBarPadrao = () => {
     const [logado, setLogado] = useState(false);
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 800);
     const [showSearchInput, setShowSearchInput] = useState(false); 
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -30,13 +31,19 @@ export const NavBarPadrao = () => {
         setBusca(event.target.value);
     };
 
-    const handleClickSearch = () => {
-        if (showSearchInput && busca) {
-            navigate(`/pagina-produtos/Busca/${busca}`);
-        } else {
-            setShowSearchInput(!showSearchInput); 
-        }
-    };
+	const handleClickSearch = () => {
+		if (showSearchInput && busca) {
+			navigate(`/pagina-produtos/Busca/${busca}`);
+		} else {
+			setShowSearchInput(!showSearchInput);
+			setIsMenuOpen(false); 
+		}
+	};	
+
+	const handleMenuToggle = () => {
+		setIsMenuOpen(!isMenuOpen);
+		setShowSearchInput(false); 
+	};	
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter") {
@@ -112,8 +119,14 @@ export const NavBarPadrao = () => {
                 </div>
             )}
             <div className={styles["navBarBaixo"]}>
-                <input className={styles["menu-hamburguer"]} id="menu-hamburguer" type="checkbox" />
-                <label className={styles['label-menu']} htmlFor="menu-hamburguer">
+				<input
+					className={styles["menu-hamburguer"]}
+					id="menu-hamburguer"
+					type="checkbox"
+					checked={isMenuOpen}
+					onChange={handleMenuToggle}
+				/>                
+				<label className={styles['label-menu']} htmlFor="menu-hamburguer">
                     <div className={styles['menu']}>
                         <span className={styles['hamburguer']}></span>
                     </div>
