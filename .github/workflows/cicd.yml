@@ -76,4 +76,6 @@ jobs:
         source: Cliente.tar.gz
         target: /var/www/Cliente/
         timeout : "60s"
+        script: tar -xzf arquivo.tar.gz
+
 
