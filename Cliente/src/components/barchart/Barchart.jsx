@@ -20,9 +20,8 @@ ChartJS.register(
 );
 
 const BarData = ({ dados }) => {
-	const [dadosCategorias, setDadosCategorias] = useState();
+	const [dadosCategorias, setDadosCategorias] = useState([]);
 	const [labels, setLabels] = useState([]);
-	const [dataUsed, setDataUsed] = useState([]);
 
 	const bar_options = {
 		indexAxis: "y",
@@ -48,34 +47,36 @@ const BarData = ({ dados }) => {
 	function adicionarDadosGrafico() {
 		if (dados && dados.length > 0) {
 			for (let i = 0; i < dados.length; i++) {
-				if (dadosCategorias.length < 7) {
-					setDadosCategorias((categorias) => [...categorias, dados[i].acessos]);
-				}
-				if (labels.length < 7) {
-					setLabels((labels) => [...labels, dados[i].categoria]);
-				}
+				setDadosCategorias((categorias) => [...categorias, dados[i].acessos]);
+				setLabels((labels) => [...labels, dados[i].categoria]);
 			}
 		}
 	}
 
 	useEffect(() => {
+		setDadosCategorias([]);
+		setLabels([]);
 		adicionarDadosGrafico();
-		setDataUsed({
-			labels,
-			datasets: [
-				{
-					data: dadosCategorias,
-					borderColor: ["#5A6ACF", "#8593ED", "#C7CEFF"],
-					backgroundColor: ["#5A6ACF", "#8593ED", "#C7CEFF"],
-					borderWidth: 1,
-					barPercentage: 2.5,
-					categoryPercentage: 0.25,
-				},
-			],
-		});
 	}, []);
 
-	return <Bar data={dataUsed} options={bar_options} />;
+	return (
+		<Bar
+			data={{
+				labels,
+				datasets: [
+					{
+						data: dadosCategorias,
+						borderColor: ["#5A6ACF", "#8593ED", "#C7CEFF"],
+						backgroundColor: ["#5A6ACF", "#8593ED", "#C7CEFF"],
+						borderWidth: 1,
+						barPercentage: 2.5,
+						categoryPercentage: 0.25,
+					},
+				],
+			}}
+			options={bar_options}
+		/>
+	);
 };
 
 export default BarData;

@@ -1,10 +1,11 @@
 import api from "../api";
 
-export async function capturarTaxaDeRetorno(data) {
+export async function capturarTaxaDeRetorno(dataInicio, dataFim) {
 	let resposta = api
 		.get("/clicks-produtos/capturar-dados/taxa-de-retorno", {
 			params: {
-				data: data,
+				dataInicio: dataInicio,
+				dataFim: dataFim,
 			},
 		})
 		.then((resultado) => {
@@ -19,11 +20,12 @@ export async function capturarTaxaDeRetorno(data) {
 	return resposta;
 }
 
-export const listarAcessosNosUltimosSeteDias = (data) => {
+export const listarAcessosNosUltimosSeteDias = (dataInicio, dataFim) => {
 	let resposta = api
 		.get("/produtochamados/capturar-dados/acessos-ultimos-dias", {
 			params: {
-				data: data,
+				dataInicio: dataInicio,
+				dataFim: dataFim,
 			},
 		})
 		.then((resultado) => {
@@ -37,11 +39,12 @@ export const listarAcessosNosUltimosSeteDias = (data) => {
 	return resposta;
 };
 
-export const obterFaturamento = (data) => {
+export const obterFaturamento = (dataInicio, dataFim) => {
 	let resposta = api
 		.get("/produtochamados/capturar-dados/faturamento", {
 			params: {
-				data: data,
+				dataInicio: dataInicio,
+				dataFim: dataFim,
 			},
 		})
 		.then((resultado) => {

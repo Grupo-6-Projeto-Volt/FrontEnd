@@ -1,14 +1,10 @@
 import BarData from "../../components/barchart/Barchart.jsx";
-import { bar_options } from "../../components/barchart/Bardata.js";
 import styles from "./Dashboard.module.css";
 import { Kpi } from "../../components/kpi/Kpi.jsx";
 import Navbar from "../../components/navbar/dashboard/Navbar";
 import Sidebar from "../../components/sidebar/Sidebar.jsx";
 import { ProductsData } from "../../components/products/Prodcuts.jsx";
-import {
-	useObterDadosCategoriaGrafico,
-	gerarBarData,
-} from "../../components/barchart/Bardata.js";
+import { useObterDadosCategoriaGrafico } from "../../components/barchart/Bardata.js";
 import { capturarTaxaDeRetorno } from "../../model/DashDadosKpi.js";
 import { listarAcessosNosUltimosSeteDias } from "../../model/DashDadosKpi.js";
 import { obterFaturamento } from "../../model/DashDadosKpi.js";
@@ -36,32 +32,26 @@ export default function Dashboard() {
 	const [dataFinal, setDataFinal] = useState(
 		formatDate(new Date().toLocaleDateString())
 	);
-	const [selectedDateOption, setSelectedDateOption] = useState(0);
+	const [selectedDateOption, setSelectedDateOption] = useState(1);
 	const [taxaRetorno, setTaxaRetorno] = useState();
 	const [totalOrders, setTotalOrders] = useState();
 	const [revenueVar, setRevenue] = useState();
 	const [produtosMaisAcessados, setProdutosMaisAcessados] = useState([]);
 	const [categoriasMaisAcessadas, setCategoriasMaisAcessados] = useState([]);
-	const [barData, setBarData] = useState({});
-	const [dataSelecionada, setDataSelecionada] = useState(
-		formatDate(new Date().toLocaleDateString())
-	);
-	const { dadosCategorias, labels } = useObterDadosCategoriaGrafico(
-		categoriasMaisAcessadas
-	);
+
 	const navigate = useNavigate();
 	const return_tax = {
-		title: "Taxa de retorno dos usúarios do dia",
+		title: "Taxa de retorno dos usúarios",
 		paragraph: taxaRetorno + "%",
 	};
 
 	const total_orders = {
-		title: "Total de visitantes nos últimos 7 dias",
+		title: "Total de visitantes",
 		paragraph: totalOrders,
 	};
 
 	const revenue = {
-		title: "Faturamento estimado dos últimos 7 dias (R$)",
+		title: "Faturamento estimado (R$)",
 		paragraph: "R$ " + Number(revenueVar).toLocaleString() ?? 0,
 	};
 
@@ -79,7 +69,7 @@ export default function Dashboard() {
 	}
 
 	async function taxaDeRetorno() {
-		let { taxaRetorno } = await capturarTaxaDeRetorno(dataSelecionada);
+		let { taxaRetorno } = await capturarTaxaDeRetorno(dataInicial, dataFinal);
 		if (!taxaRetorno) {
 			setTaxaRetorno(0);
 		} else {
@@ -88,7 +78,7 @@ export default function Dashboard() {
 	}
 
 	async function faturamento() {
-		let { faturamento } = await obterFaturamento(dataSelecionada);
+		let { faturamento } = await obterFaturamento(dataInicial, dataFinal);
 		if (!faturamento) {
 			setRevenue(0);
 		} else {
@@ -97,7 +87,10 @@ export default function Dashboard() {
 	}
 
 	async function totalOrdersKpi() {
-		let resultado = await listarAcessosNosUltimosSeteDias(dataSelecionada);
+		let resultado = await listarAcessosNosUltimosSeteDias(
+			dataInicial,
+			dataFinal
+		);
 		if (!resultado) {
 			setTotalOrders(0);
 		} else {
@@ -109,7 +102,7 @@ export default function Dashboard() {
 
 	async function obterProdutosAcessadas() {
 		try {
-			var resposta = await listarProdutosMaisAcessados(dataSelecionada);
+			var resposta = await listarProdutosMaisAcessados(dataInicial, dataFinal);
 			setProdutosMaisAcessados(resposta);
 		} catch (e) {
 			console.log(e);
@@ -118,16 +111,16 @@ export default function Dashboard() {
 	}
 
 	async function obterCategoriasAcessadas() {
+		setCategoriasMaisAcessados([]);
 		try {
-			let resposta = await listarCategoriasMaisAcessadas(dataSelecionada);
+			let resposta = await listarCategoriasMaisAcessadas(
+				dataInicial,
+				dataFinal
+			);
 			setCategoriasMaisAcessados(resposta);
 		} catch (e) {
 			console.log(e);
 		}
-	}
-
-	function gerarDadosGrafico() {
-		setBarData(gerarBarData(dadosCategorias, labels));
 	}
 
 	function checkDateInterval() {
@@ -157,8 +150,7 @@ export default function Dashboard() {
 		totalOrdersKpi();
 		obterProdutosAcessadas();
 		obterCategoriasAcessadas();
-		gerarDadosGrafico();
-	}, [dataSelecionada, setDataSelecionada]);
+	}, [dataInicial, dataFinal]);
 
 	useEffect(() => {
 		checkDateInterval();
@@ -221,7 +213,7 @@ export default function Dashboard() {
 							<div className={styles["Bargraphic"]}>
 								{categoriasMaisAcessadas &&
 								categoriasMaisAcessadas.length > 0 ? (
-									<BarData dados={categoriasMaisAcessadas}></BarData>
+									<BarData dados={categoriasMaisAcessadas} />
 								) : (
 									<span>
 										Nenhum registro encontrado para o período selecionado...

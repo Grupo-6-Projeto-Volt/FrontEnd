@@ -13,11 +13,12 @@ export const listarChamadosCanceladosConcluido = () => {
 	return resposta;
 };
 
-export const listarCategoriasMaisAcessadas = (data) => {
+export const listarCategoriasMaisAcessadas = (dataInicio, dataFim) => {
 	let resposta = api
 		.get("/clicks-produtos/capturar-dados/categorias", {
 			params: {
-				data: data,
+				dataInicio: dataInicio,
+				dataFim: dataFim,
 			},
 		})
 		.then((resultado) => {
@@ -30,18 +31,19 @@ export const listarCategoriasMaisAcessadas = (data) => {
 	return resposta;
 };
 
-export const listarProdutosMaisAcessados = (data) => {
+export const listarProdutosMaisAcessados = (dataInicio, dataFim) => {
 	let resposta = api
 		.get("/clicks-produtos/capturar-dados/produtos-mais-acessados", {
 			params: {
-				data: data,
+				dataInicio: dataInicio,
+				dataFim: dataFim,
 			},
 		})
 		.then((resultado) => {
 			return resultado.data;
 		})
 		.catch((erro) => {
-			console.error("Houve um erro: " + erro);
+			console.log(erro);
 			return null;
 		});
 	return resposta;
