@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./CategoriaProdutos.module.css";
-import Padrao from '../../utils/assets/img/img-padrao.png'
 
 import { useNavigate } from "react-router-dom";
 import { Produto } from "../productcard/ProductCard";
