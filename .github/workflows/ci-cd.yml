@@ -76,5 +76,11 @@ jobs:
         source: Cliente.tar.gz
         target: /var/www/Cliente/
         timeout : "60s"
+        
+    - name: descompactar arquivo na ec2
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.EC2_PUBLIC_IP }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.DEPLOY_KEY }}
         script: tar -xzf arquivo.tar.gz
-
