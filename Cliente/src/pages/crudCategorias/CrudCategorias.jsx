@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import CrudTable from "../../components/crudlist/CrudTable";
 import { validateAuth } from "../../utils/global";
 import { useNavigate } from "react-router-dom";
-
+//teste
 function CrudCategorias() {
 	const navigate = useNavigate();
 	const [categorias, setCategorias] = useState([]);
