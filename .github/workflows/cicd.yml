@@ -76,6 +76,14 @@ jobs:
         source: Cliente.tar.gz
         target: /var/www/Cliente/
         timeout : "60s"
-        script: tar -xzf arquivo.tar.gz
-
+        
+    - name: Criar diretório no servidor remoto
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.EC2_PUBLIC_IP }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        script: |
+          cd /var/www/Cliente/
+          tar -xzf Cliente.tar.gz
 
