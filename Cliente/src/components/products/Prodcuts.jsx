@@ -15,7 +15,7 @@ export function ProductsData({ dados }) {
 					<td className={styles["title-area"]}>
 						<span className={styles["product-name"]}>{product.nome}</span>
 					</td>
-					<td className={styles["quantity-area"]}>
+					{/* <td className={styles["quantity-area"]}>
 						<div className={styles["product-quantity-div"]}>
 							<span className={styles["product-quantity-title"]}>
 								Quantidade
@@ -24,7 +24,7 @@ export function ProductsData({ dados }) {
 								{product.quantidade}
 							</span>
 						</div>
-					</td>
+					</td> */}
 					<td className={styles["id-area"]}>
 						<span className={styles["product-id"]}>#{index + 1}</span>
 					</td>

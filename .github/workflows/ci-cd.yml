@@ -1,0 +1,86 @@
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Atualização do código
+      uses: actions/checkout@v2
+
+    - name: Atualizar Node Js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Instalar dependências
+      run: npm install
+      working-directory: Cliente
+
+    - name: Instalar outras dependências
+      run:  npm install --save-dev @babel/plugin-proposal-private-property-in-object
+      working-directory: Cliente
+      
+    - name: Build do projeto
+      run: |
+        cd Cliente
+        CI=false npm run build
+
+    - name: Gerar artefato Github com os arquivos de build
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-react-app
+        path: Cliente/build/**/*
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Recuperar artefato do build
+      uses: actions/download-artifact@v4
+      with:
+        name: build-react-app
+        path: ./build # Extraí os arquivos no diretório ./build
+        
+    - name: Verificar arquivos baixados
+      run: ls -la
+      
+    - name: Compactar artefato
+      run: |
+        tar -czf Cliente.tar.gz build   
+        
+    - name: Criar arquivo .pem a partir da variável DEPLOY_KEY e fazer o chmod 400 nele
+      id: geracao-arquivo-pem # o id é opcional, mas é bom para fins de log
+      run: |
+        echo "${{ secrets.DEPLOY_KEY }}" >> $HOME/${{ secrets.NOME_ARQUIVO_PEM }}
+        chmod 400 $HOME/${{ secrets.NOME_ARQUIVO_PEM }}
+    - name: Criar diretório no servidor remoto
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.EC2_PUBLIC_IP }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        script: |
+          sudo chown -R ubuntu:ubuntu /var/www
+          sudo mkdir -p /var/www/html/
+          sudo chown -R ubuntu:ubuntu /var/www/html/
+
+    - name: Deploy para EC2
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.EC2_PUBLIC_IP }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        source: Cliente.tar.gz
+        target: /var/www/html/
+        timeout : "60s"
+        
+    - name: descompactar arquivo na ec2
+      uses: appleboy/ssh-action@v0.1.7
+      with:
+        host: ${{ secrets.EC2_PUBLIC_IP }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        script: tar -xzf arquivo.tar.gz

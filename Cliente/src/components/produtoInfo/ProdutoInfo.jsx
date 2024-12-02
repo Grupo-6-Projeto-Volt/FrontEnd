@@ -5,7 +5,7 @@ import { RiHeart3Fill } from "react-icons/ri";
 import api from "../../api";
 import { favoritos } from "../../model/favoritosModel";
 import { AxiosError } from "axios";
-import Padrao from "../../utils/assets/img/img-padrao.png";
+// import Padrao from "../../utils/assets/img/img-padrao.png";
 
 const ProdutoInfo = ({ produtoExemplo }) => {
 	const location = useLocation();
@@ -30,11 +30,11 @@ const ProdutoInfo = ({ produtoExemplo }) => {
 			return <h1>Erro</h1>;
 		}
 	});
-
+	
 	const handleButtonClick = () => {
 		navigate("/");
 	};
-
+	
 	const toggleFavorito = () => {
 		if (sessionStorage.getItem("ID_USER") !== undefined) {
 			setFavoritado(favoritos.verificarFavorito());
@@ -47,7 +47,7 @@ const ProdutoInfo = ({ produtoExemplo }) => {
 		} else {
 		}
 	};
-
+	
 	const handleCompra = () => {
 		if (produto) {
 			const numeroWhatsApp = "5511994425521";
@@ -231,15 +231,38 @@ const ProdutoInfo = ({ produtoExemplo }) => {
 						{produto ? produto.nome : "Carregando..."}
 					</h1>
 					<p>{produto ? produto.descricao : ""}</p>
-					<h3>
-						R${" "}
-						{produto
-							? produto.preco.toLocaleString("pt-BR", {
+					{produto && produto.desconto ?
+						<>
+						<h5 style={{color: '#d41f1f'}}>
+							R${" "}
+							{produto
+								? (((100 - produto.desconto) / 100) * produto.preco).toLocaleString("pt-BR", {
 									minimumFractionDigits: 2,
 									maximumFractionDigits: 2,
-							  })
-							: "0,00"}
-					</h3>
+								})
+								: "0,00"}
+						</h5>
+						<h3 style={{color: '#d41f1f'}}>
+							R${" "}
+							{produto
+								? (((100 - produto.desconto) / 100) * produto.preco).toLocaleString("pt-BR", {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								})
+								: "0,00"}
+						</h3>
+						</>
+						:
+						<h3>
+							R${" "}
+							{produto
+								? produto.preco.toLocaleString("pt-BR", {
+									minimumFractionDigits: 2,
+									maximumFractionDigits: 2,
+								})
+								: "0,00"}
+						</h3>
+					}
 					<div className={styles["cores"]}>
 						<p>Cores</p>
 						<div className={styles["paletas"]}>

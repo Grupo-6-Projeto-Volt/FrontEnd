@@ -65,7 +65,6 @@ function BannersEPropagandas() {
 	}
 
 	function handleSubmit() {
-		console.log(propagandas);
 		if (banners.length > 0) {
 			banner.postBanner(banners[0], banners[0].type);
 		}

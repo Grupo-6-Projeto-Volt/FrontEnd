@@ -112,7 +112,6 @@ export const produtosModel = {
 	},
 	exportarProduto: () => {
 		let resposta = api.get("/produtos/exportar").then((resultado) => {
-			console.log('Enviou ' + resultado.data)
 			const bom = '\ufeff';
 			const blob = new Blob([bom + resultado.data], { type: 'text/csv;charset=utf-8' });
 			const url = URL.createObjectURL(blob);
@@ -130,7 +129,6 @@ export const produtosModel = {
 	},
 	exportarProdutoTxt:() =>{
 		let resposta = api.get("/produtos/exportar-txt").then((resultado) => {
-			console.log('Enviou ' + resultado.data)
 			const bom = '\ufeff';
 			const blob = new Blob([bom + resultado.data], { type: 'text/txt;charset=utf-8' });
 			const url = URL.createObjectURL(blob);
@@ -231,7 +229,6 @@ export const produtosModel = {
 		return resposta;
 	},
 	listarRecomendados: (limite) => {
-		console.log(sessionStorage.ID_USER)
 		let resposta = api
 			.get("/produtos/recomendado", {
 				params: {

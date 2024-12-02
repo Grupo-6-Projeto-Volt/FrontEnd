@@ -20,6 +20,14 @@ h1 {
     width: 100%;
 }
 
+.container-carregamento{
+    width: 99vw;
+    display: flex;
+    height: 20vh;
+    justify-content: center;
+    align-items: center;
+}
+
 @media screen and (max-width: 800px) {
     h1 {
         font-size: 0.6rem;

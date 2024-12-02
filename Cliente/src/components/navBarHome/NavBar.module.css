@@ -60,7 +60,8 @@ h3{
   width: 1.5rem;
   height: auto;
   cursor: pointer;
-  margin-left: 4%;
+  margin-left: 3%;
+  margin-right: 2%;
 }
 .usuario {
   width: 2rem;
@@ -86,6 +87,7 @@ h3{
 .usuarioDiv {
   display: flex;
   align-items: center;
+  font-size: 13px;
 }
 ul {
   cursor: pointer;
@@ -284,8 +286,15 @@ a {
   .favoritos{
     width: 1.7rem;
   }
-  .usuarioDiv{
+  .usuarioLogado{
     justify-content: space-between;
-    width: 21%;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .usuarioLogado h2{
+    font-size: 8px !important;
+    margin-top: 3%;
   }
 }
+
