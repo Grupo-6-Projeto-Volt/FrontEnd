@@ -84,6 +84,5 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.DEPLOY_KEY }}
         script: |
-          ls -l
-          cd var/www/html
+          cd ../../var/www/html
           tar -xzf Cliente.tar.gz
