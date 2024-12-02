@@ -86,3 +86,6 @@ jobs:
         script: |
           cd ../../var/www/html
           tar -xzf Cliente.tar.gz
+          mv build/* .
+          rmdir build
+
