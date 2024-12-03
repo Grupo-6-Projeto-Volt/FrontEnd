@@ -132,7 +132,9 @@ export const NavBarPadrao = () => {
                     </div>
                 </label>
                 <ul className={styles['menu-hamburguer-elements']}>
-                    <li>Ofertas</li>
+                    <li onClick={() => navigate("/pagina-produtos/Ofertas/Oferta")}>
+						Ofertas
+					</li>
                     <div className={styles["separator"]}></div>
                     <li onClick={() => navigate("/pagina-produtos/Celulares/Celular")}>
                         Celulares

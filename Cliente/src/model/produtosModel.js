@@ -98,6 +98,18 @@ export const produtosModel = {
 			});
 		return resposta;
 	},
+	buscarProdutoEmOferta: () => {
+		let resposta = api
+			.get(`/produtos/filtro/ofertas`)
+			.then((resultado) => {
+				return resultado.data;
+			})
+			.catch((erro) => {
+				console.log("Houve um erro ao buscar produtos em oferta:", erro);
+				return erro;
+			});
+		return resposta;
+	},	
 	deletarProduto: (id) => {
 		let resposta = api
 			.delete(`/produtos/estoque/${id}`)

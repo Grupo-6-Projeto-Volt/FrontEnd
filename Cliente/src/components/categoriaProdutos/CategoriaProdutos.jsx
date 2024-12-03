@@ -38,30 +38,6 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 								}
 								preco={produto.preco}
 								desconto={produto.desconto}></Produto>
-							// 		<div
-							// 			className={styles["produto"]}
-							// 			onClick={
-							// 				() => {
-							// 					navigate("/productpage")
-							// 					localStorage.idProduto = produto.id
-							// 				}
-							// 			}
-							// 		>
-							// 			<h4>Estado: {produto.estadoGeral}</h4>
-							// 			<img
-							// 				src={produto.imagensProduto[0] ? typeof produto.imagensProduto.at(0).codigoImagem !== 'string' ? URL.createObjectURL(
-							// 					produto.imagensProduto.at(0).codigoImagem
-							// 			  ) : produto.imagensProduto.at(0).codigoImagem
-							// 			: Padrao}
-							// 				alt={produto.nome}
-							// 			/>
-							// 			<h4 className={styles["nomeProd"]}>{produto.nome}</h4>
-							// 			<h4 className={styles["precoProd"]}>
-							// 				R${Number(produto.preco).toFixed(2)}
-							// 			</h4>
-							// 		</div>
-							// 	);
-							// }) : (<div className={styles["no-content-div"]}>
 						)
 					}) : (<div className={styles["no-content-div"]}>
 						<h2>Nenhum produto encontrado.</h2>
