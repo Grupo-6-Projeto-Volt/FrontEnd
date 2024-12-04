@@ -271,9 +271,9 @@ function CadastroProdutos() {
 		for (let i = 0; i < produto.imagensProduto.length; i++) {
 			const file = new File(
 				[
-					await fetch(produto.imagensProduto[i].codigoImagem).then((res) =>
-						res.blob()
-					),
+					await fetch(produto.imagensProduto[i].codigoImagem)
+						.then((res) => res.blob())
+						.catch((err) => console.log(err)),
 				],
 				produto.imagensProduto[i].nome
 			);

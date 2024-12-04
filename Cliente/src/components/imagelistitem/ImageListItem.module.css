@@ -1,6 +1,6 @@
 .ImageListItem {
 	width: 100%;
-	height: 6rem;
+	height: fit-content;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -30,6 +30,7 @@
 
 img {
 	width: 100%;
+	height: auto;
 }
 
 .item-delete-icon {
