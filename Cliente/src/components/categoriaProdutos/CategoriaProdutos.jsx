@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./CategoriaProdutos.module.css";
-import Padrao from '../../utils/assets/img/img-padrao.png'
 
 import { useNavigate } from "react-router-dom";
+import { Produto } from "../productcard/ProductCard";
 
 const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 	const navigate = useNavigate();
@@ -22,22 +22,16 @@ const CategoriaProdutos = ({ tituloPagina, dadosProduto }) => {
 			</div>
 			<div className={styles["produtos"]}>
 				{
-					dadosProduto ? dadosProduto?.map((produto) => {
+					dadosProduto?.length > 0 ? dadosProduto?.map((produto) => {
 						return (
 							<div
 								className={styles["produto"]}
-<<<<<<< HEAD
-								onClick={() => {navigate("/productpage")
-								localStorage.idProduto = produto.id}
-							}
-=======
 								onClick={
 									() => {
 										navigate("/productpage")
 										localStorage.idProduto = produto.id
 									}
 								}
->>>>>>> 6792e210445cc1d47f33f63374e3c44db7fbd13d
 							>
 								<h4>Estado: {produto.estadoGeral}</h4>
 								<img

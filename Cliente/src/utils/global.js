@@ -6,9 +6,25 @@ export const validateAuth = () => {
 	return true;
 };
 
+export  const FORMATTER = new Intl.NumberFormat('pt-BR', {
+	style: 'decimal',
+	minimumFractionDigits: 2,
+	maximumFractionDigits: 2
+});
+
 export const formatPhoneNumber = (value) => {
 	let regex = /(\d{2})(\d{1})(\d{4})(\d)/;
 	return value.replace(regex, "($1) $2 $3-$4");
+};
+
+export const formatDate = (value) => {
+	let regex = /(\d{2})\/(\d{2})\/(\d{4})/;
+	return value.replace(regex, "$3-$2-$1");
+};
+
+export const formatDateToLocaleString = (value) => {
+	let regex = /(\d{4})-(\d{2})-(\d{2})/;
+	return value.replace(regex, "$3/$2/$1");
 };
 
 export const formatDateTime = (value) => {
