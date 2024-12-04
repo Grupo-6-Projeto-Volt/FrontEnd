@@ -85,7 +85,7 @@ export function ProdutosData({ secao, nome, produtoExemplo }) {
             <div id={`item-list-${nome}`} className={styles["item-list"]}>
               {Array.isArray(dadosProduto) && dadosProduto.length > 0 ? (
                 dadosProduto?.map((produto) => (
-                  // <div onClick={() => {navigateToProduct(produto.id)}}>
+                  // <div onClick={() => {navigateToProduct(produto.id)}}>a
                   <Produto
                     className={styles["item"]}
                     id={produto.id}
