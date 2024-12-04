@@ -86,6 +86,7 @@ jobs:
         script: |
           cd ../../var/www/html
           tar -xzf Cliente.tar.gz
-          mv build/* .
-          rmdir build
+          rm -rf assets static  # Remove os diretórios que podem causar conflito
+          mv build/* .          # Move o conteúdo de "build" para o diretório atual
+          rmdir build            # Remove o diretório "build" agora vazio
 
