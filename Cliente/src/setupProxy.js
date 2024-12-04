@@ -4,7 +4,7 @@ module.exports = function(app) {
     app.use(
         '/java',
         createProxyMiddleware({
-            target: "http://10.0.0.155:8080", 
+            target: "http://107.23.120.117:8080", 
             changeOrigin: false,
             pathRewrite: {
                 '^/java': ''
