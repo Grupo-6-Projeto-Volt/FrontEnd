@@ -1,5 +1,10 @@
 .Products {
 	width: 100%;
+	height: fit-content;
+}
+
+.product-item {
+	height: fit-content;
 }
 
 .image-area {

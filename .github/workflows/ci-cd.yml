@@ -83,4 +83,10 @@ jobs:
         host: ${{ secrets.EC2_PUBLIC_IP }}
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.DEPLOY_KEY }}
-        script: tar -xzf arquivo.tar.gz
+        script: |
+          cd ../../var/www/html
+          tar -xzf Cliente.tar.gz
+          rm -rf assets static  # Remove os diretórios que podem causar conflito
+          mv build/* .          # Move o conteúdo de "build" para o diretório atual
+          rmdir build            # Remove o diretório "build" agora vazio
+
