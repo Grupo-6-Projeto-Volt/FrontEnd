@@ -25,7 +25,7 @@ jobs:
     - name: Build do projeto
       run: |
         cd Cliente
-        CI=false npm run build
+        CI=false REACT_APP_API_URL=http://${{secrets.EC2_PRIVATE_IP}}:8080 npm run build
 
     - name: Gerar artefato Github com os arquivos de build
       uses: actions/upload-artifact@v4
