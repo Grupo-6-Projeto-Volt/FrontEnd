@@ -1,24 +1,6 @@
-import React, { useEffect, useState } from "react";
 import styles from "./Products.module.css";
-import { listarProdutosMaisAcessados } from "../../model/DashDadosgraficos";
 
-export function ProductsData() {
-	const [dados, setDados] = useState([]);
-
-	async function obterProdutosAcessadas() {
-		try {
-			var resposta = await listarProdutosMaisAcessados();
-			setDados(resposta);
-		} catch (e) {
-			console.log(e);
-			return <h1>Erro</h1>;
-		}
-	}
-
-	useEffect(() => {
-		obterProdutosAcessadas();
-	}, []);
-
+export function ProductsData({ dados }) {
 	return (
 		<table className={styles["Products"]}>
 			{dados.map((product, index) => (
@@ -33,7 +15,7 @@ export function ProductsData() {
 					<td className={styles["title-area"]}>
 						<span className={styles["product-name"]}>{product.nome}</span>
 					</td>
-					<td className={styles["quantity-area"]}>
+					{/* <td className={styles["quantity-area"]}>
 						<div className={styles["product-quantity-div"]}>
 							<span className={styles["product-quantity-title"]}>
 								Quantidade
@@ -42,7 +24,7 @@ export function ProductsData() {
 								{product.quantidade}
 							</span>
 						</div>
-					</td>
+					</td> */}
 					<td className={styles["id-area"]}>
 						<span className={styles["product-id"]}>#{index + 1}</span>
 					</td>

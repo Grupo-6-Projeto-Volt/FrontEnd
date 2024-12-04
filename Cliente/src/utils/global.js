@@ -17,6 +17,16 @@ export const formatPhoneNumber = (value) => {
 	return value.replace(regex, "($1) $2 $3-$4");
 };
 
+export const formatDate = (value) => {
+	let regex = /(\d{2})\/(\d{2})\/(\d{4})/;
+	return value.replace(regex, "$3-$2-$1");
+};
+
+export const formatDateToLocaleString = (value) => {
+	let regex = /(\d{4})-(\d{2})-(\d{2})/;
+	return value.replace(regex, "$3/$2/$1");
+};
+
 export const formatDateTime = (value) => {
 	let regex = /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})/;
 	return value.replace(regex, "$3/$2/$1 $4:$5");

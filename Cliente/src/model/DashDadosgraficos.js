@@ -8,34 +8,43 @@ export const listarChamadosCanceladosConcluido = () => {
 		})
 		.catch((erro) => {
 			console.error("Houve um erro: " + erro);
-			return erro;
+			return null;
 		});
 	return resposta;
 };
 
-export const listarCategoriasMaisAcessadas = () => {
+export const listarCategoriasMaisAcessadas = (dataInicio, dataFim) => {
 	let resposta = api
-		.get("/clicks-produtos/capturar-dados/categorias", {})
+		.get("/clicks-produtos/capturar-dados/categorias", {
+			params: {
+				dataInicio: dataInicio,
+				dataFim: dataFim,
+			},
+		})
 		.then((resultado) => {
 			return resultado.data;
 		})
 		.catch((erro) => {
 			console.error("Houve um erro: " + erro);
-			return erro;
+			return null;
 		});
 	return resposta;
 };
 
-export const listarProdutosMaisAcessados = () => {
+export const listarProdutosMaisAcessados = (dataInicio, dataFim) => {
 	let resposta = api
-		.get("/clicks-produtos/capturar-dados/produtos-mais-acessados", {})
+		.get("/clicks-produtos/capturar-dados/produtos-mais-acessados", {
+			params: {
+				dataInicio: dataInicio,
+				dataFim: dataFim,
+			},
+		})
 		.then((resultado) => {
 			return resultado.data;
 		})
 		.catch((erro) => {
-			console.error("Houve um erro: " + erro);
-			console.error(erro);
-			return erro;
+			console.log(erro);
+			return null;
 		});
 	return resposta;
 };
