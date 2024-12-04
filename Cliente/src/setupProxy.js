@@ -5,10 +5,7 @@ module.exports = function(app) {
         '/java',
         createProxyMiddleware({
             target: "http://107.23.120.117:8080", 
-            changeOrigin: false,
-            pathRewrite: {
-                '^/java': ''
-            }
+            changeOrigin: true
         })
     );
 };
